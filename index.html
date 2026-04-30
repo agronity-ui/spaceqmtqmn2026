@@ -545,10 +545,12 @@
                             </div>
                             
                             <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
-                                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
-                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
-                                <div class="absolute bottom-6 left-0 w-full text-center px-4">
+                                <video loop muted playsinline preload="metadata" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                                </video>
+                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors pointer-events-none"></div>
+                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform pointer-events-none"></i>
+                                <div class="absolute bottom-6 left-0 w-full text-center px-4 pointer-events-none">
                                     <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"Alhamdulillah sampai..."</span>
                                 </div>
                             </div>
@@ -576,10 +578,12 @@
                             </div>
                             
                             <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
-                                <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?w=400" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
-                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
-                                <div class="absolute bottom-6 left-0 w-full text-center px-4">
+                                <video loop muted playsinline preload="metadata" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
+                                </video>
+                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors pointer-events-none"></div>
+                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform pointer-events-none"></i>
+                                <div class="absolute bottom-6 left-0 w-full text-center px-4 pointer-events-none">
                                     <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"Bismillah, tilawah sore..."</span>
                                 </div>
                             </div>
@@ -651,8 +655,10 @@
             <!-- Circular Camera Viewfinder -->
             <div class="flex-1 flex flex-col items-center justify-center relative px-6 mt-4">
                 <div class="w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[8px] border-[#10b981] overflow-hidden relative shadow-[0_0_50px_rgba(16,185,129,0.2)] bg-gray-900">
-                    <!-- Simulasi Tampilan Kamera -->
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover">
+                    <!-- Simulasi Tampilan Kamera diganti dengan Video agar tampak hidup -->
+                    <video autoplay loop muted playsinline preload="metadata" class="w-full h-full object-cover">
+                        <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4">
+                    </video>
                     <div class="absolute inset-0 bg-black/10"></div>
                 </div>
             </div>
@@ -687,8 +693,10 @@
             <div class="flex-1 flex items-center justify-center relative px-6">
                 <!-- Menampilkan video bundar hasil rekam -->
                 <div class="w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[8px] border-white overflow-hidden relative shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+                    <video autoplay loop muted playsinline preload="metadata" class="w-full h-full object-cover">
+                        <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4">
+                    </video>
+                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none">
                         <i data-lucide="play" class="w-16 h-16 text-white drop-shadow-md"></i>
                     </div>
                 </div>
@@ -1084,9 +1092,6 @@
 
     <!-- SCRIPT (DIPASTIKAN BERADA DI SINI, TIDAK TERPOTONG) -->
     <script>
-        // Inisialisasi ikon Lucide secara langsung
-        lucide.createIcons();
-
         let currentScreen = 'screen0';
         
         function updateStatusBar(screenId) {
@@ -1207,6 +1212,18 @@
             const captions = ['Alhamdulillah sampai majelis...', 'Bismillah, tilawah sore...', 'Kajian Ustadz Hanan mantap!', 'Masya Allah pemandangannya indah sekali...', 'Persiapan shalat Jumat di kampus.', 'Jalan-jalan cari takjil, ramai banget!', 'Cuaca hari ini cerah banget, tabarakallah.', 'Ngaji bareng teman-teman kos.', 'Semoga hari ini penuh berkah.', 'Tetap semangat puasanya teman-teman!'];
             const locations = ['Masjid Raya', '2 jam yang lalu', 'Jakarta Selatan', 'Bandung', 'Masjid Al-Ikhlas', 'Kemarin', '5 jam yang lalu', 'Yogyakarta', 'Surabaya', 'Masjid Kampus', 'Baru saja'];
             const colors = ['bg-[#fbcfe8]', 'bg-[#a7f3d0]', 'bg-[#bae6fd]', 'bg-[#fef08a]', 'bg-[#e9d5ff]', 'bg-[#ffedd5]'];
+            
+            // Menggunakan beberapa video URL publik yang stabil untuk variasi
+            const videoUrls = [
+                'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+                'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+                'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+                'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+                'https://storage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
+                'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+                'https://storage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4',
+                'https://storage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4'
+            ];
 
             let html = '';
             
@@ -1218,7 +1235,7 @@
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
                 const avatar = `https://i.pravatar.cc/100?img=${(i % 70) + 1}`; 
-                const vidThumb = `https://picsum.photos/400/400?random=${i + 100}`; 
+                const vidSrc = videoUrls[i % videoUrls.length]; 
 
                 html += `
                 <div class="w-full ${color} rounded-[32px] p-5 shadow-float border-4 border-white cursor-pointer hover:rotate-[-1deg] transition-transform origin-bottom">
@@ -1236,10 +1253,12 @@
                     </div>
                     
                     <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
-                        <img src="${vidThumb}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
-                        <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
-                        <div class="absolute bottom-6 left-0 w-full text-center px-4">
+                        <video loop muted playsinline preload="metadata" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                            <source src="${vidSrc}" type="video/mp4">
+                        </video>
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors pointer-events-none"></div>
+                        <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform pointer-events-none"></i>
+                        <div class="absolute bottom-6 left-0 w-full text-center px-4 pointer-events-none">
                             <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"${caption}"</span>
                         </div>
                     </div>
@@ -1397,6 +1416,24 @@
 
         generateSocialQPosts();
         generateJuzGrid();
+
+        // Inisialisasi ikon Lucide SETELAH semua elemen di-generate agar ikon tidak hilang
+        lucide.createIcons();
+
+        // Optimasi Video: Hanya memutar video yang sedang terlihat di layar (Mencegah blank karena limit memori browser)
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play().catch(e => console.log("Autoplay tertunda..."));
+                } else {
+                    entry.target.pause();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('video').forEach(video => {
+            videoObserver.observe(video);
+        });
 
         // Mulai transisi otomatis dari splash screen
         setTimeout(() => {
