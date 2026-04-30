@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpaceQ - UI/UX Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        'ob-green': '#a4f836',
+                        'ob-cyan': '#56e4ff',
+                        'ob-purple': '#cc7dff',
+                        'ob-yellow': '#ffe500',
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -15px rgba(0,0,0,0.05)',
+                        'float': '0 15px 35px -10px rgba(0,0,0,0.2)',
+                        'heavy': '0 25px 50px -12px rgba(0,0,0,0.25)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth transitions for screen changes */
+        .screen-transition {
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hide-screen {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateX(-15px);
+            z-index: 0;
+        }
+        .show-screen {
+            opacity: 1;
+            pointer-events: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateX(0);
+            z-index: 10;
+        }
+        
+        .hide-splash {
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: scale(1.05);
+            z-index: 0;
+        }
+        
+        /* Animasi Unik Tombol Submit Zoom Explosion */
+        .btn-zoom-in {
+            animation: btnExplode 0.7s cubic-bezier(0.8, 0, 0.2, 1) forwards !important;
+        }
+        @keyframes btnExplode {
+            0% { transform: scale(0.95); }
+            30% { transform: scale(0.85); border-radius: 30px; }
+            100% { transform: scale(60); border-radius: 50%; opacity: 1; }
+        }
+
+        /* Animasi Bismillah Zoom In */
+        @keyframes zoomIntoApp {
+            0% { transform: scale(1); opacity: 1; filter: blur(0px); }
+            40% { opacity: 1; filter: blur(1px); }
+            100% { transform: scale(20); opacity: 0; filter: blur(10px); display: none; }
+        }
+        .zoom-bismillah {
+            animation: zoomIntoApp 1.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+        }
+
+        /* Animasi AI Scanning & Recording Pulse */
+        @keyframes scanline {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .animate-scan {
+            animation: scanline 2s linear infinite;
+        }
+        @keyframes recordPulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        .recording-pulse {
+            animation: recordPulse 1s infinite;
+        }
+
+        /* Modal Slide Animations */
+        .modal-slide-up {
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .modal-slide-down {
+            animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        @keyframes slideDown {
+            from { transform: translateY(0); }
+            to { transform: translateY(100%); }
+        }
+
+        /* Hide Scrollbar but keep functionality */
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 font-sans antialiased">
+
+    <!-- Mobile Device Simulator (Ukuran Bingkai Dipertahankan) -->
+    <div class="relative w-full max-w-[390px] h-[844px] bg-[#fbfbfd] rounded-[45px] shadow-2xl overflow-hidden border-[8px] border-black shrink-0">
+        
+        <!-- Status Bar (Simulated) -->
+        <div class="absolute top-0 left-0 w-full h-12 flex items-center justify-between px-6 z-[100] pointer-events-none">
+            <span id="status-time" class="text-[14px] font-semibold text-gray-900 drop-shadow-sm transition-colors duration-300">9:41</span>
+            
+            <!-- Dynamic Island -->
+            <div class="absolute left-1/2 top-2 transform -translate-x-1/2 w-[120px] h-[32px] bg-black rounded-full"></div>
+            
+            <div id="status-icons" class="flex items-center space-x-2 text-gray-900 transition-colors duration-300">
+                <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                <i data-lucide="wifi" class="w-4 h-4"></i>
+                <i data-lucide="battery-full" class="w-5 h-5"></i>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 0: SPLASH SCREEN LOGO               -->
+        <!-- ========================================== -->
+        <div id="screen0" class="screen-transition show-screen absolute inset-0 w-full h-full bg-[#fafafa] flex flex-col items-center justify-center z-[60]">
+            <div class="flex flex-col items-center">
+                <div class="relative w-24 h-24 mb-6">
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-[#10b981] to-[#6ee7b7] shadow-[0_0_40px_rgba(16,185,129,0.4)] animate-pulse"></div>
+                    <div class="absolute inset-2 bg-white rounded-full flex items-center justify-center">
+                        <span class="text-[40px] font-black bg-clip-text text-transparent bg-gradient-to-br from-[#10b981] to-[#047857] tracking-tighter">Q</span>
+                    </div>
+                </div>
+                <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight flex items-center gap-1">
+                    Space<span class="text-[#10b981]">Q</span>
+                </h1>
+                <p class="text-gray-400 font-bold text-[11px] mt-3 tracking-[0.2em] uppercase">Authentic & Halal</p>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 1: ONBOARDING - SOCIALQ (GREEN)     -->
+        <!-- ========================================== -->
+        <div id="ob1" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-ob-green flex flex-col items-center pt-20 sm:pt-28 px-6">
+            <div class="relative w-full h-[280px] sm:h-[320px] flex items-center justify-center shrink-0">
+                <div class="absolute w-32 h-40 bg-white rounded-2xl shadow-heavy -rotate-12 -translate-x-14 -translate-y-6 p-2 flex flex-col items-center">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80" class="w-full h-24 rounded-xl object-cover mb-2">
+                    <div class="w-full h-4 bg-gray-100 rounded-full"></div>
+                </div>
+                <div class="absolute w-32 h-40 bg-white rounded-2xl shadow-heavy rotate-[15deg] translate-x-16 -translate-y-2 p-2 flex flex-col items-center">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80" class="w-full h-24 rounded-xl object-cover mb-2">
+                    <div class="w-full h-4 bg-gray-100 rounded-full"></div>
+                </div>
+                <div class="absolute z-10 w-28 h-28 bg-gradient-to-tr from-[#10b981] to-[#6ee7b7] rounded-3xl shadow-heavy flex items-center justify-center border-[6px] border-white/20">
+                    <span class="text-[54px] font-black text-white tracking-tighter drop-shadow-md">Q</span>
+                </div>
+            </div>
+
+            <div class="flex gap-2 mt-2 mb-4 shrink-0">
+                <div class="w-2 h-2 rounded-full bg-black"></div>
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+            </div>
+
+            <h2 class="text-[32px] sm:text-[36px] font-black text-black text-center leading-[1.1] tracking-tight">SocialQ:<br>No Filter, Just Real</h2>
+            <p class="text-black/70 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Bagikan momen 15 detik yang otentik. Temukan inspirasi nyata setiap hari.</p>
+
+            <button onclick="goToScreen('ob2')" class="absolute bottom-10 w-[85%] bg-[#121212] text-white py-[16px] sm:py-[18px] rounded-[24px] font-bold text-[17px] shadow-float hover:scale-[0.98] transition-transform">
+                Wah, mantap!
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 2: ONBOARDING - TADARUSQ (CYAN)     -->
+        <!-- ========================================== -->
+        <div id="ob2" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-ob-cyan flex flex-col items-center pt-20 sm:pt-28 px-6">
+            <div class="relative w-full h-[280px] sm:h-[320px] flex items-center justify-center shrink-0">
+                <div class="absolute z-0 w-40 h-52 bg-white rounded-2xl shadow-heavy rotate-6 -translate-y-4 p-4 flex flex-col">
+                    <div class="w-full h-3 bg-gray-200 rounded-full mb-3"></div>
+                    <div class="w-3/4 h-3 bg-gray-200 rounded-full mb-3"></div>
+                    <div class="w-full h-3 bg-[#10b981] rounded-full mb-3 opacity-60"></div>
+                    <div class="w-5/6 h-3 bg-gray-200 rounded-full mb-3"></div>
+                </div>
+                <div class="absolute z-10 -translate-x-16 translate-y-12">
+                    <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=200&q=80" class="w-20 h-20 rounded-full object-cover border-[4px] border-white shadow-float">
+                </div>
+                <div class="absolute z-10 translate-x-14 translate-y-4">
+                    <div class="w-16 h-16 rounded-full border-[4px] border-white p-0.5 bg-white shadow-float">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80" class="w-full h-full rounded-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-2 mt-2 mb-4 shrink-0">
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+                <div class="w-2 h-2 rounded-full bg-black"></div>
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+            </div>
+
+            <h2 class="text-[32px] sm:text-[36px] font-black text-black text-center leading-[1.1] tracking-tight">TadarusQ:<br>Ngaji Bareng</h2>
+            <p class="text-black/70 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Ruang tilawah interaktif dengan AI Highlighter. Terpisah aman ikhwan & akhwat.</p>
+
+            <button onclick="goToScreen('ob3')" class="absolute bottom-10 w-[85%] bg-[#121212] text-white py-[16px] sm:py-[18px] rounded-[24px] font-bold text-[17px] shadow-float hover:scale-[0.98] transition-transform">
+                Masya Allah
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 3: ONBOARDING - KAJIANQ (PURPLE)    -->
+        <!-- ========================================== -->
+        <div id="ob3" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-ob-purple flex flex-col items-center pt-20 sm:pt-28 px-6">
+            <div class="relative w-full h-[280px] sm:h-[320px] flex items-center justify-center shrink-0">
+                <div class="absolute w-36 h-48 bg-white/40 backdrop-blur-md rounded-2xl shadow-heavy -rotate-6 translate-x-8 -translate-y-8"></div>
+                <div class="absolute z-10 w-44 h-56 bg-white rounded-[24px] shadow-heavy flex flex-col items-center pt-6 -translate-x-4 -translate-y-2">
+                    <div class="w-24 h-24 rounded-full border-4 border-[#10b981] p-1 mb-3">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" class="w-full h-full rounded-full object-cover">
+                    </div>
+                    <h3 class="font-bold text-[16px] text-gray-900">Ustadz Hanan</h3>
+                    <span class="text-[12px] bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full font-bold mt-1">Verified</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&q=80" class="absolute z-20 w-12 h-12 rounded-full border-[3px] border-white shadow-float bottom-4 right-8">
+                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&q=80" class="absolute z-20 w-10 h-10 rounded-full border-[3px] border-white shadow-float bottom-12 -left-6">
+            </div>
+
+            <div class="flex gap-2 mt-2 mb-4 shrink-0">
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+                <div class="w-2 h-2 rounded-full bg-black"></div>
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+            </div>
+
+            <h2 class="text-[32px] sm:text-[36px] font-black text-black text-center leading-[1.1] tracking-tight">KajianQ:<br>Ilmu Mendalam</h2>
+            <p class="text-black/70 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Ikuti kelas intensif dari asatidz pilihan dengan ruang diskusi yang kondusif.</p>
+
+            <button onclick="goToScreen('ob4')" class="absolute bottom-10 w-[85%] bg-[#121212] text-white py-[16px] sm:py-[18px] rounded-[24px] font-bold text-[17px] shadow-float hover:scale-[0.98] transition-transform">
+                Lanjut!
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 4: ONBOARDING - MUHSININ (YELLOW)   -->
+        <!-- ========================================== -->
+        <div id="ob4" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-ob-yellow flex flex-col items-center pt-20 sm:pt-28 px-6 overflow-hidden">
+            <div class="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,255,255,0.6)_0%,transparent_60%)] -z-0 animate-pulse"></div>
+            <div class="relative z-10 w-full h-[280px] sm:h-[320px] flex items-center justify-center shrink-0">
+                <div class="absolute w-20 h-20 bg-white rounded-full shadow-heavy flex items-center justify-center font-black text-3xl -translate-x-16 -translate-y-12 rotate-[-20deg]">Q</div>
+                <div class="absolute w-24 h-24 bg-white rounded-full shadow-heavy flex items-center justify-center font-black text-4xl z-10">Q</div>
+                <div class="absolute w-16 h-16 bg-white rounded-full shadow-heavy flex items-center justify-center font-black text-2xl translate-x-20 -translate-y-4 rotate-[15deg]">Q</div>
+                <div class="absolute w-14 h-14 bg-white rounded-full shadow-heavy flex items-center justify-center font-black text-xl -translate-x-10 translate-y-16 rotate-[40deg]">Q</div>
+                <div class="absolute w-18 h-18 bg-white rounded-full shadow-heavy flex items-center justify-center font-black text-3xl translate-x-16 translate-y-14 rotate-[-10deg]">Q</div>
+            </div>
+
+            <div class="flex gap-2 mt-2 mb-4 shrink-0">
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+                <div class="w-2 h-2 rounded-full bg-black/20"></div>
+                <div class="w-2 h-2 rounded-full bg-black"></div>
+            </div>
+
+            <h2 class="text-[32px] sm:text-[36px] font-black text-black text-center leading-[1.1] tracking-tight">Jadi Bagian<br>Muhsinin</h2>
+            <p class="text-black/70 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Dukung ekosistem ini agar terus hidup dan buka durasi ekstra 25 detik.</p>
+
+            <button onclick="goToScreen('loginScreen')" class="absolute bottom-10 w-[85%] bg-[#121212] text-white py-[16px] sm:py-[18px] rounded-[24px] font-bold text-[17px] shadow-float hover:scale-[0.98] transition-transform">
+                Ayo Mulai!
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 5: LOGIN / REGISTER                 -->
+        <!-- ========================================== -->
+        <div id="loginScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-white overflow-hidden z-20">
+            
+            <div class="absolute top-[-10%] left-[-20%] w-[140%] h-[300px] bg-gradient-to-b from-[#10b981]/15 to-transparent rounded-[100%] blur-[40px] -z-10 pointer-events-none"></div>
+
+            <div class="flex items-center pt-14 px-4 pb-2 shrink-0 relative z-20">
+                <button onclick="goToScreen('ob4')" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-gray-900"></i>
+                </button>
+                <h2 id="auth-title" class="text-[20px] font-extrabold text-gray-900 tracking-tight ml-2">Buat Akun</h2>
+            </div>
+
+            <div class="flex-1 overflow-y-auto overflow-x-hidden hide-scroll px-6 z-10 flex flex-col pb-4">
+                <div class="bg-gray-100/80 p-1 rounded-xl flex mb-5 mt-2 shrink-0">
+                    <button id="tab-signup" onclick="toggleAuthMode('signup')" class="flex-1 py-2 text-[14px] font-bold bg-white shadow-sm rounded-lg text-gray-900 transition-all">Daftar</button>
+                    <button id="tab-signin" onclick="toggleAuthMode('signin')" class="flex-1 py-2 text-[14px] font-bold text-gray-500 rounded-lg hover:text-gray-900 transition-all">Masuk</button>
+                </div>
+
+                <div class="space-y-4 shrink-0">
+                    <div id="field-name" class="space-y-1.5 transition-all duration-300">
+                        <label class="text-[12px] font-bold text-gray-700 ml-1">Nama Lengkap</label>
+                        <input type="text" value="Ahmad Nafis Al Adieb" class="w-full bg-[#f8fafc] border border-gray-200 text-gray-900 text-[14px] font-semibold rounded-[16px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#10b981]/50 focus:border-[#10b981] transition-all">
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label id="label-email" class="text-[12px] font-bold text-gray-700 ml-1">Email / Username</label>
+                        <div class="relative flex items-center">
+                            <input type="email" value="ahmadnafisaladieb@gmail.com" class="w-full bg-[#f8fafc] border border-gray-200 text-gray-900 text-[14px] font-semibold rounded-[16px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#10b981]/50 focus:border-[#10b981] transition-all">
+                            <i data-lucide="check-circle-2" class="absolute right-4 w-5 h-5 text-[#10b981]"></i>
+                        </div>
+                    </div>
+
+                    <div id="field-gender" class="space-y-1.5 transition-all duration-300">
+                        <label class="text-[12px] font-bold text-gray-700 ml-1">Pilih Server (Gender)</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="relative flex items-center justify-center gap-2 py-3 border-2 border-[#10b981] bg-[#10b981]/5 rounded-[16px] transition-all shadow-sm">
+                                <div class="w-4 h-4 rounded-full bg-[#10b981] flex items-center justify-center">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-white"></div>
+                                </div>
+                                <span class="font-bold text-[#047857] text-[14px]">Ikhwan</span>
+                            </button>
+                            <button class="flex items-center justify-center gap-2 py-3 border-2 border-gray-100 bg-[#f8fafc] rounded-[16px] hover:bg-gray-100 transition-all">
+                                <div class="w-4 h-4 rounded-full border-2 border-gray-300"></div>
+                                <span class="font-bold text-gray-400 text-[14px]">Akhwat</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="text-[12px] font-bold text-gray-700 ml-1">Kata Sandi</label>
+                        <div class="relative flex items-center">
+                            <input type="password" value="password123" class="w-full bg-[#f8fafc] border border-gray-200 text-gray-900 text-[14px] font-semibold rounded-[16px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#10b981]/50 focus:border-[#10b981] transition-all tracking-[0.2em]">
+                            <i data-lucide="eye" class="absolute right-4 w-5 h-5 text-gray-400 cursor-pointer hover:text-gray-600"></i>
+                        </div>
+                        <div id="forgot-password" class="hidden text-right mt-1">
+                            <a href="#" class="text-[12px] text-[#10b981] font-bold hover:underline">Lupa kata sandi?</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="field-terms" class="flex items-start gap-3 mt-4 px-1 shrink-0 transition-all duration-300">
+                    <div class="w-5 h-5 rounded border-2 border-[#10b981] bg-[#10b981] flex items-center justify-center shrink-0 mt-0.5 cursor-pointer shadow-sm">
+                        <i data-lucide="check" class="w-3 h-3 text-white"></i>
+                    </div>
+                    <p class="text-[11px] text-gray-500 font-medium leading-[1.5]">
+                        Saya setuju dengan <a href="#" class="text-[#10b981] font-bold hover:underline">Syarat & Ketentuan</a> dan <a href="#" class="text-[#10b981] font-bold hover:underline">Kebijakan Privasi</a>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="shrink-0 px-6 pt-2 pb-8 sm:pb-10 bg-white relative z-30">
+                <button id="btn-submit" onclick="submitAuth()" class="relative flex items-center justify-center w-full bg-gradient-to-r from-[#10b981] to-[#047857] text-white text-[16px] font-bold py-[16px] rounded-[24px] shadow-[0_10px_25px_-5px_rgba(16,185,129,0.4)] transition-transform z-40 origin-center hover:scale-[0.98]">
+                    <span id="btn-text" class="relative z-10 transition-opacity duration-300">Daftar Akun</span>
+                    <i data-lucide="loader-2" id="btn-loader" class="absolute z-10 w-6 h-6 animate-spin text-white opacity-0 transition-opacity duration-300"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 6: BISMILLAH TRANSITION (HIJAU)     -->
+        <!-- ========================================== -->
+        <div id="bismillahScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#10b981] to-[#047857] z-[60]">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
+            
+            <div id="bismillah-text" class="text-center transition-all duration-700 z-10">
+                <h1 class="text-5xl font-normal text-white leading-tight drop-shadow-md" style="font-family: 'Amiri', serif; letter-spacing: 2px;">
+                    بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
+                </h1>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7: HOME FEED (NEW LAYOUT)           -->
+        <!-- ========================================== -->
+        <div id="homeScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#f8fafc] overflow-hidden z-10">
+            
+            <!-- 1. Home Header (Sticky) -->
+            <div class="pt-14 pb-4 px-6 flex items-center justify-between bg-[#f8fafc]/95 backdrop-blur-md sticky top-0 z-30 border-b border-gray-100/50">
+                <div class="flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm">
+                    <div>
+                        <h2 class="text-[20px] font-extrabold text-gray-900 tracking-tight leading-tight">Hey Nafis! 👋</h2>
+                        <p class="text-[12px] font-bold text-gray-500">Jumat, 30 Juni</p>
+                    </div>
+                </div>
+                <button class="relative w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer active:scale-95">
+                    <i data-lucide="bell" class="w-5 h-5 text-gray-700"></i>
+                    <div class="absolute top-2 right-2 w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full"></div>
+                </button>
+            </div>
+
+            <!-- Scrollable Body Container -->
+            <div class="flex-1 overflow-y-auto overflow-x-hidden hide-scroll pb-32">
+                
+                <!-- 2. KajianQ (Horizontal Scroll Top) -->
+                <div class="mt-2">
+                    <div class="px-6 flex justify-between items-end mb-3">
+                        <h3 class="font-extrabold text-[18px] text-gray-900">Kajian Mendatang</h3>
+                        <button class="text-[#10b981] text-[13px] font-bold hover:underline active:scale-95 transition-transform cursor-pointer">Lihat Semua</button>
+                    </div>
+                    
+                    <div class="flex overflow-x-auto hide-scroll gap-4 px-6 pb-6 pt-1 snap-x snap-mandatory">
+                        <!-- Kajian Card 1 (Yellow) -->
+                        <div class="snap-start min-w-[260px] bg-[#fef08a] rounded-[24px] p-5 shadow-soft border-4 border-white flex-shrink-0 cursor-pointer hover:-translate-y-1 transition-transform relative">
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-full border-2 border-white p-0.5 bg-white shadow-sm">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" class="w-full h-full rounded-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 text-[14px]">Ust. Hanan</h4>
+                                        <span class="text-[10px] text-yellow-700 bg-white/60 font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Masterclass</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="font-black text-[16px] text-gray-900 mb-1 leading-tight pr-4">Membangun Pemuda Tangguh</h3>
+                            <p class="text-[12px] font-semibold text-gray-600 mb-4 flex items-center gap-1">
+                                <i data-lucide="clock" class="w-3 h-3"></i> Hari ini, 20:00 WIB
+                            </p>
+                            <button class="w-full bg-gray-900 text-white font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-transform">
+                                Daftar - Rp 59k
+                            </button>
+                        </div>
+
+                        <!-- Kajian Card 2 (Purple Pastel) -->
+                        <div class="snap-start min-w-[260px] bg-[#e9d5ff] rounded-[24px] p-5 shadow-soft border-4 border-white flex-shrink-0 cursor-pointer hover:-translate-y-1 transition-transform relative">
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-full border-2 border-white p-0.5 bg-white shadow-sm">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" class="w-full h-full rounded-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 text-[14px]">Ust. Oemar</h4>
+                                        <span class="text-[10px] text-purple-700 bg-white/60 font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">Fiqih Muamalah</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="font-black text-[16px] text-gray-900 mb-1 leading-tight pr-4">Hukum Jual Beli Modern</h3>
+                            <p class="text-[12px] font-semibold text-gray-600 mb-4 flex items-center gap-1">
+                                <i data-lucide="clock" class="w-3 h-3"></i> Besok, 16:00 WIB
+                            </p>
+                            <button class="w-full bg-gray-900 text-white font-bold py-2.5 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-transform">
+                                Daftar - Rp 35k
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. TadarusQ Button (Middle Section) -->
+                <div class="px-6 mb-8 mt-2">
+                    <div onclick="goToScreen('tadarusLobbyScreen')" class="w-full bg-gradient-to-r from-[#bae6fd] to-[#7dd3fc] rounded-[28px] p-5 shadow-float border-4 border-white cursor-pointer active:scale-[0.98] transition-transform relative overflow-hidden group">
+                        <div class="absolute -right-6 -top-6 w-32 h-32 bg-white/30 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                        
+                        <div class="relative z-10 flex items-center justify-between">
+                            <div>
+                                <h3 class="font-black text-[20px] text-[#0369a1] leading-tight mb-1">TadarusQ Live</h3>
+                                <p class="text-[13px] font-semibold text-[#0284c7]">Masuk ruang ngaji Ikhwan</p>
+                                
+                                <div class="flex gap-[-10px] mt-3 items-center">
+                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100" class="w-8 h-8 rounded-full border-2 border-[#bae6fd] object-cover -ml-0 shadow-sm">
+                                    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100" class="w-8 h-8 rounded-full border-2 border-[#bae6fd] object-cover -ml-3 shadow-sm">
+                                    <div class="w-8 h-8 rounded-full border-2 border-[#bae6fd] bg-white flex items-center justify-center font-bold text-gray-400 text-[10px] -ml-3 shadow-sm">+5</div>
+                                    <span class="text-[11px] font-bold text-[#0284c7] ml-2 animate-pulse flex items-center gap-1">
+                                        <div class="w-1.5 h-1.5 bg-red-500 rounded-full"></div> 2 Ruang Aktif
+                                    </span>
+                                </div>
+                                <button onclick="goToScreen('tadarusLobbyScreen'); event.stopPropagation();" class="mt-4 bg-white/90 text-[#0369a1] text-[12px] font-bold px-4 py-2.5 rounded-full shadow-sm hover:scale-105 transition-transform flex items-center gap-1 w-max">
+                                    Jelajahi Ruangan <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md text-[#0ea5e9] group-hover:scale-110 transition-transform">
+                                <i data-lucide="mic" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Explore SocialQ (Bottom Section) -->
+                <div class="px-6 relative">
+                    <div class="flex justify-between items-end mb-4">
+                        <div>
+                            <h3 class="font-extrabold text-[18px] text-gray-900">Explore SocialQ</h3>
+                            <p class="text-[12px] font-bold text-gray-400">100% Raw. No Filter.</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="goToScreen('exploreScreen')" class="text-[#10b981] text-[13px] font-bold hover:underline active:scale-95 transition-transform cursor-pointer">Lihat Semua</button>
+                            <button class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center active:scale-95 cursor-pointer">
+                                <i data-lucide="sliders-horizontal" class="w-4 h-4 text-gray-700"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- SocialQ Feed Preview (Hanya 2 Postingan) -->
+                    <div class="relative z-10 flex flex-col gap-6">
+                        <!-- Post 1 -->
+                        <div class="w-full bg-[#fbcfe8] rounded-[32px] p-5 shadow-float border-4 border-white cursor-pointer hover:rotate-[-1deg] transition-transform origin-bottom">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm">
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 text-[14px]">Aisyah Rizki</h4>
+                                        <span class="text-[11px] text-pink-700 font-semibold bg-white/50 px-2 py-0.5 rounded-full flex items-center gap-1 w-max">
+                                            <i data-lucide="map-pin" class="w-3 h-3"></i> Masjid Raya
+                                        </span>
+                                    </div>
+                                </div>
+                                <button class="text-gray-900/50 hover:text-gray-900 active:scale-95"><i data-lucide="more-horizontal"></i></button>
+                            </div>
+                            
+                            <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
+                                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
+                                <div class="absolute bottom-6 left-0 w-full text-center px-4">
+                                    <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"Alhamdulillah sampai..."</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-center gap-6 mt-4">
+                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-pink-600 active:scale-95 transition-all"><i data-lucide="heart" class="w-5 h-5"></i> 2.4k</button>
+                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-blue-600 active:scale-95 transition-all"><i data-lucide="message-circle" class="w-5 h-5"></i> 128</button>
+                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-green-600 active:scale-95 transition-all"><i data-lucide="send" class="w-5 h-5"></i></button>
+                            </div>
+                        </div>
+
+                        <!-- Post 2 -->
+                        <div class="w-full bg-[#a7f3d0] rounded-[32px] p-5 shadow-float border-4 border-white cursor-pointer hover:rotate-[1deg] transition-transform origin-bottom">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100" class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm">
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 text-[14px]">Rizky Pratama</h4>
+                                        <span class="text-[11px] text-emerald-700 font-semibold bg-white/50 px-2 py-0.5 rounded-full flex items-center gap-1 w-max">
+                                            <i data-lucide="clock" class="w-3 h-3"></i> 2 jam lalu
+                                        </span>
+                                    </div>
+                                </div>
+                                <button class="text-gray-900/50 hover:text-gray-900 active:scale-95"><i data-lucide="more-horizontal"></i></button>
+                            </div>
+                            
+                            <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
+                                <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?w=400" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
+                                <div class="absolute bottom-6 left-0 w-full text-center px-4">
+                                    <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"Bismillah, tilawah sore..."</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-center gap-6 mt-4">
+                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-pink-600 active:scale-95 transition-all"><i data-lucide="heart" class="w-5 h-5"></i> 1.1k</button>
+                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-blue-600 active:scale-95 transition-all"><i data-lucide="message-circle" class="w-5 h-5"></i> 45</button>
+                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-green-600 active:scale-95 transition-all"><i data-lucide="send" class="w-5 h-5"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Bottom Nav -->
+            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] bg-gray-900 text-white rounded-full py-4 px-6 shadow-[0_20px_40px_rgba(0,0,0,0.3)] flex justify-between items-center z-50">
+                <button class="text-[#10b981] flex flex-col items-center gap-1 active:scale-95 transition-transform cursor-pointer">
+                    <i data-lucide="home" class="w-6 h-6"></i>
+                    <div class="w-1 h-1 bg-[#10b981] rounded-full"></div>
+                </button>
+                <button onclick="goToScreen('exploreScreen')" class="text-gray-400 hover:text-white active:scale-95 transition-all cursor-pointer">
+                    <i data-lucide="search" class="w-6 h-6"></i>
+                </button>
+                <button onclick="goToScreen('cameraScreen')" class="w-14 h-14 bg-gradient-to-tr from-[#10b981] to-[#6ee7b7] rounded-full flex items-center justify-center shadow-lg -mt-10 border-[5px] border-[#f8fafc] text-white hover:scale-105 active:scale-95 transition-transform cursor-pointer">
+                    <i data-lucide="plus" class="w-7 h-7"></i>
+                </button>
+                <button class="text-gray-400 hover:text-white active:scale-95 transition-all cursor-pointer">
+                    <i data-lucide="message-circle" class="w-6 h-6"></i>
+                </button>
+                <button class="text-gray-400 hover:text-white active:scale-95 transition-all cursor-pointer relative">
+                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-7 h-7 rounded-full border border-gray-600 object-cover">
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 8: EXPLORE SOCIALQ (100 POSTS)      -->
+        <!-- ========================================== -->
+        <div id="exploreScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#f8fafc] overflow-hidden z-20">
+            <div class="pt-14 pb-4 px-6 flex items-center justify-between bg-[#f8fafc]/95 backdrop-blur-md sticky top-0 z-30 border-b border-gray-100">
+                <button onclick="goToScreen('homeScreen')" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors cursor-pointer active:scale-95">
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-gray-900"></i>
+                </button>
+                <h2 class="text-[20px] font-extrabold text-gray-900">Explore SocialQ</h2>
+                <button onclick="goToScreen('cameraScreen')" class="w-10 h-10 bg-[#10b981] text-white flex items-center justify-center rounded-full hover:bg-[#047857] transition-colors cursor-pointer active:scale-95 shadow-md">
+                    <i data-lucide="plus" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <!-- Feed Container untuk 100 Postingan (Dibuat otomatis oleh JS) -->
+            <div id="socialq-feed-container" class="flex-1 overflow-y-auto hide-scroll px-4 pt-6 pb-10 flex flex-col gap-6">
+                <!-- Data akan di-generate oleh JavaScript -->
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 9: CAMERA (DIRECT IN-APP RECORD)    -->
+        <!-- ========================================== -->
+        <div id="cameraScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#121212] overflow-hidden z-[70]">
+            <!-- Header Camera -->
+            <div class="pt-14 px-6 flex justify-between items-center z-30">
+                <button onclick="goToScreen('homeScreen')" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer active:scale-95">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <span class="text-white font-bold text-[15px]">Buat SocialQ</span>
+                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white cursor-pointer active:scale-95"><i data-lucide="settings" class="w-4 h-4"></i></div>
+            </div>
+            
+            <!-- Circular Camera Viewfinder -->
+            <div class="flex-1 flex flex-col items-center justify-center relative px-6 mt-4">
+                <div class="w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[8px] border-[#10b981] overflow-hidden relative shadow-[0_0_50px_rgba(16,185,129,0.2)] bg-gray-900">
+                    <!-- Simulasi Tampilan Kamera -->
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/10"></div>
+                </div>
+            </div>
+            
+            <!-- Record Controls -->
+            <div class="pb-16 pt-4 flex flex-col items-center">
+                <span id="record-timer" class="text-white text-[18px] mb-4 font-bold tracking-widest hidden bg-black/50 px-4 py-1 rounded-full backdrop-blur-md">00:00</span>
+                
+                <!-- Tombol Rekam (Tahan untuk merekam) -->
+                <button id="record-btn" 
+                    onmousedown="startRecording(event)" 
+                    onmouseup="stopRecording(event)" 
+                    onmouseleave="stopRecording(event)" 
+                    ontouchstart="startRecording(event)" 
+                    ontouchend="stopRecording(event)" 
+                    class="w-20 h-20 bg-transparent border-[5px] border-white rounded-full p-1.5 cursor-pointer flex items-center justify-center select-none touch-none">
+                    <div id="record-inner" class="w-full h-full bg-red-500 rounded-full transition-all duration-300 pointer-events-none"></div>
+                </button>
+                
+                <p class="text-white/60 text-[13px] font-semibold mt-6 text-center max-w-[200px]">Tahan untuk merekam<br>(Maks 15 detik)</p>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 10: PREVIEW (ANTI-EDIT)             -->
+        <!-- ========================================== -->
+        <div id="previewScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#121212] overflow-hidden z-[75]">
+            <div class="pt-14 px-6 flex justify-center items-center z-30">
+                <span class="text-white font-bold text-[15px]">Pratinjau Video (Raw)</span>
+            </div>
+            
+            <div class="flex-1 flex items-center justify-center relative px-6">
+                <!-- Menampilkan video bundar hasil rekam -->
+                <div class="w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[8px] border-white overflow-hidden relative shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+                        <i data-lucide="play" class="w-16 h-16 text-white drop-shadow-md"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tindakan Final (Tanpa Edit) -->
+            <div class="pb-16 px-6">
+                <div class="bg-white/10 rounded-2xl p-4 mb-6">
+                    <p class="text-center text-white/80 text-[13px] font-semibold flex items-center justify-center gap-2">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-[#10b981]"></i> 100% Authentic & Raw
+                    </p>
+                    <p class="text-center text-white/50 text-[11px] mt-2">SpaceQ tidak menyediakan fitur filter atau pemotong video untuk menjaga keaslian momenmu.</p>
+                </div>
+                
+                <div class="flex gap-4">
+                    <button onclick="goToScreen('cameraScreen')" class="flex-1 py-4 rounded-full bg-white/10 text-white font-bold text-[14px] hover:bg-white/20 transition-colors active:scale-95 cursor-pointer">Batal & Ulangi</button>
+                    <button onclick="startModeration()" class="flex-1 py-4 rounded-full bg-gradient-to-r from-[#10b981] to-[#047857] text-white font-bold text-[14px] shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[1.02] active:scale-95 transition-all cursor-pointer">Posting Sekarang</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 11: AI MODERATION                   -->
+        <!-- ========================================== -->
+        <div id="moderationScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#0f172a] overflow-hidden z-[80]">
+            <div class="flex-1 flex flex-col items-center justify-center relative px-6">
+                
+                <!-- Circular Scanning UI -->
+                <div class="w-[240px] h-[240px] rounded-full border-[6px] border-white/10 overflow-hidden relative shadow-[0_0_50px_rgba(16,185,129,0.1)] mb-8">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover filter grayscale brightness-[0.3]">
+                    
+                    <!-- Scanline (Laser hijau) -->
+                    <div class="absolute w-full h-[3px] bg-[#10b981] shadow-[0_0_20px_4px_#10b981] animate-scan z-20"></div>
+                    
+                    <!-- Grid overlay untuk kesan teknologi -->
+                    <div class="absolute inset-0 z-10 opacity-20" style="background-image: linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px); background-size: 20px 20px;"></div>
+                </div>
+                
+                <h3 class="text-white font-extrabold text-[22px] mt-4 mb-2 tracking-tight">AI Moderasi Aktif</h3>
+                <p class="text-white/60 text-center text-[13px] px-4 leading-relaxed max-w-[280px]">
+                    Memindai audio & visual untuk memastikan tidak ada ujaran kebencian atau konten non-halal.
+                </p>
+                <div class="mt-8 flex items-center gap-2 text-[#10b981] bg-[#10b981]/10 px-4 py-2 rounded-full border border-[#10b981]/20">
+                    <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>
+                    <span class="text-[12px] font-bold">Proses maksimal 1 menit...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 12: TADARUSQ LOBBY                  -->
+        <!-- ========================================== -->
+        <div id="tadarusLobbyScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#f8fafc] overflow-hidden z-[40]">
+            <!-- Header -->
+            <div class="pt-14 pb-4 px-6 flex items-center justify-between bg-[#f8fafc]/95 backdrop-blur-md sticky top-0 z-30 border-b border-gray-100">
+                <button onclick="goToScreen('homeScreen')" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors cursor-pointer active:scale-95">
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-gray-900"></i>
+                </button>
+                <h2 class="text-[20px] font-extrabold text-gray-900">Lobby TadarusQ</h2>
+                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors cursor-pointer">
+                    <i data-lucide="search" class="w-5 h-5 text-gray-900"></i>
+                </button>
+            </div>
+            
+            <!-- Room List (Overlapping Cards) -->
+            <div class="flex-1 overflow-y-auto hide-scroll px-6 pt-6 pb-24 flex flex-col">
+                
+                <!-- Card 1 (Cyan) -->
+                <div class="w-full bg-[#bae6fd] rounded-[28px] p-5 shadow-float border-4 border-white cursor-pointer hover:-translate-y-2 transition-transform relative z-10 mb-[-15px]">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="font-black text-[18px] text-gray-900 leading-tight">Gas Khatam Juz 30</h3>
+                            <div class="flex gap-2 mt-2">
+                                <span class="bg-white/70 text-blue-800 px-2 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 shadow-sm">🏷️ Juz 30</span>
+                                <span class="bg-blue-100 border border-blue-200 text-blue-800 px-2 py-1 rounded-md text-[10px] font-bold">IKHWAN</span>
+                            </div>
+                        </div>
+                        <div class="bg-white/50 px-2 py-1 rounded-full text-[11px] font-bold text-gray-800 shadow-sm flex items-center gap-1">
+                            👤 6/10
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex gap-[-8px]">
+                            <img src="https://i.pravatar.cc/100?img=11" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-0 shadow-sm">
+                            <img src="https://i.pravatar.cc/100?img=12" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
+                            <img src="https://i.pravatar.cc/100?img=13" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
+                        </div>
+                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">
+                            Gabung
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2 (Mint) -->
+                <div class="w-full bg-[#a7f3d0] rounded-[28px] p-5 shadow-float border-4 border-white cursor-pointer hover:-translate-y-2 transition-transform relative z-20 mb-[-15px]">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="font-black text-[18px] text-gray-900 leading-tight">Latihan Tajwid Al-Kahfi</h3>
+                            <div class="flex gap-2 mt-2">
+                                <span class="bg-white/70 text-emerald-800 px-2 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 shadow-sm">🏷️ Surah Al-Kahfi</span>
+                                <span class="bg-emerald-100 border border-emerald-200 text-emerald-800 px-2 py-1 rounded-md text-[10px] font-bold">AKHWAT</span>
+                            </div>
+                        </div>
+                        <div class="bg-white/50 px-2 py-1 rounded-full text-[11px] font-bold text-gray-800 shadow-sm flex items-center gap-1">
+                            👤 8/10
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex gap-[-8px]">
+                            <img src="https://i.pravatar.cc/100?img=5" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-0 shadow-sm">
+                            <img src="https://i.pravatar.cc/100?img=9" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
+                            <img src="https://i.pravatar.cc/100?img=1" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
+                        </div>
+                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">
+                            Gabung
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3 (Peach) -->
+                <div class="w-full bg-[#fed7aa] rounded-[28px] p-5 shadow-float border-4 border-white cursor-pointer hover:-translate-y-2 transition-transform relative z-30">
+                    <div class="flex justify-between items-start mb-3">
+                        <div>
+                            <h3 class="font-black text-[18px] text-gray-900 leading-tight">Ngaji Santai Ba'da Maghrib</h3>
+                            <div class="flex gap-2 mt-2">
+                                <span class="bg-white/70 text-orange-800 px-2 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 shadow-sm">🏷️ Bebas</span>
+                                <span class="bg-orange-100 border border-orange-200 text-orange-800 px-2 py-1 rounded-md text-[10px] font-bold">IKHWAN</span>
+                            </div>
+                        </div>
+                        <div class="bg-white/50 px-2 py-1 rounded-full text-[11px] font-bold text-gray-800 shadow-sm flex items-center gap-1">
+                            👤 3/10
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <div class="flex gap-[-8px]">
+                            <img src="https://i.pravatar.cc/100?img=33" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-0 shadow-sm">
+                            <img src="https://i.pravatar.cc/100?img=15" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
+                            <div class="w-8 h-8 rounded-full border-2 border-white bg-white flex items-center justify-center font-bold text-gray-400 text-[10px] -ml-2 shadow-sm">+1</div>
+                        </div>
+                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">
+                            Gabung
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Action Button (Create Room) -->
+            <button onclick="openCreateRoomModal()" class="absolute bottom-10 right-6 w-16 h-16 bg-gradient-to-tr from-[#10b981] to-[#6ee7b7] rounded-full flex items-center justify-center shadow-heavy border-4 border-white text-white hover:scale-105 active:scale-95 transition-transform cursor-pointer z-40">
+                <i data-lucide="plus" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 13: IN-ROOM TADARUSQ                -->
+        <!-- ========================================== -->
+        <div id="tadarusRoomScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-white overflow-hidden z-[45]">
+            <!-- Area Atas (Layar Al-Qur'an ~ 55%) -->
+            <div class="h-[55%] bg-[#fdfbf7] flex flex-col relative">
+                <!-- In-Room Header -->
+                <div class="pt-14 px-6 flex items-center justify-between z-10 relative bg-gradient-to-b from-[#fdfbf7] to-transparent pb-4">
+                    <button onclick="goToScreen('tadarusLobbyScreen')" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer active:scale-95">
+                        <i data-lucide="log-out" class="w-5 h-5 text-red-500"></i>
+                    </button>
+                    <div class="flex flex-col items-center">
+                        <h2 class="text-[16px] font-extrabold text-gray-900">Gas Khatam Juz 30</h2>
+                        <span class="bg-white px-2 py-0.5 rounded-full text-[10px] font-bold text-[#10b981] border border-[#10b981]/20 mt-1 shadow-sm">Live • 👤 6/10 Peserta</span>
+                    </div>
+                    <button class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer">
+                        <i data-lucide="more-vertical" class="w-5 h-5 text-gray-700"></i>
+                    </button>
+                </div>
+                
+                <!-- Digital Quran Area -->
+                <div class="flex-1 overflow-y-auto hide-scroll px-8 pb-8 text-center flex flex-col items-center justify-start mt-2">
+                    <p class="text-[32px] text-gray-900 leading-[2.5]" style="font-family: 'Amiri', serif;">
+                        بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+                    </p>
+                    <p class="text-[36px] text-gray-900 leading-[2.5] mt-6" style="font-family: 'Amiri', serif;">
+                        عَمَّ يَتَسَاءَلُونَ ﴿١﴾ عَنِ النَّبَإِ الْعَظِيمِ ﴿٢﴾ الَّذِي هُمْ فِيهِ <span class="bg-[#10b981]/20 text-[#047857] px-1 rounded">مُخْتَلِفُونَ</span> ﴿٣﴾ كَلَّا سَيَعْلَمُونَ ﴿٤﴾ ثُمَّ كَلَّا سَيَعْلَمُونَ ﴿٥﴾ أَلَمْ نَجْعَلِ الْأَرْضَ مِهَادًا ﴿٦﴾ وَالْجِبَالَ أَوْتَادًا ﴿٧﴾
+                    </p>
+                    <p class="text-gray-400 text-[12px] font-bold mt-8 uppercase tracking-widest border-t border-gray-200 pt-4">Surah An-Naba</p>
+                </div>
+            </div>
+
+            <!-- Area Bawah (Grid Pengguna ~ 45%) -->
+            <div class="h-[45%] bg-white rounded-t-[32px] shadow-[0_-15px_40px_rgba(0,0,0,0.08)] flex flex-col z-20 relative border-t border-gray-100">
+                <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mt-3 mb-3"></div>
+                <div class="px-6 flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-[16px] text-gray-900">Peserta Ruangan</h3>
+                    <button class="bg-[#10b981]/10 text-[#10b981] px-3 py-1.5 rounded-full text-[12px] font-bold flex items-center gap-1 active:scale-95 transition-transform cursor-pointer">
+                        <i data-lucide="hand" class="w-3 h-3"></i> Raise Hand
+                    </button>
+                </div>
+                
+                <!-- Grid 10 Pengguna -->
+                <div class="px-6 grid grid-cols-5 gap-y-6 gap-x-2 pb-6">
+                    <!-- Active Speaker (Pulsing) -->
+                    <div class="flex flex-col items-center gap-1 relative">
+                        <div class="w-12 h-12 rounded-full relative">
+                            <div class="absolute inset-0 rounded-full ring-4 ring-[#10b981] animate-pulse"></div>
+                            <img src="https://i.pravatar.cc/100?img=50" class="w-full h-full rounded-full object-cover border-2 border-white relative z-10">
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-900 truncate w-full text-center">Nafis</span>
+                    </div>
+
+                    <!-- Muted Listeners -->
+                    <div class="flex flex-col items-center gap-1 relative">
+                        <div class="w-12 h-12 rounded-full relative">
+                            <img src="https://i.pravatar.cc/100?img=11" class="w-full h-full rounded-full object-cover border-2 border-gray-100">
+                            <div class="absolute -bottom-1 -right-1 bg-gray-800 p-1 rounded-full border-2 border-white z-10">
+                                <i data-lucide="mic-off" class="w-2.5 h-2.5 text-white"></i>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-500 truncate w-full text-center">Fahmi</span>
+                    </div>
+                    
+                    <div class="flex flex-col items-center gap-1 relative">
+                        <div class="w-12 h-12 rounded-full relative">
+                            <img src="https://i.pravatar.cc/100?img=12" class="w-full h-full rounded-full object-cover border-2 border-gray-100">
+                            <div class="absolute -bottom-1 -right-1 bg-gray-800 p-1 rounded-full border-2 border-white z-10">
+                                <i data-lucide="mic-off" class="w-2.5 h-2.5 text-white"></i>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-500 truncate w-full text-center">Budi</span>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-1 relative">
+                        <div class="w-12 h-12 rounded-full relative">
+                            <img src="https://i.pravatar.cc/100?img=13" class="w-full h-full rounded-full object-cover border-2 border-gray-100">
+                            <div class="absolute -bottom-1 -right-1 bg-gray-800 p-1 rounded-full border-2 border-white z-10">
+                                <i data-lucide="mic-off" class="w-2.5 h-2.5 text-white"></i>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-500 truncate w-full text-center">Iqbal</span>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-1 relative">
+                        <div class="w-12 h-12 rounded-full relative">
+                            <img src="https://i.pravatar.cc/100?img=14" class="w-full h-full rounded-full object-cover border-2 border-gray-100">
+                            <div class="absolute -bottom-1 -right-1 bg-gray-800 p-1 rounded-full border-2 border-white z-10">
+                                <i data-lucide="mic-off" class="w-2.5 h-2.5 text-white"></i>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-500 truncate w-full text-center">Hafiz</span>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-1 relative">
+                        <div class="w-12 h-12 rounded-full relative">
+                            <img src="https://i.pravatar.cc/100?img=15" class="w-full h-full rounded-full object-cover border-2 border-gray-100">
+                            <div class="absolute -bottom-1 -right-1 bg-gray-800 p-1 rounded-full border-2 border-white z-10">
+                                <i data-lucide="mic-off" class="w-2.5 h-2.5 text-white"></i>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-500 truncate w-full text-center">Dika</span>
+                    </div>
+
+                    <!-- Empty Slots -->
+                    <div class="flex flex-col items-center gap-1 relative opacity-70">
+                        <div class="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
+                            <i data-lucide="plus" class="w-4 h-4 text-gray-300"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-400">Kosong</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 relative opacity-70">
+                        <div class="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
+                            <i data-lucide="plus" class="w-4 h-4 text-gray-300"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-400">Kosong</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 relative opacity-70">
+                        <div class="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
+                            <i data-lucide="plus" class="w-4 h-4 text-gray-300"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-400">Kosong</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 relative opacity-70">
+                        <div class="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
+                            <i data-lucide="plus" class="w-4 h-4 text-gray-300"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-400">Kosong</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- MODAL: CREATE ROOM TADARUSQ                -->
+        <!-- ========================================== -->
+        <div id="createRoomModal" class="absolute inset-0 z-[110] hidden">
+            <!-- Backdrop -->
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity cursor-pointer" onclick="closeCreateRoomModal()"></div>
+            
+            <!-- Bottom Sheet -->
+            <div id="createRoomSheet" class="absolute bottom-0 w-full h-[88%] bg-white rounded-t-[36px] flex flex-col shadow-2xl transform">
+                <!-- Dragger -->
+                <div class="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mt-4 mb-2"></div>
+                
+                <!-- Header Modal -->
+                <div class="px-6 py-2 flex justify-between items-center border-b border-gray-100">
+                    <h2 class="text-[18px] font-extrabold text-gray-900">Buat Ruang Tadarus</h2>
+                    <button onclick="closeCreateRoomModal()" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 cursor-pointer">
+                        <i data-lucide="x" class="w-4 h-4 text-gray-700"></i>
+                    </button>
+                </div>
+
+                <!-- Form Content -->
+                <div class="flex-1 overflow-y-auto hide-scroll px-6 py-5 flex flex-col gap-5">
+                    
+                    <!-- Nama Ruangan -->
+                    <div>
+                        <label class="text-[13px] font-bold text-gray-700 ml-1 mb-1 block">Nama Ruangan</label>
+                        <input type="text" placeholder="Misal: Ngaji Santai Ba'da Maghrib" maxlength="30" class="w-full bg-[#f8fafc] border border-gray-200 text-gray-900 text-[14px] font-bold rounded-2xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#10b981] transition-all">
+                        <p class="text-[10px] text-gray-400 text-right mt-1">Maks. 30 karakter</p>
+                    </div>
+
+                    <!-- Target Bacaan Tabs -->
+                    <div>
+                        <label class="text-[13px] font-bold text-gray-700 ml-1 mb-2 block">Pilih Target Bacaan</label>
+                        <div class="bg-gray-100 p-1 rounded-2xl flex mb-4">
+                            <button id="tab-juz" onclick="switchTadarusTab('juz')" class="flex-1 py-2 text-[12px] font-bold bg-white shadow-sm rounded-xl text-gray-900 transition-all cursor-pointer">Juz</button>
+                            <button id="tab-surah" onclick="switchTadarusTab('surah')" class="flex-1 py-2 text-[12px] font-bold text-gray-500 rounded-xl hover:text-gray-900 transition-all cursor-pointer">Surah</button>
+                            <button id="tab-bebas" onclick="switchTadarusTab('bebas')" class="flex-1 py-2 text-[12px] font-bold text-gray-500 rounded-xl hover:text-gray-900 transition-all cursor-pointer">Bebas</button>
+                        </div>
+                        
+                        <!-- Content Tabs -->
+                        <!-- JUZ TAB -->
+                        <div id="content-juz" class="h-[150px] overflow-y-auto hide-scroll border border-gray-100 rounded-2xl p-3 bg-[#f8fafc]">
+                            <div class="grid grid-cols-5 gap-2" id="juz-grid">
+                                <!-- Generated via JS below -->
+                            </div>
+                        </div>
+
+                        <!-- SURAH TAB (Hidden) -->
+                        <div id="content-surah" class="h-[150px] hidden flex-col border border-gray-100 rounded-2xl p-3 bg-[#f8fafc]">
+                            <div class="relative mb-2 shrink-0">
+                                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                <input type="text" placeholder="Cari Surah..." class="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-3 py-2 text-[12px] font-semibold focus:outline-none focus:border-[#10b981]">
+                            </div>
+                            <div class="flex-1 overflow-y-auto hide-scroll flex flex-col gap-1 pr-1">
+                                <button class="text-left px-3 py-2 rounded-xl text-[13px] font-bold text-gray-700 hover:bg-white hover:shadow-sm cursor-pointer">1. Al-Fatihah</button>
+                                <button class="text-left px-3 py-2 rounded-xl text-[13px] font-bold text-gray-700 hover:bg-white hover:shadow-sm cursor-pointer">2. Al-Baqarah</button>
+                                <button class="text-left px-3 py-2 rounded-xl text-[13px] font-bold text-gray-700 hover:bg-white hover:shadow-sm cursor-pointer">3. Ali 'Imran</button>
+                                <button class="text-left px-3 py-2 rounded-xl text-[13px] font-bold text-[#10b981] bg-white shadow-sm border border-[#10b981]/20 cursor-pointer">78. An-Naba</button>
+                            </div>
+                        </div>
+
+                        <!-- BEBAS TAB (Hidden) -->
+                        <div id="content-bebas" class="h-[150px] hidden flex-col items-center justify-center border border-gray-100 rounded-2xl p-4 bg-[#f8fafc] text-center">
+                            <div class="w-10 h-10 bg-[#10b981]/10 rounded-full flex items-center justify-center mb-2">
+                                <i data-lucide="infinity" class="w-5 h-5 text-[#10b981]"></i>
+                            </div>
+                            <h4 class="font-bold text-[13px] text-gray-900">Bacaan Bebas</h4>
+                            <p class="text-[11px] text-gray-500 mt-1">Ruangan ini tidak menargetkan Surah/Juz spesifik. Cocok untuk ngaji santai.</p>
+                        </div>
+                    </div>
+
+                    <!-- Validasi Gender & Privasi -->
+                    <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex flex-col gap-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-[13px] text-gray-900">Server Ruangan</h4>
+                                <p class="text-[10px] text-gray-500">Dikunci sesuai profil pengguna</p>
+                            </div>
+                            <span class="bg-[#10b981]/10 text-[#047857] border border-[#10b981]/30 px-3 py-1.5 rounded-xl text-[12px] font-bold flex items-center gap-1.5">
+                                <i data-lucide="lock" class="w-3 h-3"></i> Ikhwan
+                            </span>
+                        </div>
+                        <div class="h-[1px] w-full bg-gray-200"></div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h4 class="font-bold text-[13px] text-gray-900">Privasi Ruang</h4>
+                                <p class="text-[10px] text-gray-500">Publik (terlihat di Lobby) / Privat</p>
+                            </div>
+                            <div class="w-12 h-6 bg-[#10b981] rounded-full relative cursor-pointer flex items-center shadow-inner">
+                                <div class="w-5 h-5 bg-white rounded-full absolute right-0.5 shadow-sm transition-all"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Action -->
+                <div class="px-6 py-5 border-t border-gray-100 shrink-0 bg-white z-10 pb-8">
+                    <button onclick="startTadarusRoom()" class="w-full bg-gradient-to-r from-[#10b981] to-[#047857] text-white font-bold text-[16px] py-4 rounded-[20px] shadow-[0_10px_25px_-5px_rgba(16,185,129,0.4)] active:scale-95 transition-transform cursor-pointer">
+                        Mulai Tadarus Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[130px] h-[5px] bg-black/40 rounded-full z-[100] pointer-events-none"></div>
+    </div>
+
+    <!-- SCRIPT (DIPASTIKAN BERADA DI SINI, TIDAK TERPOTONG) -->
+    <script>
+        // Inisialisasi ikon Lucide secara langsung
+        lucide.createIcons();
+
+        let currentScreen = 'screen0';
+        
+        function updateStatusBar(screenId) {
+            const time = document.getElementById('status-time');
+            const icons = document.getElementById('status-icons');
+            
+            // Atur warna status bar tergantung layar background (gelap/terang)
+            if(screenId === 'cameraScreen' || screenId === 'previewScreen' || screenId === 'moderationScreen') {
+                time.classList.add('text-white');
+                icons.classList.add('text-white');
+                time.classList.remove('text-gray-900');
+                icons.classList.remove('text-gray-900');
+            } else {
+                time.classList.remove('text-white');
+                icons.classList.remove('text-white');
+                time.classList.add('text-gray-900');
+                icons.classList.add('text-gray-900');
+            }
+        }
+
+        function goToScreen(nextScreenId) {
+            const current = document.getElementById(currentScreen);
+            const next = document.getElementById(nextScreenId);
+
+            if (currentScreen === 'screen0') {
+                current.classList.add('hide-splash');
+            } else {
+                current.classList.add('hide-screen');
+            }
+            current.classList.remove('show-screen');
+            
+            updateStatusBar(nextScreenId);
+            
+            setTimeout(() => {
+                next.classList.remove('hide-screen', 'hide-splash');
+                next.classList.add('show-screen');
+                currentScreen = nextScreenId;
+            }, 100);
+        }
+
+        function toggleAuthMode(mode) {
+            const tabSignup = document.getElementById('tab-signup');
+            const tabSignin = document.getElementById('tab-signin');
+            const fieldName = document.getElementById('field-name');
+            const fieldGender = document.getElementById('field-gender');
+            const fieldTerms = document.getElementById('field-terms');
+            const authTitle = document.getElementById('auth-title');
+            const btnText = document.getElementById('btn-text');
+            const forgotPw = document.getElementById('forgot-password');
+
+            if(mode === 'signin') {
+                tabSignin.className = "flex-1 py-2 text-[14px] font-bold bg-white shadow-sm rounded-lg text-gray-900 transition-all";
+                tabSignup.className = "flex-1 py-2 text-[14px] font-bold text-gray-500 rounded-lg hover:text-gray-900 transition-all";
+                
+                fieldName.classList.add('hidden');
+                fieldGender.classList.add('hidden');
+                fieldTerms.classList.add('hidden');
+                forgotPw.classList.remove('hidden');
+
+                authTitle.innerText = "Masuk";
+                btnText.innerText = "Masuk ke SpaceQ";
+            } else {
+                tabSignup.className = "flex-1 py-2 text-[14px] font-bold bg-white shadow-sm rounded-lg text-gray-900 transition-all";
+                tabSignin.className = "flex-1 py-2 text-[14px] font-bold text-gray-500 rounded-lg hover:text-gray-900 transition-all";
+                
+                fieldName.classList.remove('hidden');
+                fieldGender.classList.remove('hidden');
+                fieldTerms.classList.remove('hidden');
+                forgotPw.classList.add('hidden');
+
+                authTitle.innerText = "Buat Akun";
+                btnText.innerText = "Daftar Akun";
+            }
+        }
+
+        function submitAuth() {
+            const btn = document.getElementById('btn-submit');
+            const btnText = document.getElementById('btn-text');
+            const btnLoader = document.getElementById('btn-loader');
+            
+            btnText.style.opacity = '0';
+            btnLoader.style.opacity = '1';
+            
+            setTimeout(() => {
+                btnLoader.style.opacity = '0';
+                btn.classList.add('btn-zoom-in');
+                
+                setTimeout(() => {
+                    goToScreen('bismillahScreen');
+                    
+                    setTimeout(() => {
+                        btn.classList.remove('btn-zoom-in');
+                        btnText.style.opacity = '1';
+                    }, 500);
+
+                    setTimeout(() => {
+                        const bismillahText = document.getElementById('bismillah-text');
+                        bismillahText.classList.add('zoom-bismillah');
+                        
+                        setTimeout(() => {
+                            goToScreen('homeScreen');
+                        }, 1000); 
+                    }, 1200); 
+
+                }, 600); 
+
+            }, 800); 
+        }
+
+        // ==========================================
+        // FITUR SOCIALQ & GENERATE 100 POSTINGAN
+        // ==========================================
+        function generateSocialQPosts() {
+            const container = document.getElementById('socialq-feed-container');
+            if (!container) return;
+            
+            const names = ['Aisyah Rizki', 'Budi Santoso', 'Siti Aminah', 'Ahmad Fadil', 'Nisa Salsabila', 'Iqbal Ramadhan', 'Zahra Larasati', 'Fahmi Idris', 'Dian Sastro', 'Rizky Pratama', 'Hafizuddin', 'Khadijah Nur'];
+            const captions = ['Alhamdulillah sampai majelis...', 'Bismillah, tilawah sore...', 'Kajian Ustadz Hanan mantap!', 'Masya Allah pemandangannya indah sekali...', 'Persiapan shalat Jumat di kampus.', 'Jalan-jalan cari takjil, ramai banget!', 'Cuaca hari ini cerah banget, tabarakallah.', 'Ngaji bareng teman-teman kos.', 'Semoga hari ini penuh berkah.', 'Tetap semangat puasanya teman-teman!'];
+            const locations = ['Masjid Raya', '2 jam yang lalu', 'Jakarta Selatan', 'Bandung', 'Masjid Al-Ikhlas', 'Kemarin', '5 jam yang lalu', 'Yogyakarta', 'Surabaya', 'Masjid Kampus', 'Baru saja'];
+            const colors = ['bg-[#fbcfe8]', 'bg-[#a7f3d0]', 'bg-[#bae6fd]', 'bg-[#fef08a]', 'bg-[#e9d5ff]', 'bg-[#ffedd5]'];
+
+            let html = '';
+            
+            // Generate exactly 100 posts
+            for (let i = 0; i < 100; i++) {
+                const name = names[Math.floor(Math.random() * names.length)];
+                const caption = captions[Math.floor(Math.random() * captions.length)];
+                const loc = locations[Math.floor(Math.random() * locations.length)];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                const avatar = `https://i.pravatar.cc/100?img=${(i % 70) + 1}`; 
+                const vidThumb = `https://picsum.photos/400/400?random=${i + 100}`; 
+
+                html += `
+                <div class="w-full ${color} rounded-[32px] p-5 shadow-float border-4 border-white cursor-pointer hover:rotate-[-1deg] transition-transform origin-bottom">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <img src="${avatar}" class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm">
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-[14px]">${name}</h4>
+                                <span class="text-[11px] text-gray-700 font-semibold bg-white/50 px-2 py-0.5 rounded-full flex items-center gap-1 w-max">
+                                    ${loc}
+                                </span>
+                            </div>
+                        </div>
+                        <button class="text-gray-900/50 hover:text-gray-900 active:scale-95 cursor-pointer"><i data-lucide="more-horizontal"></i></button>
+                    </div>
+                    
+                    <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
+                        <img src="${vidThumb}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                        <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
+                        <div class="absolute bottom-6 left-0 w-full text-center px-4">
+                            <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"${caption}"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-center gap-6 mt-4">
+                        <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-pink-600 active:scale-95 transition-all"><i data-lucide="heart" class="w-5 h-5"></i> ${Math.floor(Math.random() * 500) + 10}</button>
+                        <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-blue-600 active:scale-95 transition-all"><i data-lucide="message-circle" class="w-5 h-5"></i> ${Math.floor(Math.random() * 50)}</button>
+                        <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-green-600 active:scale-95 transition-all"><i data-lucide="send" class="w-5 h-5"></i></button>
+                    </div>
+                </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        // ==========================================
+        // LOGIKA KAMERA (DIRECT IN-APP RECORDING)
+        // ==========================================
+        let recordTimer;
+        let seconds = 0;
+        let isRecording = false;
+
+        function startRecording(e) {
+            if(e) {
+                e.preventDefault(); 
+                e.stopPropagation();
+            }
+            if(isRecording) return;
+            
+            isRecording = true;
+            const btn = document.getElementById('record-btn');
+            const innerBtn = document.getElementById('record-inner');
+            const timerTxt = document.getElementById('record-timer');
+            
+            btn.classList.add('recording-pulse');
+            innerBtn.classList.add('scale-75', 'rounded-[10px]');
+            
+            seconds = 0;
+            timerTxt.innerText = "00:00";
+            timerTxt.classList.remove('hidden');
+
+            recordTimer = setInterval(() => {
+                seconds++;
+                timerTxt.innerText = "00:" + (seconds < 10 ? "0"+seconds : seconds);
+                
+                // Batas Maksimal 15 detik
+                if(seconds >= 15) {
+                    stopRecording();
+                }
+            }, 1000);
+        }
+
+        function stopRecording(e) {
+            if(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            if(!isRecording) return;
+            
+            isRecording = false;
+            clearInterval(recordTimer);
+            
+            const btn = document.getElementById('record-btn');
+            const innerBtn = document.getElementById('record-inner');
+            const timerTxt = document.getElementById('record-timer');
+            
+            btn.classList.remove('recording-pulse');
+            innerBtn.classList.remove('scale-75', 'rounded-[10px]');
+            
+            // Pindah layar preview hanya jika rekam lebih dari 1 detik
+            if(seconds > 0) {
+                setTimeout(() => {
+                    timerTxt.classList.add('hidden');
+                    goToScreen('previewScreen');
+                }, 300);
+            } else {
+                timerTxt.classList.add('hidden');
+            }
+        }
+
+        // ==========================================
+        // LOGIKA AI MODERASI
+        // ==========================================
+        function startModeration() {
+            goToScreen('moderationScreen');
+            
+            setTimeout(() => {
+                alert("✅ Video Lolos Moderasi AI.\n\nTidak ditemukan ujaran kebencian atau konten negatif. Video berhasil diposting ke SocialQ!");
+                goToScreen('exploreScreen');
+            }, 3000);
+        }
+
+        // ==========================================
+        // LOGIKA MODAL & TADARUSQ
+        // ==========================================
+        function openCreateRoomModal() {
+            const modal = document.getElementById('createRoomModal');
+            const sheet = document.getElementById('createRoomSheet');
+            modal.classList.remove('hidden');
+            
+            sheet.style.animation = 'none';
+            sheet.offsetHeight; // trigger reflow
+            sheet.style.animation = null;
+            sheet.classList.add('modal-slide-up');
+            sheet.classList.remove('modal-slide-down');
+        }
+
+        function closeCreateRoomModal() {
+            const modal = document.getElementById('createRoomModal');
+            const sheet = document.getElementById('createRoomSheet');
+            
+            sheet.classList.remove('modal-slide-up');
+            sheet.classList.add('modal-slide-down');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                sheet.classList.remove('modal-slide-down');
+            }, 300);
+        }
+
+        function switchTadarusTab(tab) {
+            const tabs = ['juz', 'surah', 'bebas'];
+            tabs.forEach(t => {
+                document.getElementById('tab-' + t).className = "flex-1 py-2 text-[12px] font-bold text-gray-500 rounded-xl hover:text-gray-900 transition-all cursor-pointer";
+                document.getElementById('content-' + t).style.display = 'none';
+            });
+            
+            document.getElementById('tab-' + tab).className = "flex-1 py-2 text-[12px] font-bold bg-white shadow-sm rounded-xl text-gray-900 transition-all cursor-pointer";
+            document.getElementById('content-' + tab).style.display = 'flex';
+        }
+
+        function startTadarusRoom() {
+            closeCreateRoomModal();
+            setTimeout(() => {
+                goToScreen('tadarusRoomScreen');
+            }, 300); // Tunggu animasi modal turun
+        }
+
+        function generateJuzGrid() {
+            const grid = document.getElementById('juz-grid');
+            if (!grid) return;
+            let html = '';
+            for(let i=1; i<=30; i++) {
+                const isActive = i === 30 ? 'border-[#10b981] text-[#10b981] bg-[#10b981]/5' : 'border-gray-200 text-gray-700';
+                html += `<button class="py-2 bg-white border rounded-xl text-[12px] font-bold hover:border-[#10b981] hover:text-[#10b981] transition-colors cursor-pointer ${isActive}">${i}</button>`;
+            }
+            grid.innerHTML = html;
+        }
+
+        // MENJALANKAN INISIASI KETIKA HALAMAN DIMUAT (TANPA EVENT LISTENER)
+        const link = document.createElement('link');
+        link.href = 'https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap';
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
+
+        generateSocialQPosts();
+        generateJuzGrid();
+
+        // Mulai transisi otomatis dari splash screen
+        setTimeout(() => {
+            goToScreen('ob1');
+        }, 2500); 
+    </script>
+</body>
+</html>
