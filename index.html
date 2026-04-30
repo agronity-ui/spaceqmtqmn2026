@@ -140,10 +140,16 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 font-sans antialiased">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 font-sans antialiased relative">
+
+    <!-- Gambar Presentasi Kiri (Hanya tampil di Desktop/Laptop) -->
+    <img src="https://www.image2url.com/r2/default/images/1777547365330-5e50ea76-a722-428d-a911-49166a3d00d9.png" class="hidden lg:block fixed left-4 xl:left-12 2xl:left-24 top-1/2 -translate-y-1/2 w-[28vw] max-w-[450px] object-contain z-0 pointer-events-none" alt="Slide Presentasi Kiri">
+
+    <!-- Gambar Presentasi Kanan (Hanya tampil di Desktop/Laptop) -->
+    <img src="https://www.image2url.com/r2/default/images/1777547564480-218d20fe-c7ce-45e9-85ec-d4b2810b9b66.png" class="hidden lg:block fixed right-4 xl:right-12 2xl:right-24 top-1/2 -translate-y-1/2 w-[28vw] max-w-[450px] object-contain z-0 pointer-events-none" alt="Slide Presentasi Kanan">
 
     <!-- Mobile Device Simulator (Ukuran Bingkai Dipertahankan) -->
-    <div class="relative w-full max-w-[390px] h-[844px] bg-[#fbfbfd] rounded-[45px] shadow-2xl overflow-hidden border-[8px] border-black shrink-0">
+    <div class="relative w-full max-w-[390px] h-[844px] bg-[#fbfbfd] rounded-[45px] shadow-2xl overflow-hidden border-[8px] border-black shrink-0 z-10">
         
         <!-- Status Bar (Simulated) -->
         <div class="absolute top-0 left-0 w-full h-12 flex items-center justify-between px-6 z-[100] pointer-events-none">
