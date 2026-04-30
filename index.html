@@ -140,16 +140,10 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 font-sans antialiased relative">
-
-    <!-- Gambar Presentasi Kiri (Hanya tampil di Desktop/Laptop) -->
-    <img src="https://www.image2url.com/r2/default/images/1777547365330-5e50ea76-a722-428d-a911-49166a3d00d9.png" class="hidden lg:block fixed left-4 xl:left-12 2xl:left-24 top-1/2 -translate-y-1/2 w-[28vw] max-w-[450px] object-contain z-0 pointer-events-none" alt="Slide Presentasi Kiri">
-
-    <!-- Gambar Presentasi Kanan (Hanya tampil di Desktop/Laptop) -->
-    <img src="https://www.image2url.com/r2/default/images/1777547564480-218d20fe-c7ce-45e9-85ec-d4b2810b9b66.png" class="hidden lg:block fixed right-4 xl:right-12 2xl:right-24 top-1/2 -translate-y-1/2 w-[28vw] max-w-[450px] object-contain z-0 pointer-events-none" alt="Slide Presentasi Kanan">
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 font-sans antialiased">
 
     <!-- Mobile Device Simulator (Ukuran Bingkai Dipertahankan) -->
-    <div class="relative w-full max-w-[390px] h-[844px] bg-[#fbfbfd] rounded-[45px] shadow-2xl overflow-hidden border-[8px] border-black shrink-0 z-10">
+    <div class="relative w-full max-w-[390px] h-[844px] bg-[#fbfbfd] rounded-[45px] shadow-2xl overflow-hidden border-[8px] border-black shrink-0">
         
         <!-- Status Bar (Simulated) -->
         <div class="absolute top-0 left-0 w-full h-12 flex items-center justify-between px-6 z-[100] pointer-events-none">
@@ -545,11 +539,10 @@
                             </div>
                             
                             <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
-                                <video data-src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" loop muted playsinline crossorigin="anonymous" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                                </video>
-                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors pointer-events-none"></div>
-                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform pointer-events-none"></i>
-                                <div class="absolute bottom-6 left-0 w-full text-center px-4 pointer-events-none">
+                                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
+                                <div class="absolute bottom-6 left-0 w-full text-center px-4">
                                     <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"Alhamdulillah sampai..."</span>
                                 </div>
                             </div>
@@ -577,11 +570,10 @@
                             </div>
                             
                             <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
-                                <video data-src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" loop muted playsinline crossorigin="anonymous" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                                </video>
-                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors pointer-events-none"></div>
-                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform pointer-events-none"></i>
-                                <div class="absolute bottom-6 left-0 w-full text-center px-4 pointer-events-none">
+                                <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?w=400" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
+                                <div class="absolute bottom-6 left-0 w-full text-center px-4">
                                     <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"Bismillah, tilawah sore..."</span>
                                 </div>
                             </div>
@@ -654,8 +646,7 @@
             <div class="flex-1 flex flex-col items-center justify-center relative px-6 mt-4">
                 <div class="w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[8px] border-[#10b981] overflow-hidden relative shadow-[0_0_50px_rgba(16,185,129,0.2)] bg-gray-900">
                     <!-- Simulasi Tampilan Kamera -->
-                    <video src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" autoplay loop muted playsinline class="w-full h-full object-cover">
-                    </video>
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-black/10"></div>
                 </div>
             </div>
@@ -690,9 +681,8 @@
             <div class="flex-1 flex items-center justify-center relative px-6">
                 <!-- Menampilkan video bundar hasil rekam -->
                 <div class="w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[8px] border-white overflow-hidden relative shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                    <video src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" autoplay loop muted playsinline class="w-full h-full object-cover">
-                    </video>
-                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center pointer-events-none">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
                         <i data-lucide="play" class="w-16 h-16 text-white drop-shadow-md"></i>
                     </div>
                 </div>
@@ -1029,13 +1019,10 @@
                         <div id="content-surah" class="h-[150px] hidden flex-col border border-gray-100 rounded-2xl p-3 bg-[#f8fafc]">
                             <div class="relative mb-2 shrink-0">
                                 <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
-                                <input type="text" placeholder="Cari Surah..." class="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-3 py-2 text-[12px] font-semibold focus:outline-none focus:border-[#10b981]">
+                                <input type="text" id="search-surah" placeholder="Cari Surah..." class="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-3 py-2 text-[12px] font-semibold focus:outline-none focus:border-[#10b981]" onkeyup="filterSurah()">
                             </div>
-                            <div class="flex-1 overflow-y-auto hide-scroll flex flex-col gap-1 pr-1">
-                                <button class="text-left px-3 py-2 rounded-xl text-[13px] font-bold text-gray-700 hover:bg-white hover:shadow-sm cursor-pointer">1. Al-Fatihah</button>
-                                <button class="text-left px-3 py-2 rounded-xl text-[13px] font-bold text-gray-700 hover:bg-white hover:shadow-sm cursor-pointer">2. Al-Baqarah</button>
-                                <button class="text-left px-3 py-2 rounded-xl text-[13px] font-bold text-gray-700 hover:bg-white hover:shadow-sm cursor-pointer">3. Ali 'Imran</button>
-                                <button class="text-left px-3 py-2 rounded-xl text-[13px] font-bold text-[#10b981] bg-white shadow-sm border border-[#10b981]/20 cursor-pointer">78. An-Naba</button>
+                            <div id="surah-list" class="flex-1 overflow-y-auto hide-scroll flex flex-col gap-1 pr-1">
+                                <!-- Data 114 Surah akan di-generate oleh JavaScript -->
                             </div>
                         </div>
 
@@ -1208,22 +1195,10 @@
             const captions = ['Alhamdulillah sampai majelis...', 'Bismillah, tilawah sore...', 'Kajian Ustadz Hanan mantap!', 'Masya Allah pemandangannya indah sekali...', 'Persiapan shalat Jumat di kampus.', 'Jalan-jalan cari takjil, ramai banget!', 'Cuaca hari ini cerah banget, tabarakallah.', 'Ngaji bareng teman-teman kos.', 'Semoga hari ini penuh berkah.', 'Tetap semangat puasanya teman-teman!'];
             const locations = ['Masjid Raya', '2 jam yang lalu', 'Jakarta Selatan', 'Bandung', 'Masjid Al-Ikhlas', 'Kemarin', '5 jam yang lalu', 'Yogyakarta', 'Surabaya', 'Masjid Kampus', 'Baru saja'];
             const colors = ['bg-[#fbcfe8]', 'bg-[#a7f3d0]', 'bg-[#bae6fd]', 'bg-[#fef08a]', 'bg-[#e9d5ff]', 'bg-[#ffedd5]'];
-            
-            // Menggunakan beberapa video URL publik yang stabil untuk variasi
-            const videoUrls = [
-                'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-                'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-                'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-                'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
-                'https://storage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
-                'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
-                'https://storage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4',
-                'https://storage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4'
-            ];
 
             let html = '';
             
-            // Generate exactly 100 posts (menggunakan data-src untuk lazy load)
+            // Generate exactly 100 posts
             for (let i = 0; i < 100; i++) {
                 const name = names[Math.floor(Math.random() * names.length)];
                 const caption = captions[Math.floor(Math.random() * captions.length)];
@@ -1231,7 +1206,7 @@
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 
                 const avatar = `https://i.pravatar.cc/100?img=${(i % 70) + 1}`; 
-                const vidSrc = videoUrls[i % videoUrls.length]; 
+                const vidThumb = `https://picsum.photos/400/400?random=${i + 100}`; 
 
                 html += `
                 <div class="w-full ${color} rounded-[32px] p-5 shadow-float border-4 border-white cursor-pointer hover:rotate-[-1deg] transition-transform origin-bottom">
@@ -1249,11 +1224,10 @@
                     </div>
                     
                     <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
-                        <video data-src="${vidSrc}" loop muted playsinline crossorigin="anonymous" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        </video>
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors pointer-events-none"></div>
-                        <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform pointer-events-none"></i>
-                        <div class="absolute bottom-6 left-0 w-full text-center px-4 pointer-events-none">
+                        <img src="${vidThumb}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                        <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
+                        <div class="absolute bottom-6 left-0 w-full text-center px-4">
                             <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"${caption}"</span>
                         </div>
                     </div>
@@ -1403,6 +1377,38 @@
             grid.innerHTML = html;
         }
 
+        // ==========================================
+        // FITUR DATA 114 SURAH LENGKAP & PENCARIAN
+        // ==========================================
+        const surahNames = [
+            "Al-Fatihah", "Al-Baqarah", "Ali 'Imran", "An-Nisa'", "Al-Ma'idah", "Al-An'am", "Al-A'raf", "Al-Anfal", "At-Taubah", "Yunus", "Hud", "Yusuf", "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Isra'", "Al-Kahf", "Maryam", "Taha", "Al-Anbiya'", "Al-Hajj", "Al-Mu'minun", "An-Nur", "Al-Furqan", "Ash-Shu'ara'", "An-Naml", "Al-Qasas", "Al-'Ankabut", "Ar-Rum", "Luqman", "As-Sajdah", "Al-Ahzab", "Saba'", "Fatir", "Ya Sin", "As-Saffat", "Sad", "Az-Zumar", "Ghafir", "Fussilat", "Ash-Shura", "Az-Zukhruf", "Ad-Dukhan", "Al-Jathiyah", "Al-Ahqaf", "Muhammad", "Al-Fath", "Al-Hujurat", "Qaf", "Ad-Dhariyat", "At-Tur", "An-Najm", "Al-Qamar", "Ar-Rahman", "Al-Waqi'ah", "Al-Hadid", "Al-Mujadilah", "Al-Hashr", "Al-Mumtahanah", "As-Saff", "Al-Jumu'ah", "Al-Munafiqun", "At-Taghabun", "At-Talaq", "At-Tahrim", "Al-Mulk", "Al-Qalam", "Al-Haqqah", "Al-Ma'arij", "Nuh", "Al-Jinn", "Al-Muzzammil", "Al-Muddaththir", "Al-Qiyamah", "Al-Insan", "Al-Mursalat", "An-Naba'", "An-Nazi'at", "'Abasa", "At-Takwir", "Al-Infitar", "Al-Mutaffifin", "Al-Inshiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Ghashiyah", "Al-Fajr", "Al-Balad", "Ash-Shams", "Al-Lail", "Ad-Duha", "Ash-Sharh", "At-Tin", "Al-'Alaq", "Al-Qadr", "Al-Bayyinah", "Az-Zalzalah", "Al-'Adiyat", "Al-Qari'ah", "At-Takathur", "Al-'Asr", "Al-Humazah", "Al-Fil", "Quraysh", "Al-Ma'un", "Al-Kausar", "Al-Kafirun", "An-Nasr", "Al-Lahab", "Al-Ikhlas", "Al-Falaq", "An-Nas"
+        ];
+
+        function generateSurahList() {
+            const container = document.getElementById('surah-list');
+            if (!container) return;
+            let html = '';
+            surahNames.forEach((surah, index) => {
+                // Menyoroti Surah An-Naba' sebagai contoh aktif
+                const isActive = surah === "An-Naba'" ? 'text-[#10b981] bg-white shadow-sm border border-[#10b981]/20' : 'text-gray-700 hover:bg-white hover:shadow-sm';
+                html += `<button class="surah-item text-left px-3 py-2 rounded-xl text-[13px] font-bold cursor-pointer transition-colors ${isActive}" data-name="${surah.toLowerCase()}">${index + 1}. ${surah}</button>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function filterSurah() {
+            const input = document.getElementById('search-surah').value.toLowerCase();
+            const items = document.querySelectorAll('.surah-item');
+            items.forEach(item => {
+                const name = item.getAttribute('data-name');
+                if(name.includes(input) || item.innerText.toLowerCase().includes(input)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
         // MENJALANKAN INISIASI KETIKA HALAMAN DIMUAT (TANPA EVENT LISTENER)
         const link = document.createElement('link');
         link.href = 'https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap';
@@ -1411,39 +1417,10 @@
 
         generateSocialQPosts();
         generateJuzGrid();
+        generateSurahList();
 
         // Inisialisasi ikon Lucide SETELAH semua elemen di-generate
         lucide.createIcons();
-
-        // Optimasi Super: Sistem Lazy Load Video yang Aman (Anti Blank/Crash)
-        const videoObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const video = entry.target;
-                if (entry.isIntersecting) {
-                    // Beri sumber video HANYA jika masuk layar (Menghemat memori)
-                    if (video.dataset.src && !video.getAttribute('src')) {
-                        video.setAttribute('src', video.dataset.src);
-                        video.load();
-                    }
-                    
-                    // Mainkan video
-                    const playPromise = video.play();
-                    if (playPromise !== undefined) {
-                        playPromise.catch(e => {
-                            // Diamkan jika tertahan kebijakan browser
-                        });
-                    }
-                } else {
-                    // Pause jika keluar layar agar tidak buang resource
-                    video.pause();
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '300px' }); // Load sedikit lebih awal sebelum video terlihat utuh
-
-        // Pantau semua tag video yang memiliki data-src
-        document.querySelectorAll('video[data-src]').forEach(video => {
-            videoObserver.observe(video);
-        });
 
         // Mulai transisi otomatis dari splash screen
         setTimeout(() => {
