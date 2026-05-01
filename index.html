@@ -21,11 +21,23 @@
                         'ob-cyan': '#56e4ff',
                         'ob-purple': '#cc7dff',
                         'ob-yellow': '#ffe500',
+                        'duo-green': '#58cc02',
+                        'duo-green-dark': '#46a302',
+                        'duo-red': '#ff4b4b',
+                        'duo-red-dark': '#ea2b2b',
+                        'duo-red-bg': '#ffdfe0',
+                        'duo-blue': '#1cb0f6',
+                        'duo-blue-dark': '#1899d6',
+                        'sq-dark': '#064e3b', /* Premium Dark Green */
+                        'sq-light': '#ecfdf5',
+                        'vs-purple': '#8b5cf6',
+                        'vs-purple-dark': '#6d28d9',
                     },
                     boxShadow: {
                         'soft': '0 20px 40px -15px rgba(0,0,0,0.05)',
                         'float': '0 15px 35px -10px rgba(0,0,0,0.2)',
                         'heavy': '0 25px 50px -12px rgba(0,0,0,0.25)',
+                        'card': '0 4px 20px -2px rgba(0,0,0,0.05)',
                     }
                 }
             }
@@ -92,7 +104,7 @@
             animation: zoomIntoApp 1.2s cubic-bezier(0.7, 0, 0.3, 1) forwards;
         }
 
-        /* Animasi AI Scanning & Recording Pulse */
+        /* Animasi Scanning & Recording Pulse */
         @keyframes scanline {
             0% { top: 0%; opacity: 0; }
             10% { opacity: 1; }
@@ -109,6 +121,15 @@
         }
         .recording-pulse {
             animation: recordPulse 1s infinite;
+        }
+        
+        @keyframes photoFlash {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        .flash-animation {
+            animation: photoFlash 0.3s ease-out;
         }
 
         /* Modal Slide Animations */
@@ -138,6 +159,42 @@
         ::-webkit-scrollbar {
             display: none;
         }
+        
+        /* Animasi Duolingo Style untuk Feedback Mascot */
+        @keyframes duoShake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px) rotate(-5deg); }
+            40%, 80% { transform: translateX(10px) rotate(5deg); }
+        }
+        .anim-shake { animation: duoShake 0.5s ease-in-out 0.25s forwards; }
+
+        @keyframes duoBounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.1); }
+        }
+        .anim-bounce { animation: duoBounce 0.6s ease-in-out 0.25s forwards; }
+
+        @keyframes bgFlashCorrect {
+            0% { background-color: rgba(88, 204, 2, 0); }
+            30% { background-color: rgba(88, 204, 2, 0.3); }
+            100% { background-color: rgba(88, 204, 2, 0); }
+        }
+        .flash-correct { animation: bgFlashCorrect 1s ease-out; }
+
+        @keyframes bgFlashWrong {
+            0% { background-color: rgba(255, 75, 75, 0); }
+            30% { background-color: rgba(255, 75, 75, 0.3); }
+            100% { background-color: rgba(255, 75, 75, 0); }
+        }
+        .flash-wrong { animation: bgFlashWrong 1s ease-out; }
+
+        @keyframes floatUpXP {
+            0% { opacity: 0; transform: translateY(0) scale(0.8); }
+            20% { opacity: 1; transform: translateY(-10px) scale(1.2); }
+            80% { opacity: 1; transform: translateY(-30px) scale(1); }
+            100% { opacity: 0; transform: translateY(-40px); }
+        }
+        .xp-float { animation: floatUpXP 1.5s forwards; font-weight: black; color: #1cb0f6; position: absolute; z-index: 100; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 font-sans antialiased">
@@ -165,7 +222,7 @@
         <div id="screen0" class="screen-transition show-screen absolute inset-0 w-full h-full bg-[#fafafa] flex flex-col items-center justify-center z-[60]">
             <div class="flex flex-col items-center">
                 <div class="relative w-24 h-24 mb-6">
-                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-[#10b981] to-[#6ee7b7] shadow-[0_0_40px_rgba(16,185,129,0.4)] animate-pulse"></div>
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-[#10b981] to-[#064e3b] shadow-[0_0_40px_rgba(16,185,129,0.4)] animate-pulse"></div>
                     <div class="absolute inset-2 bg-white rounded-full flex items-center justify-center">
                         <span class="text-[40px] font-black bg-clip-text text-transparent bg-gradient-to-br from-[#10b981] to-[#047857] tracking-tighter">Q</span>
                     </div>
@@ -190,7 +247,7 @@
                     <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80" class="w-full h-24 rounded-xl object-cover mb-2">
                     <div class="w-full h-4 bg-gray-100 rounded-full"></div>
                 </div>
-                <div class="absolute z-10 w-28 h-28 bg-gradient-to-tr from-[#10b981] to-[#6ee7b7] rounded-3xl shadow-heavy flex items-center justify-center border-[6px] border-white/20">
+                <div class="absolute z-10 w-28 h-28 bg-gradient-to-tr from-[#10b981] to-[#064e3b] rounded-3xl shadow-heavy flex items-center justify-center border-[6px] border-white/20">
                     <span class="text-[54px] font-black text-white tracking-tighter drop-shadow-md">Q</span>
                 </div>
             </div>
@@ -239,7 +296,7 @@
             </div>
 
             <h2 class="text-[32px] sm:text-[36px] font-black text-black text-center leading-[1.1] tracking-tight">TadarusQ:<br>Ngaji Bareng</h2>
-            <p class="text-black/70 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Ruang tilawah interaktif dengan AI Highlighter. Terpisah aman ikhwan & akhwat.</p>
+            <p class="text-black/70 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Ruang tilawah interaktif. Terpisah aman ikhwan & akhwat.</p>
 
             <button onclick="goToScreen('ob3')" class="absolute bottom-10 w-[85%] bg-[#121212] text-white py-[16px] sm:py-[18px] rounded-[24px] font-bold text-[17px] shadow-float hover:scale-[0.98] transition-transform">
                 Masya Allah
@@ -389,7 +446,7 @@
         <!-- ========================================== -->
         <!-- SCREEN 6: BISMILLAH TRANSITION (HIJAU)     -->
         <!-- ========================================== -->
-        <div id="bismillahScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#10b981] to-[#047857] z-[60]">
+        <div id="bismillahScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#10b981] to-[#064e3b] z-[60]">
             <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
             
             <div id="bismillah-text" class="text-center transition-all duration-700 z-10">
@@ -400,10 +457,9 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- SCREEN 7: HOME FEED (NEW LAYOUT)           -->
+        <!-- SCREEN 7: HOME FEED (SPACEQ LITE)          -->
         <!-- ========================================== -->
         <div id="homeScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#f8fafc] overflow-hidden z-10">
-            
             <!-- 1. Home Header (Sticky) -->
             <div class="pt-14 pb-4 px-6 flex items-center justify-between bg-[#f8fafc]/95 backdrop-blur-md sticky top-0 z-30 border-b border-gray-100/50">
                 <div class="flex items-center gap-3">
@@ -421,7 +477,6 @@
 
             <!-- Scrollable Body Container -->
             <div class="flex-1 overflow-y-auto overflow-x-hidden hide-scroll pb-32">
-                
                 <!-- 2. KajianQ (Horizontal Scroll Top) -->
                 <div class="mt-2">
                     <div class="px-6 flex justify-between items-end mb-3">
@@ -477,7 +532,7 @@
                 </div>
 
                 <!-- 3. TadarusQ Button (Middle Section) -->
-                <div class="px-6 mb-8 mt-2">
+                <div class="px-6 mb-4 mt-2">
                     <div onclick="goToScreen('tadarusLobbyScreen')" class="w-full bg-gradient-to-r from-[#bae6fd] to-[#7dd3fc] rounded-[28px] p-5 shadow-float border-4 border-white cursor-pointer active:scale-[0.98] transition-transform relative overflow-hidden group">
                         <div class="absolute -right-6 -top-6 w-32 h-32 bg-white/30 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
                         
@@ -498,191 +553,278 @@
                                     Jelajahi Ruangan <i data-lucide="arrow-right" class="w-3 h-3"></i>
                                 </button>
                             </div>
-                            
                             <div class="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md text-[#0ea5e9] group-hover:scale-110 transition-transform">
-                                <i data-lucide="mic" class="w-6 h-6"></i>
+                                <i data-lucide="users" class="w-6 h-6"></i>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 4. Explore SocialQ (Bottom Section) -->
-                <div class="px-6 relative">
-                    <div class="flex justify-between items-end mb-4">
-                        <div>
-                            <h3 class="font-extrabold text-[18px] text-gray-900">Explore SocialQ</h3>
-                            <p class="text-[12px] font-bold text-gray-400">100% Raw. No Filter.</p>
+                <!-- 3.5 MURAJAAHQ BUTTON (DUOLINGO STYLE) -->
+                <div class="px-6 mb-8 mt-2">
+                    <div onclick="goToScreen('murajaahMapScreen')" class="w-full bg-duo-green border-b-[6px] border-duo-green-dark rounded-[24px] p-5 shadow-sm cursor-pointer active:translate-y-1.5 active:border-b-0 transition-all flex items-center justify-between group overflow-hidden relative">
+                        <div class="absolute -right-4 -top-10 w-32 h-32 bg-white/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
+                        <div class="relative z-10">
+                            <h3 class="font-black text-[22px] text-white leading-tight mb-1">MurajaahQ</h3>
+                            <p class="text-[14px] font-bold text-white/90">Uji hafalan otomatis</p>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <button onclick="goToScreen('exploreScreen')" class="text-[#10b981] text-[13px] font-bold hover:underline active:scale-95 transition-transform cursor-pointer">Lihat Semua</button>
-                            <button class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center active:scale-95 cursor-pointer">
-                                <i data-lucide="sliders-horizontal" class="w-4 h-4 text-gray-700"></i>
-                            </button>
+                        <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center text-white relative z-10 shadow-sm border-2 border-white/30 group-hover:scale-110 transition-transform">
+                            <i data-lucide="mic" class="w-7 h-7"></i>
                         </div>
                     </div>
+                </div>
 
-                    <!-- SocialQ Feed Preview (Hanya 2 Postingan) -->
-                    <div class="relative z-10 flex flex-col gap-6">
-                        <!-- Post 1 -->
-                        <div class="w-full bg-[#fbcfe8] rounded-[32px] p-5 shadow-float border-4 border-white cursor-pointer hover:rotate-[-1deg] transition-transform origin-bottom">
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm">
-                                    <div>
-                                        <h4 class="font-bold text-gray-900 text-[14px]">Aisyah Rizki</h4>
-                                        <span class="text-[11px] text-pink-700 font-semibold bg-white/50 px-2 py-0.5 rounded-full flex items-center gap-1 w-max">
-                                            <i data-lucide="map-pin" class="w-3 h-3"></i> Masjid Raya
-                                        </span>
-                                    </div>
-                                </div>
-                                <button class="text-gray-900/50 hover:text-gray-900 active:scale-95"><i data-lucide="more-horizontal"></i></button>
-                            </div>
-                            
-                            <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
-                                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
-                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
-                                <div class="absolute bottom-6 left-0 w-full text-center px-4">
-                                    <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"Alhamdulillah sampai..."</span>
+                <!-- 4. Preview SocialQ (Horizontal Scroll) -->
+                <div class="px-0 relative mb-8">
+                    <div class="flex justify-between items-end mb-4 px-6">
+                        <div>
+                            <h3 class="font-extrabold text-[18px] text-gray-900">Preview SocialQ</h3>
+                            <p class="text-[12px] font-bold text-gray-400">100% Raw. No Filter.</p>
+                        </div>
+                        <button onclick="goToScreen('socialQScreen')" class="bg-sq-light text-sq-dark px-4 py-1.5 rounded-full text-[12px] font-bold active:scale-95 transition-transform cursor-pointer border border-sq-dark/10">Jelajahi Semua</button>
+                    </div>
+
+                    <div class="flex overflow-x-auto hide-scroll gap-4 px-6 pb-6 pt-1 snap-x snap-mandatory">
+                        <!-- Post Preview 1 -->
+                        <div onclick="goToScreen('socialQScreen')" class="snap-start w-[240px] bg-white rounded-[24px] p-4 shadow-card border border-gray-100 shrink-0 cursor-pointer hover:-translate-y-1 transition-transform relative">
+                            <div class="flex items-center gap-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" class="w-8 h-8 rounded-full border border-gray-200 object-cover">
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-[13px] leading-tight">Aisyah Rizki <i data-lucide="badge-check" class="w-3 h-3 inline text-[#1cb0f6] fill-[#1cb0f6] text-white"></i></h4>
+                                    <span class="text-[10px] text-gray-500 font-medium">Graphic Designer</span>
                                 </div>
                             </div>
-                            
-                            <div class="flex items-center justify-center gap-6 mt-4">
-                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-pink-600 active:scale-95 transition-all"><i data-lucide="heart" class="w-5 h-5"></i> 2.4k</button>
-                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-blue-600 active:scale-95 transition-all"><i data-lucide="message-circle" class="w-5 h-5"></i> 128</button>
-                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-green-600 active:scale-95 transition-all"><i data-lucide="send" class="w-5 h-5"></i></button>
+                            <div class="w-[180px] h-[180px] mx-auto rounded-full bg-gray-50 flex items-center justify-center overflow-hidden relative border-[4px] border-sq-light shadow-sm">
+                                <video src="https://vjs.zencdn.net/v/oceans.mp4" loop muted playsinline class="w-full h-full object-cover"></video>
+                                <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
+                                <i data-lucide="play-circle" class="absolute w-10 h-10 text-white/90 drop-shadow-md pointer-events-none"></i>
+                            </div>
+                            <div class="mt-3 text-center">
+                                <p class="text-[12px] text-gray-700 font-medium truncate">"Alhamdulillah selesai..."</p>
                             </div>
                         </div>
 
-                        <!-- Post 2 -->
-                        <div class="w-full bg-[#a7f3d0] rounded-[32px] p-5 shadow-float border-4 border-white cursor-pointer hover:rotate-[1deg] transition-transform origin-bottom">
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100" class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm">
-                                    <div>
-                                        <h4 class="font-bold text-gray-900 text-[14px]">Rizky Pratama</h4>
-                                        <span class="text-[11px] text-emerald-700 font-semibold bg-white/50 px-2 py-0.5 rounded-full flex items-center gap-1 w-max">
-                                            <i data-lucide="clock" class="w-3 h-3"></i> 2 jam lalu
-                                        </span>
-                                    </div>
-                                </div>
-                                <button class="text-gray-900/50 hover:text-gray-900 active:scale-95"><i data-lucide="more-horizontal"></i></button>
-                            </div>
-                            
-                            <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
-                                <img src="https://images.unsplash.com/photo-1585036156171-384164a8c675?w=400" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                                <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
-                                <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
-                                <div class="absolute bottom-6 left-0 w-full text-center px-4">
-                                    <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"Bismillah, tilawah sore..."</span>
+                        <!-- Post Preview 2 -->
+                        <div onclick="goToScreen('socialQScreen')" class="snap-start w-[240px] bg-white rounded-[24px] p-4 shadow-card border border-gray-100 shrink-0 cursor-pointer hover:-translate-y-1 transition-transform relative">
+                            <div class="flex items-center gap-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100" class="w-8 h-8 rounded-full border border-gray-200 object-cover">
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-[13px] leading-tight">Rizky Pratama</h4>
+                                    <span class="text-[10px] text-gray-500 font-medium">Product Manager</span>
                                 </div>
                             </div>
-                            
-                            <div class="flex items-center justify-center gap-6 mt-4">
-                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-pink-600 active:scale-95 transition-all"><i data-lucide="heart" class="w-5 h-5"></i> 1.1k</button>
-                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-blue-600 active:scale-95 transition-all"><i data-lucide="message-circle" class="w-5 h-5"></i> 45</button>
-                                <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-green-600 active:scale-95 transition-all"><i data-lucide="send" class="w-5 h-5"></i></button>
+                            <div class="w-[180px] h-[180px] mx-auto rounded-full bg-gray-50 flex items-center justify-center overflow-hidden relative border-[4px] border-sq-light shadow-sm">
+                                <video src="https://www.w3schools.com/html/mov_bbb.mp4" loop muted playsinline class="w-full h-full object-cover"></video>
+                                <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
+                                <i data-lucide="play-circle" class="absolute w-10 h-10 text-white/90 drop-shadow-md pointer-events-none"></i>
+                            </div>
+                            <div class="mt-3 text-center">
+                                <p class="text-[12px] text-gray-700 font-medium truncate">"Meeting sore ini lancar."</p>
                             </div>
                         </div>
+
+                        <!-- Post Preview 3 -->
+                        <div onclick="goToScreen('socialQScreen')" class="snap-start w-[240px] bg-white rounded-[24px] p-4 shadow-card border border-gray-100 shrink-0 cursor-pointer hover:-translate-y-1 transition-transform relative">
+                            <div class="flex items-center gap-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" class="w-8 h-8 rounded-full border border-gray-200 object-cover">
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-[13px] leading-tight">Albert</h4>
+                                    <span class="text-[10px] text-gray-500 font-medium">Software Engineer</span>
+                                </div>
+                            </div>
+                            <div class="w-[180px] h-[180px] mx-auto rounded-full bg-gray-50 flex items-center justify-center overflow-hidden relative border-[4px] border-sq-light shadow-sm">
+                                <video src="https://media.w3.org/2010/05/sintel/trailer.mp4" loop muted playsinline class="w-full h-full object-cover"></video>
+                                <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
+                                <i data-lucide="play-circle" class="absolute w-10 h-10 text-white/90 drop-shadow-md pointer-events-none"></i>
+                            </div>
+                            <div class="mt-3 text-center">
+                                <p class="text-[12px] text-gray-700 font-medium truncate">"Masya Allah, indah sekali."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Floating Bottom Nav -->
+            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] bg-white rounded-[28px] py-4 px-6 shadow-float border border-gray-100 flex justify-between items-center z-50">
+                <button class="text-sq-dark flex flex-col items-center gap-1 active:scale-95 transition-transform cursor-pointer">
+                    <i data-lucide="home" class="w-6 h-6 fill-current"></i>
+                    <div class="w-1.5 h-1.5 bg-sq-dark rounded-full"></div>
+                </button>
+                <button onclick="goToScreen('socialQScreen')" class="text-gray-400 hover:text-sq-dark active:scale-95 transition-all cursor-pointer">
+                    <i data-lucide="layout-grid" class="w-6 h-6"></i>
+                </button>
+                <button onclick="goToScreen('cameraScreen')" class="w-14 h-14 bg-sq-dark rounded-full flex items-center justify-center shadow-lg -mt-10 border-[5px] border-[#f8fafc] text-white hover:scale-105 active:scale-95 transition-transform cursor-pointer">
+                    <i data-lucide="plus" class="w-6 h-6"></i>
+                </button>
+                <button class="text-gray-400 hover:text-sq-dark active:scale-95 transition-all cursor-pointer">
+                    <i data-lucide="message-circle" class="w-6 h-6"></i>
+                </button>
+                <button class="text-gray-400 hover:text-sq-dark active:scale-95 transition-all cursor-pointer relative">
+                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-7 h-7 rounded-full border border-gray-300 object-cover">
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 8: SOCIALQ (LINKEDIN STYLE REDESIGN)-->
+        <!-- ========================================== -->
+        <div id="socialQScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-sq-light overflow-hidden z-20">
+            <!-- Header -->
+            <div class="pt-14 pb-4 px-5 flex items-center justify-between bg-white sticky top-0 z-30 border-b border-gray-100 shadow-sm">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-sq-dark text-white rounded-lg flex items-center justify-center font-black text-xl leading-none">Q</div>
+                    <h2 class="text-[20px] font-extrabold text-sq-dark tracking-tight">SocialQ.</h2>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-sq-dark hover:bg-gray-100 transition">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </button>
+                    <button class="relative w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-sq-dark hover:bg-gray-100 transition">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <div class="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white flex items-center justify-center text-[7px] text-white font-bold">3</div>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto hide-scroll pb-32">
+                <!-- Stories Carousel -->
+                <div class="bg-white px-2 py-4 shadow-[0_4px_10px_rgba(0,0,0,0.02)] mb-2 relative z-20">
+                    <div class="flex overflow-x-auto hide-scroll gap-4 px-3">
+                        <div onclick="goToScreen('cameraScreen')" class="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition">
+                            <div class="w-[68px] h-[68px] rounded-full border-[3px] border-dashed border-gray-300 p-0.5 relative">
+                                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-full h-full rounded-full object-cover">
+                                <div class="absolute bottom-0 right-0 w-6 h-6 bg-[#1cb0f6] text-white rounded-full flex items-center justify-center border-2 border-white"><i data-lucide="plus" class="w-4 h-4"></i></div>
+                            </div>
+                            <span class="text-[12px] font-bold text-gray-700">Add</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition">
+                            <div class="w-[68px] h-[68px] rounded-full border-[3px] border-sq-dark p-0.5">
+                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" class="w-full h-full rounded-full object-cover">
+                            </div>
+                            <span class="text-[12px] font-bold text-gray-700">Robert</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition relative">
+                            <div class="w-[68px] h-[68px] rounded-full border-[3px] border-sq-dark p-0.5">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" class="w-full h-full rounded-full object-cover">
+                            </div>
+                            <span class="text-[12px] font-bold text-gray-700 flex items-center gap-1">Dianne <i data-lucide="badge-check" class="w-3 h-3 text-[#1cb0f6] fill-[#1cb0f6] text-white"></i></span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition">
+                            <div class="w-[68px] h-[68px] rounded-full border-[3px] border-gray-300 p-0.5">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" class="w-full h-full rounded-full object-cover">
+                            </div>
+                            <span class="text-[12px] font-bold text-gray-500">Albert</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition">
+                            <div class="w-[68px] h-[68px] rounded-full border-[3px] border-gray-300 p-0.5">
+                                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" class="w-full h-full rounded-full object-cover">
+                            </div>
+                            <span class="text-[12px] font-bold text-gray-500">Cathy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pills / Filters -->
+                <div class="bg-white px-5 py-3 mb-2 flex gap-3 overflow-x-auto hide-scroll z-10 border-b border-gray-100">
+                    <button class="bg-[#1cb0f6] text-white px-4 py-1.5 rounded-full text-[13px] font-bold shrink-0 shadow-sm flex items-center gap-1"><i data-lucide="plus-circle" class="w-4 h-4"></i> Post</button>
+                    <button class="bg-gray-100 text-gray-700 px-4 py-1.5 rounded-full text-[13px] font-bold shrink-0 hover:bg-gray-200 transition">For You <span class="bg-sq-dark text-white px-1.5 py-0.5 rounded-full text-[10px] ml-1">12</span></button>
+                    <button class="bg-gray-100 text-gray-700 px-4 py-1.5 rounded-full text-[13px] font-bold shrink-0 hover:bg-gray-200 transition">Following</button>
+                    <button class="bg-gray-100 text-gray-700 px-4 py-1.5 rounded-full text-[13px] font-bold shrink-0 hover:bg-gray-200 transition">Muhsinin</button>
+                </div>
+
+                <!-- Feed Container -->
+                <div class="px-2 pt-2">
+                    <div class="flex justify-between items-center mb-3 px-3">
+                        <h3 class="font-extrabold text-[16px] text-gray-900">All Feeds</h3>
+                        <i data-lucide="more-horizontal" class="w-5 h-5 text-gray-500"></i>
+                    </div>
+                    <div id="socialq-main-feed-container" class="flex flex-col gap-4">
+                        <!-- Data dimasukkan via JS -->
                     </div>
                 </div>
             </div>
 
             <!-- Floating Bottom Nav -->
-            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] bg-gray-900 text-white rounded-full py-4 px-6 shadow-[0_20px_40px_rgba(0,0,0,0.3)] flex justify-between items-center z-50">
-                <button class="text-[#10b981] flex flex-col items-center gap-1 active:scale-95 transition-transform cursor-pointer">
+            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] bg-white rounded-[28px] py-4 px-6 shadow-float border border-gray-100 flex justify-between items-center z-50">
+                <button onclick="goToScreen('homeScreen')" class="text-gray-400 hover:text-sq-dark active:scale-95 transition-all cursor-pointer">
                     <i data-lucide="home" class="w-6 h-6"></i>
-                    <div class="w-1 h-1 bg-[#10b981] rounded-full"></div>
                 </button>
-                <button onclick="goToScreen('exploreScreen')" class="text-gray-400 hover:text-white active:scale-95 transition-all cursor-pointer">
-                    <i data-lucide="search" class="w-6 h-6"></i>
+                <button class="text-sq-dark flex flex-col items-center gap-1 active:scale-95 transition-transform cursor-pointer">
+                    <i data-lucide="layout-grid" class="w-6 h-6 fill-current"></i>
+                    <div class="w-1.5 h-1.5 bg-sq-dark rounded-full"></div>
                 </button>
-                <button onclick="goToScreen('cameraScreen')" class="w-14 h-14 bg-gradient-to-tr from-[#10b981] to-[#6ee7b7] rounded-full flex items-center justify-center shadow-lg -mt-10 border-[5px] border-[#f8fafc] text-white hover:scale-105 active:scale-95 transition-transform cursor-pointer">
-                    <i data-lucide="plus" class="w-7 h-7"></i>
+                <button onclick="goToScreen('cameraScreen')" class="w-14 h-14 bg-[#1cb0f6] rounded-full flex items-center justify-center shadow-lg -mt-10 border-[5px] border-white text-white hover:scale-105 active:scale-95 transition-transform cursor-pointer">
+                    <i data-lucide="plus" class="w-6 h-6"></i>
                 </button>
-                <button class="text-gray-400 hover:text-white active:scale-95 transition-all cursor-pointer">
+                <button class="text-gray-400 hover:text-sq-dark active:scale-95 transition-all cursor-pointer">
                     <i data-lucide="message-circle" class="w-6 h-6"></i>
                 </button>
-                <button class="text-gray-400 hover:text-white active:scale-95 transition-all cursor-pointer relative">
-                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-7 h-7 rounded-full border border-gray-600 object-cover">
+                <button class="text-gray-400 hover:text-sq-dark active:scale-95 transition-all cursor-pointer relative">
+                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-7 h-7 rounded-full border border-gray-300 object-cover">
                 </button>
             </div>
         </div>
 
         <!-- ========================================== -->
-        <!-- SCREEN 8: EXPLORE SOCIALQ (100 POSTS)      -->
+        <!-- SCREEN 9: CAMERA (PHOTO & VIDEO TOGGLE)    -->
         <!-- ========================================== -->
-        <div id="exploreScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#f8fafc] overflow-hidden z-20">
-            <div class="pt-14 pb-4 px-6 flex items-center justify-between bg-[#f8fafc]/95 backdrop-blur-md sticky top-0 z-30 border-b border-gray-100">
-                <button onclick="goToScreen('homeScreen')" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors cursor-pointer active:scale-95">
-                    <i data-lucide="arrow-left" class="w-5 h-5 text-gray-900"></i>
-                </button>
-                <h2 class="text-[20px] font-extrabold text-gray-900">Explore SocialQ</h2>
-                <button onclick="goToScreen('cameraScreen')" class="w-10 h-10 bg-[#10b981] text-white flex items-center justify-center rounded-full hover:bg-[#047857] transition-colors cursor-pointer active:scale-95 shadow-md">
-                    <i data-lucide="plus" class="w-5 h-5"></i>
-                </button>
-            </div>
-            
-            <!-- Feed Container untuk 100 Postingan (Dibuat otomatis oleh JS) -->
-            <div id="socialq-feed-container" class="flex-1 overflow-y-auto hide-scroll px-4 pt-6 pb-10 flex flex-col gap-6">
-                <!-- Data akan di-generate oleh JavaScript -->
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SCREEN 9: CAMERA (DIRECT IN-APP RECORD)    -->
-        <!-- ========================================== -->
-        <div id="cameraScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#121212] overflow-hidden z-[70]">
+        <div id="cameraScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-black overflow-hidden z-[70]">
             <!-- Header Camera -->
-            <div class="pt-14 px-6 flex justify-between items-center z-30">
-                <button onclick="goToScreen('homeScreen')" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer active:scale-95">
+            <div class="pt-14 px-6 flex justify-between items-center z-40 relative">
+                <button onclick="goToScreen('socialQScreen')" class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-colors cursor-pointer active:scale-95">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
-                <span class="text-white font-bold text-[15px]">Buat SocialQ</span>
-                <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center text-white cursor-pointer active:scale-95"><i data-lucide="settings" class="w-4 h-4"></i></div>
+                <div class="flex gap-2 bg-black/40 backdrop-blur-md p-1 rounded-full">
+                    <button onclick="setCameraMode('photo')" id="cam-mode-photo" class="text-sq-dark font-bold text-[13px] px-4 py-1.5 rounded-full transition-colors bg-white">Photo</button>
+                    <button onclick="setCameraMode('video')" id="cam-mode-video" class="text-gray-300 font-bold text-[13px] px-4 py-1.5 rounded-full transition-colors">Video</button>
+                </div>
+                <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white cursor-pointer active:scale-95"><i data-lucide="settings" class="w-4 h-4"></i></div>
             </div>
             
             <!-- Circular Camera Viewfinder -->
-            <div class="flex-1 flex flex-col items-center justify-center relative px-6 mt-4">
-                <div class="w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[8px] border-[#10b981] overflow-hidden relative shadow-[0_0_50px_rgba(16,185,129,0.2)] bg-gray-900">
-                    <!-- Simulasi Tampilan Kamera -->
+            <div class="flex-1 flex flex-col items-center justify-center relative px-6 mt-4 z-10">
+                <div class="w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[4px] border-white overflow-hidden relative shadow-[0_0_50px_rgba(255,255,255,0.2)] bg-gray-900 transition-all duration-300" id="cam-viewfinder-border">
                     <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/10"></div>
+                    <!-- Flash Effect overlay -->
+                    <div id="cam-flash" class="absolute inset-0 bg-white opacity-0 pointer-events-none z-50"></div>
                 </div>
             </div>
             
             <!-- Record Controls -->
-            <div class="pb-16 pt-4 flex flex-col items-center">
+            <div class="pb-24 pt-4 flex flex-col items-center z-40 relative">
                 <span id="record-timer" class="text-white text-[18px] mb-4 font-bold tracking-widest hidden bg-black/50 px-4 py-1 rounded-full backdrop-blur-md">00:00</span>
                 
-                <!-- Tombol Rekam (Tahan untuk merekam) -->
+                <!-- Tombol Rekam -->
                 <button id="record-btn" 
                     onmousedown="startRecording(event)" 
                     onmouseup="stopRecording(event)" 
                     onmouseleave="stopRecording(event)" 
                     ontouchstart="startRecording(event)" 
                     ontouchend="stopRecording(event)" 
-                    class="w-20 h-20 bg-transparent border-[5px] border-white rounded-full p-1.5 cursor-pointer flex items-center justify-center select-none touch-none">
-                    <div id="record-inner" class="w-full h-full bg-red-500 rounded-full transition-all duration-300 pointer-events-none"></div>
+                    class="w-[84px] h-[84px] bg-transparent border-[5px] border-white rounded-full p-1.5 cursor-pointer flex items-center justify-center select-none touch-none transition-all">
+                    <div id="record-inner" class="w-full h-full bg-white rounded-full transition-all duration-300 pointer-events-none"></div>
                 </button>
                 
-                <p class="text-white/60 text-[13px] font-semibold mt-6 text-center max-w-[200px]">Tahan untuk merekam<br>(Maks 15 detik)</p>
+                <p id="cam-instruction" class="text-white/60 text-[13px] font-semibold mt-6 text-center max-w-[200px]">Ketuk untuk menjepret<br>momen otentikmu</p>
             </div>
         </div>
 
         <!-- ========================================== -->
-        <!-- SCREEN 10: PREVIEW (ANTI-EDIT)             -->
+        <!-- SCREEN 10: PREVIEW (RAW PHOTO / VIDEO)     -->
         <!-- ========================================== -->
         <div id="previewScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#121212] overflow-hidden z-[75]">
             <div class="pt-14 px-6 flex justify-center items-center z-30">
-                <span class="text-white font-bold text-[15px]">Pratinjau Video (Raw)</span>
+                <span class="text-white font-bold text-[15px]">Pratinjau <span id="preview-type-text">Foto</span> (Raw)</span>
             </div>
             
             <div class="flex-1 flex items-center justify-center relative px-6">
-                <!-- Menampilkan video bundar hasil rekam -->
+                <!-- Preview Circular -->
                 <div class="w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[8px] border-white overflow-hidden relative shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/20 flex items-center justify-center">
+                    <img id="preview-img" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover">
+                    <!-- Icon play jika tipe video -->
+                    <div id="preview-video-icon" class="absolute inset-0 bg-black/20 hidden items-center justify-center pointer-events-none">
                         <i data-lucide="play" class="w-16 h-16 text-white drop-shadow-md"></i>
                     </div>
                 </div>
@@ -690,44 +832,39 @@
             
             <!-- Tindakan Final (Tanpa Edit) -->
             <div class="pb-16 px-6">
-                <div class="bg-white/10 rounded-2xl p-4 mb-6">
-                    <p class="text-center text-white/80 text-[13px] font-semibold flex items-center justify-center gap-2">
-                        <i data-lucide="shield-check" class="w-4 h-4 text-[#10b981]"></i> 100% Authentic & Raw
+                <div class="bg-white/10 rounded-2xl p-4 mb-6 backdrop-blur-md">
+                    <p class="text-center text-white/90 text-[13px] font-bold flex items-center justify-center gap-2">
+                        <i data-lucide="shield-check" class="w-5 h-5 text-[#1cb0f6]"></i> 100% Authentic & Raw
                     </p>
-                    <p class="text-center text-white/50 text-[11px] mt-2">SpaceQ tidak menyediakan fitur filter atau pemotong video untuk menjaga keaslian momenmu.</p>
+                    <p class="text-center text-white/50 text-[11px] mt-2 leading-relaxed">SpaceQ tidak menyediakan fitur filter atau pemotong media untuk menjaga keaslian momenmu.</p>
                 </div>
                 
                 <div class="flex gap-4">
-                    <button onclick="goToScreen('cameraScreen')" class="flex-1 py-4 rounded-full bg-white/10 text-white font-bold text-[14px] hover:bg-white/20 transition-colors active:scale-95 cursor-pointer">Batal & Ulangi</button>
-                    <button onclick="startModeration()" class="flex-1 py-4 rounded-full bg-gradient-to-r from-[#10b981] to-[#047857] text-white font-bold text-[14px] shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[1.02] active:scale-95 transition-all cursor-pointer">Posting Sekarang</button>
+                    <button onclick="goToScreen('cameraScreen')" class="flex-1 py-4 rounded-xl bg-white/10 text-white font-bold text-[14px] hover:bg-white/20 transition-colors active:scale-95 cursor-pointer">Batal</button>
+                    <button onclick="startModeration()" class="flex-[2] py-4 rounded-xl bg-[#1cb0f6] text-white font-bold text-[14px] shadow-lg hover:scale-[1.02] active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2">Posting ke SocialQ <i data-lucide="send" class="w-4 h-4"></i></button>
                 </div>
             </div>
         </div>
 
         <!-- ========================================== -->
-        <!-- SCREEN 11: AI MODERATION                   -->
+        <!-- SCREEN 11: MODERASI SISTEM (SIMULASI)      -->
         <!-- ========================================== -->
-        <div id="moderationScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#0f172a] overflow-hidden z-[80]">
+        <div id="moderationScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-white overflow-hidden z-[80]">
             <div class="flex-1 flex flex-col items-center justify-center relative px-6">
-                
                 <!-- Circular Scanning UI -->
-                <div class="w-[240px] h-[240px] rounded-full border-[6px] border-white/10 overflow-hidden relative shadow-[0_0_50px_rgba(16,185,129,0.1)] mb-8">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover filter grayscale brightness-[0.3]">
-                    
-                    <!-- Scanline (Laser hijau) -->
-                    <div class="absolute w-full h-[3px] bg-[#10b981] shadow-[0_0_20px_4px_#10b981] animate-scan z-20"></div>
-                    
-                    <!-- Grid overlay untuk kesan teknologi -->
-                    <div class="absolute inset-0 z-10 opacity-20" style="background-image: linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px); background-size: 20px 20px;"></div>
+                <div class="w-[200px] h-[200px] rounded-full border-[6px] border-gray-100 overflow-hidden relative shadow-lg mb-8 bg-gray-900">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover filter grayscale brightness-[0.7]">
+                    <!-- Scanline -->
+                    <div class="absolute w-full h-[4px] bg-[#1cb0f6] shadow-[0_0_20px_4px_#1cb0f6] animate-scan z-20"></div>
                 </div>
                 
-                <h3 class="text-white font-extrabold text-[22px] mt-4 mb-2 tracking-tight">AI Moderasi Aktif</h3>
-                <p class="text-white/60 text-center text-[13px] px-4 leading-relaxed max-w-[280px]">
-                    Memindai audio & visual untuk memastikan tidak ada ujaran kebencian atau konten non-halal.
+                <h3 class="text-gray-900 font-extrabold text-[22px] mt-4 mb-2 tracking-tight">Sistem Moderasi Aktif</h3>
+                <p class="text-gray-500 text-center text-[13px] px-4 leading-relaxed max-w-[280px]">
+                    Memindai gambar/audio untuk memastikan tidak ada ujaran kebencian atau konten non-halal.
                 </p>
-                <div class="mt-8 flex items-center gap-2 text-[#10b981] bg-[#10b981]/10 px-4 py-2 rounded-full border border-[#10b981]/20">
-                    <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>
-                    <span class="text-[12px] font-bold">Proses maksimal 1 menit...</span>
+                <div class="mt-8 flex items-center gap-2 text-[#1cb0f6] bg-[#1cb0f6]/10 px-5 py-2.5 rounded-full border border-[#1cb0f6]/20 shadow-sm">
+                    <i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>
+                    <span class="text-[13px] font-bold">Memproses konten...</span>
                 </div>
             </div>
         </div>
@@ -747,10 +884,7 @@
                 </button>
             </div>
             
-            <!-- Room List (Overlapping Cards) -->
             <div class="flex-1 overflow-y-auto hide-scroll px-6 pt-6 pb-24 flex flex-col">
-                
-                <!-- Card 1 (Cyan) -->
                 <div class="w-full bg-[#bae6fd] rounded-[28px] p-5 shadow-float border-4 border-white cursor-pointer hover:-translate-y-2 transition-transform relative z-10 mb-[-15px]">
                     <div class="flex justify-between items-start mb-3">
                         <div>
@@ -760,9 +894,7 @@
                                 <span class="bg-blue-100 border border-blue-200 text-blue-800 px-2 py-1 rounded-md text-[10px] font-bold">IKHWAN</span>
                             </div>
                         </div>
-                        <div class="bg-white/50 px-2 py-1 rounded-full text-[11px] font-bold text-gray-800 shadow-sm flex items-center gap-1">
-                            👤 6/10
-                        </div>
+                        <div class="bg-white/50 px-2 py-1 rounded-full text-[11px] font-bold text-gray-800 shadow-sm flex items-center gap-1">👤 6/10</div>
                     </div>
                     <div class="flex items-center justify-between mt-4">
                         <div class="flex gap-[-8px]">
@@ -770,13 +902,10 @@
                             <img src="https://i.pravatar.cc/100?img=12" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
                             <img src="https://i.pravatar.cc/100?img=13" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
                         </div>
-                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">
-                            Gabung
-                        </button>
+                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">Gabung</button>
                     </div>
                 </div>
 
-                <!-- Card 2 (Mint) -->
                 <div class="w-full bg-[#a7f3d0] rounded-[28px] p-5 shadow-float border-4 border-white cursor-pointer hover:-translate-y-2 transition-transform relative z-20 mb-[-15px]">
                     <div class="flex justify-between items-start mb-3">
                         <div>
@@ -786,9 +915,7 @@
                                 <span class="bg-emerald-100 border border-emerald-200 text-emerald-800 px-2 py-1 rounded-md text-[10px] font-bold">AKHWAT</span>
                             </div>
                         </div>
-                        <div class="bg-white/50 px-2 py-1 rounded-full text-[11px] font-bold text-gray-800 shadow-sm flex items-center gap-1">
-                            👤 8/10
-                        </div>
+                        <div class="bg-white/50 px-2 py-1 rounded-full text-[11px] font-bold text-gray-800 shadow-sm flex items-center gap-1">👤 8/10</div>
                     </div>
                     <div class="flex items-center justify-between mt-4">
                         <div class="flex gap-[-8px]">
@@ -796,13 +923,10 @@
                             <img src="https://i.pravatar.cc/100?img=9" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
                             <img src="https://i.pravatar.cc/100?img=1" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
                         </div>
-                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">
-                            Gabung
-                        </button>
+                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">Gabung</button>
                     </div>
                 </div>
 
-                <!-- Card 3 (Peach) -->
                 <div class="w-full bg-[#fed7aa] rounded-[28px] p-5 shadow-float border-4 border-white cursor-pointer hover:-translate-y-2 transition-transform relative z-30">
                     <div class="flex justify-between items-start mb-3">
                         <div>
@@ -812,9 +936,7 @@
                                 <span class="bg-orange-100 border border-orange-200 text-orange-800 px-2 py-1 rounded-md text-[10px] font-bold">IKHWAN</span>
                             </div>
                         </div>
-                        <div class="bg-white/50 px-2 py-1 rounded-full text-[11px] font-bold text-gray-800 shadow-sm flex items-center gap-1">
-                            👤 3/10
-                        </div>
+                        <div class="bg-white/50 px-2 py-1 rounded-full text-[11px] font-bold text-gray-800 shadow-sm flex items-center gap-1">👤 3/10</div>
                     </div>
                     <div class="flex items-center justify-between mt-4">
                         <div class="flex gap-[-8px]">
@@ -822,14 +944,11 @@
                             <img src="https://i.pravatar.cc/100?img=15" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
                             <div class="w-8 h-8 rounded-full border-2 border-white bg-white flex items-center justify-center font-bold text-gray-400 text-[10px] -ml-2 shadow-sm">+1</div>
                         </div>
-                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">
-                            Gabung
-                        </button>
+                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">Gabung</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Floating Action Button (Create Room) -->
             <button onclick="openCreateRoomModal()" class="absolute bottom-10 right-6 w-16 h-16 bg-gradient-to-tr from-[#10b981] to-[#6ee7b7] rounded-full flex items-center justify-center shadow-heavy border-4 border-white text-white hover:scale-105 active:scale-95 transition-transform cursor-pointer z-40">
                 <i data-lucide="plus" class="w-8 h-8"></i>
             </button>
@@ -839,15 +958,13 @@
         <!-- SCREEN 13: IN-ROOM TADARUSQ                -->
         <!-- ========================================== -->
         <div id="tadarusRoomScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-white overflow-hidden z-[45]">
-            <!-- Area Atas (Layar Al-Qur'an ~ 55%) -->
             <div class="h-[55%] bg-[#fdfbf7] flex flex-col relative">
-                <!-- In-Room Header -->
                 <div class="pt-14 px-6 flex items-center justify-between z-10 relative bg-gradient-to-b from-[#fdfbf7] to-transparent pb-4">
                     <button onclick="goToScreen('tadarusLobbyScreen')" class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer active:scale-95">
                         <i data-lucide="log-out" class="w-5 h-5 text-red-500"></i>
                     </button>
                     <div class="flex flex-col items-center">
-                        <h2 class="text-[16px] font-extrabold text-gray-900">Gas Khatam Juz 30</h2>
+                        <h2 id="tadarus-room-title" class="text-[16px] font-extrabold text-gray-900">Gas Khatam Juz 30</h2>
                         <span class="bg-white px-2 py-0.5 rounded-full text-[10px] font-bold text-[#10b981] border border-[#10b981]/20 mt-1 shadow-sm">Live • 👤 6/10 Peserta</span>
                     </div>
                     <button class="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm border border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer">
@@ -855,19 +972,20 @@
                     </button>
                 </div>
                 
-                <!-- Digital Quran Area -->
-                <div class="flex-1 overflow-y-auto hide-scroll px-8 pb-8 text-center flex flex-col items-center justify-start mt-2">
-                    <p class="text-[32px] text-gray-900 leading-[2.5]" style="font-family: 'Amiri', serif;">
+                <div id="tadarus-quran-area" class="flex-1 overflow-y-auto hide-scroll px-6 pb-8 text-center flex flex-col items-center justify-start mt-2">
+                    <div class="bg-white/80 backdrop-blur-md text-gray-500 text-[10px] font-bold px-3 py-1.5 rounded-full mb-4 flex items-center gap-1.5 shadow-sm border border-gray-100">
+                        <i data-lucide="hand" class="w-3.5 h-3.5 text-[#10b981]"></i> Ketuk ayat untuk menggeser stabilo
+                    </div>
+                    <p class="text-[28px] text-gray-900 leading-[2.5] mb-4" style="font-family: 'Amiri', serif;">
                         بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
                     </p>
-                    <p class="text-[36px] text-gray-900 leading-[2.5] mt-6" style="font-family: 'Amiri', serif;">
-                        عَمَّ يَتَسَاءَلُونَ ﴿١﴾ عَنِ النَّبَإِ الْعَظِيمِ ﴿٢﴾ الَّذِي هُمْ فِيهِ <span class="bg-[#10b981]/20 text-[#047857] px-1 rounded">مُخْتَلِفُونَ</span> ﴿٣﴾ كَلَّا سَيَعْلَمُونَ ﴿٤﴾ ثُمَّ كَلَّا سَيَعْلَمُونَ ﴿٥﴾ أَلَمْ نَجْعَلِ الْأَرْضَ مِهَادًا ﴿٦﴾ وَالْجِبَالَ أَوْتَادًا ﴿٧﴾
-                    </p>
-                    <p class="text-gray-400 text-[12px] font-bold mt-8 uppercase tracking-widest border-t border-gray-200 pt-4">Surah An-Naba</p>
+                    <div id="tadarus-ayahs-container" class="text-[32px] text-gray-900 leading-[2.5]" style="font-family: 'Amiri', serif;" dir="rtl">
+                        <!-- Dynamic Content Ayah -->
+                    </div>
                 </div>
             </div>
 
-            <!-- Area Bawah (Grid Pengguna ~ 45%) -->
+            <!-- Area Bawah -->
             <div class="h-[45%] bg-white rounded-t-[32px] shadow-[0_-15px_40px_rgba(0,0,0,0.08)] flex flex-col z-20 relative border-t border-gray-100">
                 <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mt-3 mb-3"></div>
                 <div class="px-6 flex justify-between items-center mb-4">
@@ -877,9 +995,7 @@
                     </button>
                 </div>
                 
-                <!-- Grid 10 Pengguna -->
                 <div class="px-6 grid grid-cols-5 gap-y-6 gap-x-2 pb-6">
-                    <!-- Active Speaker (Pulsing) -->
                     <div class="flex flex-col items-center gap-1 relative">
                         <div class="w-12 h-12 rounded-full relative">
                             <div class="absolute inset-0 rounded-full ring-4 ring-[#10b981] animate-pulse"></div>
@@ -887,8 +1003,6 @@
                         </div>
                         <span class="text-[10px] font-bold text-gray-900 truncate w-full text-center">Nafis</span>
                     </div>
-
-                    <!-- Muted Listeners -->
                     <div class="flex flex-col items-center gap-1 relative">
                         <div class="w-12 h-12 rounded-full relative">
                             <img src="https://i.pravatar.cc/100?img=11" class="w-full h-full rounded-full object-cover border-2 border-gray-100">
@@ -898,7 +1012,6 @@
                         </div>
                         <span class="text-[10px] font-bold text-gray-500 truncate w-full text-center">Fahmi</span>
                     </div>
-                    
                     <div class="flex flex-col items-center gap-1 relative">
                         <div class="w-12 h-12 rounded-full relative">
                             <img src="https://i.pravatar.cc/100?img=12" class="w-full h-full rounded-full object-cover border-2 border-gray-100">
@@ -908,7 +1021,6 @@
                         </div>
                         <span class="text-[10px] font-bold text-gray-500 truncate w-full text-center">Budi</span>
                     </div>
-
                     <div class="flex flex-col items-center gap-1 relative">
                         <div class="w-12 h-12 rounded-full relative">
                             <img src="https://i.pravatar.cc/100?img=13" class="w-full h-full rounded-full object-cover border-2 border-gray-100">
@@ -918,7 +1030,6 @@
                         </div>
                         <span class="text-[10px] font-bold text-gray-500 truncate w-full text-center">Iqbal</span>
                     </div>
-
                     <div class="flex flex-col items-center gap-1 relative">
                         <div class="w-12 h-12 rounded-full relative">
                             <img src="https://i.pravatar.cc/100?img=14" class="w-full h-full rounded-full object-cover border-2 border-gray-100">
@@ -928,7 +1039,6 @@
                         </div>
                         <span class="text-[10px] font-bold text-gray-500 truncate w-full text-center">Hafiz</span>
                     </div>
-
                     <div class="flex flex-col items-center gap-1 relative">
                         <div class="w-12 h-12 rounded-full relative">
                             <img src="https://i.pravatar.cc/100?img=15" class="w-full h-full rounded-full object-cover border-2 border-gray-100">
@@ -938,32 +1048,226 @@
                         </div>
                         <span class="text-[10px] font-bold text-gray-500 truncate w-full text-center">Dika</span>
                     </div>
+                    <div class="flex flex-col items-center gap-1 relative opacity-70">
+                        <div class="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
+                            <i data-lucide="plus" class="w-4 h-4 text-gray-300"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-gray-400">Kosong</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    <!-- Empty Slots -->
-                    <div class="flex flex-col items-center gap-1 relative opacity-70">
-                        <div class="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
-                            <i data-lucide="plus" class="w-4 h-4 text-gray-300"></i>
-                        </div>
-                        <span class="text-[10px] font-bold text-gray-400">Kosong</span>
+        <!-- ========================================== -->
+        <!-- SCREEN 13.5: MURAJAAHQ MAP                 -->
+        <!-- ========================================== -->
+        <div id="murajaahMapScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#fbfbfd] overflow-hidden z-[48]">
+            <div class="pt-14 px-6 flex items-center justify-between bg-white border-b-2 border-gray-100 pb-4 sticky top-0 z-20">
+                <button onclick="goToScreen('homeScreen')" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors cursor-pointer active:scale-95">
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-gray-500"></i>
+                </button>
+                
+                <div class="flex items-center gap-3">
+                    <div class="flex flex-col items-end">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Kasta</span>
+                        <div class="flex items-center gap-1"><i data-lucide="shield" class="w-3.5 h-3.5 text-orange-500"></i> <span id="kasta-text" class="text-[13px] font-black text-gray-800">Pemula</span></div>
                     </div>
-                    <div class="flex flex-col items-center gap-1 relative opacity-70">
-                        <div class="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
-                            <i data-lucide="plus" class="w-4 h-4 text-gray-300"></i>
-                        </div>
-                        <span class="text-[10px] font-bold text-gray-400">Kosong</span>
+                    <div class="h-8 w-[2px] bg-gray-200"></div>
+                    <div class="flex flex-col items-start">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">XP Saya</span>
+                        <span id="xp-text" class="text-[13px] font-black text-duo-blue">0 XP</span>
                     </div>
-                    <div class="flex flex-col items-center gap-1 relative opacity-70">
-                        <div class="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
-                            <i data-lucide="plus" class="w-4 h-4 text-gray-300"></i>
-                        </div>
-                        <span class="text-[10px] font-bold text-gray-400">Kosong</span>
+                </div>
+
+                <div class="flex items-center gap-1 text-duo-red font-bold text-[16px]">
+                    <i data-lucide="heart" class="w-6 h-6 fill-current"></i> <span id="map-hearts-header">5</span>
+                </div>
+            </div>
+            
+            <div id="murajaah-level-map" class="flex-1 overflow-y-auto hide-scroll px-6 py-12 flex flex-col gap-8 relative items-center pb-24">
+                <!-- Data dimasukkan oleh JS -->
+            </div>
+
+            <!-- Versus Mode Floating Bar -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-[85%] z-30">
+                <button onclick="goToScreen('murajaahVersusLobbyScreen')" class="w-full bg-vs-purple border-b-[6px] border-vs-purple-dark rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] active:border-b-0 active:translate-y-[6px] transition-all cursor-pointer shadow-lg hover:scale-[1.02]">
+                    <i data-lucide="swords" class="w-6 h-6"></i> MODE VERSUS
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 13.6: MURAJAAHQ VERSUS LOBBY        -->
+        <!-- ========================================== -->
+        <div id="murajaahVersusLobbyScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-vs-purple text-white overflow-hidden z-[49]">
+            <div class="pt-14 px-6 flex items-center justify-between pb-4 sticky top-0 z-20">
+                <button onclick="goToScreen('murajaahMapScreen')" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors cursor-pointer active:scale-95">
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-white"></i>
+                </button>
+                <h2 class="text-[20px] font-black tracking-tight">Undang Teman</h2>
+                <div class="w-10 h-10"></div>
+            </div>
+            
+            <div class="flex-1 bg-white mt-4 rounded-t-[40px] text-gray-800 p-8 shadow-[0_-10px_40px_rgba(0,0,0,0.2)] flex flex-col relative">
+                
+                <h3 class="font-extrabold text-[18px] mb-4">Gunakan kode</h3>
+                <div class="flex items-center gap-3 bg-gray-50 border-2 border-gray-100 rounded-2xl p-4 cursor-pointer active:scale-95 transition-transform mb-3">
+                    <div class="bg-vs-purple/10 p-2 rounded-lg"><i data-lucide="users" class="w-6 h-6 text-vs-purple"></i></div>
+                    <span class="font-bold text-[15px] flex-1">Masukkan kode teman</span>
+                </div>
+                <div class="flex items-center gap-3 bg-gray-50 border-2 border-gray-100 rounded-2xl p-4 cursor-pointer active:scale-95 transition-transform mb-8 relative">
+                    <div class="bg-duo-green/10 p-2 rounded-lg"><i data-lucide="copy" class="w-6 h-6 text-duo-green"></i></div>
+                    <span class="font-bold text-[15px] flex-1">Salin kodemu</span>
+                    <span class="text-[12px] font-black text-gray-400 absolute right-4 tracking-widest uppercase">MJA-24X</span>
+                </div>
+
+                <h3 class="font-extrabold text-[18px] mb-4">Kirim undangan</h3>
+                <div class="flex items-center gap-3 bg-gray-50 border-2 border-gray-100 rounded-2xl p-4 cursor-pointer active:scale-95 transition-transform mb-8">
+                    <div class="bg-gray-800 p-2 rounded-lg"><i data-lucide="share" class="w-6 h-6 text-white"></i></div>
+                    <span class="font-bold text-[15px] flex-1">Bagikan tautan undangan</span>
+                </div>
+
+                <div class="absolute bottom-8 left-6 right-6">
+                    <button onclick="startVersusMatch()" class="w-full bg-duo-green border-b-[5px] border-duo-green-dark rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] active:border-b-0 active:translate-y-[5px] transition-all cursor-pointer">
+                        MULAI TANDING
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 13.7: MURAJAAHQ VERSUS ROOM         -->
+        <!-- ========================================== -->
+        <div id="murajaahVersusRoomScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-slate-900 text-white overflow-hidden z-[51]">
+            <div class="flex justify-between items-center px-6 pt-14 pb-6 bg-slate-800 border-b border-slate-700">
+                <!-- P1 -->
+                <div class="flex items-center gap-3 bg-slate-700/50 px-3 py-2 rounded-full border border-slate-600">
+                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-10 h-10 rounded-full border-2 border-duo-blue object-cover">
+                    <span id="vs-p1-score" class="font-black text-[22px] text-duo-blue">0</span>
+                </div>
+                <!-- VS logo -->
+                <div class="font-black text-yellow-400 italic text-3xl drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">VS</div>
+                <!-- P2 -->
+                <div class="flex items-center gap-3 bg-slate-700/50 px-3 py-2 rounded-full border border-slate-600">
+                    <span id="vs-p2-score" class="font-black text-[22px] text-duo-red">0</span>
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" class="w-10 h-10 rounded-full border-2 border-duo-red object-cover">
+                </div>
+            </div>
+
+            <div class="flex-1 flex flex-col items-center justify-center px-6 py-10 relative overflow-hidden">
+                <p class="text-duo-yellow font-bold text-[14px] uppercase tracking-widest mb-6 z-10">Siapa Cepat Dia Dapat!</p>
+                
+                <div class="relative w-full z-10">
+                    <div id="vs-blur-overlay" class="absolute inset-0 z-20 flex flex-col items-center justify-center">
+                        <i data-lucide="help-circle" class="w-12 h-12 text-white/50 mb-3 animate-pulse"></i>
+                        <span class="text-white/60 font-bold text-[16px] tracking-wide">Tebak Ayat Ini</span>
                     </div>
-                    <div class="flex flex-col items-center gap-1 relative opacity-70">
-                        <div class="w-12 h-12 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center bg-gray-50">
-                            <i data-lucide="plus" class="w-4 h-4 text-gray-300"></i>
-                        </div>
-                        <span class="text-[10px] font-bold text-gray-400">Kosong</span>
+                    <p id="vs-ayah-text" class="font-arabic text-[38px] leading-[2.2] text-center text-white pb-6 w-full blur-md select-none transition-all duration-300" dir="rtl" style="font-family: 'Amiri', serif;">
+                        بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
+                    </p>
+                </div>
+                
+                <div class="w-12 h-1 bg-slate-700 rounded-full mb-6 z-10"></div>
+                
+                <p id="vs-ayah-trans" class="text-center text-slate-400 font-semibold italic text-[15px] leading-relaxed pb-8 w-full blur-md select-none transition-all duration-300 z-10">
+                    "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang."
+                </p>
+                
+                <!-- VS Action Button -->
+                <div class="absolute bottom-10 w-full px-6 flex flex-col items-center z-10">
+                    <button id="vs-record-btn" onclick="toggleVsRecord()" class="w-[90px] h-[90px] bg-duo-blue border-b-[6px] border-duo-blue-dark rounded-full flex items-center justify-center text-white font-black active:border-b-0 active:translate-y-[6px] transition-all cursor-pointer shadow-lg hover:scale-105">
+                        <i data-lucide="mic" class="w-10 h-10"></i>
+                    </button>
+                    <p id="vs-status-text" class="text-slate-400 font-bold mt-6">Ketuk dan baca cepat!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 14: MURAJAAHQ (DUOLINGO STYLE)      -->
+        <!-- ========================================== -->
+        <div id="murajaahScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-white overflow-hidden z-[50]">
+            <!-- Dynamic Class Flash Injection via JS -->
+            <div id="murajaah-bg-flash" class="absolute inset-0 pointer-events-none z-0"></div>
+
+            <div class="pt-14 px-6 flex items-center gap-4 z-10 bg-white/80 backdrop-blur-md pb-2 border-b border-gray-100">
+                <button onclick="goToScreen('murajaahMapScreen')" class="text-gray-400 hover:text-gray-600 active:scale-95 transition-transform cursor-pointer">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <div class="flex-1 h-4 bg-gray-200 rounded-full overflow-hidden">
+                    <div id="murajaah-progress" class="h-full bg-duo-green w-[10%] transition-all duration-500 rounded-full"></div>
+                </div>
+                <div class="flex items-center gap-1 text-duo-red font-bold text-[16px]">
+                    <i data-lucide="heart" class="w-6 h-6 fill-current"></i> <span id="murajaah-hearts-header">5</span>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-hidden flex flex-col relative z-10">
+                <div class="px-6 pt-4 shrink-0">
+                    <h2 class="text-[24px] font-extrabold text-gray-900 mb-6 mt-2 leading-tight">Lanjutkan<br>Hafalanmu!</h2>
+                </div>
+
+                <div id="murajaah-loading" class="hidden flex-col items-center justify-center py-10 mt-4">
+                    <i data-lucide="loader-2" class="w-10 h-10 animate-spin text-duo-green mb-3"></i>
+                    <p class="text-gray-500 font-bold">Memuat Ayat...</p>
+                </div>
+
+                <div id="murajaah-nav" class="w-full flex justify-between items-center mb-2 px-6 hidden shrink-0">
+                    <button onclick="prevMurajaahAyah()" id="murajaah-prev-btn" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-200 active:scale-95 transition-all cursor-pointer">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <div class="bg-duo-blue/10 px-4 py-1.5 rounded-full text-duo-blue font-bold text-[13px] border border-duo-blue/20">
+                        Ayat <span id="murajaah-ayat-num-top">1</span> / <span id="murajaah-ayat-total">?</span>
                     </div>
+                    <button onclick="nextMurajaahAyah()" id="murajaah-next-btn-top" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-200 active:scale-95 transition-all cursor-pointer">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <div id="murajaah-content" class="flex-1 flex flex-col items-center relative overflow-hidden">
+                    <div id="murajaah-text-container" class="w-full h-full overflow-y-auto hide-scroll transition-all duration-500 flex flex-col items-center px-6 py-4 pb-32 relative">
+                        <div id="murajaah-blur-overlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/50 backdrop-blur-md rounded-2xl cursor-pointer" onclick="revealMurajaahAyah()">
+                            <div class="bg-white p-3 rounded-full shadow-sm mb-2 text-duo-blue hover:scale-110 transition-transform">
+                                <i data-lucide="eye" class="w-6 h-6"></i>
+                            </div>
+                            <p class="text-gray-800 font-extrabold text-[15px] drop-shadow-sm">Ketuk untuk melihat ayat</p>
+                        </div>
+                        
+                        <p id="murajaah-arabic" class="font-arabic text-[42px] leading-[2.5] text-center text-gray-900 transition-all duration-500 pb-6 w-full" dir="rtl" style="font-family: 'Amiri', serif;">
+                            بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
+                        </p>
+                        <div class="w-12 h-1.5 bg-gray-200 rounded-full mb-6 shrink-0"></div>
+                        <p id="murajaah-translation" class="text-center text-gray-500 font-semibold italic text-[16px] leading-relaxed pb-8 w-full">
+                            "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="murajaah-bottom-action" class="absolute bottom-0 w-full p-6 border-t-2 border-gray-100 bg-white z-20 pb-8 transition-transform duration-300 transform translate-y-0 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
+                <button id="murajaah-record-btn" onclick="toggleMurajaahRecord()" class="w-full bg-duo-green border-b-[5px] border-duo-green-dark rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] active:border-b-0 active:translate-y-[5px] transition-all cursor-pointer relative overflow-hidden">
+                    <i data-lucide="mic" class="w-7 h-7"></i> MULAI REKAM
+                </button>
+                <p id="murajaah-status-text" class="text-center text-gray-400 font-bold text-[13px] mt-4">Ketuk untuk mulai membaca ayat ke-<span id="murajaah-ayat-num">1</span></p>
+            </div>
+
+            <div id="murajaah-feedback" class="absolute bottom-0 left-0 w-full px-6 pt-8 pb-8 transition-transform duration-300 transform translate-y-[120%] z-30 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] rounded-t-[32px] bg-duo-green-bg">
+                <div id="murajaah-mascot" class="absolute -top-14 left-6 text-[60px] drop-shadow-md z-40 origin-bottom opacity-100">🤩</div>
+
+                <div class="relative z-10 flex flex-col">
+                    <div class="flex items-start gap-4 mb-6">
+                        <div id="murajaah-feedback-icon-container" class="w-14 h-14 bg-white rounded-full flex items-center justify-center shrink-0 shadow-sm mt-1 border-[4px] border-white">
+                            <i id="murajaah-feedback-icon" data-lucide="check" class="w-8 h-8 text-duo-green"></i>
+                        </div>
+                        <div class="pt-1">
+                            <h3 id="murajaah-feedback-title" class="font-black text-[24px] text-duo-green-dark leading-none">Luar Biasa!</h3>
+                            <p id="murajaah-feedback-desc" class="font-bold text-[15px] text-duo-green-dark/80 mt-2">Bacaanmu sangat tepat.</p>
+                            <p id="murajaah-feedback-transcript" class="font-semibold text-[13px] text-duo-red-dark/70 mt-3 italic hidden bg-white/50 p-2 rounded-lg leading-relaxed">Terdengar: "..."</p>
+                        </div>
+                    </div>
+                    <button id="murajaah-next-btn" onclick="nextMurajaahAyah()" class="w-full bg-duo-green border-b-[5px] border-duo-green-dark rounded-2xl py-4 text-white font-black text-[18px] active:border-b-0 active:translate-y-[5px] transition-all cursor-pointer relative">
+                        LANJUT
+                    </button>
                 </div>
             </div>
         </div>
@@ -973,98 +1277,58 @@
         <!-- ========================================== -->
         <div id="createRoomModal" class="absolute inset-0 z-[110] hidden">
             <!-- Backdrop -->
-            <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity cursor-pointer" onclick="closeCreateRoomModal()"></div>
-            
-            <!-- Bottom Sheet -->
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer" onclick="closeCreateRoomModal()"></div>
             <div id="createRoomSheet" class="absolute bottom-0 w-full h-[88%] bg-white rounded-t-[36px] flex flex-col shadow-2xl transform">
-                <!-- Dragger -->
                 <div class="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mt-4 mb-2"></div>
-                
-                <!-- Header Modal -->
                 <div class="px-6 py-2 flex justify-between items-center border-b border-gray-100">
                     <h2 class="text-[18px] font-extrabold text-gray-900">Buat Ruang Tadarus</h2>
                     <button onclick="closeCreateRoomModal()" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 cursor-pointer">
                         <i data-lucide="x" class="w-4 h-4 text-gray-700"></i>
                     </button>
                 </div>
-
-                <!-- Form Content -->
                 <div class="flex-1 overflow-y-auto hide-scroll px-6 py-5 flex flex-col gap-5">
-                    
-                    <!-- Nama Ruangan -->
                     <div>
                         <label class="text-[13px] font-bold text-gray-700 ml-1 mb-1 block">Nama Ruangan</label>
-                        <input type="text" placeholder="Misal: Ngaji Santai Ba'da Maghrib" maxlength="30" class="w-full bg-[#f8fafc] border border-gray-200 text-gray-900 text-[14px] font-bold rounded-2xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#10b981] transition-all">
-                        <p class="text-[10px] text-gray-400 text-right mt-1">Maks. 30 karakter</p>
+                        <input type="text" placeholder="Misal: Ngaji Santai Ba'da Maghrib" class="w-full bg-[#f8fafc] border border-gray-200 text-gray-900 text-[14px] font-bold rounded-2xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#10b981]">
                     </div>
-
-                    <!-- Target Bacaan Tabs -->
                     <div>
                         <label class="text-[13px] font-bold text-gray-700 ml-1 mb-2 block">Pilih Target Bacaan</label>
                         <div class="bg-gray-100 p-1 rounded-2xl flex mb-4">
-                            <button id="tab-juz" onclick="switchTadarusTab('juz')" class="flex-1 py-2 text-[12px] font-bold bg-white shadow-sm rounded-xl text-gray-900 transition-all cursor-pointer">Juz</button>
-                            <button id="tab-surah" onclick="switchTadarusTab('surah')" class="flex-1 py-2 text-[12px] font-bold text-gray-500 rounded-xl hover:text-gray-900 transition-all cursor-pointer">Surah</button>
-                            <button id="tab-bebas" onclick="switchTadarusTab('bebas')" class="flex-1 py-2 text-[12px] font-bold text-gray-500 rounded-xl hover:text-gray-900 transition-all cursor-pointer">Bebas</button>
+                            <button id="tab-juz" onclick="switchTadarusTab('juz')" class="flex-1 py-2 text-[12px] font-bold bg-white shadow-sm rounded-xl text-gray-900 cursor-pointer">Juz</button>
+                            <button id="tab-surah" onclick="switchTadarusTab('surah')" class="flex-1 py-2 text-[12px] font-bold text-gray-500 rounded-xl hover:text-gray-900 cursor-pointer">Surah</button>
+                            <button id="tab-bebas" onclick="switchTadarusTab('bebas')" class="flex-1 py-2 text-[12px] font-bold text-gray-500 rounded-xl hover:text-gray-900 cursor-pointer">Bebas</button>
                         </div>
-                        
-                        <!-- Content Tabs -->
-                        <!-- JUZ TAB -->
                         <div id="content-juz" class="h-[150px] overflow-y-auto hide-scroll border border-gray-100 rounded-2xl p-3 bg-[#f8fafc]">
-                            <div class="grid grid-cols-5 gap-2" id="juz-grid">
-                                <!-- Generated via JS below -->
-                            </div>
+                            <div class="grid grid-cols-5 gap-2" id="juz-grid"></div>
                         </div>
-
-                        <!-- SURAH TAB (Hidden) -->
                         <div id="content-surah" class="h-[150px] hidden flex-col border border-gray-100 rounded-2xl p-3 bg-[#f8fafc]">
                             <div class="relative mb-2 shrink-0">
                                 <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
                                 <input type="text" id="search-surah" placeholder="Cari Surah..." class="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-3 py-2 text-[12px] font-semibold focus:outline-none focus:border-[#10b981]" onkeyup="filterSurah()">
                             </div>
-                            <div id="surah-list" class="flex-1 overflow-y-auto hide-scroll flex flex-col gap-1 pr-1">
-                                <!-- Data 114 Surah akan di-generate oleh JavaScript -->
-                            </div>
+                            <div id="surah-list" class="flex-1 overflow-y-auto hide-scroll flex flex-col gap-1 pr-1"></div>
                         </div>
-
-                        <!-- BEBAS TAB (Hidden) -->
                         <div id="content-bebas" class="h-[150px] hidden flex-col items-center justify-center border border-gray-100 rounded-2xl p-4 bg-[#f8fafc] text-center">
-                            <div class="w-10 h-10 bg-[#10b981]/10 rounded-full flex items-center justify-center mb-2">
-                                <i data-lucide="infinity" class="w-5 h-5 text-[#10b981]"></i>
-                            </div>
+                            <div class="w-10 h-10 bg-[#10b981]/10 rounded-full flex items-center justify-center mb-2"><i data-lucide="infinity" class="w-5 h-5 text-[#10b981]"></i></div>
                             <h4 class="font-bold text-[13px] text-gray-900">Bacaan Bebas</h4>
-                            <p class="text-[11px] text-gray-500 mt-1">Ruangan ini tidak menargetkan Surah/Juz spesifik. Cocok untuk ngaji santai.</p>
                         </div>
                     </div>
-
-                    <!-- Validasi Gender & Privasi -->
                     <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 flex flex-col gap-4">
                         <div class="flex justify-between items-center">
-                            <div>
-                                <h4 class="font-bold text-[13px] text-gray-900">Server Ruangan</h4>
-                                <p class="text-[10px] text-gray-500">Dikunci sesuai profil pengguna</p>
-                            </div>
-                            <span class="bg-[#10b981]/10 text-[#047857] border border-[#10b981]/30 px-3 py-1.5 rounded-xl text-[12px] font-bold flex items-center gap-1.5">
-                                <i data-lucide="lock" class="w-3 h-3"></i> Ikhwan
-                            </span>
+                            <div><h4 class="font-bold text-[13px] text-gray-900">Server Ruangan</h4></div>
+                            <span class="bg-[#10b981]/10 text-[#047857] border border-[#10b981]/30 px-3 py-1.5 rounded-xl text-[12px] font-bold flex items-center gap-1.5"><i data-lucide="lock" class="w-3 h-3"></i> Ikhwan</span>
                         </div>
                         <div class="h-[1px] w-full bg-gray-200"></div>
                         <div class="flex justify-between items-center">
-                            <div>
-                                <h4 class="font-bold text-[13px] text-gray-900">Privasi Ruang</h4>
-                                <p class="text-[10px] text-gray-500">Publik (terlihat di Lobby) / Privat</p>
-                            </div>
+                            <div><h4 class="font-bold text-[13px] text-gray-900">Privasi Ruang</h4></div>
                             <div class="w-12 h-6 bg-[#10b981] rounded-full relative cursor-pointer flex items-center shadow-inner">
                                 <div class="w-5 h-5 bg-white rounded-full absolute right-0.5 shadow-sm transition-all"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Submit Action -->
                 <div class="px-6 py-5 border-t border-gray-100 shrink-0 bg-white z-10 pb-8">
-                    <button onclick="startTadarusRoom()" class="w-full bg-gradient-to-r from-[#10b981] to-[#047857] text-white font-bold text-[16px] py-4 rounded-[20px] shadow-[0_10px_25px_-5px_rgba(16,185,129,0.4)] active:scale-95 transition-transform cursor-pointer">
-                        Mulai Tadarus Sekarang
-                    </button>
+                    <button onclick="startTadarusRoom()" class="w-full bg-gradient-to-r from-[#10b981] to-[#047857] text-white font-bold text-[16px] py-4 rounded-[20px] shadow-md active:scale-95 transition-transform cursor-pointer">Mulai Tadarus Sekarang</button>
                 </div>
             </div>
         </div>
@@ -1073,25 +1337,22 @@
         <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[130px] h-[5px] bg-black/40 rounded-full z-[100] pointer-events-none"></div>
     </div>
 
-    <!-- SCRIPT (DIPASTIKAN BERADA DI SINI, TIDAK TERPOTONG) -->
     <script>
+        // ==========================================
+        // ROUTING & CORE UI - 100% PROTECTED DOM
+        // ==========================================
         let currentScreen = 'screen0';
+        let isMurajaahInit = false;
         
         function updateStatusBar(screenId) {
             const time = document.getElementById('status-time');
             const icons = document.getElementById('status-icons');
-            
-            // Atur warna status bar tergantung layar background (gelap/terang)
-            if(screenId === 'cameraScreen' || screenId === 'previewScreen' || screenId === 'moderationScreen') {
-                time.classList.add('text-white');
-                icons.classList.add('text-white');
-                time.classList.remove('text-gray-900');
-                icons.classList.remove('text-gray-900');
+            if(screenId === 'cameraScreen' || screenId === 'previewScreen' || screenId === 'moderationScreen' || screenId === 'murajaahVersusRoomScreen') {
+                if(time) { time.classList.add('text-white'); time.classList.remove('text-gray-900'); }
+                if(icons) { icons.classList.add('text-white'); icons.classList.remove('text-gray-900'); }
             } else {
-                time.classList.remove('text-white');
-                icons.classList.remove('text-white');
-                time.classList.add('text-gray-900');
-                icons.classList.add('text-gray-900');
+                if(time) { time.classList.remove('text-white'); time.classList.add('text-gray-900'); }
+                if(icons) { icons.classList.remove('text-white'); icons.classList.add('text-gray-900'); }
             }
         }
 
@@ -1099,19 +1360,28 @@
             const current = document.getElementById(currentScreen);
             const next = document.getElementById(nextScreenId);
 
-            if (currentScreen === 'screen0') {
-                current.classList.add('hide-splash');
-            } else {
-                current.classList.add('hide-screen');
+            if (current) {
+                if (currentScreen === 'screen0') {
+                    current.classList.add('hide-splash');
+                } else {
+                    current.classList.add('hide-screen');
+                }
+                current.classList.remove('show-screen');
             }
-            current.classList.remove('show-screen');
             
             updateStatusBar(nextScreenId);
             
+            if ((nextScreenId === 'murajaahScreen' || nextScreenId === 'murajaahMapScreen' || nextScreenId === 'murajaahVersusLobbyScreen') && !isMurajaahInit) {
+                initMurajaahData();
+                isMurajaahInit = true;
+            }
+
             setTimeout(() => {
-                next.classList.remove('hide-screen', 'hide-splash');
-                next.classList.add('show-screen');
-                currentScreen = nextScreenId;
+                if (next) {
+                    next.classList.remove('hide-screen', 'hide-splash');
+                    next.classList.add('show-screen');
+                    currentScreen = nextScreenId;
+                }
             }, 100);
         }
 
@@ -1126,27 +1396,23 @@
             const forgotPw = document.getElementById('forgot-password');
 
             if(mode === 'signin') {
-                tabSignin.className = "flex-1 py-2 text-[14px] font-bold bg-white shadow-sm rounded-lg text-gray-900 transition-all";
-                tabSignup.className = "flex-1 py-2 text-[14px] font-bold text-gray-500 rounded-lg hover:text-gray-900 transition-all";
-                
-                fieldName.classList.add('hidden');
-                fieldGender.classList.add('hidden');
-                fieldTerms.classList.add('hidden');
-                forgotPw.classList.remove('hidden');
-
-                authTitle.innerText = "Masuk";
-                btnText.innerText = "Masuk ke SpaceQ";
+                if(tabSignin) tabSignin.className = "flex-1 py-2 text-[14px] font-bold bg-white shadow-sm rounded-lg text-gray-900 transition-all";
+                if(tabSignup) tabSignup.className = "flex-1 py-2 text-[14px] font-bold text-gray-500 rounded-lg hover:text-gray-900 transition-all";
+                if(fieldName) fieldName.classList.add('hidden');
+                if(fieldGender) fieldGender.classList.add('hidden');
+                if(fieldTerms) fieldTerms.classList.add('hidden');
+                if(forgotPw) forgotPw.classList.remove('hidden');
+                if(authTitle) authTitle.innerText = "Masuk";
+                if(btnText) btnText.innerText = "Masuk ke SpaceQ";
             } else {
-                tabSignup.className = "flex-1 py-2 text-[14px] font-bold bg-white shadow-sm rounded-lg text-gray-900 transition-all";
-                tabSignin.className = "flex-1 py-2 text-[14px] font-bold text-gray-500 rounded-lg hover:text-gray-900 transition-all";
-                
-                fieldName.classList.remove('hidden');
-                fieldGender.classList.remove('hidden');
-                fieldTerms.classList.remove('hidden');
-                forgotPw.classList.add('hidden');
-
-                authTitle.innerText = "Buat Akun";
-                btnText.innerText = "Daftar Akun";
+                if(tabSignup) tabSignup.className = "flex-1 py-2 text-[14px] font-bold bg-white shadow-sm rounded-lg text-gray-900 transition-all";
+                if(tabSignin) tabSignin.className = "flex-1 py-2 text-[14px] font-bold text-gray-500 rounded-lg hover:text-gray-900 transition-all";
+                if(fieldName) fieldName.classList.remove('hidden');
+                if(fieldGender) fieldGender.classList.remove('hidden');
+                if(fieldTerms) fieldTerms.classList.remove('hidden');
+                if(forgotPw) forgotPw.classList.add('hidden');
+                if(authTitle) authTitle.innerText = "Buat Akun";
+                if(btnText) btnText.innerText = "Daftar Akun";
             }
         }
 
@@ -1154,137 +1420,191 @@
             const btn = document.getElementById('btn-submit');
             const btnText = document.getElementById('btn-text');
             const btnLoader = document.getElementById('btn-loader');
-            
-            btnText.style.opacity = '0';
-            btnLoader.style.opacity = '1';
+            if(btnText) btnText.style.opacity = '0';
+            if(btnLoader) btnLoader.style.opacity = '1';
             
             setTimeout(() => {
-                btnLoader.style.opacity = '0';
-                btn.classList.add('btn-zoom-in');
-                
+                if(btnLoader) btnLoader.style.opacity = '0';
+                if(btn) btn.classList.add('btn-zoom-in');
                 setTimeout(() => {
                     goToScreen('bismillahScreen');
-                    
                     setTimeout(() => {
-                        btn.classList.remove('btn-zoom-in');
-                        btnText.style.opacity = '1';
+                        if(btn) btn.classList.remove('btn-zoom-in');
+                        if(btnText) btnText.style.opacity = '1';
                     }, 500);
-
                     setTimeout(() => {
                         const bismillahText = document.getElementById('bismillah-text');
-                        bismillahText.classList.add('zoom-bismillah');
-                        
-                        setTimeout(() => {
-                            goToScreen('homeScreen');
-                        }, 1000); 
+                        if(bismillahText) bismillahText.classList.add('zoom-bismillah');
+                        setTimeout(() => { goToScreen('homeScreen'); }, 1000); 
                     }, 1200); 
-
                 }, 600); 
-
             }, 800); 
         }
 
         // ==========================================
-        // FITUR SOCIALQ & GENERATE 100 POSTINGAN
+        // SOCIALQ (LINKEDIN STYLE)
         // ==========================================
         function generateSocialQPosts() {
-            const container = document.getElementById('socialq-feed-container');
+            const container = document.getElementById('socialq-main-feed-container');
             if (!container) return;
             
             const names = ['Aisyah Rizki', 'Budi Santoso', 'Siti Aminah', 'Ahmad Fadil', 'Nisa Salsabila', 'Iqbal Ramadhan', 'Zahra Larasati', 'Fahmi Idris', 'Dian Sastro', 'Rizky Pratama', 'Hafizuddin', 'Khadijah Nur'];
-            const captions = ['Alhamdulillah sampai majelis...', 'Bismillah, tilawah sore...', 'Kajian Ustadz Hanan mantap!', 'Masya Allah pemandangannya indah sekali...', 'Persiapan shalat Jumat di kampus.', 'Jalan-jalan cari takjil, ramai banget!', 'Cuaca hari ini cerah banget, tabarakallah.', 'Ngaji bareng teman-teman kos.', 'Semoga hari ini penuh berkah.', 'Tetap semangat puasanya teman-teman!'];
-            const locations = ['Masjid Raya', '2 jam yang lalu', 'Jakarta Selatan', 'Bandung', 'Masjid Al-Ikhlas', 'Kemarin', '5 jam yang lalu', 'Yogyakarta', 'Surabaya', 'Masjid Kampus', 'Baru saja'];
-            const colors = ['bg-[#fbcfe8]', 'bg-[#a7f3d0]', 'bg-[#bae6fd]', 'bg-[#fef08a]', 'bg-[#e9d5ff]', 'bg-[#ffedd5]'];
+            const titles = ['Graphic Designer • 1h', 'Product Manager • 2h', 'Web Developer • 5h', 'Content Creator • 1d', 'Software Engineer • Just now'];
+            const captions = ['Alhamdulillah, selesai desain UI baru!', 'Bismillah, meeting sore ini lancar.', 'Menikmati kajian hari ini.', 'Masya Allah, indah sekali.', 'Tetap semangat puasanya teman-teman!'];
+            
+            const videoUrls = [
+                'https://www.w3schools.com/html/mov_bbb.mp4',
+                'https://media.w3.org/2010/05/sintel/trailer.mp4',
+                'https://media.w3.org/2010/05/bunny/trailer.mp4',
+                'https://media.w3.org/2010/05/bunny/movie.mp4',
+                'https://media.w3.org/2010/05/video/movie_300.mp4'
+            ];
 
             let html = '';
-            
-            // Generate exactly 100 posts
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 20; i++) {
                 const name = names[Math.floor(Math.random() * names.length)];
+                const title = titles[Math.floor(Math.random() * titles.length)];
                 const caption = captions[Math.floor(Math.random() * captions.length)];
-                const loc = locations[Math.floor(Math.random() * locations.length)];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                
                 const avatar = `https://i.pravatar.cc/100?img=${(i % 70) + 1}`; 
-                const vidThumb = `https://picsum.photos/400/400?random=${i + 100}`; 
+                const vidSrc = videoUrls[i % videoUrls.length];
 
                 html += `
-                <div class="w-full ${color} rounded-[32px] p-5 shadow-float border-4 border-white cursor-pointer hover:rotate-[-1deg] transition-transform origin-bottom">
-                    <div class="flex items-center justify-between mb-4">
+                <div class="w-full bg-white rounded-[24px] p-5 shadow-card border border-gray-100 flex flex-col gap-4">
+                    <div class="flex items-start justify-between">
                         <div class="flex items-center gap-3">
-                            <img src="${avatar}" class="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm">
+                            <img src="${avatar}" class="w-[42px] h-[42px] rounded-full object-cover border border-gray-200">
                             <div>
-                                <h4 class="font-bold text-gray-900 text-[14px]">${name}</h4>
-                                <span class="text-[11px] text-gray-700 font-semibold bg-white/50 px-2 py-0.5 rounded-full flex items-center gap-1 w-max">
-                                    ${loc}
-                                </span>
+                                <h4 class="font-bold text-gray-900 text-[14px] leading-tight flex items-center gap-1">${name} <i data-lucide="badge-check" class="w-3 h-3 text-[#1cb0f6] fill-[#1cb0f6] text-white"></i></h4>
+                                <span class="text-[11px] text-gray-500 font-medium">${title}</span>
                             </div>
                         </div>
-                        <button class="text-gray-900/50 hover:text-gray-900 active:scale-95 cursor-pointer"><i data-lucide="more-horizontal"></i></button>
+                        <button class="bg-gray-50 text-sq-dark px-3 py-1.5 rounded-full text-[12px] font-bold border border-gray-200 hover:bg-gray-100 active:scale-95 transition-all">Follow</button>
                     </div>
                     
-                    <div class="w-[240px] h-[240px] mx-auto rounded-full bg-white shadow-inner flex items-center justify-center overflow-hidden border-[8px] border-white relative group">
-                        <img src="${vidThumb}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
-                        <i data-lucide="play-circle" class="absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform"></i>
-                        <div class="absolute bottom-6 left-0 w-full text-center px-4">
-                            <span class="bg-black/60 backdrop-blur-sm text-white text-[11px] font-bold px-3 py-1.5 rounded-full">"${caption}"</span>
+                    <div class="w-[260px] h-[260px] mx-auto rounded-full bg-gray-50 flex items-center justify-center overflow-hidden relative group cursor-pointer border-[6px] border-sq-light shadow-sm" onclick="togglePlay(this)">
+                        <video src="${vidSrc}" preload="metadata" loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"></video>
+                        <div class="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-colors pointer-events-none"></div>
+                        <i data-lucide="play-circle" class="play-icon absolute w-14 h-14 text-white/90 drop-shadow-md group-hover:scale-110 transition-transform pointer-events-none transition-opacity duration-300"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <p class="text-[13px] text-gray-700 font-medium mb-4">"${caption}"</p>
+                        <div class="flex items-center justify-between border-t border-gray-100 pt-3">
+                            <div class="flex gap-1 items-center bg-gray-50 px-3 py-1.5 rounded-full">
+                                <i data-lucide="thumbs-up" class="w-4 h-4 text-gray-500"></i>
+                                <i data-lucide="heart" class="w-4 h-4 text-red-500 fill-red-500 -ml-2"></i>
+                                <span class="text-[12px] font-bold text-gray-600 ml-1">${Math.floor(Math.random() * 500) + 10}</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <button class="flex items-center gap-1.5 text-gray-500 font-bold text-[12px] hover:text-sq-dark transition-all"><i data-lucide="message-circle" class="w-4 h-4"></i> ${Math.floor(Math.random() * 50)}</button>
+                                <button class="flex items-center gap-1.5 text-gray-500 font-bold text-[12px] hover:text-sq-dark transition-all"><i data-lucide="send" class="w-4 h-4"></i></button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="flex items-center justify-center gap-6 mt-4">
-                        <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-pink-600 active:scale-95 transition-all"><i data-lucide="heart" class="w-5 h-5"></i> ${Math.floor(Math.random() * 500) + 10}</button>
-                        <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-blue-600 active:scale-95 transition-all"><i data-lucide="message-circle" class="w-5 h-5"></i> ${Math.floor(Math.random() * 50)}</button>
-                        <button class="flex items-center gap-1.5 text-gray-900 font-bold text-[13px] hover:text-green-600 active:scale-95 transition-all"><i data-lucide="send" class="w-5 h-5"></i></button>
                     </div>
                 </div>
                 `;
             }
-            container.innerHTML = html;
+            if(container) container.innerHTML = html;
+        }
+
+        function togglePlay(container) {
+            if(!container) return;
+            const video = container.querySelector('video');
+            const icon = container.querySelector('.play-icon');
+            if (video && video.paused) {
+                document.querySelectorAll('video').forEach(v => {
+                    if (v !== video && !v.paused && !v.closest('#cameraScreen') && !v.closest('#previewScreen')) {
+                        v.pause();
+                        const otherGroup = v.closest('.group');
+                        const otherIcon = otherGroup ? otherGroup.querySelector('.play-icon') : null;
+                        if (otherIcon) otherIcon.style.opacity = '1';
+                    }
+                });
+                video.play();
+                if (icon) icon.style.opacity = '0'; 
+            } else if (video) {
+                video.pause();
+                if (icon) icon.style.opacity = '1'; 
+            }
         }
 
         // ==========================================
-        // LOGIKA KAMERA (DIRECT IN-APP RECORDING)
+        // CAMERA (PHOTO & VIDEO TOGGLE)
         // ==========================================
         let recordTimer;
         let seconds = 0;
         let isRecording = false;
+        let cameraMode = 'photo'; 
+
+        function setCameraMode(mode) {
+            cameraMode = mode;
+            const btnPhoto = document.getElementById('cam-mode-photo');
+            const btnVideo = document.getElementById('cam-mode-video');
+            const instruction = document.getElementById('cam-instruction');
+            const recordInner = document.getElementById('record-inner');
+            const border = document.getElementById('cam-viewfinder-border');
+
+            if (mode === 'photo') {
+                if(btnPhoto) btnPhoto.className = "text-sq-dark font-bold text-[13px] px-4 py-1.5 rounded-full transition-colors bg-white";
+                if(btnVideo) btnVideo.className = "text-gray-300 font-bold text-[13px] px-4 py-1.5 rounded-full transition-colors";
+                if(instruction) instruction.innerHTML = "Ketuk untuk menjepret<br>momen otentikmu";
+                if(recordInner) recordInner.className = "w-full h-full bg-white rounded-full transition-all duration-300 pointer-events-none";
+                if(border) border.className = "w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[4px] border-white overflow-hidden relative shadow-[0_0_50px_rgba(255,255,255,0.2)] bg-gray-900 transition-all duration-300";
+            } else {
+                if(btnVideo) btnVideo.className = "text-sq-dark font-bold text-[13px] px-4 py-1.5 rounded-full transition-colors bg-white";
+                if(btnPhoto) btnPhoto.className = "text-gray-300 font-bold text-[13px] px-4 py-1.5 rounded-full transition-colors";
+                if(instruction) instruction.innerHTML = "Tahan untuk merekam<br>(Maks 15 detik)";
+                if(recordInner) recordInner.className = "w-full h-full bg-red-500 rounded-full transition-all duration-300 pointer-events-none";
+                if(border) border.className = "w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[4px] border-red-500 overflow-hidden relative shadow-[0_0_50px_rgba(239,68,68,0.2)] bg-gray-900 transition-all duration-300";
+            }
+        }
 
         function startRecording(e) {
-            if(e) {
-                e.preventDefault(); 
-                e.stopPropagation();
-            }
-            if(isRecording) return;
+            if(e) { e.preventDefault(); e.stopPropagation(); }
             
+            if (cameraMode === 'photo') {
+                const flash = document.getElementById('cam-flash');
+                if (flash) {
+                    flash.classList.remove('flash-animation');
+                    void flash.offsetWidth; 
+                    flash.classList.add('flash-animation');
+                }
+                
+                setTimeout(() => {
+                    const previewText = document.getElementById('preview-type-text');
+                    const videoIcon = document.getElementById('preview-video-icon');
+                    if(previewText) previewText.innerText = "Foto";
+                    if(videoIcon) { videoIcon.classList.remove('flex'); videoIcon.classList.add('hidden'); }
+                    goToScreen('previewScreen');
+                }, 300);
+                return;
+            }
+
+            if(isRecording) return;
             isRecording = true;
             const btn = document.getElementById('record-btn');
             const innerBtn = document.getElementById('record-inner');
             const timerTxt = document.getElementById('record-timer');
             
-            btn.classList.add('recording-pulse');
-            innerBtn.classList.add('scale-75', 'rounded-[10px]');
+            if(btn) btn.classList.add('recording-pulse');
+            if(innerBtn) innerBtn.classList.add('scale-75', 'rounded-[10px]');
             
             seconds = 0;
-            timerTxt.innerText = "00:00";
-            timerTxt.classList.remove('hidden');
+            if(timerTxt) {
+                timerTxt.innerText = "00:00";
+                timerTxt.classList.remove('hidden');
+            }
 
             recordTimer = setInterval(() => {
                 seconds++;
-                timerTxt.innerText = "00:" + (seconds < 10 ? "0"+seconds : seconds);
-                
-                // Batas Maksimal 15 detik
-                if(seconds >= 15) {
-                    stopRecording();
-                }
+                if(timerTxt) timerTxt.innerText = "00:" + (seconds < 10 ? "0"+seconds : seconds);
+                if(seconds >= 15) stopRecording();
             }, 1000);
         }
 
         function stopRecording(e) {
-            if(e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
+            if (cameraMode === 'photo') return;
+            if(e) { e.preventDefault(); e.stopPropagation(); }
             if(!isRecording) return;
             
             isRecording = false;
@@ -1294,76 +1614,609 @@
             const innerBtn = document.getElementById('record-inner');
             const timerTxt = document.getElementById('record-timer');
             
-            btn.classList.remove('recording-pulse');
-            innerBtn.classList.remove('scale-75', 'rounded-[10px]');
+            if(btn) btn.classList.remove('recording-pulse');
+            if(innerBtn) innerBtn.classList.remove('scale-75', 'rounded-[10px]');
             
-            // Pindah layar preview hanya jika rekam lebih dari 1 detik
             if(seconds > 0) {
                 setTimeout(() => {
-                    timerTxt.classList.add('hidden');
+                    if(timerTxt) timerTxt.classList.add('hidden');
+                    const previewText = document.getElementById('preview-type-text');
+                    const videoIcon = document.getElementById('preview-video-icon');
+                    if(previewText) previewText.innerText = "Video";
+                    if(videoIcon) { videoIcon.classList.add('flex'); videoIcon.classList.remove('hidden'); }
                     goToScreen('previewScreen');
                 }, 300);
             } else {
-                timerTxt.classList.add('hidden');
+                if(timerTxt) timerTxt.classList.add('hidden');
             }
         }
 
-        // ==========================================
-        // LOGIKA AI MODERASI
-        // ==========================================
         function startModeration() {
             goToScreen('moderationScreen');
-            
             setTimeout(() => {
-                alert("✅ Video Lolos Moderasi AI.\n\nTidak ditemukan ujaran kebencian atau konten negatif. Video berhasil diposting ke SocialQ!");
-                goToScreen('exploreScreen');
+                alert("✅ Lolos Moderasi.\n\nTidak ditemukan ujaran kebencian atau konten negatif. Berhasil diposting ke SocialQ!");
+                goToScreen('socialQScreen');
             }, 3000);
         }
 
         // ==========================================
-        // LOGIKA MODAL & TADARUSQ
+        // MURAJAAHQ & SIMULATION LOGIC (NO AI)
+        // ==========================================
+        let murajaahSurahs = [];
+        let murajaahAyahs = [];
+        let currentMurajaahIndex = 0;
+        let isMurajaahRecording = false;
+        let isMurajaahEvaluating = false;
+        let murajaahHearts = 5;
+        let murajaahXP = 0;
+        let isVsTransitioning = false; 
+
+        function getRankDetails(xp) {
+            if (xp < 100) return { name: 'Pemula', iconColor: 'text-orange-500' };
+            if (xp < 300) return { name: 'Pejuang', iconColor: 'text-gray-400' };
+            if (xp < 600) return { name: 'Hafiz', iconColor: 'text-yellow-400' };
+            return { name: 'Master', iconColor: 'text-cyan-400' };
+        }
+
+        function updateGamification() {
+            const hTop = document.getElementById('murajaah-hearts-header');
+            const hMap = document.getElementById('map-hearts-header');
+            if(hTop) hTop.innerText = murajaahHearts;
+            if(hMap) hMap.innerText = murajaahHearts;
+
+            const xpText = document.getElementById('xp-text');
+            if(xpText) xpText.innerText = `${murajaahXP} XP`;
+
+            const rank = getRankDetails(murajaahXP);
+            const kastaText = document.getElementById('kasta-text');
+            if(kastaText) {
+                kastaText.innerText = rank.name;
+                if(kastaText.previousElementSibling) kastaText.previousElementSibling.className = `w-3.5 h-3.5 ${rank.iconColor}`;
+            }
+        }
+
+        async function initMurajaahData() {
+            try {
+                updateGamification();
+                // Mengambil data surah dari Quran API Publik untuk layout prototype
+                const res = await fetch('https://api.alquran.cloud/v1/surah');
+                const data = await res.json();
+                if (data.code === 200) {
+                    murajaahSurahs = data.data;
+                    renderMurajaahMap(); 
+                }
+            } catch (e) {}
+        }
+
+        function renderMurajaahMap() {
+            const mapContainer = document.getElementById('murajaah-level-map');
+            if (!mapContainer) return;
+            let html = '';
+            
+            murajaahSurahs.forEach((surah, index) => {
+                const isLeft = index % 2 === 0;
+                const offset = isLeft ? '-translate-x-8' : 'translate-x-8';
+                
+                let colorClass = 'bg-duo-green border-duo-green-dark text-white';
+                if(surah.number > 100) colorClass = 'bg-duo-blue border-duo-blue-dark text-white'; 
+                if(surah.number <= 10) colorClass = 'bg-[#ff9600] border-[#d97a00] text-white'; 
+                
+                html += `
+                <div class="relative flex flex-col items-center w-full transform ${offset}">
+                    ${index !== murajaahSurahs.length - 1 ? '<div class="absolute top-[60px] h-[70px] w-[10px] bg-[#e5e7eb] -z-10 rounded-full"></div>' : ''}
+                    <div class="relative group mt-2">
+                        <div class="absolute top-1/2 -translate-y-1/2 ${isLeft ? 'left-20' : 'right-20'} bg-white border-2 border-gray-200 text-gray-800 font-extrabold px-4 py-2.5 rounded-2xl text-[14px] whitespace-nowrap shadow-sm z-20 pointer-events-none">
+                            ${surah.englishName}
+                            <div class="absolute top-1/2 -translate-y-1/2 ${isLeft ? '-left-2 border-r-white border-y-transparent border-l-transparent' : '-right-2 border-l-white border-y-transparent border-r-transparent'} border-[6px]"></div>
+                        </div>
+                        <button onclick="loadMurajaahSurah(${surah.number})" class="w-16 h-16 ${colorClass} border-b-[6px] rounded-full flex items-center justify-center font-black text-[22px] shadow-sm active:scale-95 active:border-b-0 active:translate-y-1.5 transition-all relative z-10 cursor-pointer">
+                            <i data-lucide="star" class="w-6 h-6 fill-white/30 text-white/50 absolute top-1 right-2"></i>
+                        </button>
+                    </div>
+                </div>
+                `;
+            });
+            mapContainer.innerHTML = html;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            setTimeout(() => { mapContainer.scrollTop = mapContainer.scrollHeight; }, 300);
+        }
+
+        async function loadMurajaahSurah(surahNumber) {
+            goToScreen('murajaahScreen'); 
+            
+            const loading = document.getElementById('murajaah-loading');
+            const content = document.getElementById('murajaah-content');
+            const navElements = document.getElementById('murajaah-nav');
+            
+            if(loading) { loading.classList.remove('hidden'); loading.classList.add('flex'); }
+            if(content) content.classList.add('hidden');
+            if(navElements) { navElements.classList.add('hidden'); navElements.classList.remove('flex'); }
+            
+            hideMurajaahFeedback();
+
+            try {
+                // Mengambil ayat dari Quran API Publik
+                const [resAr, resId] = await Promise.all([
+                    fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`),
+                    fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/id.indonesian`)
+                ]);
+                const dataAr = await resAr.json();
+                const dataId = await resId.json();
+
+                if (dataAr.code === 200 && dataId.code === 200) {
+                    murajaahAyahs = dataAr.data.ayahs.map((ayah, index) => ({
+                        numberInSurah: ayah.numberInSurah,
+                        text: ayah.text,
+                        translation: dataId.data.ayahs[index].text
+                    }));
+                    currentMurajaahIndex = 0;
+                    renderMurajaahAyah();
+                }
+            } catch(e) {}
+            
+            if(loading) { loading.classList.add('hidden'); loading.classList.remove('flex'); }
+            if(content) content.classList.remove('hidden');
+            if(navElements) { navElements.classList.remove('hidden'); navElements.classList.add('flex'); }
+        }
+
+        function renderMurajaahAyah() {
+            const ayah = murajaahAyahs[currentMurajaahIndex];
+            if (!ayah) return;
+
+            const textContainer = document.getElementById('murajaah-text-container');
+            if (textContainer) textContainer.scrollTop = 0;
+
+            const arabicElem = document.getElementById('murajaah-arabic');
+            const translationElem = document.getElementById('murajaah-translation');
+            const ayatNumElem = document.getElementById('murajaah-ayat-num');
+            
+            if(arabicElem) arabicElem.innerText = ayah.text;
+            if(translationElem) translationElem.innerText = `"${ayah.translation}"`;
+            if(ayatNumElem) ayatNumElem.innerText = ayah.numberInSurah;
+            
+            const topNum = document.getElementById('murajaah-ayat-num-top');
+            if(topNum) topNum.innerText = ayah.numberInSurah;
+            const topTotal = document.getElementById('murajaah-ayat-total');
+            if(topTotal) topTotal.innerText = murajaahAyahs.length;
+            
+            const progressPercent = ((currentMurajaahIndex + 1) / murajaahAyahs.length) * 100;
+            const progressElem = document.getElementById('murajaah-progress');
+            if(progressElem) progressElem.style.width = `${progressPercent}%`;
+
+            const prevBtn = document.getElementById('murajaah-prev-btn');
+            if (currentMurajaahIndex === 0) {
+                if(prevBtn) prevBtn.classList.add('opacity-30', 'pointer-events-none');
+            } else {
+                if(prevBtn) prevBtn.classList.remove('opacity-30', 'pointer-events-none');
+            }
+
+            if(arabicElem) arabicElem.classList.add('blur-md');
+            
+            const blurOverlay = document.getElementById('murajaah-blur-overlay');
+            if(blurOverlay) { blurOverlay.classList.remove('hidden'); blurOverlay.classList.add('flex'); }
+            
+            hideMurajaahFeedback();
+        }
+
+        function revealMurajaahAyah() {
+            const arabicElem = document.getElementById('murajaah-arabic');
+            const blurOverlay = document.getElementById('murajaah-blur-overlay');
+            if(arabicElem) arabicElem.classList.remove('blur-md');
+            if(blurOverlay) { blurOverlay.classList.add('hidden'); blurOverlay.classList.remove('flex'); }
+        }
+
+        function toggleMurajaahRecord() {
+            if (isMurajaahEvaluating) return;
+            if (isMurajaahRecording) return; // Mencegah double tap
+
+            isMurajaahRecording = true;
+            const btn = document.getElementById('murajaah-record-btn');
+            const statusTxt = document.getElementById('murajaah-status-text');
+            
+            if(btn) {
+                btn.innerHTML = `<i data-lucide="loader" class="w-7 h-7 animate-spin"></i> MENDENGARKAN...`;
+                btn.className = "w-full bg-duo-red border-b-[5px] border-duo-red-dark rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] animate-pulse active:border-b-0 active:translate-y-[5px] transition-all cursor-pointer shadow-[0_0_20px_rgba(255,75,75,0.4)]";
+            }
+            if(statusTxt) statusTxt.innerText = "Silakan bicara... (Simulasi mendengarkan 3 detik)";
+            
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            hideMurajaahFeedback();
+
+            // FULL SIMULASI: Proses Perekaman Palsu
+            setTimeout(() => {
+                isMurajaahRecording = false;
+                isMurajaahEvaluating = true;
+                
+                if(btn) {
+                    btn.innerHTML = `<i data-lucide="loader-2" class="w-7 h-7 animate-spin"></i> MEMPROSES...`;
+                    btn.className = "w-full bg-gray-400 border-b-[5px] border-gray-500 rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] cursor-wait transition-all";
+                }
+                if(statusTxt) statusTxt.innerText = "Menganalisis kecocokan makhraj dan tajwid...";
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+
+                // FULL SIMULASI: Proses Evaluasi Palsu
+                setTimeout(() => {
+                    isMurajaahEvaluating = false;
+                    
+                    // Buat probabilitas 85% berhasil agar prototype terasa seru
+                    const isBenar = Math.random() > 0.15; 
+                    const feedbackMsg = isBenar ? "Bacaan tajwid dan makhrajmu sangat tepat!" : "Terdengar ada kesalahan makhraj, coba diulangi lagi.";
+                    const fakeTranscript = isBenar ? "Sempurna." : "Terjadi sedikit kekeliruan pembacaan di akhir kalimat.";
+                    
+                    showMurajaahFeedback(isBenar, feedbackMsg, fakeTranscript);
+                }, 1500);
+
+            }, 3000);
+        }
+
+        function resetMurajaahBtn() {
+            const btn = document.getElementById('murajaah-record-btn');
+            const statusTxt = document.getElementById('murajaah-status-text');
+            if(btn) {
+                btn.innerHTML = `<i data-lucide="mic" class="w-7 h-7"></i> MULAI REKAM`;
+                btn.className = "w-full bg-duo-green border-b-[5px] border-duo-green-dark rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] active:border-b-0 active:translate-y-[5px] transition-all cursor-pointer relative overflow-hidden";
+            }
+            if(statusTxt) statusTxt.innerHTML = `Ketuk untuk mulai membaca ayat ke-<span id="murajaah-ayat-num">${murajaahAyahs[currentMurajaahIndex]?.numberInSurah || 1}</span>`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function showMurajaahFeedback(isCorrect, feedbackText, transcript) {
+            resetMurajaahBtn();
+            
+            const bottomAction = document.getElementById('murajaah-bottom-action');
+            if(bottomAction) bottomAction.style.transform = 'translateY(150%)';
+            
+            const feedbackSheet = document.getElementById('murajaah-feedback');
+            const icon = document.getElementById('murajaah-feedback-icon');
+            const iconBg = document.getElementById('murajaah-feedback-icon-container');
+            const title = document.getElementById('murajaah-feedback-title');
+            const desc = document.getElementById('murajaah-feedback-desc');
+            const trans = document.getElementById('murajaah-feedback-transcript');
+            const btn = document.getElementById('murajaah-next-btn');
+            const mascot = document.getElementById('murajaah-mascot');
+            const bgFlash = document.getElementById('murajaah-bg-flash');
+
+            if(mascot) mascot.classList.remove('anim-shake', 'anim-bounce');
+            if(bgFlash) bgFlash.classList.remove('flash-correct', 'flash-wrong');
+
+            setTimeout(() => {
+                if (isCorrect) {
+                    murajaahXP += 15;
+                    updateGamification();
+                    
+                    if(btn) {
+                        const floatingXP = document.createElement('div');
+                        floatingXP.className = 'xp-float text-[20px] font-black right-10 -top-8';
+                        floatingXP.innerText = '+15 XP';
+                        btn.appendChild(floatingXP);
+                        setTimeout(() => floatingXP.remove(), 1500);
+                    }
+
+                    if(bgFlash) { void bgFlash.offsetWidth; bgFlash.classList.add('flash-correct'); }
+                    if(mascot) { mascot.innerText = "🤩"; void mascot.offsetWidth; mascot.classList.add('anim-bounce'); }
+                    if(feedbackSheet) feedbackSheet.className = "absolute bottom-0 left-0 w-full px-6 pt-8 pb-8 transition-transform duration-300 transform translate-y-0 z-30 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] rounded-t-[32px] bg-[#d7ffb8]";
+                    if(icon) { icon.setAttribute('data-lucide', 'check'); icon.className = "w-8 h-8 text-duo-green"; }
+                    if(iconBg) iconBg.className = "w-14 h-14 bg-white rounded-full flex items-center justify-center shrink-0 shadow-sm border-[4px] border-white";
+                    if(title) { title.innerText = "Luar Biasa!"; title.className = "font-black text-[24px] text-duo-green-dark leading-none"; }
+                    if(desc) { desc.innerText = feedbackText || "Bacaanmu sangat tepat."; desc.className = "font-bold text-[15px] text-duo-green-dark/80 mt-2"; }
+                    if(trans) trans.classList.add('hidden');
+                    if(btn) {
+                        btn.innerText = "LANJUT";
+                        btn.className = "w-full bg-duo-green border-b-[5px] border-duo-green-dark rounded-2xl py-4 text-white font-black text-[18px] active:border-b-0 active:translate-y-[5px] transition-all cursor-pointer relative";
+                        btn.onclick = nextMurajaahAyah;
+                    }
+                    revealMurajaahAyah(); 
+                } else {
+                    murajaahHearts--; 
+                    updateGamification();
+
+                    if(bgFlash) { void bgFlash.offsetWidth; bgFlash.classList.add('flash-wrong'); }
+                    if(mascot) { mascot.innerText = "😓"; void mascot.offsetWidth; mascot.classList.add('anim-shake'); }
+                    if(feedbackSheet) feedbackSheet.className = "absolute bottom-0 left-0 w-full px-6 pt-8 pb-8 transition-transform duration-300 transform translate-y-0 z-30 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] rounded-t-[32px] bg-duo-red-bg";
+                    if(icon) { icon.setAttribute('data-lucide', 'x'); icon.className = "w-8 h-8 text-duo-red"; }
+                    if(iconBg) iconBg.className = "w-14 h-14 bg-white rounded-full flex items-center justify-center shrink-0 shadow-sm border-[4px] border-white";
+                    if(title) { title.innerText = "Belum Tepat"; title.className = "font-black text-[24px] text-duo-red-dark leading-none"; }
+                    if(desc) { desc.innerText = feedbackText || "Coba perhatikan makhraj dan tajwidnya lagi."; desc.className = "font-bold text-[15px] text-duo-red-dark/80 mt-2"; }
+                    
+                    if (transcript && trans) {
+                        trans.classList.remove('hidden');
+                        trans.innerText = `Simulasi Analisis: "${transcript}"`;
+                    }
+
+                    if(btn) {
+                        btn.innerText = "COBA LAGI";
+                        btn.className = "w-full bg-duo-red border-b-[5px] border-duo-red-dark rounded-2xl py-4 text-white font-black text-[18px] active:border-b-0 active:translate-y-[5px] transition-all cursor-pointer mt-4 relative";
+                        btn.onclick = hideMurajaahFeedback; 
+                    }
+
+                    if (murajaahHearts <= 0) {
+                        setTimeout(() => {
+                            alert("Yaah! Nyawa kamu habis 💔\n\nIstirahat dulu, yuk ulangi hafalannya lagi!");
+                            murajaahHearts = 5; 
+                            updateGamification();
+                            goToScreen('murajaahMapScreen'); 
+                        }, 1000);
+                    }
+                }
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }, 10);
+        }
+
+        function hideMurajaahFeedback() {
+            const feedback = document.getElementById('murajaah-feedback');
+            if(feedback) feedback.style.transform = 'translateY(120%)';
+            setTimeout(() => {
+                const bottomAction = document.getElementById('murajaah-bottom-action');
+                if(bottomAction) bottomAction.style.transform = 'translateY(0)';
+            }, 200);
+        }
+
+        function prevMurajaahAyah() {
+            if (isMurajaahRecording || isMurajaahEvaluating) return;
+            hideMurajaahFeedback();
+            if (currentMurajaahIndex > 0) {
+                currentMurajaahIndex--;
+                setTimeout(() => renderMurajaahAyah(), 300);
+            }
+        }
+
+        function nextMurajaahAyah() {
+            if (isMurajaahRecording || isMurajaahEvaluating) return;
+            hideMurajaahFeedback();
+            if (currentMurajaahIndex < murajaahAyahs.length - 1) {
+                currentMurajaahIndex++;
+                setTimeout(() => renderMurajaahAyah(), 300);
+            } else {
+                alert("Alhamdulillah, kamu telah menyelesaikan hafalan surah ini!");
+                goToScreen('murajaahMapScreen');
+            }
+        }
+
+        // ==========================================
+        // MURAJAAHQ VERSUS LOGIC
+        // ==========================================
+        let vsP1Score = 0;
+        let vsP2Score = 0;
+        let vsSimInterval = null;
+
+        function startVersusMatch() {
+            goToScreen('murajaahVersusRoomScreen');
+            vsP1Score = 0;
+            vsP2Score = 0;
+            isVsTransitioning = false;
+            
+            const p1 = document.getElementById('vs-p1-score');
+            const p2 = document.getElementById('vs-p2-score');
+            if(p1) p1.innerText = vsP1Score;
+            if(p2) p2.innerText = vsP2Score;
+
+            // Load Al-Ikhlas for Speed Battle
+            fetch('https://api.alquran.cloud/v1/surah/112/id.indonesian')
+            .then(res => res.json())
+            .then(async (dataId) => {
+                const resAr = await fetch('https://api.alquran.cloud/v1/surah/112');
+                const dataAr = await resAr.json();
+                murajaahAyahs = dataAr.data.ayahs.map((ayah, index) => ({
+                    numberInSurah: ayah.numberInSurah,
+                    text: ayah.text,
+                    translation: dataId.data.ayahs[index].text
+                }));
+                currentMurajaahIndex = 0;
+                renderVsAyah();
+            });
+
+            clearInterval(vsSimInterval);
+            vsSimInterval = setInterval(() => {
+                if (Math.random() > 0.3 && !isVsTransitioning) {
+                    vsP2Score++;
+                    if(p2) p2.innerText = vsP2Score;
+                    if(p2 && p2.parentElement) {
+                        p2.parentElement.classList.add('scale-125', 'bg-duo-red/20');
+                        setTimeout(() => p2.parentElement.classList.remove('scale-125', 'bg-duo-red/20'), 300);
+                    }
+                    if(!checkVsWin()) {
+                        isVsTransitioning = true;
+                        revealVsAyah();
+                        setTimeout(() => {
+                            currentMurajaahIndex++;
+                            if(currentMurajaahIndex >= murajaahAyahs.length) currentMurajaahIndex = 0;
+                            renderVsAyah();
+                        }, 1500);
+                    }
+                }
+            }, Math.floor(Math.random() * 8000) + 10000);
+        }
+
+        function renderVsAyah() {
+            isVsTransitioning = false;
+            const ayah = murajaahAyahs[currentMurajaahIndex];
+            if(!ayah) return;
+            const textElem = document.getElementById('vs-ayah-text');
+            const transElem = document.getElementById('vs-ayah-trans');
+            const overlay = document.getElementById('vs-blur-overlay');
+            
+            if(textElem) {
+                textElem.innerText = ayah.text;
+                textElem.classList.add('blur-md', 'select-none');
+            }
+            if(transElem) {
+                transElem.innerText = `"${ayah.translation}"`;
+                transElem.classList.add('blur-md', 'select-none');
+            }
+            if(overlay) overlay.classList.remove('hidden');
+        }
+
+        function revealVsAyah() {
+            const textElem = document.getElementById('vs-ayah-text');
+            const transElem = document.getElementById('vs-ayah-trans');
+            const overlay = document.getElementById('vs-blur-overlay');
+            if(textElem) textElem.classList.remove('blur-md', 'select-none');
+            if(transElem) transElem.classList.remove('blur-md', 'select-none');
+            if(overlay) overlay.classList.add('hidden');
+        }
+
+        function toggleVsRecord() {
+            if (isMurajaahEvaluating || isVsTransitioning) return;
+            if (isMurajaahRecording) return; 
+
+            isMurajaahRecording = true;
+            const btn = document.getElementById('vs-record-btn');
+            
+            if(btn) btn.innerHTML = `<i data-lucide="loader" class="w-10 h-10 animate-spin"></i>`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+
+            // FULL SIMULASI: Respon instan untuk Mode Versus
+            setTimeout(() => {
+                isMurajaahRecording = false;
+                isMurajaahEvaluating = true;
+                
+                if(btn) btn.innerHTML = `<i data-lucide="loader-2" class="w-10 h-10 animate-spin text-yellow-400"></i>`;
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+
+                // Hitung simulasi skor
+                setTimeout(() => {
+                    isMurajaahEvaluating = false;
+                    if(btn) btn.innerHTML = `<i data-lucide="mic" class="w-10 h-10"></i>`;
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+                    const isBenar = true; // Selalu anggap berhasil dalam simulasi balapan
+                    if(isBenar && !isVsTransitioning) {
+                        vsP1Score++;
+                        const p1 = document.getElementById('vs-p1-score');
+                        if(p1) {
+                            p1.innerText = vsP1Score;
+                            if(p1.parentElement) {
+                                p1.parentElement.classList.add('scale-125', 'bg-duo-blue/20');
+                                setTimeout(() => p1.parentElement.classList.remove('scale-125', 'bg-duo-blue/20'), 300);
+                            }
+                        }
+                        if(!checkVsWin()) {
+                            isVsTransitioning = true;
+                            revealVsAyah();
+                            setTimeout(() => {
+                                currentMurajaahIndex++;
+                                if(currentMurajaahIndex >= murajaahAyahs.length) currentMurajaahIndex = 0; 
+                                renderVsAyah();
+                            }, 1500);
+                        }
+                    }
+                }, 500);
+
+            }, 1000);
+        }
+
+        function checkVsWin() {
+            if(vsP1Score >= 3) {
+                clearInterval(vsSimInterval);
+                revealVsAyah();
+                setTimeout(() => { alert("🎉 KAMU MENANG!"); goToScreen('murajaahMapScreen'); }, 1500);
+                return true;
+            } else if(vsP2Score >= 3) {
+                clearInterval(vsSimInterval);
+                revealVsAyah();
+                setTimeout(() => { alert("💥 KAMU KALAH!"); goToScreen('murajaahMapScreen'); }, 1500);
+                return true;
+            }
+            return false;
+        }
+
+        // ==========================================
+        // TADARUS LOBBY MODAL
         // ==========================================
         function openCreateRoomModal() {
             const modal = document.getElementById('createRoomModal');
             const sheet = document.getElementById('createRoomSheet');
-            modal.classList.remove('hidden');
-            
-            sheet.style.animation = 'none';
-            sheet.offsetHeight; // trigger reflow
-            sheet.style.animation = null;
-            sheet.classList.add('modal-slide-up');
-            sheet.classList.remove('modal-slide-down');
+            if(modal) modal.classList.remove('hidden');
+            if(sheet) {
+                sheet.style.animation = 'none';
+                sheet.offsetHeight; 
+                sheet.style.animation = null;
+                sheet.classList.add('modal-slide-up');
+                sheet.classList.remove('modal-slide-down');
+            }
         }
 
         function closeCreateRoomModal() {
             const modal = document.getElementById('createRoomModal');
             const sheet = document.getElementById('createRoomSheet');
-            
-            sheet.classList.remove('modal-slide-up');
-            sheet.classList.add('modal-slide-down');
-            
+            if(sheet) {
+                sheet.classList.remove('modal-slide-up');
+                sheet.classList.add('modal-slide-down');
+            }
             setTimeout(() => {
-                modal.classList.add('hidden');
-                sheet.classList.remove('modal-slide-down');
+                if(modal) modal.classList.add('hidden');
+                if(sheet) sheet.classList.remove('modal-slide-down');
             }, 300);
         }
 
         function switchTadarusTab(tab) {
             const tabs = ['juz', 'surah', 'bebas'];
             tabs.forEach(t => {
-                document.getElementById('tab-' + t).className = "flex-1 py-2 text-[12px] font-bold text-gray-500 rounded-xl hover:text-gray-900 transition-all cursor-pointer";
-                document.getElementById('content-' + t).style.display = 'none';
+                const tabBtn = document.getElementById('tab-' + t);
+                const tabCont = document.getElementById('content-' + t);
+                if(tabBtn) tabBtn.className = "flex-1 py-2 text-[12px] font-bold text-gray-500 rounded-xl hover:text-gray-900 transition-all cursor-pointer";
+                if(tabCont) tabCont.style.display = 'none';
             });
-            
-            document.getElementById('tab-' + tab).className = "flex-1 py-2 text-[12px] font-bold bg-white shadow-sm rounded-xl text-gray-900 transition-all cursor-pointer";
-            document.getElementById('content-' + tab).style.display = 'flex';
+            const activeBtn = document.getElementById('tab-' + tab);
+            const activeCont = document.getElementById('content-' + tab);
+            if(activeBtn) activeBtn.className = "flex-1 py-2 text-[12px] font-bold bg-white shadow-sm rounded-xl text-gray-900 transition-all cursor-pointer";
+            if(activeCont) activeCont.style.display = 'flex';
         }
+
+        let tadarusAyahsData = [];
+        let activeTadarusAyah = 0;
 
         function startTadarusRoom() {
             closeCreateRoomModal();
-            setTimeout(() => {
-                goToScreen('tadarusRoomScreen');
-            }, 300); // Tunggu animasi modal turun
+            setTimeout(async () => { 
+                goToScreen('tadarusRoomScreen'); 
+                
+                const container = document.getElementById('tadarus-ayahs-container');
+                if(container) {
+                    container.innerHTML = '<div class="flex justify-center mt-10"><i data-lucide="loader-2" class="w-10 h-10 animate-spin text-[#10b981]"></i></div>';
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                }
+
+                try {
+                    let targetSurah = window.selectedTadarusSurah || 78; 
+                    const resAr = await fetch(`https://api.alquran.cloud/v1/surah/${targetSurah}`);
+                    const dataAr = await resAr.json();
+
+                    if (dataAr.code === 200) {
+                        tadarusAyahsData = dataAr.data.ayahs;
+                        const titleElem = document.getElementById('tadarus-room-title');
+                        if(titleElem) titleElem.innerText = `Ruang Tadarus: ${dataAr.data.englishName}`;
+                        renderTadarusAyahs();
+                    }
+                } catch(e) {}
+            }, 300);
+        }
+
+        function renderTadarusAyahs() {
+            const container = document.getElementById('tadarus-ayahs-container');
+            if (!container) return;
+            
+            let html = '';
+            tadarusAyahsData.forEach((ayah, index) => {
+                const isActive = index === 0 ? 'bg-[#10b981]/20 text-[#047857] rounded-lg px-2 shadow-sm border border-[#10b981]/30' : '';
+                html += `<span id="t-ayah-${index}" class="cursor-pointer transition-all duration-300 inline-block m-1 ${isActive}" onclick="highlightTadarusAyah(${index})">${ayah.text} <span class="text-[18px] text-gray-400 mx-1">﴿${ayah.numberInSurah}﴾</span></span>`;
+            });
+            container.innerHTML = html;
+            activeTadarusAyah = 0;
+        }
+
+        function highlightTadarusAyah(index) {
+            const prev = document.getElementById(`t-ayah-${activeTadarusAyah}`);
+            if(prev) {
+                prev.classList.remove('bg-[#10b981]/20', 'text-[#047857]', 'rounded-lg', 'px-2', 'shadow-sm', 'border', 'border-[#10b981]/30');
+            }
+            
+            activeTadarusAyah = index;
+            const current = document.getElementById(`t-ayah-${activeTadarusAyah}`);
+            if(current) {
+                current.classList.add('bg-[#10b981]/20', 'text-[#047857]', 'rounded-lg', 'px-2', 'shadow-sm', 'border', 'border-[#10b981]/30');
+                current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
 
         function generateJuzGrid() {
@@ -1377,9 +2230,6 @@
             grid.innerHTML = html;
         }
 
-        // ==========================================
-        // FITUR DATA 114 SURAH LENGKAP & PENCARIAN
-        // ==========================================
         const surahNames = [
             "Al-Fatihah", "Al-Baqarah", "Ali 'Imran", "An-Nisa'", "Al-Ma'idah", "Al-An'am", "Al-A'raf", "Al-Anfal", "At-Taubah", "Yunus", "Hud", "Yusuf", "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Isra'", "Al-Kahf", "Maryam", "Taha", "Al-Anbiya'", "Al-Hajj", "Al-Mu'minun", "An-Nur", "Al-Furqan", "Ash-Shu'ara'", "An-Naml", "Al-Qasas", "Al-'Ankabut", "Ar-Rum", "Luqman", "As-Sajdah", "Al-Ahzab", "Saba'", "Fatir", "Ya Sin", "As-Saffat", "Sad", "Az-Zumar", "Ghafir", "Fussilat", "Ash-Shura", "Az-Zukhruf", "Ad-Dukhan", "Al-Jathiyah", "Al-Ahqaf", "Muhammad", "Al-Fath", "Al-Hujurat", "Qaf", "Ad-Dhariyat", "At-Tur", "An-Najm", "Al-Qamar", "Ar-Rahman", "Al-Waqi'ah", "Al-Hadid", "Al-Mujadilah", "Al-Hashr", "Al-Mumtahanah", "As-Saff", "Al-Jumu'ah", "Al-Munafiqun", "At-Taghabun", "At-Talaq", "At-Tahrim", "Al-Mulk", "Al-Qalam", "Al-Haqqah", "Al-Ma'arij", "Nuh", "Al-Jinn", "Al-Muzzammil", "Al-Muddaththir", "Al-Qiyamah", "Al-Insan", "Al-Mursalat", "An-Naba'", "An-Nazi'at", "'Abasa", "At-Takwir", "Al-Infitar", "Al-Mutaffifin", "Al-Inshiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Ghashiyah", "Al-Fajr", "Al-Balad", "Ash-Shams", "Al-Lail", "Ad-Duha", "Ash-Sharh", "At-Tin", "Al-'Alaq", "Al-Qadr", "Al-Bayyinah", "Az-Zalzalah", "Al-'Adiyat", "Al-Qari'ah", "At-Takathur", "Al-'Asr", "Al-Humazah", "Al-Fil", "Quraysh", "Al-Ma'un", "Al-Kausar", "Al-Kafirun", "An-Nasr", "Al-Lahab", "Al-Ikhlas", "Al-Falaq", "An-Nas"
         ];
@@ -1389,19 +2239,33 @@
             if (!container) return;
             let html = '';
             surahNames.forEach((surah, index) => {
-                // Menyoroti Surah An-Naba' sebagai contoh aktif
                 const isActive = surah === "An-Naba'" ? 'text-[#10b981] bg-white shadow-sm border border-[#10b981]/20' : 'text-gray-700 hover:bg-white hover:shadow-sm';
-                html += `<button class="surah-item text-left px-3 py-2 rounded-xl text-[13px] font-bold cursor-pointer transition-colors ${isActive}" data-name="${surah.toLowerCase()}">${index + 1}. ${surah}</button>`;
+                html += `<button class="surah-item text-left px-3 py-2 rounded-xl text-[13px] font-bold cursor-pointer transition-colors ${isActive}" data-name="${surah.toLowerCase()}" onclick="selectTadarusSurah(${index + 1}, this)">${index + 1}. ${surah}</button>`;
             });
             container.innerHTML = html;
         }
 
+        function selectTadarusSurah(number, btnElement) {
+            window.selectedTadarusSurah = number;
+            document.querySelectorAll('.surah-item').forEach(btn => {
+                if(btn) {
+                    btn.classList.remove('text-[#10b981]', 'bg-white', 'shadow-sm', 'border', 'border-[#10b981]/20');
+                    btn.classList.add('text-gray-700');
+                }
+            });
+            if(btnElement) {
+                btnElement.classList.remove('text-gray-700');
+                btnElement.classList.add('text-[#10b981]', 'bg-white', 'shadow-sm', 'border', 'border-[#10b981]/20');
+            }
+        }
+
         function filterSurah() {
-            const input = document.getElementById('search-surah').value.toLowerCase();
-            const items = document.querySelectorAll('.surah-item');
-            items.forEach(item => {
+            const searchInput = document.getElementById('search-surah');
+            if(!searchInput) return;
+            const input = searchInput.value.toLowerCase();
+            document.querySelectorAll('.surah-item').forEach(item => {
                 const name = item.getAttribute('data-name');
-                if(name.includes(input) || item.innerText.toLowerCase().includes(input)) {
+                if(name && (name.includes(input) || item.innerText.toLowerCase().includes(input))) {
                     item.style.display = 'block';
                 } else {
                     item.style.display = 'none';
@@ -1409,23 +2273,29 @@
             });
         }
 
-        // MENJALANKAN INISIASI KETIKA HALAMAN DIMUAT (TANPA EVENT LISTENER)
-        const link = document.createElement('link');
-        link.href = 'https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap';
-        link.rel = 'stylesheet';
-        document.head.appendChild(link);
+        // MENJALANKAN INISIASI KETIKA HALAMAN DIMUAT
+        document.addEventListener("DOMContentLoaded", () => {
+            try {
+                const link = document.createElement('link');
+                link.href = 'https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap';
+                link.rel = 'stylesheet';
+                document.head.appendChild(link);
 
-        generateSocialQPosts();
-        generateJuzGrid();
-        generateSurahList();
+                generateSocialQPosts();
+                generateJuzGrid();
+                generateSurahList();
 
-        // Inisialisasi ikon Lucide SETELAH semua elemen di-generate
-        lucide.createIcons();
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
 
-        // Mulai transisi otomatis dari splash screen
-        setTimeout(() => {
-            goToScreen('ob1');
-        }, 2500); 
+                setTimeout(() => { goToScreen('ob1'); }, 2500); 
+            } catch (error) {
+                console.error("Inisiasi Error: ", error);
+                setTimeout(() => { goToScreen('ob1'); }, 2500); 
+            }
+        });
+
     </script>
 </body>
 </html>
