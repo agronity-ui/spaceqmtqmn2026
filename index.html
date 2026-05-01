@@ -21,14 +21,14 @@
                         'ob-cyan': '#56e4ff',
                         'ob-purple': '#cc7dff',
                         'ob-yellow': '#ffe500',
-                        'duo-green': '#58cc02',
-                        'duo-green-dark': '#46a302',
-                        'duo-red': '#ff4b4b',
-                        'duo-red-dark': '#ea2b2b',
-                        'duo-red-bg': '#ffdfe0',
+                        'duo-green': '#10b981',
+                        'duo-green-dark': '#047857',
+                        'duo-red': '#ef4444',
+                        'duo-red-dark': '#b91c1c',
+                        'duo-red-bg': '#fee2e2',
                         'duo-blue': '#1cb0f6',
-                        'duo-blue-dark': '#1899d6',
-                        'sq-dark': '#064e3b', /* Premium Dark Green */
+                        'duo-blue-dark': '#0284c7',
+                        'sq-dark': '#064e3b', 
                         'sq-light': '#ecfdf5',
                         'vs-purple': '#8b5cf6',
                         'vs-purple-dark': '#6d28d9',
@@ -175,16 +175,16 @@
         .anim-bounce { animation: duoBounce 0.6s ease-in-out 0.25s forwards; }
 
         @keyframes bgFlashCorrect {
-            0% { background-color: rgba(88, 204, 2, 0); }
-            30% { background-color: rgba(88, 204, 2, 0.3); }
-            100% { background-color: rgba(88, 204, 2, 0); }
+            0% { background-color: rgba(16, 185, 129, 0); }
+            30% { background-color: rgba(16, 185, 129, 0.3); }
+            100% { background-color: rgba(16, 185, 129, 0); }
         }
         .flash-correct { animation: bgFlashCorrect 1s ease-out; }
 
         @keyframes bgFlashWrong {
-            0% { background-color: rgba(255, 75, 75, 0); }
-            30% { background-color: rgba(255, 75, 75, 0.3); }
-            100% { background-color: rgba(255, 75, 75, 0); }
+            0% { background-color: rgba(239, 68, 68, 0); }
+            30% { background-color: rgba(239, 68, 68, 0.3); }
+            100% { background-color: rgba(239, 68, 68, 0); }
         }
         .flash-wrong { animation: bgFlashWrong 1s ease-out; }
 
@@ -195,6 +195,10 @@
             100% { opacity: 0; transform: translateY(-40px); }
         }
         .xp-float { animation: floatUpXP 1.5s forwards; font-weight: black; color: #1cb0f6; position: absolute; z-index: 100; text-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+
+        .wheel-slice {
+            clip-path: polygon(100% 0, 50% 100%, 0 0);
+        }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 font-sans antialiased">
@@ -902,7 +906,7 @@
                             <img src="https://i.pravatar.cc/100?img=12" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
                             <img src="https://i.pravatar.cc/100?img=13" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
                         </div>
-                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">Gabung</button>
+                        <button onclick="joinTadarusRoom(78, 'Gas Khatam Juz 30')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">Gabung</button>
                     </div>
                 </div>
 
@@ -923,7 +927,7 @@
                             <img src="https://i.pravatar.cc/100?img=9" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
                             <img src="https://i.pravatar.cc/100?img=1" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
                         </div>
-                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">Gabung</button>
+                        <button onclick="joinTadarusRoom(18, 'Latihan Tajwid Al-Kahfi')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">Gabung</button>
                     </div>
                 </div>
 
@@ -944,7 +948,7 @@
                             <img src="https://i.pravatar.cc/100?img=15" class="w-8 h-8 rounded-full border-2 border-white object-cover -ml-2 shadow-sm">
                             <div class="w-8 h-8 rounded-full border-2 border-white bg-white flex items-center justify-center font-bold text-gray-400 text-[10px] -ml-2 shadow-sm">+1</div>
                         </div>
-                        <button onclick="goToScreen('tadarusRoomScreen')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">Gabung</button>
+                        <button onclick="joinTadarusRoom(1, 'Ngaji Santai Ba\'da Maghrib')" class="bg-gray-900 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-md active:scale-95 transition-transform">Gabung</button>
                     </div>
                 </div>
             </div>
@@ -976,8 +980,8 @@
                     <div class="bg-white/80 backdrop-blur-md text-gray-500 text-[10px] font-bold px-3 py-1.5 rounded-full mb-4 flex items-center gap-1.5 shadow-sm border border-gray-100">
                         <i data-lucide="hand" class="w-3.5 h-3.5 text-[#10b981]"></i> Ketuk ayat untuk menggeser stabilo
                     </div>
-                    <p class="text-[28px] text-gray-900 leading-[2.5] mb-4" style="font-family: 'Amiri', serif;">
-                        بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+                    <p id="tadarus-bismillah" class="text-[28px] text-gray-900 leading-[2.5] mb-4" style="font-family: 'Amiri', serif;">
+                        بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
                     </p>
                     <div id="tadarus-ayahs-container" class="text-[32px] text-gray-900 leading-[2.5]" style="font-family: 'Amiri', serif;" dir="rtl">
                         <!-- Dynamic Content Ayah -->
@@ -1090,8 +1094,8 @@
 
             <!-- Versus Mode Floating Bar -->
             <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-[85%] z-30">
-                <button onclick="goToScreen('murajaahVersusLobbyScreen')" class="w-full bg-vs-purple border-b-[6px] border-vs-purple-dark rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] active:border-b-0 active:translate-y-[6px] transition-all cursor-pointer shadow-lg hover:scale-[1.02]">
-                    <i data-lucide="swords" class="w-6 h-6"></i> MODE VERSUS
+                <button onclick="goToScreen('murajaahVersusLobbyScreen')" class="w-full bg-[#1cb0f6] border-b-[6px] border-[#0284c7] rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] active:border-b-0 active:translate-y-[6px] transition-all cursor-pointer shadow-lg hover:scale-[1.02]">
+                    <i data-lucide="swords" class="w-6 h-6"></i> MODE VERSUS 1V1
                 </button>
             </div>
         </div>
@@ -1099,38 +1103,55 @@
         <!-- ========================================== -->
         <!-- SCREEN 13.6: MURAJAAHQ VERSUS LOBBY        -->
         <!-- ========================================== -->
-        <div id="murajaahVersusLobbyScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-vs-purple text-white overflow-hidden z-[49]">
-            <div class="pt-14 px-6 flex items-center justify-between pb-4 sticky top-0 z-20">
-                <button onclick="goToScreen('murajaahMapScreen')" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors cursor-pointer active:scale-95">
-                    <i data-lucide="arrow-left" class="w-5 h-5 text-white"></i>
+        <div id="murajaahVersusLobbyScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#f8fafc] text-gray-900 overflow-hidden z-[49]">
+            <div class="pt-14 px-6 flex items-center justify-between pb-4 sticky top-0 z-20 bg-white border-b border-gray-200 shadow-sm">
+                <button onclick="goToScreen('murajaahMapScreen')" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer active:scale-95">
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-gray-900"></i>
                 </button>
-                <h2 class="text-[20px] font-black tracking-tight">Undang Teman</h2>
+                <h2 class="text-[20px] font-extrabold tracking-tight">Lobby Versus</h2>
                 <div class="w-10 h-10"></div>
             </div>
             
-            <div class="flex-1 bg-white mt-4 rounded-t-[40px] text-gray-800 p-8 shadow-[0_-10px_40px_rgba(0,0,0,0.2)] flex flex-col relative">
-                
-                <h3 class="font-extrabold text-[18px] mb-4">Gunakan kode</h3>
-                <div class="flex items-center gap-3 bg-gray-50 border-2 border-gray-100 rounded-2xl p-4 cursor-pointer active:scale-95 transition-transform mb-3">
-                    <div class="bg-vs-purple/10 p-2 rounded-lg"><i data-lucide="users" class="w-6 h-6 text-vs-purple"></i></div>
-                    <span class="font-bold text-[15px] flex-1">Masukkan kode teman</span>
-                </div>
-                <div class="flex items-center gap-3 bg-gray-50 border-2 border-gray-100 rounded-2xl p-4 cursor-pointer active:scale-95 transition-transform mb-8 relative">
-                    <div class="bg-duo-green/10 p-2 rounded-lg"><i data-lucide="copy" class="w-6 h-6 text-duo-green"></i></div>
-                    <span class="font-bold text-[15px] flex-1">Salin kodemu</span>
-                    <span class="text-[12px] font-black text-gray-400 absolute right-4 tracking-widest uppercase">MJA-24X</span>
-                </div>
-
-                <h3 class="font-extrabold text-[18px] mb-4">Kirim undangan</h3>
-                <div class="flex items-center gap-3 bg-gray-50 border-2 border-gray-100 rounded-2xl p-4 cursor-pointer active:scale-95 transition-transform mb-8">
-                    <div class="bg-gray-800 p-2 rounded-lg"><i data-lucide="share" class="w-6 h-6 text-white"></i></div>
-                    <span class="font-bold text-[15px] flex-1">Bagikan tautan undangan</span>
+            <div class="flex-1 overflow-y-auto hide-scroll pb-24">
+                <!-- Hero Action -->
+                <div class="p-6 pb-2">
+                    <div class="bg-gradient-to-tr from-[#10b981] to-[#1cb0f6] rounded-[24px] p-6 text-white shadow-float relative overflow-hidden">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/20 rounded-full blur-2xl"></div>
+                        <h3 class="font-black text-[24px] leading-tight mb-2 relative z-10">Tantang Temanmu!<br>Uji Hafalan 1v1</h3>
+                        <p class="text-white/90 text-[13px] font-semibold mb-6 relative z-10">Pilih surah, putar roda acak, dan jawab dengan cepat.</p>
+                        <button onclick="openCreateVersusModal()" class="bg-white text-[#0284c7] font-black text-[15px] px-6 py-3 rounded-xl shadow-sm hover:scale-105 active:scale-95 transition-transform w-full relative z-10 flex justify-center items-center gap-2">
+                            <i data-lucide="plus-circle" class="w-5 h-5"></i> BUAT RUANG VERSUS
+                        </button>
+                    </div>
                 </div>
 
-                <div class="absolute bottom-8 left-6 right-6">
-                    <button onclick="startVersusMatch()" class="w-full bg-duo-green border-b-[5px] border-duo-green-dark rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] active:border-b-0 active:translate-y-[5px] transition-all cursor-pointer">
-                        MULAI TANDING
-                    </button>
+                <!-- Active Rooms List -->
+                <div class="px-6 mt-6">
+                    <h3 class="font-extrabold text-[18px] mb-4">Ruang Aktif Hari Ini</h3>
+                    
+                    <div class="flex flex-col gap-4">
+                        <div class="bg-white border-2 border-gray-100 rounded-2xl p-4 shadow-sm flex justify-between items-center hover:border-[#1cb0f6] transition-colors cursor-pointer">
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-[15px] mb-1">Battle Al-Mulk</h4>
+                                <div class="flex items-center gap-2">
+                                    <span class="bg-[#10b981]/10 text-[#10b981] text-[10px] font-bold px-2 py-0.5 rounded-md border border-[#10b981]/20">SURAH AL-MULK</span>
+                                    <span class="text-gray-400 text-[11px] font-semibold flex items-center gap-1"><i data-lucide="user" class="w-3 h-3"></i> 1/2 Pemain</span>
+                                </div>
+                            </div>
+                            <button onclick="joinVersusRoom(67)" class="bg-gray-900 text-white font-bold text-[12px] px-4 py-2 rounded-xl active:scale-95 transition-transform">Gabung</button>
+                        </div>
+
+                        <div class="bg-white border-2 border-gray-100 rounded-2xl p-4 shadow-sm flex justify-between items-center hover:border-[#1cb0f6] transition-colors cursor-pointer">
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-[15px] mb-1">Tebak Cepat Juz 30</h4>
+                                <div class="flex items-center gap-2">
+                                    <span class="bg-[#1cb0f6]/10 text-[#1cb0f6] text-[10px] font-bold px-2 py-0.5 rounded-md border border-[#1cb0f6]/20">JUZ 30</span>
+                                    <span class="text-gray-400 text-[11px] font-semibold flex items-center gap-1"><i data-lucide="user" class="w-3 h-3"></i> 1/2 Pemain</span>
+                                </div>
+                            </div>
+                            <button onclick="joinVersusRoom(78)" class="bg-gray-900 text-white font-bold text-[12px] px-4 py-2 rounded-xl active:scale-95 transition-transform">Gabung</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1138,47 +1159,84 @@
         <!-- ========================================== -->
         <!-- SCREEN 13.7: MURAJAAHQ VERSUS ROOM         -->
         <!-- ========================================== -->
-        <div id="murajaahVersusRoomScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-slate-900 text-white overflow-hidden z-[51]">
-            <div class="flex justify-between items-center px-6 pt-14 pb-6 bg-slate-800 border-b border-slate-700">
+        <div id="murajaahVersusRoomScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#f8fafc] text-gray-900 overflow-hidden z-[51]">
+            <div class="flex justify-between items-center px-6 pt-14 pb-4 bg-white border-b border-gray-200 shadow-sm relative z-20">
                 <!-- P1 -->
-                <div class="flex items-center gap-3 bg-slate-700/50 px-3 py-2 rounded-full border border-slate-600">
-                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-10 h-10 rounded-full border-2 border-duo-blue object-cover">
-                    <span id="vs-p1-score" class="font-black text-[22px] text-duo-blue">0</span>
+                <div class="flex items-center gap-3 bg-white px-3 py-1.5 rounded-full border border-gray-200 shadow-sm">
+                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-9 h-9 rounded-full border-2 border-[#1cb0f6] object-cover">
+                    <span id="vs-p1-score" class="font-black text-[20px] text-[#1cb0f6]">0</span>
                 </div>
                 <!-- VS logo -->
-                <div class="font-black text-yellow-400 italic text-3xl drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">VS</div>
+                <div class="font-black text-[#10b981] italic text-2xl drop-shadow-sm absolute left-1/2 transform -translate-x-1/2">VS</div>
                 <!-- P2 -->
-                <div class="flex items-center gap-3 bg-slate-700/50 px-3 py-2 rounded-full border border-slate-600">
-                    <span id="vs-p2-score" class="font-black text-[22px] text-duo-red">0</span>
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" class="w-10 h-10 rounded-full border-2 border-duo-red object-cover">
+                <div class="flex items-center gap-3 bg-white px-3 py-1.5 rounded-full border border-gray-200 shadow-sm">
+                    <span id="vs-p2-score" class="font-black text-[20px] text-gray-400">0</span>
+                    <div class="w-9 h-9 rounded-full border-2 border-gray-300 bg-gray-100 flex items-center justify-center text-gray-400"><i data-lucide="bot" class="w-5 h-5"></i></div>
                 </div>
             </div>
 
             <div class="flex-1 flex flex-col items-center justify-center px-6 py-10 relative overflow-hidden">
-                <p class="text-duo-yellow font-bold text-[14px] uppercase tracking-widest mb-6 z-10">Siapa Cepat Dia Dapat!</p>
+                <div class="bg-gray-100 px-4 py-1.5 rounded-full border border-gray-200 shadow-sm mb-6 z-10 flex items-center gap-2">
+                    <i data-lucide="zap" class="w-4 h-4 text-yellow-500 fill-yellow-500"></i>
+                    <p class="text-gray-600 font-bold text-[12px] uppercase tracking-widest">Siapa Cepat Dia Dapat!</p>
+                </div>
                 
-                <div class="relative w-full z-10">
-                    <div id="vs-blur-overlay" class="absolute inset-0 z-20 flex flex-col items-center justify-center">
-                        <i data-lucide="help-circle" class="w-12 h-12 text-white/50 mb-3 animate-pulse"></i>
-                        <span class="text-white/60 font-bold text-[16px] tracking-wide">Tebak Ayat Ini</span>
+                <div class="relative w-full z-10 bg-white rounded-[32px] p-8 shadow-card border border-gray-100 min-h-[250px] flex flex-col items-center justify-center">
+                    <div id="vs-blur-overlay" class="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white/60 backdrop-blur-md rounded-[32px]">
+                        <div class="bg-gray-900 p-3 rounded-full shadow-md mb-3 animate-pulse">
+                            <i data-lucide="mic" class="w-8 h-8 text-white"></i>
+                        </div>
+                        <span class="text-gray-900 font-extrabold text-[16px] tracking-wide drop-shadow-sm">Tebak Ayat Ini</span>
                     </div>
-                    <p id="vs-ayah-text" class="font-arabic text-[38px] leading-[2.2] text-center text-white pb-6 w-full blur-md select-none transition-all duration-300" dir="rtl" style="font-family: 'Amiri', serif;">
-                        بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
+                    
+                    <p id="vs-ayah-text" class="font-arabic text-[38px] leading-[2.2] text-center text-gray-900 pb-4 w-full blur-md select-none transition-all duration-300" dir="rtl" style="font-family: 'Amiri', serif;">
+                        بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
+                    </p>
+                    <div class="w-12 h-1 bg-gray-200 rounded-full mb-4 z-10"></div>
+                    <p id="vs-ayah-trans" class="text-center text-gray-500 font-semibold italic text-[15px] leading-relaxed w-full blur-md select-none transition-all duration-300 z-10">
+                        "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang."
                     </p>
                 </div>
                 
-                <div class="w-12 h-1 bg-slate-700 rounded-full mb-6 z-10"></div>
-                
-                <p id="vs-ayah-trans" class="text-center text-slate-400 font-semibold italic text-[15px] leading-relaxed pb-8 w-full blur-md select-none transition-all duration-300 z-10">
-                    "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang."
-                </p>
-                
                 <!-- VS Action Button -->
-                <div class="absolute bottom-10 w-full px-6 flex flex-col items-center z-10">
-                    <button id="vs-record-btn" onclick="toggleVsRecord()" class="w-[90px] h-[90px] bg-duo-blue border-b-[6px] border-duo-blue-dark rounded-full flex items-center justify-center text-white font-black active:border-b-0 active:translate-y-[6px] transition-all cursor-pointer shadow-lg hover:scale-105">
+                <div class="absolute bottom-12 w-full px-6 flex flex-col items-center z-10">
+                    <button id="vs-record-btn" onclick="toggleVsRecord()" class="w-[84px] h-[84px] bg-[#1cb0f6] border-b-[6px] border-[#0284c7] rounded-full flex items-center justify-center text-white font-black active:border-b-0 active:translate-y-[6px] transition-all cursor-pointer shadow-lg hover:scale-105">
                         <i data-lucide="mic" class="w-10 h-10"></i>
                     </button>
-                    <p id="vs-status-text" class="text-slate-400 font-bold mt-6">Ketuk dan baca cepat!</p>
+                    <p id="vs-status-text" class="text-gray-500 font-bold mt-5 text-[13px]">Ketuk dan baca cepat!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- NEW SCREEN 13.8: SPIN WHEEL SCREEN         -->
+        <!-- ========================================== -->
+        <div id="murajaahSpinScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-white overflow-hidden z-[52]">
+            <div class="pt-16 px-6 flex flex-col items-center justify-center z-20">
+                <h2 class="text-[24px] font-black text-gray-900 tracking-tight text-center">Acak Ayat</h2>
+                <p class="text-gray-500 font-semibold text-[13px] mt-1 text-center">Menentukan ayat mana yang akan ditebak.</p>
+            </div>
+            
+            <div class="flex-1 flex flex-col items-center justify-center relative -mt-10">
+                <!-- Pointer -->
+                <div class="w-0 h-0 border-l-[15px] border-r-[15px] border-t-[25px] border-transparent border-t-gray-800 absolute top-[18%] sm:top-[22%] z-20 drop-shadow-md"></div>
+                
+                <!-- Wheel -->
+                <div id="vs-wheel" class="w-[280px] h-[280px] rounded-full border-8 border-gray-100 shadow-[0_15px_40px_-10px_rgba(0,0,0,0.15)] relative overflow-hidden bg-white" style="background: conic-gradient(#10b981 0deg 45deg, #1cb0f6 45deg 90deg, #10b981 90deg 135deg, #1cb0f6 135deg 180deg, #10b981 180deg 225deg, #1cb0f6 225deg 270deg, #10b981 270deg 315deg, #1cb0f6 315deg 360deg);">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                         <div class="w-16 h-16 bg-white rounded-full shadow-md flex items-center justify-center z-10 border-4 border-gray-100">
+                             <i data-lucide="dices" class="w-6 h-6 text-gray-700"></i>
+                         </div>
+                    </div>
+                </div>
+                
+                <!-- Result Pop Up -->
+                <div id="vs-spin-result-box" class="absolute inset-0 bg-white/95 backdrop-blur-sm z-30 hidden flex-col items-center justify-center transition-opacity duration-300">
+                    <div class="bg-[#1cb0f6]/10 px-4 py-1.5 rounded-full mb-4 border border-[#1cb0f6]/20">
+                        <p class="text-[#0284c7] font-bold text-[12px] uppercase tracking-widest">Target Ditemukan</p>
+                    </div>
+                    <h1 id="vs-spin-result" class="text-[64px] font-black text-gray-900 drop-shadow-sm leading-none mb-2">Ayat ?</h1>
+                    <p class="text-[#10b981] font-bold mt-2 animate-pulse text-[15px]">Bersiaplah...</p>
                 </div>
             </div>
         </div>
@@ -1289,7 +1347,7 @@
                 <div class="flex-1 overflow-y-auto hide-scroll px-6 py-5 flex flex-col gap-5">
                     <div>
                         <label class="text-[13px] font-bold text-gray-700 ml-1 mb-1 block">Nama Ruangan</label>
-                        <input type="text" placeholder="Misal: Ngaji Santai Ba'da Maghrib" class="w-full bg-[#f8fafc] border border-gray-200 text-gray-900 text-[14px] font-bold rounded-2xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#10b981]">
+                        <input type="text" id="create-room-name" placeholder="Misal: Ngaji Santai Ba'da Maghrib" class="w-full bg-[#f8fafc] border border-gray-200 text-gray-900 text-[14px] font-bold rounded-2xl px-4 py-3.5 focus:outline-none focus:ring-2 focus:ring-[#10b981]">
                     </div>
                     <div>
                         <label class="text-[13px] font-bold text-gray-700 ml-1 mb-2 block">Pilih Target Bacaan</label>
@@ -1333,6 +1391,51 @@
             </div>
         </div>
 
+        <!-- ========================================== -->
+        <!-- NEW MODAL: CREATE ROOM VERSUS 1V1          -->
+        <!-- ========================================== -->
+        <div id="createVersusModal" class="absolute inset-0 z-[120] hidden">
+            <!-- Backdrop -->
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer" onclick="closeCreateVersusModal()"></div>
+            <div id="createVersusSheet" class="absolute bottom-0 w-full h-[75%] bg-white rounded-t-[36px] flex flex-col shadow-2xl transform transition-transform duration-300">
+                <div class="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mt-4 mb-2"></div>
+                <div class="px-6 py-2 flex justify-between items-center border-b border-gray-100">
+                    <h2 class="text-[18px] font-extrabold text-gray-900">Pilih Tantangan Versus</h2>
+                    <button onclick="closeCreateVersusModal()" class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 cursor-pointer">
+                        <i data-lucide="x" class="w-4 h-4 text-gray-700"></i>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto hide-scroll px-6 py-5 flex flex-col gap-5">
+                    
+                    <div class="bg-blue-50 border-2 border-[#1cb0f6]/30 rounded-2xl p-4 flex gap-3 items-center">
+                        <div class="w-12 h-12 bg-white rounded-full border border-blue-200 shadow-sm flex items-center justify-center shrink-0">
+                            <i data-lucide="swords" class="w-6 h-6 text-[#1cb0f6]"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-extrabold text-[14px] text-gray-900">Aturan Main 1v1</h4>
+                            <p class="text-[11px] font-medium text-gray-600 leading-tight mt-0.5">Roda akan mengacak ayat dari surah yang dipilih. Siapa yang tebak dan baca tercepat mendapat poin.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-[13px] font-bold text-gray-700 ml-1 mb-2 block">Pilih Surah Target</label>
+                        <div class="h-[200px] flex flex-col border border-gray-200 rounded-2xl p-3 bg-[#f8fafc]">
+                            <div class="relative mb-2 shrink-0">
+                                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                                <input type="text" id="search-vs-surah" placeholder="Cari Surah..." class="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-3 py-2 text-[12px] font-semibold focus:outline-none focus:border-[#1cb0f6]" onkeyup="filterVsSurah()">
+                            </div>
+                            <div id="vs-surah-list" class="flex-1 overflow-y-auto hide-scroll flex flex-col gap-1 pr-1"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="px-6 py-5 border-t border-gray-100 shrink-0 bg-white z-10 pb-8">
+                    <button onclick="startVersusFromModal()" class="w-full bg-[#1cb0f6] border-b-[5px] border-[#0284c7] text-white font-black text-[16px] py-4 rounded-[20px] shadow-sm active:translate-y-[5px] active:border-b-0 transition-all cursor-pointer flex items-center justify-center gap-2">
+                        MULAI TANDING
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- Home Indicator -->
         <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[130px] h-[5px] bg-black/40 rounded-full z-[100] pointer-events-none"></div>
     </div>
@@ -1347,7 +1450,7 @@
         function updateStatusBar(screenId) {
             const time = document.getElementById('status-time');
             const icons = document.getElementById('status-icons');
-            if(screenId === 'cameraScreen' || screenId === 'previewScreen' || screenId === 'moderationScreen' || screenId === 'murajaahVersusRoomScreen') {
+            if(screenId === 'cameraScreen' || screenId === 'previewScreen' || screenId === 'moderationScreen') {
                 if(time) { time.classList.add('text-white'); time.classList.remove('text-gray-900'); }
                 if(icons) { icons.classList.add('text-white'); icons.classList.remove('text-gray-900'); }
             } else {
@@ -1649,7 +1752,6 @@
         let isMurajaahEvaluating = false;
         let murajaahHearts = 5;
         let murajaahXP = 0;
-        let isVsTransitioning = false; 
 
         function getRankDetails(xp) {
             if (xp < 100) return { name: 'Pemula', iconColor: 'text-orange-500' };
@@ -1678,12 +1780,13 @@
         async function initMurajaahData() {
             try {
                 updateGamification();
-                // Mengambil data surah dari Quran API Publik untuk layout prototype
-                const res = await fetch('https://api.alquran.cloud/v1/surah');
-                const data = await res.json();
-                if (data.code === 200) {
-                    murajaahSurahs = data.data;
+                // Mengambil data surah dari Quran API Kemenag (equran.id)
+                const res = await fetch('https://equran.id/api/v2/surat');
+                const result = await res.json();
+                if (result.code === 200) {
+                    murajaahSurahs = result.data;
                     renderMurajaahMap(); 
+                    generateVsSurahList(); // Persiapan list untuk modal Versus
                 }
             } catch (e) {}
         }
@@ -1698,18 +1801,18 @@
                 const offset = isLeft ? '-translate-x-8' : 'translate-x-8';
                 
                 let colorClass = 'bg-duo-green border-duo-green-dark text-white';
-                if(surah.number > 100) colorClass = 'bg-duo-blue border-duo-blue-dark text-white'; 
-                if(surah.number <= 10) colorClass = 'bg-[#ff9600] border-[#d97a00] text-white'; 
+                if(surah.nomor > 100) colorClass = 'bg-duo-blue border-duo-blue-dark text-white'; 
+                if(surah.nomor <= 10) colorClass = 'bg-[#ff9600] border-[#d97a00] text-white'; 
                 
                 html += `
                 <div class="relative flex flex-col items-center w-full transform ${offset}">
                     ${index !== murajaahSurahs.length - 1 ? '<div class="absolute top-[60px] h-[70px] w-[10px] bg-[#e5e7eb] -z-10 rounded-full"></div>' : ''}
                     <div class="relative group mt-2">
                         <div class="absolute top-1/2 -translate-y-1/2 ${isLeft ? 'left-20' : 'right-20'} bg-white border-2 border-gray-200 text-gray-800 font-extrabold px-4 py-2.5 rounded-2xl text-[14px] whitespace-nowrap shadow-sm z-20 pointer-events-none">
-                            ${surah.englishName}
+                            ${surah.namaLatin}
                             <div class="absolute top-1/2 -translate-y-1/2 ${isLeft ? '-left-2 border-r-white border-y-transparent border-l-transparent' : '-right-2 border-l-white border-y-transparent border-r-transparent'} border-[6px]"></div>
                         </div>
-                        <button onclick="loadMurajaahSurah(${surah.number})" class="w-16 h-16 ${colorClass} border-b-[6px] rounded-full flex items-center justify-center font-black text-[22px] shadow-sm active:scale-95 active:border-b-0 active:translate-y-1.5 transition-all relative z-10 cursor-pointer">
+                        <button onclick="loadMurajaahSurah(${surah.nomor})" class="w-16 h-16 ${colorClass} border-b-[6px] rounded-full flex items-center justify-center font-black text-[22px] shadow-sm active:scale-95 active:border-b-0 active:translate-y-1.5 transition-all relative z-10 cursor-pointer">
                             <i data-lucide="star" class="w-6 h-6 fill-white/30 text-white/50 absolute top-1 right-2"></i>
                         </button>
                     </div>
@@ -1735,20 +1838,23 @@
             hideMurajaahFeedback();
 
             try {
-                // Mengambil ayat dari Quran API Publik
-                const [resAr, resId] = await Promise.all([
-                    fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}`),
-                    fetch(`https://api.alquran.cloud/v1/surah/${surahNumber}/id.indonesian`)
-                ]);
-                const dataAr = await resAr.json();
-                const dataId = await resId.json();
+                // Mengambil ayat dari Quran API Kemenag (equran.id)
+                const res = await fetch(`https://equran.id/api/v2/surat/${surahNumber}`);
+                const result = await res.json();
 
-                if (dataAr.code === 200 && dataId.code === 200) {
-                    murajaahAyahs = dataAr.data.ayahs.map((ayah, index) => ({
-                        numberInSurah: ayah.numberInSurah,
-                        text: ayah.text,
-                        translation: dataId.data.ayahs[index].text
-                    }));
+                if (result.code === 200) {
+                    murajaahAyahs = result.data.ayat.map((ayah) => {
+                        let cleanText = ayah.teksArab;
+                        // Jaga-jaga jika masih ada Bismillah (Meski di equran v2 biasanya sudah dipisah rapi)
+                        if (surahNumber !== 1 && surahNumber !== 9 && ayah.nomorAyat === 1) {
+                            cleanText = cleanText.replace(/بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ /g, '').replace(/بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ /g, '');
+                        }
+                        return {
+                            numberInSurah: ayah.nomorAyat,
+                            text: cleanText,
+                            translation: ayah.teksIndonesia
+                        };
+                    });
                     currentMurajaahIndex = 0;
                     renderMurajaahAyah();
                 }
@@ -1972,63 +2078,215 @@
             }
         }
 
+
         // ==========================================
-        // MURAJAAHQ VERSUS LOGIC
+        // NEW: MURAJAAHQ VERSUS LOBBY MODAL
+        // ==========================================
+        function openCreateVersusModal() {
+            const modal = document.getElementById('createVersusModal');
+            const sheet = document.getElementById('createVersusSheet');
+            if(modal) modal.classList.remove('hidden');
+            if(sheet) {
+                sheet.style.animation = 'none';
+                sheet.offsetHeight; 
+                sheet.style.animation = null;
+                sheet.classList.add('modal-slide-up');
+                sheet.classList.remove('modal-slide-down');
+            }
+        }
+
+        function closeCreateVersusModal() {
+            const modal = document.getElementById('createVersusModal');
+            const sheet = document.getElementById('createVersusSheet');
+            if(sheet) {
+                sheet.classList.remove('modal-slide-up');
+                sheet.classList.add('modal-slide-down');
+            }
+            setTimeout(() => {
+                if(modal) modal.classList.add('hidden');
+                if(sheet) sheet.classList.remove('modal-slide-down');
+            }, 300);
+        }
+
+        function generateVsSurahList() {
+            const container = document.getElementById('vs-surah-list');
+            if (!container) return;
+            let html = '';
+            // Gunakan murajaahSurahs yg didapat dari Kemenag API (initMurajaahData)
+            if(murajaahSurahs && murajaahSurahs.length > 0) {
+                murajaahSurahs.forEach((surah) => {
+                    const isActive = surah.nomor === 112 ? 'text-[#1cb0f6] bg-[#1cb0f6]/5 shadow-sm border border-[#1cb0f6]/30' : 'text-gray-700 hover:bg-white hover:shadow-sm border border-transparent';
+                    html += `<button class="vs-surah-item text-left px-3 py-2 rounded-xl text-[13px] font-bold cursor-pointer transition-colors ${isActive}" data-name="${surah.namaLatin.toLowerCase()}" onclick="selectVsSurah(${surah.nomor}, this)">${surah.nomor}. ${surah.namaLatin}</button>`;
+                });
+            } else {
+                // Fallback list kalau belum kerender
+                surahNames.forEach((surah, index) => {
+                    const isActive = surah === "Al-Ikhlas" ? 'text-[#1cb0f6] bg-[#1cb0f6]/5 shadow-sm border border-[#1cb0f6]/30' : 'text-gray-700 hover:bg-white hover:shadow-sm border border-transparent';
+                    html += `<button class="vs-surah-item text-left px-3 py-2 rounded-xl text-[13px] font-bold cursor-pointer transition-colors ${isActive}" data-name="${surah.toLowerCase()}" onclick="selectVsSurah(${index + 1}, this)">${index + 1}. ${surah}</button>`;
+                });
+            }
+            container.innerHTML = html;
+            window.selectedVsSurah = 112; // Default Al-Ikhlas
+        }
+
+        function selectVsSurah(number, btnElement) {
+            window.selectedVsSurah = number;
+            document.querySelectorAll('.vs-surah-item').forEach(btn => {
+                if(btn) {
+                    btn.classList.remove('text-[#1cb0f6]', 'bg-[#1cb0f6]/5', 'shadow-sm', 'border-[#1cb0f6]/30');
+                    btn.classList.add('text-gray-700', 'border-transparent');
+                }
+            });
+            if(btnElement) {
+                btnElement.classList.remove('text-gray-700', 'border-transparent');
+                btnElement.classList.add('text-[#1cb0f6]', 'bg-[#1cb0f6]/5', 'shadow-sm', 'border-[#1cb0f6]/30');
+            }
+        }
+
+        function filterVsSurah() {
+            const searchInput = document.getElementById('search-vs-surah');
+            if(!searchInput) return;
+            const input = searchInput.value.toLowerCase();
+            document.querySelectorAll('.vs-surah-item').forEach(item => {
+                const name = item.getAttribute('data-name');
+                if(name && (name.includes(input) || item.innerText.toLowerCase().includes(input))) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // ==========================================
+        // NEW: MURAJAAHQ VERSUS LOGIC (1V1 SPIN WHEEL)
         // ==========================================
         let vsP1Score = 0;
         let vsP2Score = 0;
         let vsSimInterval = null;
+        let isVsTransitioning = false;
 
-        function startVersusMatch() {
-            goToScreen('murajaahVersusRoomScreen');
+        function joinVersusRoom(surahNum) {
+            startVersusMatch(surahNum);
+        }
+
+        function startVersusFromModal() {
+            closeCreateVersusModal();
+            setTimeout(() => {
+                let targetSurah = window.selectedVsSurah || 112;
+                startVersusMatch(targetSurah);
+            }, 300);
+        }
+
+        function startVersusMatch(surahNum) {
+            goToScreen('murajaahSpinScreen');
             vsP1Score = 0;
             vsP2Score = 0;
             isVsTransitioning = false;
-            
-            const p1 = document.getElementById('vs-p1-score');
-            const p2 = document.getElementById('vs-p2-score');
-            if(p1) p1.innerText = vsP1Score;
-            if(p2) p2.innerText = vsP2Score;
-
-            // Load Al-Ikhlas for Speed Battle
-            fetch('https://api.alquran.cloud/v1/surah/112/id.indonesian')
-            .then(res => res.json())
-            .then(async (dataId) => {
-                const resAr = await fetch('https://api.alquran.cloud/v1/surah/112');
-                const dataAr = await resAr.json();
-                murajaahAyahs = dataAr.data.ayahs.map((ayah, index) => ({
-                    numberInSurah: ayah.numberInSurah,
-                    text: ayah.text,
-                    translation: dataId.data.ayahs[index].text
-                }));
-                currentMurajaahIndex = 0;
-                renderVsAyah();
-            });
-
             clearInterval(vsSimInterval);
+            
+            updateVsScores();
+
+            // Setup roda agar default dulu
+            let wheel = document.getElementById('vs-wheel');
+            let resBox = document.getElementById('vs-spin-result-box');
+            if(wheel) { wheel.style.transition = 'none'; wheel.style.transform = 'rotate(0deg)'; }
+            if(resBox) resBox.classList.add('hidden');
+
+            // Load data Surah untuk diacak
+            fetch(`https://equran.id/api/v2/surat/${surahNum}`)
+            .then(res => res.json())
+            .then((result) => {
+                if (result.code === 200) {
+                    murajaahAyahs = result.data.ayat.map((ayah) => {
+                        let cleanText = ayah.teksArab;
+                        if (surahNum !== 1 && surahNum !== 9 && ayah.nomorAyat === 1) {
+                            cleanText = cleanText.replace(/بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ /g, '').replace(/بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ /g, '');
+                        }
+                        return {
+                            numberInSurah: ayah.nomorAyat,
+                            text: cleanText,
+                            translation: ayah.teksIndonesia
+                        };
+                    });
+                    
+                    // Mulai Ronde Pertama (Spin)
+                    setTimeout(() => startVsRound(), 500);
+                }
+            }).catch(e => {
+                alert("Gagal memuat surah.");
+                goToScreen('murajaahVersusLobbyScreen');
+            });
+        }
+
+        function startVsRound() {
+            isVsTransitioning = false;
+            clearInterval(vsSimInterval);
+            goToScreen('murajaahSpinScreen');
+            
+            // Pilih ayat acak
+            let randIndex = Math.floor(Math.random() * murajaahAyahs.length);
+            currentMurajaahIndex = randIndex;
+            
+            // UI Roda Putar
+            let wheel = document.getElementById('vs-wheel');
+            let resBox = document.getElementById('vs-spin-result-box');
+            if(resBox) resBox.classList.add('hidden');
+            
+            if(wheel) {
+                wheel.style.transition = 'none';
+                wheel.style.transform = 'rotate(0deg)';
+                
+                setTimeout(() => {
+                    // Putar acak
+                    let randomDeg = Math.floor(Math.random() * 360) + 1440; // minimal 4 putaran
+                    wheel.style.transition = 'transform 3s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                    wheel.style.transform = `rotate(${randomDeg}deg)`;
+                    
+                    setTimeout(() => {
+                        document.getElementById('vs-spin-result').innerText = `Ayat ${murajaahAyahs[randIndex].numberInSurah}`;
+                        if(resBox) resBox.classList.remove('hidden');
+                        
+                        // Menuju layar tebak setelah 2 detik menampilkan hasil
+                        setTimeout(() => {
+                            renderVsAyah();
+                            goToScreen('murajaahVersusRoomScreen');
+                            startVsBot(); // Bot jalan setelah layar render
+                        }, 2500);
+                        
+                    }, 3000); // Waktu animasi putar
+                }, 100);
+            }
+        }
+
+        function startVsBot() {
+            // Simulasi musuh
             vsSimInterval = setInterval(() => {
-                if (Math.random() > 0.3 && !isVsTransitioning) {
+                if (Math.random() > 0.4 && !isVsTransitioning) {
                     vsP2Score++;
-                    if(p2) p2.innerText = vsP2Score;
+                    updateVsScores();
+                    const p2 = document.getElementById('vs-p2-score');
                     if(p2 && p2.parentElement) {
-                        p2.parentElement.classList.add('scale-125', 'bg-duo-red/20');
-                        setTimeout(() => p2.parentElement.classList.remove('scale-125', 'bg-duo-red/20'), 300);
+                        p2.parentElement.classList.add('scale-125', 'bg-gray-100');
+                        setTimeout(() => p2.parentElement.classList.remove('scale-125', 'bg-gray-100'), 300);
                     }
                     if(!checkVsWin()) {
                         isVsTransitioning = true;
                         revealVsAyah();
-                        setTimeout(() => {
-                            currentMurajaahIndex++;
-                            if(currentMurajaahIndex >= murajaahAyahs.length) currentMurajaahIndex = 0;
-                            renderVsAyah();
-                        }, 1500);
+                        // Jeda sejenak sebelum spin ayat selanjutnya
+                        setTimeout(() => { startVsRound(); }, 2500);
                     }
                 }
-            }, Math.floor(Math.random() * 8000) + 10000);
+            }, Math.floor(Math.random() * 5000) + 6000); // Bot butuh 6 - 11 detik
+        }
+
+        function updateVsScores() {
+            const p1 = document.getElementById('vs-p1-score');
+            const p2 = document.getElementById('vs-p2-score');
+            if(p1) p1.innerText = vsP1Score;
+            if(p2) p2.innerText = vsP2Score;
         }
 
         function renderVsAyah() {
-            isVsTransitioning = false;
             const ayah = murajaahAyahs[currentMurajaahIndex];
             if(!ayah) return;
             const textElem = document.getElementById('vs-ayah-text');
@@ -2062,7 +2320,7 @@
             isMurajaahRecording = true;
             const btn = document.getElementById('vs-record-btn');
             
-            if(btn) btn.innerHTML = `<i data-lucide="loader" class="w-10 h-10 animate-spin"></i>`;
+            if(btn) btn.innerHTML = `<i data-lucide="loader" class="w-10 h-10 animate-spin text-white"></i>`;
             if (typeof lucide !== 'undefined') lucide.createIcons();
 
             // FULL SIMULASI: Respon instan untuk Mode Versus
@@ -2070,7 +2328,7 @@
                 isMurajaahRecording = false;
                 isMurajaahEvaluating = true;
                 
-                if(btn) btn.innerHTML = `<i data-lucide="loader-2" class="w-10 h-10 animate-spin text-yellow-400"></i>`;
+                if(btn) btn.innerHTML = `<i data-lucide="loader-2" class="w-10 h-10 animate-spin text-white"></i>`;
                 if (typeof lucide !== 'undefined') lucide.createIcons();
 
                 // Hitung simulasi skor
@@ -2079,25 +2337,19 @@
                     if(btn) btn.innerHTML = `<i data-lucide="mic" class="w-10 h-10"></i>`;
                     if (typeof lucide !== 'undefined') lucide.createIcons();
 
-                    const isBenar = true; // Selalu anggap berhasil dalam simulasi balapan
+                    const isBenar = true; // Selalu anggap berhasil agar pengguna senang
                     if(isBenar && !isVsTransitioning) {
                         vsP1Score++;
+                        updateVsScores();
                         const p1 = document.getElementById('vs-p1-score');
-                        if(p1) {
-                            p1.innerText = vsP1Score;
-                            if(p1.parentElement) {
-                                p1.parentElement.classList.add('scale-125', 'bg-duo-blue/20');
-                                setTimeout(() => p1.parentElement.classList.remove('scale-125', 'bg-duo-blue/20'), 300);
-                            }
+                        if(p1 && p1.parentElement) {
+                            p1.parentElement.classList.add('scale-125', 'bg-[#1cb0f6]/10');
+                            setTimeout(() => p1.parentElement.classList.remove('scale-125', 'bg-[#1cb0f6]/10'), 300);
                         }
                         if(!checkVsWin()) {
                             isVsTransitioning = true;
                             revealVsAyah();
-                            setTimeout(() => {
-                                currentMurajaahIndex++;
-                                if(currentMurajaahIndex >= murajaahAyahs.length) currentMurajaahIndex = 0; 
-                                renderVsAyah();
-                            }, 1500);
+                            setTimeout(() => { startVsRound(); }, 2500);
                         }
                     }
                 }, 500);
@@ -2109,19 +2361,25 @@
             if(vsP1Score >= 3) {
                 clearInterval(vsSimInterval);
                 revealVsAyah();
-                setTimeout(() => { alert("🎉 KAMU MENANG!"); goToScreen('murajaahMapScreen'); }, 1500);
+                setTimeout(() => { 
+                    alert("🎉 KAMU MENANG PERTANDINGAN 1V1 INI!"); 
+                    goToScreen('murajaahVersusLobbyScreen'); 
+                }, 1500);
                 return true;
             } else if(vsP2Score >= 3) {
                 clearInterval(vsSimInterval);
                 revealVsAyah();
-                setTimeout(() => { alert("💥 KAMU KALAH!"); goToScreen('murajaahMapScreen'); }, 1500);
+                setTimeout(() => { 
+                    alert("💥 YAAH KAMU KALAH KALI INI! Jangan menyerah."); 
+                    goToScreen('murajaahVersusLobbyScreen'); 
+                }, 1500);
                 return true;
             }
             return false;
         }
 
         // ==========================================
-        // TADARUS LOBBY MODAL
+        // TADARUS LOBBY MODAL & ROOM LOGIC
         // ==========================================
         function openCreateRoomModal() {
             const modal = document.getElementById('createRoomModal');
@@ -2166,29 +2424,53 @@
         let tadarusAyahsData = [];
         let activeTadarusAyah = 0;
 
-        function startTadarusRoom() {
-            closeCreateRoomModal();
-            setTimeout(async () => { 
-                goToScreen('tadarusRoomScreen'); 
-                
-                const container = document.getElementById('tadarus-ayahs-container');
-                if(container) {
-                    container.innerHTML = '<div class="flex justify-center mt-10"><i data-lucide="loader-2" class="w-10 h-10 animate-spin text-[#10b981]"></i></div>';
-                    if (typeof lucide !== 'undefined') lucide.createIcons();
-                }
+        function joinTadarusRoom(surahNumber, roomName) {
+            goToScreen('tadarusRoomScreen'); 
+            
+            const titleElem = document.getElementById('tadarus-room-title');
+            if(titleElem) titleElem.innerText = roomName;
 
-                try {
-                    let targetSurah = window.selectedTadarusSurah || 78; 
-                    const resAr = await fetch(`https://api.alquran.cloud/v1/surah/${targetSurah}`);
-                    const dataAr = await resAr.json();
+            const container = document.getElementById('tadarus-ayahs-container');
+            if(container) {
+                container.innerHTML = '<div class="flex justify-center mt-10"><i data-lucide="loader-2" class="w-10 h-10 animate-spin text-[#10b981]"></i></div>';
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+            }
 
-                    if (dataAr.code === 200) {
-                        tadarusAyahsData = dataAr.data.ayahs;
-                        const titleElem = document.getElementById('tadarus-room-title');
-                        if(titleElem) titleElem.innerText = `Ruang Tadarus: ${dataAr.data.englishName}`;
+            fetch(`https://equran.id/api/v2/surat/${surahNumber}`)
+                .then(res => res.json())
+                .then(result => {
+                    if (result.code === 200) {
+                        const bismillahElem = document.getElementById('tadarus-bismillah');
+                        if(bismillahElem) {
+                            if(surahNumber === 1 || surahNumber === 9) {
+                                bismillahElem.style.display = 'none'; // Sembunyikan untuk Fatihah & At-Taubah
+                            } else {
+                                bismillahElem.style.display = 'block';
+                                bismillahElem.innerText = "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ"; 
+                            }
+                        }
+
+                        tadarusAyahsData = result.data.ayat.map(ayah => {
+                            let cleanText = ayah.teksArab;
+                            if (surahNumber !== 1 && surahNumber !== 9 && ayah.nomorAyat === 1) {
+                                cleanText = cleanText.replace(/بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ /g, '').replace(/بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ /g, '');
+                            }
+                            return { text: cleanText, numberInSurah: ayah.nomorAyat };
+                        });
                         renderTadarusAyahs();
                     }
-                } catch(e) {}
+                })
+                .catch(e => console.error("Error fetching tadarus room surah:", e));
+        }
+
+        function startTadarusRoom() {
+            closeCreateRoomModal();
+            setTimeout(() => { 
+                const nameInput = document.getElementById('create-room-name');
+                const roomName = (nameInput && nameInput.value.trim() !== '') ? nameInput.value : 'Ruang Tadarus Baru';
+                const targetSurah = window.selectedTadarusSurah || 1; 
+                
+                joinTadarusRoom(targetSurah, roomName);
             }, 300);
         }
 
@@ -2219,15 +2501,29 @@
             }
         }
 
+        function selectTadarusJuz(juzNumber, btnElement) {
+            window.selectedTadarusSurah = juzNumber === 30 ? 78 : juzNumber;
+            const grid = document.getElementById('juz-grid');
+            if(grid) {
+                grid.querySelectorAll('button').forEach(btn => {
+                    btn.className = "py-2 bg-white border border-gray-200 text-gray-700 rounded-xl text-[12px] font-bold hover:border-[#10b981] hover:text-[#10b981] transition-colors cursor-pointer";
+                });
+            }
+            if(btnElement) {
+                btnElement.className = "py-2 bg-[#10b981]/5 border border-[#10b981] text-[#10b981] rounded-xl text-[12px] font-bold transition-colors cursor-pointer";
+            }
+        }
+
         function generateJuzGrid() {
             const grid = document.getElementById('juz-grid');
             if (!grid) return;
             let html = '';
             for(let i=1; i<=30; i++) {
                 const isActive = i === 30 ? 'border-[#10b981] text-[#10b981] bg-[#10b981]/5' : 'border-gray-200 text-gray-700';
-                html += `<button class="py-2 bg-white border rounded-xl text-[12px] font-bold hover:border-[#10b981] hover:text-[#10b981] transition-colors cursor-pointer ${isActive}">${i}</button>`;
+                html += `<button onclick="selectTadarusJuz(${i}, this)" class="py-2 bg-white border rounded-xl text-[12px] font-bold hover:border-[#10b981] hover:text-[#10b981] transition-colors cursor-pointer ${isActive}">${i}</button>`;
             }
             grid.innerHTML = html;
+            window.selectedTadarusSurah = 78; 
         }
 
         const surahNames = [
