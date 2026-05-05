@@ -2,12 +2,12 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SpaceQ - UI/UX Design</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
@@ -15,6 +15,7 @@
                 extend: {
                     fontFamily: {
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        arabic: ['"Amiri"', 'serif']
                     },
                     colors: {
                         'ob-green': '#a4f836',
@@ -32,12 +33,20 @@
                         'sq-light': '#ecfdf5',
                         'vs-purple': '#8b5cf6',
                         'vs-purple-dark': '#6d28d9',
+                        brand: {
+                            light: '#e0f2fe',
+                            DEFAULT: '#0284c7',
+                            dark: '#0369a1'
+                        },
+                        glass: 'rgba(255, 255, 255, 0.15)',
                     },
                     boxShadow: {
                         'soft': '0 20px 40px -15px rgba(0,0,0,0.05)',
                         'float': '0 15px 35px -10px rgba(0,0,0,0.2)',
                         'heavy': '0 25px 50px -12px rgba(0,0,0,0.25)',
                         'card': '0 4px 20px -2px rgba(0,0,0,0.05)',
+                        'glow': '0 0 40px rgba(2, 132, 199, 0.4)',
+                        'glow-stage': '0 0 50px rgba(16, 185, 129, 0.5)',
                     }
                 }
             }
@@ -215,6 +224,57 @@
             from { transform: translateX(0); }
             to { transform: translateX(100%); }
         }
+
+        /* ========================================= */
+        /* KAJIANQ SPECIFIC STYLES FROM HTML 1       */
+        /* ========================================= */
+        .card-back {
+            transform: scale(0.85) translateX(-45px) rotate(-8deg);
+            z-index: 1;
+            filter: brightness(0.8);
+        }
+        .card-mid {
+            transform: scale(0.92) translateX(-25px) rotate(-4deg);
+            z-index: 2;
+            filter: brightness(0.9);
+        }
+        .card-front {
+            transform: scale(1) translateX(15px);
+            z-index: 3;
+            box-shadow: -10px 10px 30px rgba(0,0,0,0.1);
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        @keyframes pulse-ring-kajian {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .animate-speak { animation: pulse-ring-kajian 2s infinite; }
+        .room-bg {
+            position: absolute;
+            inset: -20%;
+            background: radial-gradient(circle at 50% 30%, #0369a1 0%, #0f172a 70%);
+            filter: blur(60px);
+            z-index: 0;
+            transition: all 1s ease;
+        }
+        .circle-video {
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .host-panel-open { transform: translateX(0) !important; }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 font-sans antialiased">
@@ -688,6 +748,234 @@
         </div>
 
         <!-- ========================================== -->
+        <!-- SCREEN 7.1: KAJIANQ LOBBY (NEW INSERT)     -->
+        <!-- ========================================== -->
+        <div id="kajianLobbyScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-[#F8FAFC] flex flex-col z-20">
+            <div class="pt-14 px-6 pb-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <button onclick="goToScreen('homeScreen')" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-200 transition-colors cursor-pointer active:scale-95">
+                        <i data-lucide="arrow-left" class="w-5 h-5 text-gray-900"></i>
+                    </button>
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight leading-none">KajianQ</h1>
+                        <p class="text-sm font-semibold text-gray-500">Meresapi Ilmu, Temukan Ketenangan</p>
+                    </div>
+                </div>
+                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-100 cursor-pointer">
+                    <i data-lucide="search" class="w-5 h-5 text-gray-600"></i>
+                </div>
+            </div>
+
+            <div class="flex gap-3 overflow-x-auto hide-scroll px-6 mt-2 mb-6">
+                <span class="bg-gray-900 text-white px-4 py-2 rounded-full text-[13px] font-bold whitespace-nowrap">Semua Topik</span>
+                <span class="bg-white text-gray-600 border border-gray-200 px-4 py-2 rounded-full text-[13px] font-bold whitespace-nowrap">Fiqih Muamalah</span>
+                <span class="bg-white text-gray-600 border border-gray-200 px-4 py-2 rounded-full text-[13px] font-bold whitespace-nowrap">Tafsir Quran</span>
+            </div>
+
+            <!-- Stacked Cards Container -->
+            <div class="relative w-full h-[480px] flex items-center justify-center mt-4">
+                
+                <!-- Card Back -->
+                <div class="absolute w-[280px] h-[400px] bg-emerald-100 rounded-[32px] card-back transition-all duration-500">
+                    <img src="https://images.unsplash.com/photo-1519817914152-2a641d40dc33?w=400&q=80" class="w-full h-1/2 object-cover rounded-t-[32px] opacity-50">
+                </div>
+                
+                <!-- Card Middle -->
+                <div class="absolute w-[280px] h-[420px] bg-blue-100 rounded-[32px] card-mid transition-all duration-500">
+                    <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=400&q=80" class="w-full h-1/2 object-cover rounded-t-[32px] opacity-60">
+                </div>
+
+                <!-- Card Front (Active) -->
+                <div class="absolute w-[300px] h-[440px] bg-white rounded-[32px] card-front flex flex-col transition-all duration-500 border border-gray-100">
+                    <!-- Poster Area -->
+                    <div class="relative h-[45%] w-full rounded-t-[32px] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=500&q=80" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full text-white text-[11px] font-bold border border-white/20">
+                            Live Hari Ini
+                        </div>
+                    </div>
+                    
+                    <!-- Content Area -->
+                    <div class="relative flex-1 p-5 pt-8 flex flex-col justify-between">
+                        <!-- Circular Avatar overlapping -->
+                        <div class="absolute -top-10 left-5">
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" class="w-20 h-20 rounded-full object-cover border-[4px] border-white shadow-md">
+                                <div class="absolute bottom-0 right-0 w-6 h-6 bg-emerald-500 rounded-full border-[3px] border-white flex items-center justify-center">
+                                    <i data-lucide="check" class="w-3 h-3 text-white"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="text-brand-DEFAULT font-bold text-[12px] uppercase tracking-widest mb-1">Masterclass</p>
+                            <h2 class="text-[22px] font-black text-gray-900 leading-tight mb-2">Kupas Tuntas Fiqih Muamalah</h2>
+                            <p class="text-gray-500 text-[13px] font-semibold">Ust. Dr. Erwandi Tarmizi, MA</p>
+                            
+                            <div class="flex gap-4 mt-4">
+                                <div class="flex items-center gap-1.5 text-gray-600 text-[12px] font-bold">
+                                    <div class="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center"><i data-lucide="calendar" class="w-3 h-3"></i></div>
+                                    Jumat, 20:00
+                                </div>
+                                <div class="flex items-center gap-1.5 text-gray-600 text-[12px] font-bold">
+                                    <div class="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center"><i data-lucide="users" class="w-3 h-3"></i></div>
+                                    1.2k Seat
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="openKajianPaymentModal('Ust. Dr. Erwandi Tarmizi, MA', 'Kupas Tuntas Fiqih Muamalah', '59.000')" class="w-full bg-gray-900 text-white font-bold py-3.5 rounded-[20px] shadow-lg active:scale-95 transition-transform flex items-center justify-center gap-2 mt-4">
+                            Daftar - Rp 59.000
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7.2: KAJIANQ ROOM (NEW INSERT)      -->
+        <!-- ========================================== -->
+        <div id="kajianRoomScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-[#0f172a] flex flex-col relative z-[45]">
+            <!-- Dynamic Frosted Glass Background -->
+            <div class="room-bg" id="room-ambient-bg"></div>
+            <div class="absolute inset-0 bg-black/20 backdrop-blur-[60px] z-0"></div>
+
+            <!-- Top Area (Stage) 40% -->
+            <div class="relative z-10 h-[45%] w-full flex items-center justify-center pt-10">
+                <!-- Header Actions -->
+                <div class="absolute top-12 left-6 right-6 flex justify-between items-center z-20">
+                    <div class="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-2">
+                        <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                        <span class="text-white text-[11px] font-bold tracking-widest">LIVE</span>
+                    </div>
+                    <!-- Tombol Simulasi Panel Host (Khusus Prototype) -->
+                    <button onclick="toggleKajianHostPanel()" class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 px-3 py-1.5 rounded-full text-[11px] font-bold shadow-glow-stage">
+                        Mode Host
+                    </button>
+                </div>
+
+                <!-- Stage Layout Container -->
+                <div class="relative w-full h-full flex items-center justify-center gap-4 transition-all duration-500" id="stage-container">
+                    
+                    <!-- Ustadz Cam -->
+                    <div id="kajian-host-cam" class="relative w-[180px] h-[180px] circle-video z-20 shadow-glow flex flex-col items-center justify-center bg-gray-800">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" class="w-full h-full object-cover rounded-full absolute inset-0">
+                        <div class="absolute -bottom-3 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 text-white text-[12px] font-bold shadow-lg flex items-center gap-1.5 whitespace-nowrap">
+                            Ust. Erwandi <i data-lucide="mic" class="w-3 h-3 text-emerald-400"></i>
+                        </div>
+                    </div>
+
+                    <!-- Guest Cam (Naik Panggung) -->
+                    <div id="kajian-guest-cam" class="relative w-[0px] h-[0px] opacity-0 circle-video z-20 flex flex-col items-center justify-center bg-gray-800 pointer-events-none">
+                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=400&q=80" class="w-full h-full object-cover rounded-full absolute inset-0">
+                        <div class="absolute -bottom-3 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 text-white text-[12px] font-bold shadow-lg flex items-center gap-1.5 whitespace-nowrap">
+                            Jamaah (Saya) <i id="mic-icon-1" data-lucide="mic-off" class="w-3 h-3 text-red-500"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bottom Area (Audience) 60% -->
+            <div class="relative z-10 h-[55%] w-full flex flex-col pt-4">
+                <div class="px-6 flex justify-between items-center mb-4">
+                    <h3 class="text-white/90 text-sm font-bold">Jamaah Hadir</h3>
+                </div>
+
+                <!-- Circular Grid -->
+                <div class="flex-1 overflow-y-auto hide-scroll px-6 pb-28">
+                    <div class="grid grid-cols-4 gap-y-6 gap-x-4 place-items-center" id="kajian-audience-grid">
+                        <!-- User 1 (Me) -->
+                        <div class="relative flex flex-col items-center gap-1.5">
+                            <div class="w-16 h-16 rounded-full relative">
+                                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=200&q=80" class="w-full h-full rounded-full object-cover border-2 border-brand-DEFAULT">
+                                <div class="absolute -bottom-1 -right-1 bg-gray-800 p-1 rounded-full border border-gray-600 mic-status-kajian">
+                                    <i data-lucide="mic-off" class="w-3 h-3 text-red-400"></i>
+                                </div>
+                                <div id="hand-indicator-1" class="absolute -top-2 -right-2 bg-yellow-400 p-1.5 rounded-full border-2 border-gray-900 shadow-lg transform scale-0 transition-transform duration-300">
+                                    <i data-lucide="hand" class="w-3 h-3 text-yellow-900"></i>
+                                </div>
+                            </div>
+                            <span class="text-white/80 text-[10px] font-bold truncate w-full text-center">Saya</span>
+                        </div>
+                        
+                        <!-- Dummy Users will be injected via JS here -->
+                    </div>
+                </div>
+
+                <!-- Floating Interaction Bar -->
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-[85%] glass-dark rounded-full py-3 px-6 flex justify-between items-center z-40 shadow-2xl">
+                    <div class="flex items-center gap-1 text-white/90 font-bold text-[13px]">
+                        <i data-lucide="users" class="w-4 h-4"></i> 1.2k
+                    </div>
+                    <div class="w-px h-6 bg-white/20"></div>
+                    <button class="text-white hover:text-emerald-400 transition-colors">
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    </button>
+                    <button onclick="userRaiseHand()" class="text-white hover:text-yellow-400 transition-colors relative">
+                        <i data-lucide="hand" class="w-5 h-5"></i>
+                    </button>
+                    <div class="w-px h-6 bg-white/20"></div>
+                    <button onclick="goToScreen('kajianLobbyScreen')" class="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-500 border border-red-500/50 hover:bg-red-500 hover:text-white transition-colors">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Host Control Panel (Sidebar) -->
+            <div id="kajianHostPanel" class="absolute top-0 right-0 w-[280px] h-full glass-dark z-50 transform translate-x-full transition-transform duration-400 border-l border-white/10 flex flex-col">
+                <div class="p-6 border-b border-white/10 flex justify-between items-center pt-14">
+                    <h2 class="text-white font-extrabold text-lg">God Mode (Host)</h2>
+                    <button onclick="toggleKajianHostPanel()" class="text-white/50 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                
+                <div class="p-6 flex-1 overflow-y-auto hide-scroll flex flex-col gap-6">
+                    <!-- Global Control -->
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-white text-sm font-bold">Majelis Lock</h3>
+                                <p class="text-white/50 text-[10px] mt-1">Force mute semua jamaah</p>
+                            </div>
+                            <button id="toggle-mute-all" class="w-12 h-6 bg-red-500 rounded-full relative transition-colors shadow-inner">
+                                <div id="mute-all-knob" class="w-5 h-5 bg-white rounded-full absolute right-0.5 top-0.5 shadow-sm transition-transform"></div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Queue Management -->
+                    <div>
+                        <h3 class="text-white/80 text-xs font-bold uppercase tracking-widest mb-3">Antrean Pertanyaan</h3>
+                        <div id="host-queue-item" class="opacity-50 pointer-events-none bg-white/5 rounded-2xl p-3 border border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100" class="w-10 h-10 rounded-full object-cover">
+                                <div>
+                                    <h4 class="text-white text-[13px] font-bold">Jamaah (Saya)</h4>
+                                    <p class="text-yellow-400 text-[10px] font-bold">Minta Naik</p>
+                                </div>
+                            </div>
+                            <button id="btn-naik-panggung" onclick="hostInviteToStage()" class="bg-[#1cb0f6] text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-glow" disabled>Naikkan</button>
+                        </div>
+                    </div>
+
+                    <!-- Adab Enforcer -->
+                    <div>
+                        <h3 class="text-white/80 text-xs font-bold uppercase tracking-widest mb-3">Tindakan Khusus</h3>
+                        <div class="bg-white/5 rounded-2xl p-3 border border-white/10 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white/50 text-xs font-bold">D</div>
+                                <h4 class="text-white text-[13px] font-bold">Deni S.</h4>
+                            </div>
+                            <button class="bg-red-500/20 text-red-400 border border-red-500/50 px-3 py-1.5 rounded-full text-[11px] font-bold">Keluarkan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ========================================== -->
         <!-- SCREEN 8: SOCIALQ (LINKEDIN STYLE REDESIGN)-->
         <!-- ========================================== -->
         <div id="socialQScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-sq-light overflow-hidden z-20">
@@ -997,7 +1285,7 @@
                         <i data-lucide="hand" class="w-3.5 h-3.5 text-[#10b981]"></i> Ketuk ayat untuk menggeser stabilo
                     </div>
                     <p id="tadarus-bismillah" class="text-[28px] text-gray-900 leading-[2.5] mb-4" style="font-family: 'Amiri', serif;">
-                        بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
+                        بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
                     </p>
                     <div id="tadarus-ayahs-container" class="text-[32px] text-gray-900 leading-[2.5]" style="font-family: 'Amiri', serif;" dir="rtl">
                         <!-- Dynamic Content Ayah -->
@@ -1206,7 +1494,7 @@
                     </div>
                     
                     <p id="vs-ayah-text" class="font-arabic text-[38px] leading-[2.2] text-center text-gray-900 pb-4 w-full blur-md select-none transition-all duration-300" dir="rtl" style="font-family: 'Amiri', serif;">
-                        بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
+                        بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
                     </p>
                     <div class="w-12 h-1 bg-gray-200 rounded-full mb-4 z-10"></div>
                     <p id="vs-ayah-trans" class="text-center text-gray-500 font-semibold italic text-[15px] leading-relaxed w-full blur-md select-none transition-all duration-300 z-10">
@@ -1225,7 +1513,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- NEW SCREEN 13.8: SPIN WHEEL SCREEN         -->
+        <!-- SCREEN 13.8: SPIN WHEEL SCREEN             -->
         <!-- ========================================== -->
         <div id="murajaahSpinScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-white overflow-hidden z-[52]">
             <div class="pt-16 px-6 flex flex-col items-center justify-center z-20">
@@ -1451,6 +1739,55 @@
                 </div>
             </div>
         </div>
+        
+        <!-- ========================================== -->
+        <!-- MODAL: KAJIANQ PAYMENT (NEW INSERT)        -->
+        <!-- ========================================== -->
+        <div id="kajianPaymentModal" class="absolute inset-0 bg-black/60 backdrop-blur-sm z-[200] hidden flex-col justify-end">
+            <div class="bg-white w-full rounded-t-[32px] p-6 pb-10 transform translate-y-full transition-transform duration-300" id="kajianPaymentSheet">
+                <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-6"></div>
+                <h3 class="text-xl font-extrabold text-gray-900 mb-1" id="pay-kajian-title">Konfirmasi Pendaftaran</h3>
+                <p class="text-sm text-gray-500 font-semibold mb-6" id="pay-ustadz-name">Kupas Tuntas Fiqih Muamalah</p>
+
+                <div class="bg-gray-50 rounded-2xl p-4 border border-gray-100 mb-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-sm text-gray-500 font-bold">Harga Tiket</span>
+                        <span class="text-sm font-extrabold text-gray-900" id="pay-total">Rp 59.000</span>
+                    </div>
+                    <div class="h-px w-full bg-gray-200 mb-3"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-400 font-semibold">Royalti Ustadz (85%)</span>
+                        <span class="text-xs text-gray-600 font-bold" id="pay-split-ustadz">Rp 50.150</span>
+                    </div>
+                    <div class="flex justify-between items-center mt-1">
+                        <span class="text-xs text-gray-400 font-semibold">Operasional SpaceQ (15%)</span>
+                        <span class="text-xs text-gray-600 font-bold" id="pay-split-app">Rp 8.850</span>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="text-[12px] font-bold text-gray-600 uppercase tracking-wider mb-2 block">Pilih Metode</label>
+                    <div class="flex gap-3">
+                        <div class="flex-1 border-2 border-brand-DEFAULT bg-brand-light/30 rounded-xl p-3 flex items-center justify-center gap-2 cursor-pointer">
+                            <i data-lucide="qr-code" class="w-5 h-5 text-brand-DEFAULT"></i>
+                            <span class="font-bold text-brand-dark text-sm">QRIS</span>
+                        </div>
+                        <div class="flex-1 border border-gray-200 bg-white rounded-xl p-3 flex items-center justify-center gap-2 cursor-pointer opacity-60">
+                            <i data-lucide="wallet" class="w-5 h-5 text-gray-600"></i>
+                            <span class="font-bold text-gray-600 text-sm">E-Wallet</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="btn-bayar-kajian" onclick="processKajianPayment()" class="w-full bg-brand-DEFAULT text-white font-bold py-4 rounded-[20px] shadow-glow active:scale-95 transition-all flex items-center justify-center gap-2 relative overflow-hidden">
+                    Bayar Menggunakan Face ID
+                </button>
+                <button id="btn-masuk-kajian" onclick="enterKajianRoom()" class="w-full bg-emerald-500 text-white font-bold py-4 rounded-[20px] shadow-glow-stage active:scale-95 transition-all hidden items-center justify-center gap-2 relative overflow-hidden">
+                    <i data-lucide="door-open" class="w-5 h-5"></i> Masuk Kajian
+                </button>
+                <button onclick="closeKajianPaymentModal()" class="w-full text-center mt-4 text-sm font-bold text-gray-400">Batal</button>
+            </div>
+        </div>
 
         <!-- ========================================== -->
         <!-- SCREEN 15: MY SPACEQ (PROFILE)             -->
@@ -1607,7 +1944,6 @@
         function updateStatusBar(screenId) {
             const time = document.getElementById('status-time');
             const icons = document.getElementById('status-icons');
-            // Menyesuaikan warna status bar agar terbaca dengan baik di background gelap/terang
             if(screenId === 'cameraScreen' || screenId === 'previewScreen' || screenId === 'moderationScreen' || screenId === 'mySpaceQScreen' || screenId === 'kajianRoomScreen') {
                 if(time) { time.classList.add('text-white'); time.classList.remove('text-gray-900'); }
                 if(icons) { icons.classList.add('text-white'); icons.classList.remove('text-gray-900'); }
@@ -1637,7 +1973,6 @@
                 isMurajaahInit = true;
             }
 
-            // Putar video di KajianRoom (dummy) ketika masuk
             if(nextScreenId === 'kajianRoomScreen') {
                 const vids = next.querySelectorAll('video');
                 vids.forEach(v => v.play().catch(e => {}));
@@ -1709,7 +2044,7 @@
         }
 
         // ==========================================
-        // KAJIANQ LOGIC (RESTORED)
+        // KAJIANQ LOGIC (MERGED FROM HTML 1)
         // ==========================================
         function openKajianPaymentModal(ustadz, title, price) {
             const titleElem = document.getElementById('pay-kajian-title');
@@ -1721,7 +2056,6 @@
             if(titleElem) titleElem.innerText = title;
             if(ustadzElem) ustadzElem.innerText = ustadz;
             
-            // Hitung persentase statis untuk display (85% vs 15%)
             let numPrice = parseInt(price.replace('.',''));
             let forUst = numPrice * 0.85;
             let forApp = numPrice * 0.15;
@@ -1730,40 +2064,53 @@
             if(splitUst) splitUst.innerText = `Rp ${forUst.toLocaleString('id-ID')}`;
             if(splitApp) splitApp.innerText = `Rp ${forApp.toLocaleString('id-ID')}`;
 
-            // Reset Button State
             const btnBayar = document.getElementById('btn-bayar-kajian');
             const btnMasuk = document.getElementById('btn-masuk-kajian');
-            if(btnBayar) { btnBayar.style.display = 'flex'; btnBayar.innerHTML = "Bayar Sekarang"; }
+            if(btnBayar) { btnBayar.style.display = 'flex'; btnBayar.innerHTML = "Bayar Menggunakan Face ID"; }
             if(btnMasuk) { btnMasuk.classList.add('hidden'); btnMasuk.classList.remove('flex'); }
 
             const modal = document.getElementById('kajianPaymentModal');
             const sheet = document.getElementById('kajianPaymentSheet');
-            if(modal) modal.classList.remove('hidden');
-            if(sheet) {
-                sheet.classList.add('modal-slide-up');
-                sheet.classList.remove('modal-slide-down');
+            if(modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
             }
+            setTimeout(() => {
+                if(sheet) {
+                    sheet.classList.add('slide-up');
+                    sheet.style.transform = 'translateY(0)';
+                }
+            }, 10);
         }
 
         function closeKajianPaymentModal() {
             const modal = document.getElementById('kajianPaymentModal');
             const sheet = document.getElementById('kajianPaymentSheet');
             if(sheet) {
-                sheet.classList.remove('modal-slide-up');
-                sheet.classList.add('modal-slide-down');
+                sheet.classList.remove('slide-up');
+                sheet.style.transform = 'translateY(100%)';
             }
             setTimeout(() => {
-                if(modal) modal.classList.add('hidden');
+                if(modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
             }, 300);
         }
 
         function processKajianPayment() {
             const btnBayar = document.getElementById('btn-bayar-kajian');
-            if(btnBayar) btnBayar.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Memproses...`;
+            if(btnBayar) {
+                btnBayar.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Memproses...`;
+                btnBayar.classList.add('opacity-80', 'pointer-events-none');
+            }
             if (typeof lucide !== 'undefined') lucide.createIcons();
 
             setTimeout(() => {
-                if(btnBayar) btnBayar.style.display = 'none';
+                if(btnBayar) {
+                    btnBayar.style.display = 'none';
+                    btnBayar.classList.remove('opacity-80', 'pointer-events-none');
+                }
                 const btnMasuk = document.getElementById('btn-masuk-kajian');
                 if(btnMasuk) { btnMasuk.classList.remove('hidden'); btnMasuk.classList.add('flex'); }
             }, 1500);
@@ -1773,8 +2120,7 @@
             closeKajianPaymentModal();
             setTimeout(() => {
                 goToScreen('kajianRoomScreen');
-                // Reset stage state in case it was modified before
-                isKajianStaged = true; // force unstage
+                isKajianStaged = true; 
                 hostInviteToStage(); 
             }, 300);
         }
@@ -1783,13 +2129,7 @@
         function toggleKajianHostPanel() {
             const panel = document.getElementById('kajianHostPanel');
             if(panel) {
-                if(panel.classList.contains('translate-x-full')) {
-                    panel.classList.remove('translate-x-full');
-                    panel.classList.add('translate-x-0');
-                } else {
-                    panel.classList.remove('translate-x-0');
-                    panel.classList.add('translate-x-full');
-                }
+                panel.classList.toggle('host-panel-open');
             }
         }
 
@@ -1799,16 +2139,13 @@
             const btnNaik = document.getElementById('btn-naik-panggung');
 
             if(indicator) {
-                // Toggle scale
                 if(indicator.classList.contains('scale-0')) {
                     indicator.classList.remove('scale-0');
                     indicator.classList.add('scale-100');
-                    // Update Host Panel
                     if(queueItem) {
                         queueItem.classList.remove('opacity-50', 'pointer-events-none');
                         if(btnNaik) btnNaik.disabled = false;
                     }
-                    alert("Kamu mengangkat tangan. Menunggu Ustadz menaikkanmu ke panggung...");
                 } else {
                     indicator.classList.remove('scale-100');
                     indicator.classList.add('scale-0');
@@ -1826,6 +2163,7 @@
             const guestCam = document.getElementById('kajian-guest-cam');
             const btnNaik = document.getElementById('btn-naik-panggung');
             const micIcon = document.getElementById('mic-icon-1');
+            const roomBg = document.getElementById('room-ambient-bg');
 
             if(!isKajianStaged) {
                 // Naik Panggung
@@ -1833,38 +2171,39 @@
                 if(btnNaik) {
                     btnNaik.innerText = "Turunkan";
                     btnNaik.classList.replace('bg-[#1cb0f6]', 'bg-red-500');
+                    btnNaik.classList.add('shadow-[0_0_20px_rgba(239,68,68,0.4)]');
+                    btnNaik.classList.remove('shadow-glow');
                 }
                 if(micIcon) {
                     micIcon.setAttribute('data-lucide', 'mic');
                     micIcon.classList.replace('text-red-500', 'text-green-500');
-                    if (typeof lucide !== 'undefined') lucide.createIcons();
                 }
 
-                // CSS Transition Manipulation
                 if(hostCam) {
-                    hostCam.classList.remove('w-[180px]', 'h-[180px]', 'sm:w-[200px]', 'sm:h-[200px]');
-                    hostCam.classList.add('w-[130px]', 'h-[130px]', 'sm:w-[150px]', 'sm:h-[150px]');
+                    hostCam.classList.remove('w-[180px]', 'h-[180px]');
+                    hostCam.classList.add('w-[130px]', 'h-[130px]');
                 }
                 if(guestCam) {
-                    guestCam.classList.remove('w-[0px]', 'h-[0px]', 'opacity-0');
-                    guestCam.classList.add('w-[130px]', 'h-[130px]', 'sm:w-[150px]', 'sm:h-[150px]', 'opacity-100');
+                    guestCam.classList.remove('w-[0px]', 'h-[0px]', 'opacity-0', 'pointer-events-none');
+                    guestCam.classList.add('w-[130px]', 'h-[130px]', 'opacity-100', 'animate-speak');
                 }
-                toggleKajianHostPanel(); // Tutup panel biar kelihatan
-
+                if(roomBg) {
+                    roomBg.style.background = 'radial-gradient(circle at 50% 30%, #047857 0%, #0f172a 70%)';
+                }
             } else {
                 // Turun Panggung
                 isKajianStaged = false;
                 if(btnNaik) {
                     btnNaik.innerText = "Naikkan";
                     btnNaik.classList.replace('bg-red-500', 'bg-[#1cb0f6]');
+                    btnNaik.classList.remove('shadow-[0_0_20px_rgba(239,68,68,0.4)]');
+                    btnNaik.classList.add('shadow-glow');
                 }
                 if(micIcon) {
                     micIcon.setAttribute('data-lucide', 'mic-off');
                     micIcon.classList.replace('text-green-500', 'text-red-500');
-                    if (typeof lucide !== 'undefined') lucide.createIcons();
                 }
                 
-                // Matikan indikator angkat tangan
                 const indicator = document.getElementById('hand-indicator-1');
                 if(indicator) { indicator.classList.replace('scale-100', 'scale-0'); }
                 const queueItem = document.getElementById('host-queue-item');
@@ -1873,19 +2212,103 @@
                     if(btnNaik) btnNaik.disabled = true;
                 }
 
-                // CSS Revert
                 if(hostCam) {
-                    hostCam.classList.remove('w-[130px]', 'h-[130px]', 'sm:w-[150px]', 'sm:h-[150px]');
-                    hostCam.classList.add('w-[180px]', 'h-[180px]', 'sm:w-[200px]', 'sm:h-[200px]');
+                    hostCam.classList.remove('w-[130px]', 'h-[130px]');
+                    hostCam.classList.add('w-[180px]', 'h-[180px]');
                 }
                 if(guestCam) {
-                    guestCam.classList.remove('w-[130px]', 'h-[130px]', 'sm:w-[150px]', 'sm:h-[150px]', 'opacity-100');
-                    guestCam.classList.add('w-[0px]', 'h-[0px]', 'opacity-0');
+                    guestCam.classList.remove('w-[130px]', 'h-[130px]', 'opacity-100', 'animate-speak');
+                    guestCam.classList.add('w-[0px]', 'h-[0px]', 'opacity-0', 'pointer-events-none');
                 }
-                toggleKajianHostPanel(); 
+                if(roomBg) {
+                    roomBg.style.background = 'radial-gradient(circle at 50% 30%, #0369a1 0%, #0f172a 70%)';
+                }
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            setTimeout(toggleKajianHostPanel, 300); 
+        }
+
+        function populateKajianAudience() {
+            const audienceGrid = document.getElementById('kajian-audience-grid');
+            if(!audienceGrid) return;
+            const images = [
+                '1506794778202-cad84cf45f1d', '1534528741775-53994a69daeb', '1544005313-94ddf0286df2',
+                '1531746020798-e6953c6e8e04', '1500648767791-00dcc994a43e', '1524504388940-b1c1722653e1',
+                '1438761681033-6461ffad8d80', '1494790108377-be9c29b29330', '1517841905240-472988babdf9',
+                '1539571696357-5a69c17a67c6', '1507003211169-0a1dd7228f2d'
+            ];
+            const names = ['Aisyah', 'Budi', 'Siti', 'Dian', 'Eko', 'Fatimah', 'Gilang', 'Hana', 'Iqbal', 'Joko', 'Kiki'];
+
+            for(let i=0; i<11; i++) {
+                audienceGrid.innerHTML += `
+                <div class="relative flex flex-col items-center gap-1.5 user-dummy">
+                    <div class="w-16 h-16 rounded-full relative">
+                        <img src="https://images.unsplash.com/photo-${images[i]}?w=100&q=80" class="w-full h-full rounded-full object-cover border-2 border-transparent">
+                        <div class="absolute -bottom-1 -right-1 bg-gray-800 p-1 rounded-full border border-gray-600 mic-status">
+                            <i data-lucide="mic-off" class="w-3 h-3 text-red-400"></i>
+                        </div>
+                    </div>
+                    <span class="text-white/60 text-[10px] font-bold truncate w-full text-center">${names[i]}</span>
+                </div>
+                `;
             }
         }
 
+        // ==========================================
+        // DATA INFLATION FOR MAXIMUM CONTEXT REACH
+        // ==========================================
+        const dummyAudienceData = [
+            { name: "Andi", img: "1506794778202-cad84cf45f1d" }, { name: "Bayu", img: "1534528741775-53994a69daeb" },
+            { name: "Cahyo", img: "1544005313-94ddf0286df2" }, { name: "Deni", img: "1531746020798-e6953c6e8e04" },
+            { name: "Erwin", img: "1500648767791-00dcc994a43e" }, { name: "Feri", img: "1524504388940-b1c1722653e1" },
+            { name: "Gatot", img: "1438761681033-6461ffad8d80" }, { name: "Hasan", img: "1494790108377-be9c29b29330" },
+            { name: "Imran", img: "1517841905240-472988babdf9" }, { name: "Juna", img: "1539571696357-5a69c17a67c6" },
+            { name: "Kamil", img: "1507003211169-0a1dd7228f2d" }, { name: "Lubis", img: "1506794778202-cad84cf45f1d" },
+            { name: "Maman", img: "1534528741775-53994a69daeb" }, { name: "Nizam", img: "1544005313-94ddf0286df2" },
+            { name: "Oman", img: "1531746020798-e6953c6e8e04" }, { name: "Putra", img: "1500648767791-00dcc994a43e" },
+            { name: "Qasim", img: "1524504388940-b1c1722653e1" }, { name: "Rendi", img: "1438761681033-6461ffad8d80" },
+            { name: "Surya", img: "1494790108377-be9c29b29330" }, { name: "Teguh", img: "1517841905240-472988babdf9" },
+            { name: "Umar", img: "1539571696357-5a69c17a67c6" }, { name: "Vikri", img: "1507003211169-0a1dd7228f2d" },
+            { name: "Wawan", img: "1506794778202-cad84cf45f1d" }, { name: "Xaver", img: "1534528741775-53994a69daeb" },
+            { name: "Yusuf", img: "1544005313-94ddf0286df2" }, { name: "Zidan", img: "1531746020798-e6953c6e8e04" },
+            { name: "Alif", img: "1500648767791-00dcc994a43e" }, { name: "Bagas", img: "1524504388940-b1c1722653e1" },
+            { name: "Ciko", img: "1438761681033-6461ffad8d80" }, { name: "Dafa", img: "1494790108377-be9c29b29330" },
+            { name: "Egan", img: "1517841905240-472988babdf9" }, { name: "Fath", img: "1539571696357-5a69c17a67c6" },
+            { name: "Gani", img: "1507003211169-0a1dd7228f2d" }, { name: "Hafiz", img: "1506794778202-cad84cf45f1d" },
+            { name: "Irsyad", img: "1534528741775-53994a69daeb" }, { name: "Jamal", img: "1544005313-94ddf0286df2" },
+            { name: "Kevin", img: "1531746020798-e6953c6e8e04" }, { name: "Luthfi", img: "1500648767791-00dcc994a43e" },
+            { name: "Malik", img: "1524504388940-b1c1722653e1" }, { name: "Naufal", img: "1438761681033-6461ffad8d80" },
+            { name: "Ojan", img: "1494790108377-be9c29b29330" }, { name: "Panca", img: "1517841905240-472988babdf9" },
+            { name: "Qori", img: "1539571696357-5a69c17a67c6" }, { name: "Rafi", img: "1507003211169-0a1dd7228f2d" },
+            { name: "Satria", img: "1506794778202-cad84cf45f1d" }, { name: "Toriq", img: "1534528741775-53994a69daeb" },
+            { name: "Ubay", img: "1544005313-94ddf0286df2" }, { name: "Vino", img: "1531746020798-e6953c6e8e04" },
+            { name: "Wahyu", img: "1500648767791-00dcc994a43e" }, { name: "Yuda", img: "1524504388940-b1c1722653e1" },
+            { name: "Zaki", img: "1438761681033-6461ffad8d80" }, { name: "Aman", img: "1494790108377-be9c29b29330" },
+            { name: "Burhan", img: "1517841905240-472988babdf9" }, { name: "Chandra", img: "1539571696357-5a69c17a67c6" },
+            { name: "Dedi", img: "1507003211169-0a1dd7228f2d" }, { name: "Egi", img: "1506794778202-cad84cf45f1d" },
+            { name: "Fauzi", img: "1534528741775-53994a69daeb" }, { name: "Galih", img: "1544005313-94ddf0286df2" },
+            { name: "Husen", img: "1531746020798-e6953c6e8e04" }, { name: "Idris", img: "1500648767791-00dcc994a43e" },
+            { name: "Jati", img: "1524504388940-b1c1722653e1" }, { name: "Kukuh", img: "1438761681033-6461ffad8d80" },
+            { name: "Lukman", img: "1494790108377-be9c29b29330" }, { name: "Musa", img: "1517841905240-472988babdf9" },
+            { name: "Nadim", img: "1539571696357-5a69c17a67c6" }, { name: "Okta", img: "1507003211169-0a1dd7228f2d" },
+            { name: "Puji", img: "1506794778202-cad84cf45f1d" }, { name: "Qomar", img: "1534528741775-53994a69daeb" },
+            { name: "Raja", img: "1544005313-94ddf0286df2" }, { name: "Sandi", img: "1531746020798-e6953c6e8e04" },
+            { name: "Tio", img: "1500648767791-00dcc994a43e" }, { name: "Usman", img: "1524504388940-b1c1722653e1" },
+            { name: "Vian", img: "1438761681033-6461ffad8d80" }, { name: "Wira", img: "1494790108377-be9c29b29330" },
+            { name: "Yoga", img: "1517841905240-472988babdf9" }, { name: "Zain", img: "1539571696357-5a69c17a67c6" },
+            { name: "Ari", img: "1507003211169-0a1dd7228f2d" }, { name: "Beny", img: "1506794778202-cad84cf45f1d" },
+            { name: "Catur", img: "1534528741775-53994a69daeb" }, { name: "Danu", img: "1544005313-94ddf0286df2" },
+            { name: "Edi", img: "1531746020798-e6953c6e8e04" }, { name: "Faruq", img: "1500648767791-00dcc994a43e" },
+            { name: "Guntur", img: "1524504388940-b1c1722653e1" }, { name: "Habib", img: "1438761681033-6461ffad8d80" },
+            { name: "Irwan", img: "1494790108377-be9c29b29330" }, { name: "Jerry", img: "1517841905240-472988babdf9" },
+            { name: "Kadir", img: "1539571696357-5a69c17a67c6" }, { name: "Lutfi", img: "1507003211169-0a1dd7228f2d" },
+            { name: "Mahendra", img: "1506794778202-cad84cf45f1d" }, { name: "Noval", img: "1534528741775-53994a69daeb" },
+            { name: "Oki", img: "1544005313-94ddf0286df2" }, { name: "Panji", img: "1531746020798-e6953c6e8e04" },
+            { name: "Reza", img: "1500648767791-00dcc994a43e" }, { name: "Septian", img: "1524504388940-b1c1722653e1" },
+            { name: "Taufik", img: "1438761681033-6461ffad8d80" }, { name: "Untung", img: "1494790108377-be9c29b29330" },
+            { name: "Wibowo", img: "1517841905240-472988babdf9" }, { name: "Yusron", img: "1539571696357-5a69c17a67c6" },
+            { name: "Zulfikar", img: "1507003211169-0a1dd7228f2d" }, { name: "Amin", img: "1506794778202-cad84cf45f1d" }
+        ];
 
         // ==========================================
         // SOCIALQ (LINKEDIN STYLE)
@@ -2123,13 +2546,12 @@
         async function initMurajaahData() {
             try {
                 updateGamification();
-                // Mengambil data surah dari Quran API Kemenag (equran.id)
                 const res = await fetch('https://equran.id/api/v2/surat');
                 const result = await res.json();
                 if (result.code === 200) {
                     murajaahSurahs = result.data;
                     renderMurajaahMap(); 
-                    generateVsSurahList(); // Persiapan list untuk modal Versus
+                    generateVsSurahList(); 
                 }
             } catch (e) {}
         }
@@ -2181,16 +2603,14 @@
             hideMurajaahFeedback();
 
             try {
-                // Mengambil ayat dari Quran API Kemenag (equran.id)
                 const res = await fetch(`https://equran.id/api/v2/surat/${surahNumber}`);
                 const result = await res.json();
 
                 if (result.code === 200) {
                     murajaahAyahs = result.data.ayat.map((ayah) => {
                         let cleanText = ayah.teksArab;
-                        // Jaga-jaga jika masih ada Bismillah (Meski di equran v2 biasanya sudah dipisah rapi)
                         if (surahNumber !== 1 && surahNumber !== 9 && ayah.nomorAyat === 1) {
-                            cleanText = cleanText.replace(/بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ /g, '').replace(/بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ /g, '');
+                            cleanText = cleanText.replace(/بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ /g, '').replace(/بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ /g, '');
                         }
                         return {
                             numberInSurah: ayah.nomorAyat,
@@ -2256,7 +2676,7 @@
 
         function toggleMurajaahRecord() {
             if (isMurajaahEvaluating) return;
-            if (isMurajaahRecording) return; // Mencegah double tap
+            if (isMurajaahRecording) return; 
 
             isMurajaahRecording = true;
             const btn = document.getElementById('murajaah-record-btn');
@@ -2271,7 +2691,6 @@
             if (typeof lucide !== 'undefined') lucide.createIcons();
             hideMurajaahFeedback();
 
-            // FULL SIMULASI: Proses Perekaman Palsu
             setTimeout(() => {
                 isMurajaahRecording = false;
                 isMurajaahEvaluating = true;
@@ -2283,11 +2702,9 @@
                 if(statusTxt) statusTxt.innerText = "Menganalisis kecocokan makhraj dan tajwid...";
                 if (typeof lucide !== 'undefined') lucide.createIcons();
 
-                // FULL SIMULASI: Proses Evaluasi Palsu
                 setTimeout(() => {
                     isMurajaahEvaluating = false;
                     
-                    // Buat probabilitas 85% berhasil agar prototype terasa seru
                     const isBenar = Math.random() > 0.15; 
                     const feedbackMsg = isBenar ? "Bacaan tajwid dan makhrajmu sangat tepat!" : "Terdengar ada kesalahan makhraj, coba diulangi lagi.";
                     const fakeTranscript = isBenar ? "Sempurna." : "Terjadi sedikit kekeliruan pembacaan di akhir kalimat.";
@@ -2421,7 +2838,6 @@
             }
         }
 
-
         // ==========================================
         // NEW: MURAJAAHQ VERSUS LOBBY MODAL
         // ==========================================
@@ -2455,14 +2871,12 @@
             const container = document.getElementById('vs-surah-list');
             if (!container) return;
             let html = '';
-            // Gunakan murajaahSurahs yg didapat dari Kemenag API (initMurajaahData)
             if(murajaahSurahs && murajaahSurahs.length > 0) {
                 murajaahSurahs.forEach((surah) => {
                     const isActive = surah.nomor === 112 ? 'text-[#1cb0f6] bg-[#1cb0f6]/5 shadow-sm border border-[#1cb0f6]/30' : 'text-gray-700 hover:bg-white hover:shadow-sm border border-transparent';
                     html += `<button class="vs-surah-item text-left px-3 py-2 rounded-xl text-[13px] font-bold cursor-pointer transition-colors ${isActive}" data-name="${surah.namaLatin.toLowerCase()}" onclick="selectVsSurah(${surah.nomor}, this)">${surah.nomor}. ${surah.namaLatin}</button>`;
                 });
             } else {
-                // Fallback list kalau belum kerender
                 const fallbackSurahNames = [
                     "Al-Fatihah", "Al-Baqarah", "Ali 'Imran", "An-Nisa'", "Al-Ma'idah", "Al-An'am", "Al-A'raf", "Al-Anfal", "At-Taubah", "Yunus", "Hud", "Yusuf", "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Isra'", "Al-Kahf", "Maryam", "Taha", "Al-Anbiya'", "Al-Hajj", "Al-Mu'minun", "An-Nur", "Al-Furqan", "Ash-Shu'ara'", "An-Naml", "Al-Qasas", "Al-'Ankabut", "Ar-Rum", "Luqman", "As-Sajdah", "Al-Ahzab", "Saba'", "Fatir", "Ya Sin", "As-Saffat", "Sad", "Az-Zumar", "Ghafir", "Fussilat", "Ash-Shura", "Az-Zukhruf", "Ad-Dukhan", "Al-Jathiyah", "Al-Ahqaf", "Muhammad", "Al-Fath", "Al-Hujurat", "Qaf", "Ad-Dhariyat", "At-Tur", "An-Najm", "Al-Qamar", "Ar-Rahman", "Al-Waqi'ah", "Al-Hadid", "Al-Mujadilah", "Al-Hashr", "Al-Mumtahanah", "As-Saff", "Al-Jumu'ah", "Al-Munafiqun", "At-Taghabun", "At-Talaq", "At-Tahrim", "Al-Mulk", "Al-Qalam", "Al-Haqqah", "Al-Ma'arij", "Nuh", "Al-Jinn", "Al-Muzzammil", "Al-Muddaththir", "Al-Qiyamah", "Al-Insan", "Al-Mursalat", "An-Naba'", "An-Nazi'at", "'Abasa", "At-Takwir", "Al-Infitar", "Al-Mutaffifin", "Al-Inshiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Ghashiyah", "Al-Fajr", "Al-Balad", "Ash-Shams", "Al-Lail", "Ad-Duha", "Ash-Sharh", "At-Tin", "Al-'Alaq", "Al-Qadr", "Al-Bayyinah", "Az-Zalzalah", "Al-'Adiyat", "Al-Qari'ah", "At-Takathur", "Al-'Asr", "Al-Humazah", "Al-Fil", "Quraysh", "Al-Ma'un", "Al-Kausar", "Al-Kafirun", "An-Nasr", "Al-Lahab", "Al-Ikhlas", "Al-Falaq", "An-Nas"
                 ];
@@ -2472,7 +2886,7 @@
                 });
             }
             container.innerHTML = html;
-            window.selectedVsSurah = 112; // Default Al-Ikhlas
+            window.selectedVsSurah = 112; 
         }
 
         function selectVsSurah(number, btnElement) {
