@@ -226,7 +226,7 @@
         }
 
         /* ========================================= */
-        /* KAJIANQ SPECIFIC STYLES FROM HTML 1       */
+        /* KAJIANQ SPECIFIC STYLES                   */
         /* ========================================= */
         .card-back {
             transform: scale(0.85) translateX(-45px) rotate(-8deg);
@@ -270,11 +270,26 @@
             transition: all 1s ease;
         }
         .circle-video {
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             object-fit: cover;
             border-radius: 50%;
         }
         .host-panel-open { transform: translateX(0) !important; }
+        
+        /* Grid Participant Animations */
+        .participant-grid-item {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+        }
+        .participant-hidden {
+            transform: scale(0);
+            opacity: 0;
+            position: absolute; /* Remove from flow to allow grid shifting smoothly */
+            pointer-events: none;
+        }
+        .queue-item-selected {
+            border-color: #1cb0f6 !important;
+            background: rgba(28, 176, 246, 0.15) !important;
+        }
     </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4 font-sans antialiased">
@@ -748,7 +763,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- SCREEN 7.1: KAJIANQ LOBBY (NEW INSERT)     -->
+        <!-- SCREEN 7.1: KAJIANQ LOBBY                  -->
         <!-- ========================================== -->
         <div id="kajianLobbyScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-[#F8FAFC] flex flex-col z-20">
             <div class="pt-14 px-6 pb-4 flex justify-between items-center">
@@ -834,7 +849,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- SCREEN 7.2: KAJIANQ ROOM (NEW INSERT)      -->
+        <!-- SCREEN 7.2: KAJIANQ ROOM (REDESIGNED QNA)  -->
         <!-- ========================================== -->
         <div id="kajianRoomScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-[#0f172a] flex flex-col relative z-[45]">
             <!-- Dynamic Frosted Glass Background -->
@@ -844,13 +859,13 @@
             <!-- Top Area (Stage) 40% -->
             <div class="relative z-10 h-[45%] w-full flex items-center justify-center pt-10">
                 <!-- Header Actions -->
-                <div class="absolute top-12 left-6 right-6 flex justify-between items-center z-20">
-                    <div class="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-2">
+                <div class="absolute top-12 left-6 right-6 flex justify-between items-center z-20 pointer-events-none">
+                    <div class="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-2 pointer-events-auto">
                         <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
                         <span class="text-white text-[11px] font-bold tracking-widest">LIVE</span>
                     </div>
-                    <!-- Tombol Simulasi Panel Host (Khusus Prototype) -->
-                    <button onclick="toggleKajianHostPanel()" class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 px-3 py-1.5 rounded-full text-[11px] font-bold shadow-glow-stage">
+                    <!-- Tombol Toggle Panel Host -->
+                    <button onclick="toggleKajianHostPanel()" class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 px-3 py-1.5 rounded-full text-[11px] font-bold shadow-glow-stage pointer-events-auto cursor-pointer active:scale-95 transition-transform">
                         Mode Host
                     </button>
                 </div>
@@ -859,7 +874,7 @@
                 <div class="relative w-full h-full flex items-center justify-center gap-4 transition-all duration-500" id="stage-container">
                     
                     <!-- Ustadz Cam -->
-                    <div id="kajian-host-cam" class="relative w-[180px] h-[180px] circle-video z-20 shadow-glow flex flex-col items-center justify-center bg-gray-800">
+                    <div id="kajian-host-cam" class="relative w-[180px] h-[180px] sm:w-[200px] sm:h-[200px] circle-video z-20 shadow-glow flex flex-col items-center justify-center bg-gray-800 shrink-0">
                         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" class="w-full h-full object-cover rounded-full absolute inset-0">
                         <div class="absolute -bottom-3 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 text-white text-[12px] font-bold shadow-lg flex items-center gap-1.5 whitespace-nowrap">
                             Ust. Erwandi <i data-lucide="mic" class="w-3 h-3 text-emerald-400"></i>
@@ -867,10 +882,10 @@
                     </div>
 
                     <!-- Guest Cam (Naik Panggung) -->
-                    <div id="kajian-guest-cam" class="relative w-[0px] h-[0px] opacity-0 circle-video z-20 flex flex-col items-center justify-center bg-gray-800 pointer-events-none">
-                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=400&q=80" class="w-full h-full object-cover rounded-full absolute inset-0">
+                    <div id="kajian-guest-cam" class="relative w-[0px] h-[0px] opacity-0 circle-video z-20 flex flex-col items-center justify-center bg-gray-800 pointer-events-none shrink-0 transition-all duration-500">
+                        <img src="" id="k-guest-img" class="w-full h-full object-cover rounded-full absolute inset-0">
                         <div class="absolute -bottom-3 bg-black/60 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 text-white text-[12px] font-bold shadow-lg flex items-center gap-1.5 whitespace-nowrap">
-                            Jamaah (Saya) <i id="mic-icon-1" data-lucide="mic-off" class="w-3 h-3 text-red-500"></i>
+                            <span id="k-guest-name">Jamaah</span> <i id="mic-icon-1" data-lucide="mic-off" class="w-3 h-3 text-red-500 transition-colors"></i>
                         </div>
                     </div>
 
@@ -881,26 +896,13 @@
             <div class="relative z-10 h-[55%] w-full flex flex-col pt-4">
                 <div class="px-6 flex justify-between items-center mb-4">
                     <h3 class="text-white/90 text-sm font-bold">Jamaah Hadir</h3>
+                    <p class="text-white/40 text-[10px] italic">Ketuk avatar untuk tes angkat tangan</p>
                 </div>
 
-                <!-- Circular Grid -->
+                <!-- Circular Grid (Injected by JS) -->
                 <div class="flex-1 overflow-y-auto hide-scroll px-6 pb-28">
-                    <div class="grid grid-cols-4 gap-y-6 gap-x-4 place-items-center" id="kajian-audience-grid">
-                        <!-- User 1 (Me) -->
-                        <div class="relative flex flex-col items-center gap-1.5">
-                            <div class="w-16 h-16 rounded-full relative">
-                                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=200&q=80" class="w-full h-full rounded-full object-cover border-2 border-brand-DEFAULT">
-                                <div class="absolute -bottom-1 -right-1 bg-gray-800 p-1 rounded-full border border-gray-600 mic-status-kajian">
-                                    <i data-lucide="mic-off" class="w-3 h-3 text-red-400"></i>
-                                </div>
-                                <div id="hand-indicator-1" class="absolute -top-2 -right-2 bg-yellow-400 p-1.5 rounded-full border-2 border-gray-900 shadow-lg transform scale-0 transition-transform duration-300">
-                                    <i data-lucide="hand" class="w-3 h-3 text-yellow-900"></i>
-                                </div>
-                            </div>
-                            <span class="text-white/80 text-[10px] font-bold truncate w-full text-center">Saya</span>
-                        </div>
-                        
-                        <!-- Dummy Users will be injected via JS here -->
+                    <div class="grid grid-cols-4 gap-y-6 gap-x-4 place-items-center relative" id="kajian-audience-grid">
+                        <!-- Content goes here -->
                     </div>
                 </div>
 
@@ -913,11 +915,12 @@
                     <button class="text-white hover:text-emerald-400 transition-colors">
                         <i data-lucide="message-circle" class="w-5 h-5"></i>
                     </button>
-                    <button onclick="userRaiseHand()" class="text-white hover:text-yellow-400 transition-colors relative">
-                        <i data-lucide="hand" class="w-5 h-5"></i>
+                    <!-- Button khusus untuk current user (Saya) -->
+                    <button onclick="k_toggleHand('me')" id="kajian-my-hand-btn" class="text-white hover:text-yellow-400 transition-colors relative cursor-pointer active:scale-95 transform">
+                        <i data-lucide="hand" class="w-5 h-5 fill-current"></i>
                     </button>
                     <div class="w-px h-6 bg-white/20"></div>
-                    <button onclick="goToScreen('kajianLobbyScreen')" class="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-500 border border-red-500/50 hover:bg-red-500 hover:text-white transition-colors">
+                    <button onclick="goToScreen('kajianLobbyScreen')" class="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center text-red-500 border border-red-500/50 hover:bg-red-500 hover:text-white transition-colors cursor-pointer">
                         <i data-lucide="x" class="w-4 h-4"></i>
                     </button>
                 </div>
@@ -927,52 +930,59 @@
             <div id="kajianHostPanel" class="absolute top-0 right-0 w-[280px] h-full glass-dark z-50 transform translate-x-full transition-transform duration-400 border-l border-white/10 flex flex-col">
                 <div class="p-6 border-b border-white/10 flex justify-between items-center pt-14">
                     <h2 class="text-white font-extrabold text-lg">God Mode (Host)</h2>
-                    <button onclick="toggleKajianHostPanel()" class="text-white/50 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+                    <button onclick="toggleKajianHostPanel()" class="text-white/50 hover:text-white cursor-pointer"><i data-lucide="x" class="w-5 h-5"></i></button>
                 </div>
                 
                 <div class="p-6 flex-1 overflow-y-auto hide-scroll flex flex-col gap-6">
-                    <!-- Global Control -->
-                    <div class="bg-white/5 rounded-2xl p-4 border border-white/10">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h3 class="text-white text-sm font-bold">Majelis Lock</h3>
-                                <p class="text-white/50 text-[10px] mt-1">Force mute semua jamaah</p>
+                    
+                    <!-- Stage Control (Active Speaker) -->
+                    <div id="k-active-stage-container" class="hidden bg-emerald-900/40 rounded-2xl p-4 border border-emerald-500/30">
+                        <h3 class="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-3 flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div> Sedang di Panggung
+                        </h3>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <img id="k-active-stage-img" src="" class="w-10 h-10 rounded-full object-cover border-2 border-emerald-500">
+                                <div>
+                                    <h4 id="k-active-stage-name" class="text-white text-[13px] font-bold">Nama</h4>
+                                    <p class="text-emerald-400 text-[10px] font-bold">Mic Aktif</p>
+                                </div>
                             </div>
-                            <button id="toggle-mute-all" class="w-12 h-6 bg-red-500 rounded-full relative transition-colors shadow-inner">
-                                <div id="mute-all-knob" class="w-5 h-5 bg-white rounded-full absolute right-0.5 top-0.5 shadow-sm transition-transform"></div>
-                            </button>
+                            <button onclick="k_demoteFromStage()" class="bg-red-500 text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-lg active:scale-95 transition-transform cursor-pointer">Turunkan</button>
                         </div>
                     </div>
 
                     <!-- Queue Management -->
                     <div>
-                        <h3 class="text-white/80 text-xs font-bold uppercase tracking-widest mb-3">Antrean Pertanyaan</h3>
-                        <div id="host-queue-item" class="opacity-50 pointer-events-none bg-white/5 rounded-2xl p-3 border border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100" class="w-10 h-10 rounded-full object-cover">
-                                <div>
-                                    <h4 class="text-white text-[13px] font-bold">Jamaah (Saya)</h4>
-                                    <p class="text-yellow-400 text-[10px] font-bold">Minta Naik</p>
-                                </div>
-                            </div>
-                            <button id="btn-naik-panggung" onclick="hostInviteToStage()" class="bg-[#1cb0f6] text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-glow" disabled>Naikkan</button>
+                        <h3 class="text-white/80 text-xs font-bold uppercase tracking-widest mb-3 flex justify-between items-center">
+                            Antrean Q&A <span id="k-queue-count" class="bg-white/10 text-white px-2 py-0.5 rounded-full text-[10px]">0</span>
+                        </h3>
+                        
+                        <div id="k-queue-empty" class="text-white/40 text-xs text-center py-4 italic">Belum ada yang angkat tangan</div>
+                        
+                        <div id="k-queue-list" class="flex flex-col gap-2">
+                            <!-- Injected via JS -->
                         </div>
+
+                        <button id="k-btn-promote" onclick="k_promoteToStage()" class="w-full mt-4 bg-[#1cb0f6] text-white py-3 rounded-xl text-[13px] font-bold shadow-glow opacity-50 pointer-events-none transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="arrow-up-circle" class="w-4 h-4"></i> Naikkan ke Panggung
+                        </button>
                     </div>
 
-                    <!-- Adab Enforcer -->
-                    <div>
-                        <h3 class="text-white/80 text-xs font-bold uppercase tracking-widest mb-3">Tindakan Khusus</h3>
-                        <div class="bg-white/5 rounded-2xl p-3 border border-white/10 flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-white/50 text-xs font-bold">D</div>
-                                <h4 class="text-white text-[13px] font-bold">Deni S.</h4>
+                    <!-- Global Control -->
+                    <div class="bg-white/5 rounded-2xl p-4 border border-white/10 mt-2">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h3 class="text-white text-sm font-bold">Majelis Lock</h3>
+                                <p class="text-white/50 text-[10px] mt-1">Mute all jamaah</p>
                             </div>
-                            <button class="bg-red-500/20 text-red-400 border border-red-500/50 px-3 py-1.5 rounded-full text-[11px] font-bold">Keluarkan</button>
+                            <div class="w-10 h-5 bg-red-500 rounded-full relative cursor-pointer shadow-inner">
+                                <div class="w-4 h-4 bg-white rounded-full absolute right-0.5 top-0.5 shadow-sm"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- ========================================== -->
@@ -1494,7 +1504,7 @@
                     </div>
                     
                     <p id="vs-ayah-text" class="font-arabic text-[38px] leading-[2.2] text-center text-gray-900 pb-4 w-full blur-md select-none transition-all duration-300" dir="rtl" style="font-family: 'Amiri', serif;">
-                        بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
+                        بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
                     </p>
                     <div class="w-12 h-1 bg-gray-200 rounded-full mb-4 z-10"></div>
                     <p id="vs-ayah-trans" class="text-center text-gray-500 font-semibold italic text-[15px] leading-relaxed w-full blur-md select-none transition-all duration-300 z-10">
@@ -1513,7 +1523,7 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- SCREEN 13.8: SPIN WHEEL SCREEN             -->
+        <!-- NEW SCREEN 13.8: SPIN WHEEL SCREEN         -->
         <!-- ========================================== -->
         <div id="murajaahSpinScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-white overflow-hidden z-[52]">
             <div class="pt-16 px-6 flex flex-col items-center justify-center z-20">
@@ -1940,10 +1950,12 @@
         // ==========================================
         let currentScreen = 'screen0';
         let isMurajaahInit = false;
+        let isKajianInit = false; // Flag for Kajian Init
         
         function updateStatusBar(screenId) {
             const time = document.getElementById('status-time');
             const icons = document.getElementById('status-icons');
+            // Menyesuaikan warna status bar agar terbaca dengan baik di background gelap/terang
             if(screenId === 'cameraScreen' || screenId === 'previewScreen' || screenId === 'moderationScreen' || screenId === 'mySpaceQScreen' || screenId === 'kajianRoomScreen') {
                 if(time) { time.classList.add('text-white'); time.classList.remove('text-gray-900'); }
                 if(icons) { icons.classList.add('text-white'); icons.classList.remove('text-gray-900'); }
@@ -1968,12 +1980,18 @@
             
             updateStatusBar(nextScreenId);
             
+            // Init Murajaah if needed
             if ((nextScreenId === 'murajaahScreen' || nextScreenId === 'murajaahMapScreen' || nextScreenId === 'murajaahVersusLobbyScreen') && !isMurajaahInit) {
                 initMurajaahData();
                 isMurajaahInit = true;
             }
 
+            // Putar video di KajianRoom (dummy) ketika masuk
             if(nextScreenId === 'kajianRoomScreen') {
+                if(!isKajianInit) {
+                    initKajianQnA();
+                    isKajianInit = true;
+                }
                 const vids = next.querySelectorAll('video');
                 vids.forEach(v => v.play().catch(e => {}));
             }
@@ -2044,217 +2062,6 @@
         }
 
         // ==========================================
-        // KAJIANQ LOGIC (MERGED FROM HTML 1)
-        // ==========================================
-        function openKajianPaymentModal(ustadz, title, price) {
-            const titleElem = document.getElementById('pay-kajian-title');
-            const ustadzElem = document.getElementById('pay-ustadz-name');
-            const totalElem = document.getElementById('pay-total');
-            const splitUst = document.getElementById('pay-split-ustadz');
-            const splitApp = document.getElementById('pay-split-app');
-
-            if(titleElem) titleElem.innerText = title;
-            if(ustadzElem) ustadzElem.innerText = ustadz;
-            
-            let numPrice = parseInt(price.replace('.',''));
-            let forUst = numPrice * 0.85;
-            let forApp = numPrice * 0.15;
-
-            if(totalElem) totalElem.innerText = `Rp ${price}`;
-            if(splitUst) splitUst.innerText = `Rp ${forUst.toLocaleString('id-ID')}`;
-            if(splitApp) splitApp.innerText = `Rp ${forApp.toLocaleString('id-ID')}`;
-
-            const btnBayar = document.getElementById('btn-bayar-kajian');
-            const btnMasuk = document.getElementById('btn-masuk-kajian');
-            if(btnBayar) { btnBayar.style.display = 'flex'; btnBayar.innerHTML = "Bayar Menggunakan Face ID"; }
-            if(btnMasuk) { btnMasuk.classList.add('hidden'); btnMasuk.classList.remove('flex'); }
-
-            const modal = document.getElementById('kajianPaymentModal');
-            const sheet = document.getElementById('kajianPaymentSheet');
-            if(modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
-            setTimeout(() => {
-                if(sheet) {
-                    sheet.classList.add('slide-up');
-                    sheet.style.transform = 'translateY(0)';
-                }
-            }, 10);
-        }
-
-        function closeKajianPaymentModal() {
-            const modal = document.getElementById('kajianPaymentModal');
-            const sheet = document.getElementById('kajianPaymentSheet');
-            if(sheet) {
-                sheet.classList.remove('slide-up');
-                sheet.style.transform = 'translateY(100%)';
-            }
-            setTimeout(() => {
-                if(modal) {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                }
-            }, 300);
-        }
-
-        function processKajianPayment() {
-            const btnBayar = document.getElementById('btn-bayar-kajian');
-            if(btnBayar) {
-                btnBayar.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Memproses...`;
-                btnBayar.classList.add('opacity-80', 'pointer-events-none');
-            }
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-
-            setTimeout(() => {
-                if(btnBayar) {
-                    btnBayar.style.display = 'none';
-                    btnBayar.classList.remove('opacity-80', 'pointer-events-none');
-                }
-                const btnMasuk = document.getElementById('btn-masuk-kajian');
-                if(btnMasuk) { btnMasuk.classList.remove('hidden'); btnMasuk.classList.add('flex'); }
-            }, 1500);
-        }
-
-        function enterKajianRoom() {
-            closeKajianPaymentModal();
-            setTimeout(() => {
-                goToScreen('kajianRoomScreen');
-                isKajianStaged = true; 
-                hostInviteToStage(); 
-            }, 300);
-        }
-
-        // --- In Room Logic ---
-        function toggleKajianHostPanel() {
-            const panel = document.getElementById('kajianHostPanel');
-            if(panel) {
-                panel.classList.toggle('host-panel-open');
-            }
-        }
-
-        function userRaiseHand() {
-            const indicator = document.getElementById('hand-indicator-1');
-            const queueItem = document.getElementById('host-queue-item');
-            const btnNaik = document.getElementById('btn-naik-panggung');
-
-            if(indicator) {
-                if(indicator.classList.contains('scale-0')) {
-                    indicator.classList.remove('scale-0');
-                    indicator.classList.add('scale-100');
-                    if(queueItem) {
-                        queueItem.classList.remove('opacity-50', 'pointer-events-none');
-                        if(btnNaik) btnNaik.disabled = false;
-                    }
-                } else {
-                    indicator.classList.remove('scale-100');
-                    indicator.classList.add('scale-0');
-                    if(queueItem) {
-                        queueItem.classList.add('opacity-50', 'pointer-events-none');
-                        if(btnNaik) btnNaik.disabled = true;
-                    }
-                }
-            }
-        }
-
-        let isKajianStaged = false;
-        function hostInviteToStage() {
-            const hostCam = document.getElementById('kajian-host-cam');
-            const guestCam = document.getElementById('kajian-guest-cam');
-            const btnNaik = document.getElementById('btn-naik-panggung');
-            const micIcon = document.getElementById('mic-icon-1');
-            const roomBg = document.getElementById('room-ambient-bg');
-
-            if(!isKajianStaged) {
-                // Naik Panggung
-                isKajianStaged = true;
-                if(btnNaik) {
-                    btnNaik.innerText = "Turunkan";
-                    btnNaik.classList.replace('bg-[#1cb0f6]', 'bg-red-500');
-                    btnNaik.classList.add('shadow-[0_0_20px_rgba(239,68,68,0.4)]');
-                    btnNaik.classList.remove('shadow-glow');
-                }
-                if(micIcon) {
-                    micIcon.setAttribute('data-lucide', 'mic');
-                    micIcon.classList.replace('text-red-500', 'text-green-500');
-                }
-
-                if(hostCam) {
-                    hostCam.classList.remove('w-[180px]', 'h-[180px]');
-                    hostCam.classList.add('w-[130px]', 'h-[130px]');
-                }
-                if(guestCam) {
-                    guestCam.classList.remove('w-[0px]', 'h-[0px]', 'opacity-0', 'pointer-events-none');
-                    guestCam.classList.add('w-[130px]', 'h-[130px]', 'opacity-100', 'animate-speak');
-                }
-                if(roomBg) {
-                    roomBg.style.background = 'radial-gradient(circle at 50% 30%, #047857 0%, #0f172a 70%)';
-                }
-            } else {
-                // Turun Panggung
-                isKajianStaged = false;
-                if(btnNaik) {
-                    btnNaik.innerText = "Naikkan";
-                    btnNaik.classList.replace('bg-red-500', 'bg-[#1cb0f6]');
-                    btnNaik.classList.remove('shadow-[0_0_20px_rgba(239,68,68,0.4)]');
-                    btnNaik.classList.add('shadow-glow');
-                }
-                if(micIcon) {
-                    micIcon.setAttribute('data-lucide', 'mic-off');
-                    micIcon.classList.replace('text-green-500', 'text-red-500');
-                }
-                
-                const indicator = document.getElementById('hand-indicator-1');
-                if(indicator) { indicator.classList.replace('scale-100', 'scale-0'); }
-                const queueItem = document.getElementById('host-queue-item');
-                if(queueItem) {
-                    queueItem.classList.add('opacity-50', 'pointer-events-none');
-                    if(btnNaik) btnNaik.disabled = true;
-                }
-
-                if(hostCam) {
-                    hostCam.classList.remove('w-[130px]', 'h-[130px]');
-                    hostCam.classList.add('w-[180px]', 'h-[180px]');
-                }
-                if(guestCam) {
-                    guestCam.classList.remove('w-[130px]', 'h-[130px]', 'opacity-100', 'animate-speak');
-                    guestCam.classList.add('w-[0px]', 'h-[0px]', 'opacity-0', 'pointer-events-none');
-                }
-                if(roomBg) {
-                    roomBg.style.background = 'radial-gradient(circle at 50% 30%, #0369a1 0%, #0f172a 70%)';
-                }
-            }
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-            setTimeout(toggleKajianHostPanel, 300); 
-        }
-
-        function populateKajianAudience() {
-            const audienceGrid = document.getElementById('kajian-audience-grid');
-            if(!audienceGrid) return;
-            const images = [
-                '1506794778202-cad84cf45f1d', '1534528741775-53994a69daeb', '1544005313-94ddf0286df2',
-                '1531746020798-e6953c6e8e04', '1500648767791-00dcc994a43e', '1524504388940-b1c1722653e1',
-                '1438761681033-6461ffad8d80', '1494790108377-be9c29b29330', '1517841905240-472988babdf9',
-                '1539571696357-5a69c17a67c6', '1507003211169-0a1dd7228f2d'
-            ];
-            const names = ['Aisyah', 'Budi', 'Siti', 'Dian', 'Eko', 'Fatimah', 'Gilang', 'Hana', 'Iqbal', 'Joko', 'Kiki'];
-
-            for(let i=0; i<11; i++) {
-                audienceGrid.innerHTML += `
-                <div class="relative flex flex-col items-center gap-1.5 user-dummy">
-                    <div class="w-16 h-16 rounded-full relative">
-                        <img src="https://images.unsplash.com/photo-${images[i]}?w=100&q=80" class="w-full h-full rounded-full object-cover border-2 border-transparent">
-                        <div class="absolute -bottom-1 -right-1 bg-gray-800 p-1 rounded-full border border-gray-600 mic-status">
-                            <i data-lucide="mic-off" class="w-3 h-3 text-red-400"></i>
-                        </div>
-                    </div>
-                    <span class="text-white/60 text-[10px] font-bold truncate w-full text-center">${names[i]}</span>
-                </div>
-                `;
-            }
-        }
-
-        // ==========================================
         // DATA INFLATION FOR MAXIMUM CONTEXT REACH
         // ==========================================
         const dummyAudienceData = [
@@ -2270,45 +2077,380 @@
             { name: "Surya", img: "1494790108377-be9c29b29330" }, { name: "Teguh", img: "1517841905240-472988babdf9" },
             { name: "Umar", img: "1539571696357-5a69c17a67c6" }, { name: "Vikri", img: "1507003211169-0a1dd7228f2d" },
             { name: "Wawan", img: "1506794778202-cad84cf45f1d" }, { name: "Xaver", img: "1534528741775-53994a69daeb" },
-            { name: "Yusuf", img: "1544005313-94ddf0286df2" }, { name: "Zidan", img: "1531746020798-e6953c6e8e04" },
-            { name: "Alif", img: "1500648767791-00dcc994a43e" }, { name: "Bagas", img: "1524504388940-b1c1722653e1" },
-            { name: "Ciko", img: "1438761681033-6461ffad8d80" }, { name: "Dafa", img: "1494790108377-be9c29b29330" },
-            { name: "Egan", img: "1517841905240-472988babdf9" }, { name: "Fath", img: "1539571696357-5a69c17a67c6" },
-            { name: "Gani", img: "1507003211169-0a1dd7228f2d" }, { name: "Hafiz", img: "1506794778202-cad84cf45f1d" },
-            { name: "Irsyad", img: "1534528741775-53994a69daeb" }, { name: "Jamal", img: "1544005313-94ddf0286df2" },
-            { name: "Kevin", img: "1531746020798-e6953c6e8e04" }, { name: "Luthfi", img: "1500648767791-00dcc994a43e" },
-            { name: "Malik", img: "1524504388940-b1c1722653e1" }, { name: "Naufal", img: "1438761681033-6461ffad8d80" },
-            { name: "Ojan", img: "1494790108377-be9c29b29330" }, { name: "Panca", img: "1517841905240-472988babdf9" },
-            { name: "Qori", img: "1539571696357-5a69c17a67c6" }, { name: "Rafi", img: "1507003211169-0a1dd7228f2d" },
-            { name: "Satria", img: "1506794778202-cad84cf45f1d" }, { name: "Toriq", img: "1534528741775-53994a69daeb" },
-            { name: "Ubay", img: "1544005313-94ddf0286df2" }, { name: "Vino", img: "1531746020798-e6953c6e8e04" },
-            { name: "Wahyu", img: "1500648767791-00dcc994a43e" }, { name: "Yuda", img: "1524504388940-b1c1722653e1" },
-            { name: "Zaki", img: "1438761681033-6461ffad8d80" }, { name: "Aman", img: "1494790108377-be9c29b29330" },
-            { name: "Burhan", img: "1517841905240-472988babdf9" }, { name: "Chandra", img: "1539571696357-5a69c17a67c6" },
-            { name: "Dedi", img: "1507003211169-0a1dd7228f2d" }, { name: "Egi", img: "1506794778202-cad84cf45f1d" },
-            { name: "Fauzi", img: "1534528741775-53994a69daeb" }, { name: "Galih", img: "1544005313-94ddf0286df2" },
-            { name: "Husen", img: "1531746020798-e6953c6e8e04" }, { name: "Idris", img: "1500648767791-00dcc994a43e" },
-            { name: "Jati", img: "1524504388940-b1c1722653e1" }, { name: "Kukuh", img: "1438761681033-6461ffad8d80" },
-            { name: "Lukman", img: "1494790108377-be9c29b29330" }, { name: "Musa", img: "1517841905240-472988babdf9" },
-            { name: "Nadim", img: "1539571696357-5a69c17a67c6" }, { name: "Okta", img: "1507003211169-0a1dd7228f2d" },
-            { name: "Puji", img: "1506794778202-cad84cf45f1d" }, { name: "Qomar", img: "1534528741775-53994a69daeb" },
-            { name: "Raja", img: "1544005313-94ddf0286df2" }, { name: "Sandi", img: "1531746020798-e6953c6e8e04" },
-            { name: "Tio", img: "1500648767791-00dcc994a43e" }, { name: "Usman", img: "1524504388940-b1c1722653e1" },
-            { name: "Vian", img: "1438761681033-6461ffad8d80" }, { name: "Wira", img: "1494790108377-be9c29b29330" },
-            { name: "Yoga", img: "1517841905240-472988babdf9" }, { name: "Zain", img: "1539571696357-5a69c17a67c6" },
-            { name: "Ari", img: "1507003211169-0a1dd7228f2d" }, { name: "Beny", img: "1506794778202-cad84cf45f1d" },
-            { name: "Catur", img: "1534528741775-53994a69daeb" }, { name: "Danu", img: "1544005313-94ddf0286df2" },
-            { name: "Edi", img: "1531746020798-e6953c6e8e04" }, { name: "Faruq", img: "1500648767791-00dcc994a43e" },
-            { name: "Guntur", img: "1524504388940-b1c1722653e1" }, { name: "Habib", img: "1438761681033-6461ffad8d80" },
-            { name: "Irwan", img: "1494790108377-be9c29b29330" }, { name: "Jerry", img: "1517841905240-472988babdf9" },
-            { name: "Kadir", img: "1539571696357-5a69c17a67c6" }, { name: "Lutfi", img: "1507003211169-0a1dd7228f2d" },
-            { name: "Mahendra", img: "1506794778202-cad84cf45f1d" }, { name: "Noval", img: "1534528741775-53994a69daeb" },
-            { name: "Oki", img: "1544005313-94ddf0286df2" }, { name: "Panji", img: "1531746020798-e6953c6e8e04" },
-            { name: "Reza", img: "1500648767791-00dcc994a43e" }, { name: "Septian", img: "1524504388940-b1c1722653e1" },
-            { name: "Taufik", img: "1438761681033-6461ffad8d80" }, { name: "Untung", img: "1494790108377-be9c29b29330" },
-            { name: "Wibowo", img: "1517841905240-472988babdf9" }, { name: "Yusron", img: "1539571696357-5a69c17a67c6" },
-            { name: "Zulfikar", img: "1507003211169-0a1dd7228f2d" }, { name: "Amin", img: "1506794778202-cad84cf45f1d" }
+            { name: "Yusuf", img: "1544005313-94ddf0286df2" }, { name: "Zidan", img: "1531746020798-e6953c6e8e04" }
         ];
+
+        // ==========================================
+        // KAJIANQ LOGIC (PAYMENT)
+        // ==========================================
+        function openKajianPaymentModal(ustadz, title, price) {
+            const titleElem = document.getElementById('pay-kajian-title');
+            const ustadzElem = document.getElementById('pay-ustadz-name');
+            const totalElem = document.getElementById('pay-total');
+            const splitUst = document.getElementById('pay-split-ustadz');
+            const splitApp = document.getElementById('pay-split-app');
+
+            if(titleElem) titleElem.innerText = title;
+            if(ustadzElem) ustadzElem.innerText = ustadz;
+            
+            // Hitung persentase statis untuk display (85% vs 15%)
+            let numPrice = parseInt(price.replace('.',''));
+            let forUst = numPrice * 0.85;
+            let forApp = numPrice * 0.15;
+
+            if(totalElem) totalElem.innerText = `Rp ${price}`;
+            if(splitUst) splitUst.innerText = `Rp ${forUst.toLocaleString('id-ID')}`;
+            if(splitApp) splitApp.innerText = `Rp ${forApp.toLocaleString('id-ID')}`;
+
+            // Reset Button State
+            const btnBayar = document.getElementById('btn-bayar-kajian');
+            const btnMasuk = document.getElementById('btn-masuk-kajian');
+            if(btnBayar) { btnBayar.style.display = 'flex'; btnBayar.innerHTML = "Bayar Sekarang"; }
+            if(btnMasuk) { btnMasuk.classList.add('hidden'); btnMasuk.classList.remove('flex'); }
+
+            const modal = document.getElementById('kajianPaymentModal');
+            const sheet = document.getElementById('kajianPaymentSheet');
+            if(modal) modal.classList.remove('hidden');
+            if(sheet) {
+                sheet.classList.add('modal-slide-up');
+                sheet.classList.remove('modal-slide-down');
+            }
+        }
+
+        function closeKajianPaymentModal() {
+            const modal = document.getElementById('kajianPaymentModal');
+            const sheet = document.getElementById('kajianPaymentSheet');
+            if(sheet) {
+                sheet.classList.remove('modal-slide-up');
+                sheet.classList.add('modal-slide-down');
+            }
+            setTimeout(() => {
+                if(modal) modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function processKajianPayment() {
+            const btnBayar = document.getElementById('btn-bayar-kajian');
+            if(btnBayar) btnBayar.innerHTML = `<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Memproses...`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+
+            setTimeout(() => {
+                if(btnBayar) btnBayar.style.display = 'none';
+                const btnMasuk = document.getElementById('btn-masuk-kajian');
+                if(btnMasuk) { btnMasuk.classList.remove('hidden'); btnMasuk.classList.add('flex'); }
+            }, 1500);
+        }
+
+        function enterKajianRoom() {
+            closeKajianPaymentModal();
+            setTimeout(() => {
+                goToScreen('kajianRoomScreen');
+            }, 300);
+        }
+
+        // ==========================================
+        // KAJIANQ - NEW Q&A RAISE HAND LOGIC
+        // ==========================================
+        
+        // --- State ---
+        let k_participants = [];
+        let k_queue = [];
+        let k_stageSpeaker = null;
+        let k_selectedQueueId = null;
+
+        // --- Init ---
+        function initKajianQnA() {
+            k_participants = [];
+            // Current User (Me)
+            k_participants.push({ 
+                id: 'me', 
+                name: 'Saya', 
+                img: '1531427186611-ecfd6d936c79', 
+                isMuted: true, 
+                hasRaisedHand: false, 
+                isOnStage: false 
+            });
+            
+            // Populate Dummies
+            for(let i=0; i<15; i++) {
+                k_participants.push({
+                    id: 'user-' + i,
+                    name: dummyAudienceData[i].name,
+                    img: dummyAudienceData[i].img,
+                    isMuted: true,
+                    hasRaisedHand: false,
+                    isOnStage: false
+                });
+            }
+            
+            renderKGrid();
+            renderKQueue();
+        }
+
+        // --- Render: Grid Bawah ---
+        function renderKGrid() {
+            const grid = document.getElementById('kajian-audience-grid');
+            if(!grid) return;
+            
+            let html = '';
+            k_participants.forEach(p => {
+                // Sembunyikan yang ada di panggung (animasi pindah)
+                const hideClass = p.isOnStage ? 'participant-hidden' : 'participant-grid-item';
+                const glowClass = p.hasRaisedHand ? 'border-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.5)]' : 'border-transparent';
+                
+                html += `
+                <div class="relative flex flex-col items-center gap-1.5 cursor-pointer ${hideClass}" onclick="k_toggleHand('${p.id}')" title="Klik avatar untuk tes angkat tangan">
+                    <div class="w-16 h-16 rounded-full relative transition-all duration-300">
+                        <img src="https://images.unsplash.com/photo-${p.img}?w=200&q=80" class="w-full h-full rounded-full object-cover border-[3px] transition-all duration-300 ${glowClass}">
+                        <div class="absolute -bottom-1 -right-1 bg-gray-800 p-1 rounded-full border border-gray-600">
+                            <i data-lucide="mic-off" class="w-3 h-3 text-red-400"></i>
+                        </div>
+                        <div class="absolute -top-2 -right-2 bg-yellow-400 p-1.5 rounded-full border-2 border-gray-900 shadow-lg transform transition-transform duration-300 ${p.hasRaisedHand ? 'scale-100' : 'scale-0'}">
+                            <i data-lucide="hand" class="w-3 h-3 text-yellow-900"></i>
+                        </div>
+                    </div>
+                    <span class="text-white/80 text-[10px] font-bold truncate w-full text-center">${p.name}</span>
+                </div>
+                `;
+            });
+            grid.innerHTML = html;
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        // --- Render: Panel Antrean Host ---
+        function renderKQueue() {
+            const qList = document.getElementById('k-queue-list');
+            const qCount = document.getElementById('k-queue-count');
+            const qEmpty = document.getElementById('k-queue-empty');
+            const btnPromote = document.getElementById('k-btn-promote');
+            
+            if(!qList) return;
+            
+            qList.innerHTML = '';
+            if(qCount) qCount.innerText = k_queue.length;
+
+            if(k_queue.length === 0) {
+                if(qEmpty) qEmpty.style.display = 'block';
+                if(btnPromote) {
+                    btnPromote.classList.add('opacity-50', 'pointer-events-none');
+                }
+            } else {
+                if(qEmpty) qEmpty.style.display = 'none';
+                
+                k_queue.forEach(p => {
+                    const isSelected = k_selectedQueueId === p.id;
+                    const selectedClass = isSelected ? 'queue-item-selected border-[#1cb0f6]' : 'border-white/10';
+                    
+                    qList.innerHTML += `
+                    <div onclick="k_selectQueue('${p.id}')" class="bg-white/5 rounded-2xl p-3 border flex items-center justify-between cursor-pointer transition-colors duration-200 ${selectedClass}">
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-${p.img}?w=100&q=80" class="w-10 h-10 rounded-full object-cover">
+                            <div>
+                                <h4 class="text-white text-[13px] font-bold">${p.name}</h4>
+                                <p class="text-yellow-400 text-[10px] font-bold">Minta Naik</p>
+                            </div>
+                        </div>
+                        ${isSelected ? '<div class="w-3 h-3 bg-[#1cb0f6] rounded-full shadow-[0_0_10px_#1cb0f6]"></div>' : ''}
+                    </div>
+                    `;
+                });
+
+                // Tombol Promote State
+                if(btnPromote) {
+                    if(k_selectedQueueId && !k_stageSpeaker) {
+                        btnPromote.classList.remove('opacity-50', 'pointer-events-none');
+                        btnPromote.innerHTML = `<i data-lucide="arrow-up-circle" class="w-4 h-4"></i> Naikkan ke Panggung`;
+                    } else if (k_stageSpeaker) {
+                        btnPromote.classList.add('opacity-50', 'pointer-events-none');
+                        btnPromote.innerHTML = `Panggung Sedang Terisi`;
+                    } else {
+                        btnPromote.classList.add('opacity-50', 'pointer-events-none');
+                        btnPromote.innerHTML = `<i data-lucide="arrow-up-circle" class="w-4 h-4"></i> Naikkan ke Panggung`;
+                    }
+                }
+            }
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        // --- Render: Active Stage Control Host ---
+        function renderKStageControl() {
+            const container = document.getElementById('k-active-stage-container');
+            const img = document.getElementById('k-active-stage-img');
+            const name = document.getElementById('k-active-stage-name');
+
+            if(!container) return;
+
+            if(k_stageSpeaker) {
+                container.classList.remove('hidden');
+                if(img) img.src = `https://images.unsplash.com/photo-${k_stageSpeaker.img}?w=100&q=80`;
+                if(name) name.innerText = k_stageSpeaker.name;
+            } else {
+                container.classList.add('hidden');
+            }
+        }
+
+        // --- Aksi: Toggle Raise Hand ---
+        function k_toggleHand(id) {
+            let p = k_participants.find(x => x.id === id);
+            if(!p || p.isOnStage) return; // Tidak bisa angkat tangan jika di panggung
+            
+            p.hasRaisedHand = !p.hasRaisedHand;
+
+            if(p.hasRaisedHand) {
+                k_queue.push(p);
+                // Highlight button jika ini current user
+                if(id === 'me') {
+                    const myBtn = document.getElementById('kajian-my-hand-btn');
+                    if(myBtn) myBtn.classList.replace('text-white', 'text-yellow-400');
+                }
+            } else {
+                k_queue = k_queue.filter(x => x.id !== id);
+                if(k_selectedQueueId === id) k_selectedQueueId = null;
+                // Revert button jika current user
+                if(id === 'me') {
+                    const myBtn = document.getElementById('kajian-my-hand-btn');
+                    if(myBtn) myBtn.classList.replace('text-yellow-400', 'text-white');
+                }
+            }
+
+            renderKGrid();
+            renderKQueue();
+        }
+
+        // --- Aksi: Host Pilih Antrean ---
+        function k_selectQueue(id) {
+            // Toggle selection
+            if(k_selectedQueueId === id) {
+                k_selectedQueueId = null;
+            } else {
+                k_selectedQueueId = id;
+            }
+            renderKQueue();
+        }
+
+        // --- Aksi: Host Promosikan ke Panggung ---
+        function k_promoteToStage() {
+            if(!k_selectedQueueId || k_stageSpeaker !== null) return;
+
+            let p = k_participants.find(x => x.id === k_selectedQueueId);
+            if(!p) return;
+
+            // Update state
+            p.isOnStage = true;
+            p.hasRaisedHand = false;
+            p.isMuted = false;
+            k_stageSpeaker = p;
+            
+            // Hapus dari antrean
+            k_queue = k_queue.filter(x => x.id !== k_selectedQueueId);
+            k_selectedQueueId = null;
+
+            // Revert tombol saya jika dia yg naik
+            if(p.id === 'me') {
+                const myBtn = document.getElementById('kajian-my-hand-btn');
+                if(myBtn) myBtn.classList.replace('text-yellow-400', 'text-white');
+            }
+
+            // Animasi Panggung
+            const hostCam = document.getElementById('kajian-host-cam');
+            const guestCam = document.getElementById('kajian-guest-cam');
+            const guestImg = document.getElementById('k-guest-img');
+            const guestName = document.getElementById('k-guest-name');
+            const micIcon = document.getElementById('mic-icon-1');
+            const roomBg = document.getElementById('room-ambient-bg');
+
+            if(guestImg) guestImg.src = `https://images.unsplash.com/photo-${p.img}?w=400&q=80`;
+            if(guestName) guestName.innerText = p.name;
+            if(micIcon) {
+                micIcon.setAttribute('data-lucide', 'mic');
+                micIcon.classList.replace('text-red-500', 'text-green-500');
+            }
+
+            // Transisi Layout
+            if(hostCam) {
+                hostCam.classList.remove('w-[180px]', 'h-[180px]', 'sm:w-[200px]', 'sm:h-[200px]');
+                hostCam.classList.add('w-[130px]', 'h-[130px]', 'sm:w-[150px]', 'sm:h-[150px]');
+            }
+            if(guestCam) {
+                guestCam.classList.remove('w-[0px]', 'h-[0px]', 'opacity-0', 'pointer-events-none');
+                guestCam.classList.add('w-[130px]', 'h-[130px]', 'sm:w-[150px]', 'sm:h-[150px]', 'opacity-100');
+                
+                // Tambah animasi ngomong setelah muncul
+                setTimeout(() => {
+                    guestCam.classList.add('animate-speak');
+                }, 400);
+            }
+            
+            if(roomBg) roomBg.style.background = 'radial-gradient(circle at 50% 30%, #047857 0%, #0f172a 70%)';
+
+            // Refresh UI Elements
+            renderKGrid(); // Menghilangkan peserta dari grid bawah
+            renderKQueue();
+            renderKStageControl();
+            
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+            
+            // Auto close host panel jika di mobile untuk lihat stage
+            if(window.innerWidth < 640) {
+                 setTimeout(toggleKajianHostPanel, 500);
+            }
+        }
+
+        // --- Aksi: Host Turunkan dari Panggung ---
+        function k_demoteFromStage() {
+            if(!k_stageSpeaker) return;
+
+            let p = k_stageSpeaker;
+            
+            // Revert state
+            p.isOnStage = false;
+            p.isMuted = true;
+            k_stageSpeaker = null;
+
+            // Animasi Panggung Revert
+            const hostCam = document.getElementById('kajian-host-cam');
+            const guestCam = document.getElementById('kajian-guest-cam');
+            const micIcon = document.getElementById('mic-icon-1');
+            const roomBg = document.getElementById('room-ambient-bg');
+
+            if(micIcon) {
+                micIcon.setAttribute('data-lucide', 'mic-off');
+                micIcon.classList.replace('text-green-500', 'text-red-500');
+            }
+
+            if(hostCam) {
+                hostCam.classList.remove('w-[130px]', 'h-[130px]', 'sm:w-[150px]', 'sm:h-[150px]');
+                hostCam.classList.add('w-[180px]', 'h-[180px]', 'sm:w-[200px]', 'sm:h-[200px]');
+            }
+            if(guestCam) {
+                guestCam.classList.remove('w-[130px]', 'h-[130px]', 'sm:w-[150px]', 'sm:h-[150px]', 'opacity-100', 'animate-speak');
+                guestCam.classList.add('w-[0px]', 'h-[0px]', 'opacity-0', 'pointer-events-none');
+            }
+            
+            if(roomBg) roomBg.style.background = 'radial-gradient(circle at 50% 30%, #0369a1 0%, #0f172a 70%)';
+
+            // Refresh UI Elements
+            renderKGrid(); // Kembalikan ke grid bawah
+            renderKQueue();
+            renderKStageControl();
+            
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        // --- Toggle Panel ---
+        function toggleKajianHostPanel() {
+            const panel = document.getElementById('kajianHostPanel');
+            if(panel) {
+                if(panel.classList.contains('translate-x-full')) {
+                    panel.classList.remove('translate-x-full');
+                    panel.classList.add('translate-x-0');
+                } else {
+                    panel.classList.remove('translate-x-0');
+                    panel.classList.add('translate-x-full');
+                }
+            }
+        }
+
 
         // ==========================================
         // SOCIALQ (LINKEDIN STYLE)
@@ -2938,7 +3080,7 @@
         }
 
         function startVersusMatch(surahNum) {
-            goToScreen('murajaahSpinScreen');
+               goToScreen('murajaahSpinScreen');
             vsP1Score = 0;
             vsP2Score = 0;
             isVsTransitioning = false;
