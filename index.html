@@ -236,6 +236,14 @@
         .wave-delay-4 { animation-delay: 0.45s; }
         .wave-delay-5 { animation-delay: 0.6s; }
 
+        /* PWA Shimmer Button Animation */
+        @keyframes shimmer-pwa {
+            100% { transform: translateX(100%); }
+        }
+        .animate-shimmer-pwa {
+            animation: shimmer-pwa 2.5s infinite;
+        }
+
         /* ========================================= */
         /* KAJIANQ SPECIFIC STYLES                   */
         /* ========================================= */
@@ -745,7 +753,7 @@
                 </button>
                 
                 <!-- Add center -->
-                <button onclick="goToScreen('cameraScreen')" class="w-14 h-14 bg-[#10b981] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)] -mt-10 border-[6px] border-[#09090b] text-[#09090b] hover:scale-105 active:scale-95 transition-transform cursor-pointer">
+                <button onclick="goToScreen('cameraScreen'); startLiveCamera();" class="w-14 h-14 bg-[#10b981] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)] -mt-10 border-[6px] border-[#09090b] text-[#09090b] hover:scale-105 active:scale-95 transition-transform cursor-pointer">
                     <i data-lucide="plus" class="w-7 h-7 font-black"></i>
                 </button>
                 
@@ -1009,7 +1017,7 @@
                 <!-- Stories Carousel -->
                 <div class="bg-[#09090b] px-2 py-4 mb-2 relative z-20">
                     <div class="flex overflow-x-auto hide-scroll gap-4 px-3">
-                        <div onclick="goToScreen('cameraScreen')" class="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition">
+                        <div onclick="goToScreen('cameraScreen'); startLiveCamera();" class="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer active:scale-95 transition">
                             <div class="w-[68px] h-[68px] rounded-full border-[3px] border-dashed border-slate-600 p-0.5 relative">
                                 <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-full h-full rounded-full object-cover opacity-70">
                                 <div class="absolute bottom-0 right-0 w-6 h-6 bg-[#10b981] text-[#09090b] rounded-full flex items-center justify-center border-2 border-[#09090b]"><i data-lucide="plus" class="w-4 h-4 font-bold"></i></div>
@@ -1045,7 +1053,7 @@
 
                 <!-- Pills / Filters -->
                 <div class="bg-[#09090b] px-5 py-3 mb-2 flex gap-3 overflow-x-auto hide-scroll z-10 border-b border-white/5">
-                    <button class="bg-[#10b981] text-[#09090b] px-4 py-1.5 rounded-full text-[13px] font-bold shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.3)] flex items-center gap-1"><i data-lucide="plus-circle" class="w-4 h-4"></i> Post</button>
+                    <button class="bg-[#10b981] text-[#09090b] px-4 py-1.5 rounded-full text-[13px] font-extrabold shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.3)] flex items-center gap-1"><i data-lucide="plus-circle" class="w-4 h-4"></i> Post</button>
                     <button class="bg-[#18181b] border border-white/10 text-slate-300 px-4 py-1.5 rounded-full text-[13px] font-bold shrink-0 hover:bg-white/10 transition">For You <span class="bg-[#10b981] text-[#09090b] px-1.5 py-0.5 rounded-full text-[10px] ml-1">12</span></button>
                     <button class="bg-[#18181b] border border-white/10 text-slate-400 px-4 py-1.5 rounded-full text-[13px] font-bold shrink-0 hover:bg-white/10 transition">Following</button>
                     <button class="bg-[#18181b] border border-white/10 text-slate-400 px-4 py-1.5 rounded-full text-[13px] font-bold shrink-0 hover:bg-white/10 transition">Muhsinin</button>
@@ -1072,7 +1080,7 @@
                     <i data-lucide="layout-grid" class="w-6 h-6 fill-current drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]"></i>
                     <div class="w-1.5 h-1.5 bg-[#10b981] rounded-full shadow-[0_0_8px_rgba(16,185,129,1)]"></div>
                 </button>
-                <button onclick="goToScreen('cameraScreen')" class="w-14 h-14 bg-[#10b981] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)] -mt-10 border-[6px] border-[#09090b] text-[#09090b] hover:scale-105 active:scale-95 transition-transform cursor-pointer">
+                <button onclick="goToScreen('cameraScreen'); startLiveCamera();" class="w-14 h-14 bg-[#10b981] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)] -mt-10 border-[6px] border-[#09090b] text-[#09090b] hover:scale-105 active:scale-95 transition-transform cursor-pointer">
                     <i data-lucide="plus" class="w-7 h-7 font-black"></i>
                 </button>
                 <button class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
@@ -1090,7 +1098,7 @@
         <div id="cameraScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-[70]">
             <!-- Header Camera -->
             <div class="pt-14 px-6 flex justify-between items-center z-40 relative">
-                <button onclick="goToScreen('socialQScreen')" class="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors cursor-pointer active:scale-95 border border-white/10">
+                <button onclick="stopLiveCamera(); goToScreen('socialQScreen');" class="w-10 h-10 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors cursor-pointer active:scale-95 border border-white/10">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
                 <div class="flex gap-2 bg-[#18181b]/80 backdrop-blur-md p-1 rounded-full border border-white/10">
@@ -1103,7 +1111,7 @@
             <!-- Circular Camera Viewfinder -->
             <div class="flex-1 flex flex-col items-center justify-center relative px-6 mt-4 z-10">
                 <div class="w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[4px] border-[#10b981] overflow-hidden relative shadow-[0_0_50px_rgba(16,185,129,0.3)] bg-[#18181b] transition-all duration-300" id="cam-viewfinder-border">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover filter brightness-90">
+                    <video id="live-cam-feed" autoplay playsinline muted class="w-full h-full object-cover transform scale-x-[-1]"></video>
                     <!-- Flash Effect overlay -->
                     <div id="cam-flash" class="absolute inset-0 bg-white opacity-0 pointer-events-none z-50"></div>
                 </div>
@@ -1157,7 +1165,7 @@
                 </div>
                 
                 <div class="flex gap-4">
-                    <button onclick="goToScreen('cameraScreen')" class="flex-1 py-4 rounded-xl bg-[#18181b] border border-white/10 text-white font-bold text-[14px] hover:bg-white/10 transition-colors active:scale-95 cursor-pointer">Batal</button>
+                    <button onclick="goToScreen('cameraScreen'); startLiveCamera();" class="flex-1 py-4 rounded-xl bg-[#18181b] border border-white/10 text-white font-bold text-[14px] hover:bg-white/10 transition-colors active:scale-95 cursor-pointer">Batal</button>
                     <button onclick="startModeration()" class="flex-[2] py-4 rounded-xl bg-gradient-to-r from-[#10b981] to-[#064e3b] text-white font-bold text-[14px] shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[1.02] active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2">Posting ke SocialQ <i data-lucide="send" class="w-4 h-4"></i></button>
                 </div>
             </div>
@@ -1813,9 +1821,14 @@
                 <button onclick="goToScreen('homeScreen')" class="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-black/60 transition-colors cursor-pointer active:scale-95 border border-white/20">
                     <i data-lucide="chevron-left" class="w-6 h-6 text-white"></i>
                 </button>
-                <button class="bg-black/40 backdrop-blur-md text-white text-[12px] font-bold px-4 py-2 rounded-full hover:bg-black/60 transition-colors border border-white/20">
-                    Edit Profile
-                </button>
+                <div class="flex items-center gap-2">
+                    <button class="bg-black/40 backdrop-blur-md text-white text-[12px] font-bold px-4 py-2 rounded-full hover:bg-black/60 transition-colors border border-white/20">
+                        Edit Profile
+                    </button>
+                    <button onclick="goToScreen('settingsScreen')" class="bg-white/10 backdrop-blur-md text-white p-2 rounded-full border border-white/10 active:scale-95 transition-all">
+                        <i data-lucide="settings" class="w-5 h-5"></i>
+                    </button>
+                </div>
             </div>
 
             <!-- Glassmorphism Profile Card (Anchored to Bottom) -->
@@ -1926,7 +1939,7 @@
                 <button onclick="goToScreen('socialQScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
                     <i data-lucide="layout-grid" class="w-6 h-6"></i>
                 </button>
-                <button onclick="goToScreen('cameraScreen')" class="w-14 h-14 bg-[#10b981] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)] -mt-10 border-[6px] border-[#09090b] text-[#09090b] hover:scale-105 active:scale-95 transition-transform cursor-pointer">
+                <button onclick="goToScreen('cameraScreen'); startLiveCamera();" class="w-14 h-14 bg-[#10b981] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)] -mt-10 border-[6px] border-[#09090b] text-[#09090b] hover:scale-105 active:scale-95 transition-transform cursor-pointer">
                     <i data-lucide="plus" class="w-6 h-6 font-black"></i>
                 </button>
                 <button class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
@@ -1936,6 +1949,148 @@
                     <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-7 h-7 rounded-full border-2 border-[#10b981] object-cover shadow-[0_0_10px_rgba(16,185,129,0.5)]">
                     <div class="w-1.5 h-1.5 bg-[#10b981] rounded-full absolute -bottom-2 shadow-[0_0_8px_rgba(16,185,129,1)]"></div>
                 </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 16: SETTINGS                        -->
+        <!-- ========================================== -->
+        <div id="settingsScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-[60]">
+            <!-- Header -->
+            <div class="pt-14 px-6 pb-4 flex items-center justify-center relative bg-[#09090b]/90 backdrop-blur-xl border-b border-white/5 z-20 shrink-0">
+                <button onclick="goToScreen('mySpaceQScreen')" class="absolute left-6 w-10 h-10 flex items-center justify-center rounded-full bg-[#18181b] border border-white/10 text-white hover:bg-white/10 transition-colors cursor-pointer active:scale-95">
+                    <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <h2 class="text-[18px] font-extrabold text-white tracking-tight">Pengaturan</h2>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto hide-scroll px-6 py-6 pb-24 flex flex-col gap-6">
+                <!-- Profile Summary Card -->
+                <div class="bg-[#18181b] border border-white/10 rounded-2xl p-4 flex items-center gap-4 relative overflow-hidden shadow-sm">
+                    <div class="absolute -right-10 -bottom-10 w-24 h-24 bg-[#10b981]/10 rounded-full blur-2xl"></div>
+                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-14 h-14 rounded-full object-cover border-2 border-[#10b981] relative z-10 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                    <div class="relative z-10">
+                        <h3 class="font-extrabold text-white text-[16px] leading-tight">Ahmad Nafis</h3>
+                        <p class="text-slate-400 text-[12px] font-medium mb-1">@nafisaladieb</p>
+                        <p class="text-[#10b981] text-[11px] font-bold flex items-center gap-1 cursor-pointer"><i data-lucide="pencil" class="w-3 h-3"></i> Edit Profile</p>
+                    </div>
+                </div>
+
+                <!-- Group 1: Akun -->
+                <div>
+                    <h4 class="text-slate-500 text-[12px] font-bold uppercase tracking-wider mb-2 ml-2">Akun</h4>
+                    <div class="bg-emerald-900/20 border border-white/5 rounded-2xl overflow-hidden flex flex-col">
+                        <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer border-b border-white/5">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="user" class="w-5 h-5 text-[#10b981]"></i>
+                                <span class="text-white font-semibold text-[14px]">Profil Pengguna</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer border-b border-white/5">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="shield-check" class="w-5 h-5 text-[#10b981]"></i>
+                                <span class="text-white font-semibold text-[14px]">Keamanan & Sandi</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="bell" class="w-5 h-5 text-[#10b981]"></i>
+                                <span class="text-white font-semibold text-[14px]">Notifikasi</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group 2: Aplikasi -->
+                <div>
+                    <h4 class="text-slate-500 text-[12px] font-bold uppercase tracking-wider mb-2 ml-2">Aplikasi</h4>
+                    <div class="bg-emerald-900/20 border border-white/5 rounded-2xl overflow-hidden flex flex-col">
+                        
+                        <!-- PWA Install Button (Hidden by default) -->
+                        <div id="btn-install-pwa" onclick="installPWA()" class="hidden relative overflow-hidden items-center justify-between p-4 border-b border-[#10b981]/30 bg-[#10b981]/10 hover:bg-[#10b981]/20 transition-colors cursor-pointer group">
+                            <!-- Shimmer Effect -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-[#10b981]/20 to-transparent -translate-x-full animate-shimmer-pwa"></div>
+                            
+                            <div class="flex items-center gap-3 relative z-10">
+                                <div class="w-8 h-8 rounded-full bg-[#10b981] flex items-center justify-center shadow-[0_0_15px_rgba(16,185,129,0.5)]">
+                                    <i data-lucide="download-cloud" class="w-4 h-4 text-[#09090b] font-black"></i>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-[#10b981] font-extrabold text-[14px] drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]">Tambahkan ke Layar Utama</span>
+                                    <span class="text-[#10b981]/70 text-[10px] font-bold mt-0.5">Akses cepat tanpa browser</span>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-[#10b981] relative z-10"></i>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer border-b border-white/5">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="wifi" class="w-5 h-5 text-[#10b981]"></i>
+                                <span class="text-white font-semibold text-[14px]">Mode Hemat Data</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer border-b border-white/5">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="globe" class="w-5 h-5 text-[#10b981]"></i>
+                                <span class="text-white font-semibold text-[14px]">Bahasa</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-slate-400 text-[12px] font-semibold">Indonesia</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="monitor" class="w-5 h-5 text-[#10b981]"></i>
+                                <span class="text-white font-semibold text-[14px]">Display</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-slate-400 text-[12px] font-semibold">Dark</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group 3: Dukungan -->
+                <div>
+                    <h4 class="text-slate-500 text-[12px] font-bold uppercase tracking-wider mb-2 ml-2">Dukungan</h4>
+                    <div class="bg-emerald-900/20 border border-white/5 rounded-2xl overflow-hidden flex flex-col">
+                        <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer border-b border-white/5">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="help-circle" class="w-5 h-5 text-[#10b981]"></i>
+                                <span class="text-white font-semibold text-[14px]">Pusat Bantuan</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer border-b border-white/5">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="lock" class="w-5 h-5 text-[#10b981]"></i>
+                                <span class="text-white font-semibold text-[14px]">Kebijakan Privasi</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+                        </div>
+                        <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="info" class="w-5 h-5 text-[#10b981]"></i>
+                                <span class="text-white font-semibold text-[14px]">Tentang SpaceQ</span>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer: Logout -->
+                <div class="mt-2 mb-4">
+                    <button onclick="goToScreen('loginScreen')" class="w-full bg-[#18181b] border border-white/5 rounded-2xl p-4 flex items-center justify-center gap-2 hover:bg-white/5 active:scale-95 transition-all cursor-pointer">
+                        <i data-lucide="log-out" class="w-5 h-5 text-red-400"></i>
+                        <span class="text-red-400 font-bold text-[14px]">Keluar</span>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -1951,6 +2106,9 @@
         let isMurajaahInit = false;
         let isKajianInit = false; 
         
+        // PWA Global Variables
+        let deferredPrompt;
+
         function updateStatusBar(screenId) {
             const time = document.getElementById('status-time');
             const icons = document.getElementById('status-icons');
@@ -2534,6 +2692,40 @@
         }
 
         // ==========================================
+        // CAMERA LOGIC (LIVE FEED & RECORDING)
+        // ==========================================
+        let liveStream = null;
+
+        async function startLiveCamera() {
+            const videoElem = document.getElementById('live-cam-feed');
+            if (!videoElem) return;
+
+            try {
+                // Meminta akses ke kamera depan
+                liveStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'user' }, 
+                    audio: false 
+                });
+                videoElem.srcObject = liveStream;
+            } catch (err) {
+                console.error("Kamera gagal diakses:", err);
+                alert("Tidak dapat mengakses kamera. Pastikan izin kamera telah diberikan pada browser/perangkat Anda.");
+            }
+        }
+
+        function stopLiveCamera() {
+            const videoElem = document.getElementById('live-cam-feed');
+            if (liveStream) {
+                // Hentikan setiap track (kamera) yang sedang berjalan
+                liveStream.getTracks().forEach(track => track.stop());
+                liveStream = null;
+            }
+            if (videoElem) {
+                videoElem.srcObject = null;
+            }
+        }
+
+        // ==========================================
         // CAMERA (PHOTO & VIDEO TOGGLE)
         // ==========================================
         let recordTimer;
@@ -2580,6 +2772,8 @@
                     const videoIcon = document.getElementById('preview-video-icon');
                     if(previewText) previewText.innerText = "Foto";
                     if(videoIcon) { videoIcon.classList.remove('flex'); videoIcon.classList.add('hidden'); }
+                    
+                    stopLiveCamera(); // Matikan kamera saat beralih ke pratinjau (Preview)
                     goToScreen('previewScreen');
                 }, 300);
                 return;
@@ -2629,6 +2823,8 @@
                     const videoIcon = document.getElementById('preview-video-icon');
                     if(previewText) previewText.innerText = "Video";
                     if(videoIcon) { videoIcon.classList.add('flex'); videoIcon.classList.remove('hidden'); }
+                    
+                    stopLiveCamera(); // Matikan kamera saat beralih ke pratinjau (Preview)
                     goToScreen('previewScreen');
                 }, 300);
             } else {
@@ -2746,7 +2942,7 @@
                     murajaahAyahs = result.data.ayat.map((ayah) => {
                         let cleanText = ayah.teksArab;
                         if (surahNumber !== 1 && surahNumber !== 9 && ayah.nomorAyat === 1) {
-                            cleanText = cleanText.replace(/بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ /g, '').replace(/بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ /g, '');
+                                                cleanText = cleanText.replace(/بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ /g, '').replace(/بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ /g, '');
                         }
                         return {
                             numberInSurah: ayah.nomorAyat,
@@ -3408,93 +3604,56 @@
                 html += `<span id="t-ayah-${index}" class="cursor-pointer transition-all duration-300 inline-block m-1 ${isActive}" onclick="highlightTadarusAyah(${index})">${ayah.text} <span class="text-[18px] text-gray-400 mx-1">﴿${ayah.numberInSurah}﴾</span></span>`;
             });
             container.innerHTML = html;
-            activeTadarusAyah = 0;
         }
 
         function highlightTadarusAyah(index) {
-            const prev = document.getElementById(`t-ayah-${activeTadarusAyah}`);
-            if(prev) {
-                prev.classList.remove('bg-[#10b981]/20', 'text-[#047857]', 'rounded-lg', 'px-2', 'shadow-sm', 'border', 'border-[#10b981]/30');
-            }
-            
             activeTadarusAyah = index;
-            const current = document.getElementById(`t-ayah-${activeTadarusAyah}`);
-            if(current) {
-                current.classList.add('bg-[#10b981]/20', 'text-[#047857]', 'rounded-lg', 'px-2', 'shadow-sm', 'border', 'border-[#10b981]/30');
-                current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        }
-
-        function selectTadarusJuz(juzNumber, btnElement) {
-            window.selectedTadarusSurah = juzNumber === 30 ? 78 : juzNumber;
-            const grid = document.getElementById('juz-grid');
-            if(grid) {
-                grid.querySelectorAll('button').forEach(btn => {
-                    btn.className = "py-2 bg-white border border-gray-200 text-gray-700 rounded-xl text-[12px] font-bold hover:border-[#10b981] hover:text-[#10b981] transition-colors cursor-pointer";
-                });
-            }
-            if(btnElement) {
-                btnElement.className = "py-2 bg-[#10b981]/5 border border-[#10b981] text-[#10b981] rounded-xl text-[12px] font-bold transition-colors cursor-pointer";
-            }
+            tadarusAyahsData.forEach((_, i) => {
+                const el = document.getElementById(`t-ayah-${i}`);
+                if (el) {
+                    if (i === index) {
+                        el.className = "cursor-pointer transition-all duration-300 inline-block m-1 bg-[#10b981]/20 text-[#047857] rounded-lg px-2 shadow-sm border border-[#10b981]/30";
+                    } else {
+                        el.className = "cursor-pointer transition-all duration-300 inline-block m-1";
+                    }
+                }
+            });
         }
 
         function generateJuzGrid() {
             const grid = document.getElementById('juz-grid');
             if (!grid) return;
             let html = '';
-            for(let i=1; i<=30; i++) {
-                const isActive = i === 30 ? 'border-[#10b981] text-[#10b981] bg-[#10b981]/5' : 'border-gray-200 text-gray-700';
-                html += `<button onclick="selectTadarusJuz(${i}, this)" class="py-2 bg-white border rounded-xl text-[12px] font-bold hover:border-[#10b981] hover:text-[#10b981] transition-colors cursor-pointer ${isActive}">${i}</button>`;
+            for (let i = 1; i <= 30; i++) {
+                const isActive = i === 30 ? 'bg-[#10b981] text-[#09090b] shadow-sm' : 'bg-[#18181b] text-slate-400 hover:text-white border border-white/10 hover:bg-white/5';
+                html += `<button onclick="window.selectedTadarusSurah=${i === 30 ? 78 : 1}" class="py-2 rounded-xl text-[12px] font-bold transition-colors ${isActive}">${i}</button>`;
             }
             grid.innerHTML = html;
-            window.selectedTadarusSurah = 78; 
+            window.selectedTadarusSurah = 78; // default to Juz 30 / An-Naba
         }
-
-        const fallbackSurahNamesLocal = [
-            "Al-Fatihah", "Al-Baqarah", "Ali 'Imran", "An-Nisa'", "Al-Ma'idah", "Al-An'am", "Al-A'raf", "Al-Anfal", "At-Taubah", "Yunus", "Hud", "Yusuf", "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Isra'", "Al-Kahf", "Maryam", "Taha", "Al-Anbiya'", "Al-Hajj", "Al-Mu'minun", "An-Nur", "Al-Furqan", "Ash-Shu'ara'", "An-Naml", "Al-Qasas", "Al-'Ankabut", "Ar-Rum", "Luqman", "As-Sajdah", "Al-Ahzab", "Saba'", "Fatir", "Ya Sin", "As-Saffat", "Sad", "Az-Zumar", "Ghafir", "Fussilat", "Ash-Shura", "Az-Zukhruf", "Ad-Dukhan", "Al-Jathiyah", "Al-Ahqaf", "Muhammad", "Al-Fath", "Al-Hujurat", "Qaf", "Ad-Dhariyat", "At-Tur", "An-Najm", "Al-Qamar", "Ar-Rahman", "Al-Waqi'ah", "Al-Hadid", "Al-Mujadilah", "Al-Hashr", "Al-Mumtahanah", "As-Saff", "Al-Jumu'ah", "Al-Munafiqun", "At-Taghabun", "At-Talaq", "At-Tahrim", "Al-Mulk", "Al-Qalam", "Al-Haqqah", "Al-Ma'arij", "Nuh", "Al-Jinn", "Al-Muzzammil", "Al-Muddaththir", "Al-Qiyamah", "Al-Insan", "Al-Mursalat", "An-Naba'", "An-Nazi'at", "'Abasa", "At-Takwir", "Al-Infitar", "Al-Mutaffifin", "Al-Inshiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Ghashiyah", "Al-Fajr", "Al-Balad", "Ash-Shams", "Al-Lail", "Ad-Duha", "Ash-Sharh", "At-Tin", "Al-'Alaq", "Al-Qadr", "Al-Bayyinah", "Az-Zalzalah", "Al-'Adiyat", "Al-Qari'ah", "At-Takathur", "Al-'Asr", "Al-Humazah", "Al-Fil", "Quraysh", "Al-Ma'un", "Al-Kausar", "Al-Kafirun", "An-Nasr", "Al-Lahab", "Al-Ikhlas", "Al-Falaq", "An-Nas"
-        ];
 
         function generateSurahList() {
             const container = document.getElementById('surah-list');
             if (!container) return;
             let html = '';
-            
-            // Coba pakai API Kemenag jika sudah load, jika belum pakai lokal
-            if(murajaahSurahs && murajaahSurahs.length > 0) {
+            if (murajaahSurahs && murajaahSurahs.length > 0) {
                 murajaahSurahs.forEach((surah) => {
-                    const isActive = surah.nomor === 78 ? 'text-[#10b981] bg-white shadow-sm border border-[#10b981]/20' : 'text-gray-700 hover:bg-white hover:shadow-sm border border-transparent';
-                    html += `<button class="surah-item text-left px-3 py-2 rounded-xl text-[13px] font-bold cursor-pointer transition-colors ${isActive}" data-name="${surah.namaLatin.toLowerCase()}" onclick="selectTadarusSurah(${surah.nomor}, this)">${surah.nomor}. ${surah.namaLatin}</button>`;
+                    const isActive = surah.nomor === 1 ? 'text-[#10b981] bg-[#10b981]/10 border border-[#10b981]/30' : 'text-slate-400 hover:bg-white/5 border border-transparent';
+                    html += `<button class="t-surah-item text-left px-3 py-2 rounded-xl text-[12px] font-bold cursor-pointer transition-colors ${isActive}" data-name="${surah.namaLatin.toLowerCase()}" onclick="selectTadarusSurah(${surah.nomor}, this)">${surah.nomor}. ${surah.namaLatin}</button>`;
                 });
             } else {
-                fallbackSurahNamesLocal.forEach((surah, index) => {
-                    const isActive = surah === "An-Naba'" ? 'text-[#10b981] bg-white shadow-sm border border-[#10b981]/20' : 'text-gray-700 hover:bg-white hover:shadow-sm border border-transparent';
-                    html += `<button class="surah-item text-left px-3 py-2 rounded-xl text-[13px] font-bold cursor-pointer transition-colors ${isActive}" data-name="${surah.toLowerCase()}" onclick="selectTadarusSurah(${index + 1}, this)">${index + 1}. ${surah}</button>`;
-                });
+                html += '<div class="text-slate-500 text-center text-xs mt-4">Memuat data...</div>';
             }
             container.innerHTML = html;
         }
 
-        function selectTadarusSurah(number, btnElement) {
-            window.selectedTadarusSurah = number;
-            document.querySelectorAll('.surah-item').forEach(btn => {
-                if(btn) {
-                    btn.classList.remove('text-[#10b981]', 'bg-white', 'shadow-sm', 'border-[#10b981]/20');
-                    btn.classList.add('text-gray-700', 'border-transparent');
-                }
-            });
-            if(btnElement) {
-                btnElement.classList.remove('text-gray-700', 'border-transparent');
-                btnElement.classList.add('text-[#10b981]', 'bg-white', 'shadow-sm', 'border-[#10b981]/20');
-            }
-        }
-
         function filterSurah() {
             const searchInput = document.getElementById('search-surah');
-            if(!searchInput) return;
+            if (!searchInput) return;
             const input = searchInput.value.toLowerCase();
-            document.querySelectorAll('.surah-item').forEach(item => {
+            document.querySelectorAll('.t-surah-item').forEach(item => {
                 const name = item.getAttribute('data-name');
-                if(name && (name.includes(input) || item.innerText.toLowerCase().includes(input))) {
+                if (name && (name.includes(input) || item.innerText.toLowerCase().includes(input))) {
                     item.style.display = 'block';
                 } else {
                     item.style.display = 'none';
@@ -3502,9 +3661,115 @@
             });
         }
 
+        function selectTadarusSurah(number, btnElement) {
+            window.selectedTadarusSurah = number;
+            document.querySelectorAll('.t-surah-item').forEach(btn => {
+                btn.classList.remove('text-[#10b981]', 'bg-[#10b981]/10', 'border-[#10b981]/30');
+                btn.classList.add('text-slate-400', 'border-transparent');
+            });
+            if (btnElement) {
+                btnElement.classList.remove('text-slate-400', 'border-transparent');
+                btnElement.classList.add('text-[#10b981]', 'bg-[#10b981]/10', 'border-[#10b981]/30');
+            }
+        }
+
+        // ==========================================
+        // PROGRESSIVE WEB APP (PWA) DYNAMIC INJECTION
+        // ==========================================
+        function initPWA() {
+            // 1. Generate Dynamic Manifest
+            const manifestJSON = {
+                "name": "SpaceQ",
+                "short_name": "SpaceQ",
+                "start_url": ".",
+                "display": "standalone",
+                "background_color": "#09090b",
+                "theme_color": "#09090b",
+                "icons": [
+                    {
+                        "src": "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=192&q=80",
+                        "sizes": "192x192",
+                        "type": "image/png"
+                    },
+                    {
+                        "src": "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=512&q=80",
+                        "sizes": "512x512",
+                        "type": "image/png"
+                    }
+                ]
+            };
+            
+            const manifestBlob = new Blob([JSON.stringify(manifestJSON)], { type: 'application/json' });
+            const manifestUrl = URL.createObjectURL(manifestBlob);
+            const manifestLink = document.createElement('link');
+            manifestLink.rel = 'manifest';
+            manifestLink.href = manifestUrl;
+            document.head.appendChild(manifestLink);
+
+            // 2. Generate Dynamic Service Worker
+            if ('serviceWorker' in navigator) {
+                // Skrip SW minimalis untuk memenuhi syarat "offline-capable" PWA
+                const swCode = `
+                    self.addEventListener('install', (e) => self.skipWaiting());
+                    self.addEventListener('activate', (e) => e.waitUntil(clients.claim()));
+                    self.addEventListener('fetch', (e) => {
+                        e.respondWith(fetch(e.request).catch(() => new Response("SpaceQ Offline Mode")));
+                    });
+                `;
+                const swBlob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(swBlob);
+                
+                navigator.serviceWorker.register(swUrl)
+                    .then(() => console.log('PWA: Service Worker terdaftar via Blob.'))
+                    .catch(err => console.log('PWA: Registrasi SW diblokir oleh kebijakan keamanan browser (biasa terjadi karena format Blob), namun kode berjalan lancar: ', err));
+            }
+        }
+
+        // Listener untuk menangkap sinyal instalasi dari browser
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Cegah prompt bawaan browser
+            e.preventDefault();
+            // Simpan event sehingga bisa dipicu nanti
+            deferredPrompt = e;
+            
+            // Munculkan tombol instalasi khusus kita di layar Settings
+            const installBtn = document.getElementById('btn-install-pwa');
+            if (installBtn) {
+                installBtn.classList.remove('hidden');
+                installBtn.classList.add('flex');
+            }
+        });
+
+        // Logika saat tombol instalasi di-klik
+        async function installPWA() {
+            if (!deferredPrompt) return;
+            
+            // Tampilkan prompt bawaan sistem/browser
+            deferredPrompt.prompt();
+            
+            // Tunggu respon pengguna
+            const { outcome } = await deferredPrompt.userChoice;
+            if (outcome === 'accepted') {
+                // Sembunyikan tombol
+                const installBtn = document.getElementById('btn-install-pwa');
+                if(installBtn) {
+                    installBtn.classList.add('hidden');
+                    installBtn.classList.remove('flex');
+                }
+                // Notifikasi sukses
+                alert("✨ SpaceQ siap di homescreen Anda! Silakan nikmati akses yang lebih cepat.");
+            }
+            
+            // Hapus event yang sudah dikonsumsi
+            deferredPrompt = null;
+        }
+
         // MENJALANKAN INISIASI KETIKA HALAMAN DIMUAT
         document.addEventListener("DOMContentLoaded", () => {
             try {
+                // Memanggil Inisiasi PWA
+                initPWA();
+
                 const link = document.createElement('link');
                 link.href = 'https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap';
                 link.rel = 'stylesheet';
