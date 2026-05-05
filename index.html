@@ -2731,7 +2731,13 @@
         let recordTimer;
         let seconds = 0;
         let isRecording = false;
-        let cameraMode = 'photo'; 
+        let cameraMode = 'photo';
+
+        // Globals untuk media preview dan post
+        let tempCapturedMedia = null;
+        let tempMediaType = 'photo';
+        let mediaRecorder = null;
+        let recordedChunks = [];
 
         function setCameraMode(mode) {
             cameraMode = mode;
@@ -2760,6 +2766,22 @@
             if(e) { e.preventDefault(); e.stopPropagation(); }
             
             if (cameraMode === 'photo') {
+                tempMediaType = 'photo';
+                const videoElem = document.getElementById('live-cam-feed');
+                
+                // 1. Capture Foto via Canvas
+                if (videoElem && videoElem.videoWidth) {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = videoElem.videoWidth;
+                    canvas.height = videoElem.videoHeight;
+                    const ctx = canvas.getContext('2d');
+                    // Balikkan (flip) secara horizontal agar sama dengan cermin kamera depan
+                    ctx.translate(canvas.width, 0);
+                    ctx.scale(-1, 1);
+                    ctx.drawImage(videoElem, 0, 0, canvas.width, canvas.height);
+                    tempCapturedMedia = canvas.toDataURL('image/jpeg', 0.85);
+                }
+
                 const flash = document.getElementById('cam-flash');
                 if (flash) {
                     flash.classList.remove('flash-animation');
@@ -2768,12 +2790,8 @@
                 }
                 
                 setTimeout(() => {
-                    const previewText = document.getElementById('preview-type-text');
-                    const videoIcon = document.getElementById('preview-video-icon');
-                    if(previewText) previewText.innerText = "Foto";
-                    if(videoIcon) { videoIcon.classList.remove('flex'); videoIcon.classList.add('hidden'); }
-                    
-                    stopLiveCamera(); // Matikan kamera saat beralih ke pratinjau (Preview)
+                    setupPreviewScreen();
+                    stopLiveCamera(); // Matikan kamera saat beralih ke pratinjau
                     goToScreen('previewScreen');
                 }, 300);
                 return;
@@ -2781,6 +2799,24 @@
 
             if(isRecording) return;
             isRecording = true;
+            tempMediaType = 'video';
+            recordedChunks = [];
+            
+            // 2. Capture Video via MediaRecorder
+            const videoElem = document.getElementById('live-cam-feed');
+            if (videoElem && videoElem.srcObject) {
+                try {
+                    // Coba rekam video tanpa format spesifik agar browser menyesuaikan default yang terbaik
+                    mediaRecorder = new MediaRecorder(videoElem.srcObject);
+                    mediaRecorder.ondataavailable = event => {
+                        if (event.data.size > 0) recordedChunks.push(event.data);
+                    };
+                    mediaRecorder.start();
+                } catch(err) {
+                    console.error("Gagal memulai perekaman:", err);
+                }
+            }
+
             const btn = document.getElementById('record-btn');
             const innerBtn = document.getElementById('record-inner');
             const timerTxt = document.getElementById('record-timer');
@@ -2815,20 +2851,58 @@
             
             if(btn) btn.classList.remove('recording-pulse');
             if(innerBtn) innerBtn.classList.remove('scale-75', 'rounded-[10px]');
+            if(timerTxt) timerTxt.classList.add('hidden');
             
-            if(seconds > 0) {
-                setTimeout(() => {
-                    if(timerTxt) timerTxt.classList.add('hidden');
-                    const previewText = document.getElementById('preview-type-text');
-                    const videoIcon = document.getElementById('preview-video-icon');
-                    if(previewText) previewText.innerText = "Video";
-                    if(videoIcon) { videoIcon.classList.add('flex'); videoIcon.classList.remove('hidden'); }
-                    
-                    stopLiveCamera(); // Matikan kamera saat beralih ke pratinjau (Preview)
+            if(seconds > 0 && mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: 'video/mp4' }); // Fallback mime type
+                    tempCapturedMedia = URL.createObjectURL(blob);
+                    setupPreviewScreen();
+                    stopLiveCamera(); // Matikan kamera saat beralih ke pratinjau
                     goToScreen('previewScreen');
-                }, 300);
+                };
+                mediaRecorder.stop();
+            } else if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+        }
+
+        // Fungsi baru untuk memanipulasi elemen layar Preview
+        function setupPreviewScreen() {
+            const previewText = document.getElementById('preview-type-text');
+            const previewImg = document.getElementById('preview-img');
+            const videoIcon = document.getElementById('preview-video-icon');
+            if(!previewImg) return;
+            
+            const container = previewImg.parentElement;
+
+            // Hapus video dinamis sebelumnya jika ada agar tidak menumpuk
+            const existingVid = document.getElementById('dynamic-preview-video');
+            if (existingVid) existingVid.remove();
+
+            if (tempMediaType === 'photo') {
+                if (previewText) previewText.innerText = "Foto";
+                if (videoIcon) { videoIcon.classList.add('hidden'); videoIcon.classList.remove('flex'); }
+                if (previewImg) {
+                    previewImg.src = tempCapturedMedia;
+                    previewImg.classList.remove('hidden');
+                }
             } else {
-                if(timerTxt) timerTxt.classList.add('hidden');
+                if (previewText) previewText.innerText = "Video";
+                if (previewImg) previewImg.classList.add('hidden');
+                if (videoIcon) { videoIcon.classList.remove('hidden'); videoIcon.classList.add('flex'); }
+
+                // Buat tag video secara dinamis
+                const vidElem = document.createElement('video');
+                vidElem.id = 'dynamic-preview-video';
+                vidElem.src = tempCapturedMedia;
+                vidElem.autoplay = true;
+                vidElem.loop = true;
+                vidElem.muted = true;
+                vidElem.playsInline = true;
+                // scale-x-[-1] agar efek cermin dari kamera depan tetap terjaga pada saat preview
+                vidElem.className = 'w-full h-full object-cover transform scale-x-[-1]';
+                container.insertBefore(vidElem, container.firstChild);
             }
         }
 
@@ -2836,6 +2910,66 @@
             goToScreen('moderationScreen');
             setTimeout(() => {
                 alert("✅ Lolos Moderasi.\n\nTidak ditemukan ujaran kebencian atau konten negatif. Berhasil diposting ke SocialQ!");
+                
+                // Ambil container SocialQ feed
+                const container = document.getElementById('socialq-main-feed-container');
+                if (container && tempCapturedMedia) {
+                    
+                    let mediaHtml = '';
+                    if (tempMediaType === 'photo') {
+                        mediaHtml = `<img src="${tempCapturedMedia}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90">`;
+                    } else {
+                        // Jika video, pakai transform mirror scale-x-[-1]
+                        mediaHtml = `
+                        <video src="${tempCapturedMedia}" loop muted playsinline class="w-full h-full object-cover transform scale-x-[-1] transition-transform duration-700 group-hover:scale-105 filter brightness-90"></video>
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors pointer-events-none"></div>
+                        <i data-lucide="play-circle" class="play-icon absolute w-14 h-14 text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.8)] group-hover:scale-110 transition-transform pointer-events-none transition-opacity duration-300"></i>
+                        `;
+                    }
+
+                    // Template String HTML untuk dipasang ke puncak list feed
+                    const htmlString = `
+                    <div class="w-full bg-[#18181b] rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)] border border-[#10b981]/30 flex flex-col gap-4 mb-4">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center gap-3">
+                                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-[42px] h-[42px] rounded-full object-cover border border-[#10b981]" onclick="goToScreen('mySpaceQScreen')" style="cursor:pointer">
+                                <div>
+                                    <h4 class="font-bold text-white text-[14px] leading-tight flex items-center gap-1 cursor-pointer" onclick="goToScreen('mySpaceQScreen')">Ahmad Nafis <i data-lucide="badge-check" class="w-3 h-3 text-[#10b981] fill-[#10b981]/20"></i></h4>
+                                    <span class="text-[11px] text-slate-400 font-medium">Mahasiswa Teknologi Industri Pertanian</span>
+                                </div>
+                            </div>
+                            <button class="bg-[#10b981] text-[#09090b] px-3 py-1.5 rounded-full text-[12px] font-bold shadow-[0_0_10px_rgba(16,185,129,0.3)]">Baru</button>
+                        </div>
+                        
+                        <div class="w-[260px] h-[260px] mx-auto rounded-full bg-[#09090b] flex items-center justify-center overflow-hidden relative group cursor-pointer border-[6px] border-[#064e3b] shadow-[0_0_20px_rgba(16,185,129,0.2)]" ${tempMediaType === 'video' ? 'onclick="togglePlay(this)"' : ''}>
+                            ${mediaHtml}
+                        </div>
+
+                        <div class="px-2">
+                            <p class="text-[13px] text-slate-300 font-medium mb-4">"Momen otentikku. Alhamdulillah 🌿✨"</p>
+                            <div class="flex items-center justify-between border-t border-white/10 pt-3">
+                                <div class="flex gap-1 items-center bg-[#09090b] border border-white/10 px-3 py-1.5 rounded-full shadow-inner">
+                                    <i data-lucide="thumbs-up" class="w-4 h-4 text-slate-400"></i>
+                                    <i data-lucide="heart" class="w-4 h-4 text-[#10b981] fill-[#10b981] -ml-2 drop-shadow-[0_0_5px_rgba(16,185,129,0.5)]"></i>
+                                    <span class="text-[12px] font-bold text-slate-300 ml-1">0</span>
+                                </div>
+                                <div class="flex gap-4">
+                                    <button class="flex items-center gap-1.5 text-slate-400 font-bold text-[12px] hover:text-white transition-all"><i data-lucide="message-circle" class="w-4 h-4"></i> 0</button>
+                                    <button class="flex items-center gap-1.5 text-slate-400 font-bold text-[12px] hover:text-[#10b981] transition-all"><i data-lucide="send" class="w-4 h-4"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                    // Masukkan struktur HTML tadi ke posisi paling atas
+                    container.insertAdjacentHTML('afterbegin', htmlString);
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+                    // Kosongkan Blob URI / Media Cache agar tidak memenuhi memori HP pengguna
+                    tempCapturedMedia = null;
+                }
+
                 goToScreen('socialQScreen');
             }, 3000);
         }
