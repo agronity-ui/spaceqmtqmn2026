@@ -180,6 +180,14 @@
         }
         .anim-bounce { animation: duoBounce 0.6s ease-in-out 0.25s forwards; }
 
+        /* Bounce Animation for Adab Warning */
+        @keyframes bounceWarning {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) scale(1); }
+            40% { transform: translateY(-30px) scale(1.05); }
+            60% { transform: translateY(-15px) scale(1.02); }
+        }
+        .anim-bounce-warning { animation: bounceWarning 0.8s cubic-bezier(0.28, 0.84, 0.42, 1) forwards; }
+
         @keyframes bgFlashCorrect {
             0% { background-color: rgba(16, 185, 129, 0); }
             30% { background-color: rgba(16, 185, 129, 0.15); }
@@ -308,6 +316,17 @@
         .queue-item-selected {
             border-color: #10b981 !important;
             background: rgba(16, 185, 129, 0.1) !important;
+        }
+        
+        /* Audio Message Play Pulse */
+        .audio-playing-pulse {
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+            animation: audioPulse 1.5s infinite;
+        }
+        @keyframes audioPulse {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
     </style>
 </head>
@@ -758,13 +777,506 @@
                 </button>
                 
                 <!-- Messages inactive -->
-                <button class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
+                <button onclick="goToScreen('chatNotifScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
                     <i data-lucide="message-circle" class="w-6 h-6"></i>
                 </button>
                 
                 <!-- Profile inactive -->
                 <button onclick="goToScreen('mySpaceQScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer relative">
                     <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-7 h-7 rounded-full border-2 border-slate-500 object-cover opacity-80 hover:opacity-100 hover:border-white transition-all">
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7.1: KAJIANQ LOBBY                  -->
+        <!-- ========================================== -->
+        <div id="kajianLobbyScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-[#09090b] flex flex-col z-20">
+            <!-- Header -->
+            <div class="pt-14 px-6 pb-4 flex justify-between items-center bg-[#09090b]/90 backdrop-blur-md sticky top-0 z-30 border-b border-white/5">
+                <div class="flex items-center gap-3">
+                    <button onclick="goToScreen('homeScreen')" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer active:scale-95 border border-white/5">
+                        <i data-lucide="arrow-left" class="w-5 h-5 text-white"></i>
+                    </button>
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-white tracking-tight leading-none">KajianQ</h1>
+                        <p class="text-sm font-semibold text-gray-400">Meresapi Ilmu, Temukan Ketenangan</p>
+                    </div>
+                </div>
+                <div class="w-10 h-10 bg-[#18181b] rounded-full flex items-center justify-center border border-white/10 hover:bg-white/10 transition-colors cursor-pointer">
+                    <i data-lucide="search" class="w-5 h-5 text-white"></i>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto hide-scroll pb-32">
+                <!-- Filters -->
+                <div class="flex gap-3 overflow-x-auto hide-scroll px-6 mt-4 mb-4">
+                    <span class="bg-[#10b981]/20 text-[#10b981] border border-[#10b981]/30 px-4 py-2 rounded-full text-[13px] font-bold whitespace-nowrap shadow-[0_0_10px_rgba(16,185,129,0.3)] cursor-pointer">Semua Topik</span>
+                    <span class="bg-white/5 text-gray-400 border border-white/5 px-4 py-2 rounded-full text-[13px] font-bold whitespace-nowrap cursor-pointer hover:text-white transition-colors">Fiqih Muamalah</span>
+                    <span class="bg-white/5 text-gray-400 border border-white/5 px-4 py-2 rounded-full text-[13px] font-bold whitespace-nowrap cursor-pointer hover:text-white transition-colors">Tafsir Quran</span>
+                    <span class="bg-white/5 text-gray-400 border border-white/5 px-4 py-2 rounded-full text-[13px] font-bold whitespace-nowrap cursor-pointer hover:text-white transition-colors">Sirah Nabawiyah</span>
+                </div>
+
+                <!-- Kajian Premium Section -->
+                <div class="px-6 mt-4 mb-3 flex justify-between items-end">
+                    <h2 class="text-white text-[18px] font-bold">Kajian Premium</h2>
+                    <span class="text-[#10b981] text-[12px] font-bold cursor-pointer">Lihat Semua</span>
+                </div>
+                
+                <div class="flex overflow-x-auto gap-4 snap-x hide-scroll px-6 pb-6 pt-1">
+                    <!-- Card 1 -->
+                    <div class="w-[280px] bg-[#18181b] rounded-[24px] border border-white/10 flex flex-col shrink-0 snap-start shadow-[0_10px_30px_rgba(0,0,0,0.5)] overflow-hidden">
+                        <div class="h-32 w-full relative">
+                            <img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=500&q=80" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#18181b] to-transparent"></div>
+                            <div class="absolute top-3 left-3 bg-[#10b981]/20 backdrop-blur-md px-2 py-1 rounded-md text-[#10b981] text-[10px] font-bold border border-[#10b981]/30">Hari ini, 20:00</div>
+                        </div>
+                        <div class="p-4 pt-1 flex flex-col flex-1">
+                            <p class="text-gray-400 text-[12px] font-semibold mb-1">Ust. Dr. Erwandi Tarmizi</p>
+                            <h3 class="text-white font-black text-[16px] leading-tight mb-4">Fiqih Muamalah: Jual Beli Modern</h3>
+                            <div class="mt-auto flex items-center justify-between">
+                                <span class="text-[#10b981] font-bold text-[14px]">Rp 59.000</span>
+                                <button onclick="openKajianPaymentModal('Ust. Dr. Erwandi Tarmizi', 'Fiqih Muamalah: Jual Beli Modern', '59.000')" class="bg-gradient-to-r from-[#10b981] to-[#064e3b] text-white text-[12px] font-bold px-4 py-2 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.3)] active:scale-95 transition-transform cursor-pointer">Daftar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="w-[280px] bg-[#18181b] rounded-[24px] border border-white/10 flex flex-col shrink-0 snap-start shadow-[0_10px_30px_rgba(0,0,0,0.5)] overflow-hidden">
+                        <div class="h-32 w-full relative">
+                            <img src="https://images.unsplash.com/photo-1519817914152-2a641d40dc33?w=500&q=80" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#18181b] to-transparent"></div>
+                            <div class="absolute top-3 left-3 bg-white/20 backdrop-blur-md px-2 py-1 rounded-md text-white text-[10px] font-bold border border-white/20">Besok, 16:00</div>
+                        </div>
+                        <div class="p-4 pt-1 flex flex-col flex-1">
+                            <p class="text-gray-400 text-[12px] font-semibold mb-1">Ust. Nuzul Dzikri</p>
+                            <h3 class="text-white font-black text-[16px] leading-tight mb-4">Adab Penuntut Ilmu</h3>
+                            <div class="mt-auto flex items-center justify-between">
+                                <span class="text-[#10b981] font-bold text-[14px]">Rp 35.000</span>
+                                <button onclick="openKajianPaymentModal('Ust. Nuzul Dzikri', 'Adab Penuntut Ilmu', '35.000')" class="bg-gradient-to-r from-[#10b981] to-[#064e3b] text-white text-[12px] font-bold px-4 py-2 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.3)] active:scale-95 transition-transform cursor-pointer">Daftar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="w-[280px] bg-[#18181b] rounded-[24px] border border-white/10 flex flex-col shrink-0 snap-start shadow-[0_10px_30px_rgba(0,0,0,0.5)] overflow-hidden">
+                        <div class="h-32 w-full relative">
+                            <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=500&q=80" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#18181b] to-transparent"></div>
+                            <div class="absolute top-3 left-3 bg-white/20 backdrop-blur-md px-2 py-1 rounded-md text-white text-[10px] font-bold border border-white/20">Ahad, 09:00</div>
+                        </div>
+                        <div class="p-4 pt-1 flex flex-col flex-1">
+                            <p class="text-gray-400 text-[12px] font-semibold mb-1">Ust. Hanan Attaki</p>
+                            <h3 class="text-white font-black text-[16px] leading-tight mb-4">Membangun Pemuda Tangguh</h3>
+                            <div class="mt-auto flex items-center justify-between">
+                                <span class="text-[#10b981] font-bold text-[14px]">Rp 45.000</span>
+                                <button onclick="openKajianPaymentModal('Ust. Hanan Attaki', 'Membangun Pemuda Tangguh', '45.000')" class="bg-gradient-to-r from-[#10b981] to-[#064e3b] text-white text-[12px] font-bold px-4 py-2 rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.3)] active:scale-95 transition-transform cursor-pointer">Daftar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Jadwal Mendatang Section -->
+                <div class="px-6 mt-2 mb-3">
+                    <h2 class="text-white text-[18px] font-bold">Jadwal Mendatang</h2>
+                </div>
+                
+                <div class="flex flex-col gap-3 px-6">
+                    <!-- List 1 -->
+                    <div class="bg-white/5 rounded-2xl p-4 flex justify-between items-center border border-white/5 hover:border-[#10b981]/50 transition-colors cursor-pointer group">
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" class="w-12 h-12 rounded-full object-cover border border-white/20 group-hover:border-[#10b981] transition-colors">
+                            <div>
+                                <h4 class="text-white text-[14px] font-bold leading-tight line-clamp-1 mb-0.5">Sirah Nabawiyah: Perang Badar</h4>
+                                <p class="text-gray-400 text-[11px] font-semibold">Ust. Firanda Andirja</p>
+                            </div>
+                        </div>
+                        <button onclick="openKajianPaymentModal('Ust. Firanda Andirja', 'Sirah Nabawiyah: Perang Badar', 'Gratis')" class="bg-white/10 text-[#10b981] px-4 py-2 rounded-xl text-[12px] font-bold shrink-0 hover:bg-[#10b981] hover:text-[#09090b] transition-colors shadow-sm cursor-pointer">Daftar</button>
+                    </div>
+
+                    <!-- List 2 -->
+                    <div class="bg-white/5 rounded-2xl p-4 flex justify-between items-center border border-white/5 hover:border-[#10b981]/50 transition-colors cursor-pointer group">
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" class="w-12 h-12 rounded-full object-cover border border-white/20 group-hover:border-[#10b981] transition-colors">
+                            <div>
+                                <h4 class="text-white text-[14px] font-bold leading-tight line-clamp-1 mb-0.5">Fiqih Keluarga</h4>
+                                <p class="text-gray-400 text-[11px] font-semibold">Ust. Syafiq Riza Basalamah</p>
+                            </div>
+                        </div>
+                        <button onclick="openKajianPaymentModal('Ust. Syafiq Riza Basalamah', 'Fiqih Keluarga', '25.000')" class="bg-white/10 text-[#10b981] px-4 py-2 rounded-xl text-[12px] font-bold shrink-0 hover:bg-[#10b981] hover:text-[#09090b] transition-colors shadow-sm cursor-pointer">Daftar</button>
+                    </div>
+
+                    <!-- List 3 -->
+                    <div class="bg-white/5 rounded-2xl p-4 flex justify-between items-center border border-white/5 hover:border-[#10b981]/50 transition-colors cursor-pointer group">
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" class="w-12 h-12 rounded-full object-cover border border-white/20 group-hover:border-[#10b981] transition-colors">
+                            <div>
+                                <h4 class="text-white text-[14px] font-bold leading-tight line-clamp-1 mb-0.5">Tafsir Surat Al-Kahfi</h4>
+                                <p class="text-gray-400 text-[11px] font-semibold">Ust. Muhammad Nuzul Dzikri</p>
+                            </div>
+                        </div>
+                        <button onclick="openKajianPaymentModal('Ust. Muhammad Nuzul Dzikri', 'Tafsir Surat Al-Kahfi', '20.000')" class="bg-white/10 text-[#10b981] px-4 py-2 rounded-xl text-[12px] font-bold shrink-0 hover:bg-[#10b981] hover:text-[#09090b] transition-colors shadow-sm cursor-pointer">Daftar</button>
+                    </div>
+
+                    <!-- List 4 -->
+                    <div class="bg-white/5 rounded-2xl p-4 flex justify-between items-center border border-white/5 hover:border-[#10b981]/50 transition-colors cursor-pointer group">
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" class="w-12 h-12 rounded-full object-cover border border-white/20 group-hover:border-[#10b981] transition-colors">
+                            <div>
+                                <h4 class="text-white text-[14px] font-bold leading-tight line-clamp-1 mb-0.5">Dosa-Dosa Besar</h4>
+                                <p class="text-gray-400 text-[11px] font-semibold">Ust. Khalid Basalamah</p>
+                            </div>
+                        </div>
+                        <button onclick="openKajianPaymentModal('Ust. Khalid Basalamah', 'Dosa-Dosa Besar', 'Gratis')" class="bg-white/10 text-[#10b981] px-4 py-2 rounded-xl text-[12px] font-bold shrink-0 hover:bg-[#10b981] hover:text-[#09090b] transition-colors shadow-sm cursor-pointer">Daftar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- NEW SCREEN: CHAT NOTIF (INBOX)             -->
+        <!-- ========================================== -->
+        <div id="chatNotifScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-[35]">
+            <!-- Header -->
+            <div class="pt-14 pb-4 px-6 flex items-center justify-between bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-30 border-b border-white/5">
+                <h1 class="text-3xl font-extrabold text-white tracking-tight">Inbox</h1>
+                <div class="flex items-center gap-3">
+                    <button class="w-10 h-10 rounded-full bg-[#18181b] flex items-center justify-center text-white hover:bg-white/10 border border-white/10 transition cursor-pointer">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </button>
+                    <button class="w-10 h-10 rounded-full bg-[#18181b] flex items-center justify-center text-[#10b981] hover:bg-white/10 border border-white/10 transition cursor-pointer">
+                        <i data-lucide="edit" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto hide-scroll pb-32">
+                
+                <!-- NotifikasiQ (Top Gradient Card) -->
+                <div class="px-6 py-4">
+                    <div class="bg-gradient-to-br from-[#064e3b] to-[#09090b] rounded-[28px] p-5 border border-[#10b981]/20 shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative overflow-hidden">
+                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-[#10b981]/10 rounded-full blur-2xl"></div>
+                        <div class="flex justify-between items-center mb-4 relative z-10">
+                            <h3 class="font-extrabold text-white text-[15px] flex items-center gap-2">
+                                <i data-lucide="bell-ring" class="w-4 h-4 text-[#10b981]"></i> NotifikasiQ
+                            </h3>
+                            <button class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-colors">
+                                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="flex flex-col gap-3 relative z-10">
+                            <div class="flex items-start gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer">
+                                <div class="w-8 h-8 rounded-full border-2 border-[#10b981] relative shrink-0">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" class="w-full h-full rounded-full object-cover">
+                                    <div class="absolute -bottom-1 -right-1 bg-[#10b981] rounded-full p-0.5 border border-[#09090b]"><i data-lucide="heart" class="w-2.5 h-2.5 text-[#09090b] fill-current"></i></div>
+                                </div>
+                                <div>
+                                    <p class="text-white text-[12px] font-semibold leading-tight"><span class="font-bold text-[#10b981]">Aisyah</span> menyukai postinganmu.</p>
+                                    <p class="text-slate-400 text-[10px] mt-0.5">Baru saja</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer">
+                                <div class="w-8 h-8 rounded-full border-2 border-[#10b981] relative shrink-0">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" class="w-full h-full rounded-full object-cover">
+                                    <div class="absolute -bottom-1 -right-1 bg-yellow-500 rounded-full p-0.5 border border-[#09090b]"><i data-lucide="book-open" class="w-2.5 h-2.5 text-[#09090b] fill-current"></i></div>
+                                </div>
+                                <div>
+                                    <p class="text-white text-[12px] font-semibold leading-tight"><span class="font-bold text-yellow-500">Ust. Hanan</span> akan memulai kajian dalam 10 menit.</p>
+                                    <p class="text-slate-400 text-[10px] mt-0.5">15 menit yang lalu</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer">
+                                <div class="w-8 h-8 rounded-full border-2 border-slate-500 relative shrink-0">
+                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100" class="w-full h-full rounded-full object-cover filter grayscale">
+                                    <div class="absolute -bottom-1 -right-1 bg-blue-500 rounded-full p-0.5 border border-[#09090b]"><i data-lucide="user-plus" class="w-2.5 h-2.5 text-[#09090b] fill-current"></i></div>
+                                </div>
+                                <div>
+                                    <p class="text-slate-300 text-[12px] font-semibold leading-tight"><span class="font-bold text-white">Fahmi</span> mulai mengikuti Anda.</p>
+                                    <p class="text-slate-500 text-[10px] mt-0.5">1 jam yang lalu</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MessageQ (Pesan List) -->
+                <div class="px-6 mt-2">
+                    <h2 class="text-white text-[18px] font-extrabold mb-4">Dialogs</h2>
+                    
+                    <div class="flex flex-col gap-1">
+                        <!-- Chat Item 1 (Ikhwan -> Safe to open) -->
+                        <div onclick="attemptPrivateChat('pria', 'Fahmi Idris')" class="flex items-center justify-between bg-transparent hover:bg-white/5 p-3 rounded-2xl cursor-pointer transition-colors border border-transparent hover:border-white/5 group relative">
+                            <div class="flex items-center gap-3">
+                                <div class="relative shrink-0">
+                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100" class="w-12 h-12 rounded-full object-cover">
+                                </div>
+                                <div class="flex flex-col">
+                                    <div class="flex items-center gap-1.5">
+                                        <h4 class="text-white font-bold text-[15px] leading-tight">Fahmi Idris</h4>
+                                        <!-- Adab Indicator -->
+                                        <span class="bg-[#10b981]/20 text-[#10b981] px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-widest border border-[#10b981]/30 flex items-center gap-0.5"><i data-lucide="shield-check" class="w-2.5 h-2.5"></i> Ikhwan</span>
+                                    </div>
+                                    <p class="text-slate-400 text-[13px] font-medium truncate max-w-[180px] mt-0.5">Antum ikut kajian Ust. Nuzul sore ini?</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end justify-start h-full pt-1">
+                                <span class="text-[#10b981] text-[11px] font-bold">2 min</span>
+                                <div class="w-5 h-5 bg-[#10b981] text-[#09090b] rounded-full flex items-center justify-center text-[10px] font-black mt-1 shadow-[0_0_10px_rgba(16,185,129,0.5)]">2</div>
+                            </div>
+                        </div>
+
+                        <!-- Chat Item 2 (Group) -->
+                        <div onclick="openChatDetail('Panitia Kajian Pusat')" class="flex items-center justify-between bg-transparent hover:bg-white/5 p-3 rounded-2xl cursor-pointer transition-colors border border-transparent hover:border-white/5 group relative">
+                            <div class="flex items-center gap-3">
+                                <div class="relative shrink-0 w-12 h-12 rounded-full bg-[#18181b] border border-white/10 flex items-center justify-center p-1.5">
+                                    <div class="grid grid-cols-2 gap-0.5 w-full h-full rounded-full overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100" class="w-full h-full object-cover">
+                                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" class="w-full h-full object-cover">
+                                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100" class="w-full h-full object-cover">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" class="w-full h-full object-cover">
+                                    </div>
+                                </div>
+                                <div class="flex flex-col">
+                                    <div class="flex items-center gap-1.5">
+                                        <h4 class="text-white font-bold text-[15px] leading-tight">Panitia Kajian Pusat</h4>
+                                        <span class="bg-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-widest border border-blue-500/30 flex items-center gap-0.5"><i data-lucide="users" class="w-2.5 h-2.5"></i> Grup (Syar'i)</span>
+                                    </div>
+                                    <p class="text-slate-400 text-[13px] font-medium truncate max-w-[180px] mt-0.5"><span class="text-white font-semibold">Aisyah:</span> Rundown acara sudah fix ya akhi wa ukhti.</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end justify-start h-full pt-1">
+                                <span class="text-slate-500 text-[11px] font-bold">15 min</span>
+                            </div>
+                        </div>
+
+                        <!-- Chat Item 3 (Akhwat -> Will Trigger Warning) -->
+                        <div onclick="attemptPrivateChat('wanita', 'Aisyah Rizki')" class="flex items-center justify-between bg-transparent hover:bg-white/5 p-3 rounded-2xl cursor-pointer transition-colors border border-transparent hover:border-white/5 group relative opacity-70 hover:opacity-100">
+                            <div class="flex items-center gap-3">
+                                <div class="relative shrink-0">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" class="w-12 h-12 rounded-full object-cover filter grayscale group-hover:grayscale-0 transition-all">
+                                </div>
+                                <div class="flex flex-col">
+                                    <div class="flex items-center gap-1.5">
+                                        <h4 class="text-white font-bold text-[15px] leading-tight">Aisyah Rizki</h4>
+                                        <span class="bg-red-500/20 text-red-400 px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-widest border border-red-500/30 flex items-center gap-0.5"><i data-lucide="alert-circle" class="w-2.5 h-2.5"></i> Akhwat</span>
+                                    </div>
+                                    <p class="text-slate-500 text-[13px] font-medium truncate max-w-[180px] mt-0.5 italic">Chat tidak dapat diakses.</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end justify-start h-full pt-1">
+                                <span class="text-slate-600 text-[11px] font-bold">Kemarin</span>
+                                <i data-lucide="lock" class="w-4 h-4 text-red-500/50 mt-1"></i>
+                            </div>
+                        </div>
+
+                        <!-- Chat Item 4 -->
+                        <div onclick="attemptPrivateChat('pria', 'Ust. Nuzul Dzikri')" class="flex items-center justify-between bg-transparent hover:bg-white/5 p-3 rounded-2xl cursor-pointer transition-colors border border-transparent hover:border-white/5 group relative">
+                            <div class="flex items-center gap-3">
+                                <div class="relative shrink-0">
+                                    <img src="https://images.unsplash.com/photo-1519817914152-2a641d40dc33?w=100" class="w-12 h-12 rounded-full object-cover">
+                                </div>
+                                <div class="flex flex-col">
+                                    <div class="flex items-center gap-1.5">
+                                        <h4 class="text-white font-bold text-[15px] leading-tight">Ust. Nuzul Dzikri</h4>
+                                        <span class="bg-[#10b981]/20 text-[#10b981] px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-widest border border-[#10b981]/30 flex items-center gap-0.5"><i data-lucide="shield-check" class="w-2.5 h-2.5"></i> Ikhwan</span>
+                                    </div>
+                                    <p class="text-slate-400 text-[13px] font-medium truncate max-w-[180px] mt-0.5 flex items-center gap-1"><i data-lucide="check-check" class="w-3.5 h-3.5 text-[#10b981]"></i> Wa'alaikumussalam warahmatullah.</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end justify-start h-full pt-1">
+                                <span class="text-slate-500 text-[11px] font-bold">Selasa</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating Bottom Nav -->
+            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] bg-[#09090b]/80 backdrop-blur-3xl rounded-[32px] py-4 px-6 shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/10 flex justify-between items-center z-50">
+                <button onclick="goToScreen('homeScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
+                    <i data-lucide="home" class="w-6 h-6"></i>
+                </button>
+                <button onclick="goToScreen('socialQScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
+                    <i data-lucide="layout-grid" class="w-6 h-6"></i>
+                </button>
+                <button onclick="goToScreen('cameraScreen'); startLiveCamera();" class="w-14 h-14 bg-[#10b981] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)] -mt-10 border-[6px] border-[#09090b] text-[#09090b] hover:scale-105 active:scale-95 transition-transform cursor-pointer">
+                    <i data-lucide="plus" class="w-6 h-6 font-black"></i>
+                </button>
+                <!-- Messages Active -->
+                <button class="text-[#10b981] flex flex-col items-center gap-1 active:scale-95 transition-transform cursor-pointer relative">
+                    <i data-lucide="message-circle" class="w-6 h-6 fill-[#10b981]/20 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]"></i>
+                    <div class="absolute -bottom-2 w-1 h-1 bg-[#10b981] rounded-full shadow-[0_0_8px_rgba(16,185,129,1)]"></div>
+                </button>
+                <button onclick="goToScreen('mySpaceQScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer relative">
+                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-7 h-7 rounded-full border-2 border-slate-500 object-cover opacity-80 hover:opacity-100 hover:border-white transition-all">
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- NEW SCREEN: CHAT DETAIL (CONVERSATION)     -->
+        <!-- ========================================== -->
+        <div id="chatDetailScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-[40]">
+            <!-- Header -->
+            <div class="pt-14 pb-4 px-6 flex items-center justify-between bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-30 border-b border-white/5">
+                <div class="flex items-center gap-3">
+                    <button onclick="goToScreen('chatNotifScreen')" class="w-10 h-10 rounded-full flex items-center justify-center text-white hover:bg-white/10 active:scale-95 transition-colors cursor-pointer border border-white/5 bg-[#18181b]">
+                        <i data-lucide="arrow-left" class="w-5 h-5 text-white"></i>
+                    </button>
+                    <div class="flex items-center gap-2">
+                        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100" class="w-9 h-9 rounded-full object-cover border border-[#10b981]">
+                        <div class="flex flex-col">
+                            <h2 id="chat-detail-name" class="text-[15px] font-extrabold text-white leading-tight">Fahmi Idris</h2>
+                            <p class="text-[#10b981] text-[10px] font-bold">Online</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="w-10 h-10 rounded-full flex items-center justify-center text-slate-400 hover:text-white transition cursor-pointer">
+                    <i data-lucide="more-horizontal" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Chat Area -->
+            <div id="chat-messages-container" class="flex-1 overflow-y-auto hide-scroll p-6 flex flex-col gap-4 relative">
+                <!-- Date separator -->
+                <div class="w-full flex justify-center mt-2 mb-2">
+                    <span class="bg-white/5 border border-white/10 text-slate-400 text-[10px] font-bold px-3 py-1 rounded-full">Hari Ini</span>
+                </div>
+
+                <!-- Chat Bubble (Them) -->
+                <div class="flex justify-start w-full">
+                    <div class="bg-[#18181b] border border-white/10 text-white p-3.5 rounded-[20px] rounded-tl-sm max-w-[80%] shadow-sm relative">
+                        <p class="text-[14px] leading-relaxed">Assalamu'alaikum Akhi. Antum ikut kajian Ust. Nuzul sore ini kan?</p>
+                        <span class="text-slate-500 text-[9px] absolute -bottom-5 right-1 font-bold">15:30</span>
+                    </div>
+                </div>
+
+                <!-- Chat Bubble (Me) -->
+                <div class="flex justify-end w-full mt-2">
+                    <div class="bg-gradient-to-r from-[#10b981] to-[#064e3b] text-[#09090b] p-3.5 rounded-[20px] rounded-tr-sm max-w-[80%] shadow-[0_5px_15px_rgba(16,185,129,0.2)] border border-[#10b981]/50 relative">
+                        <p class="text-[14px] leading-relaxed font-semibold">Wa'alaikumussalam. Insya Allah berangkat. Barengan aja dari masjid kampus yuk.</p>
+                        <span class="text-slate-500 text-[9px] absolute -bottom-5 right-1 font-bold flex items-center gap-1">15:34 <i data-lucide="check-check" class="w-3 h-3 text-[#10b981]"></i></span>
+                    </div>
+                </div>
+
+                <!-- Chat Bubble (Them) -->
+                <div class="flex justify-start w-full mt-2">
+                    <div class="bg-[#18181b] border border-white/10 text-white p-3.5 rounded-[20px] rounded-tl-sm max-w-[80%] shadow-sm relative">
+                        <p class="text-[14px] leading-relaxed">Siap, tunggu disana ya. Eh iya, antum udah daftar kelas online Fiqih Muamalah belum?</p>
+                        <span class="text-slate-500 text-[9px] absolute -bottom-5 right-1 font-bold">15:35</span>
+                    </div>
+                </div>
+
+                <!-- Share Card Interactive (Me) -->
+                <div class="flex justify-end w-full mt-4">
+                    <div class="bg-gradient-to-r from-[#10b981]/20 to-[#064e3b]/40 border border-[#10b981]/30 p-2 rounded-[24px] rounded-tr-sm w-[260px] shadow-[0_5px_20px_rgba(16,185,129,0.15)] relative">
+                        <div class="bg-[#09090b] rounded-[18px] p-3 border border-white/5 relative overflow-hidden">
+                            <div class="absolute -right-6 -top-6 w-20 h-20 bg-[#10b981]/20 rounded-full blur-xl"></div>
+                            
+                            <p class="text-[#10b981] text-[10px] font-black uppercase tracking-widest mb-2 flex items-center gap-1"><i data-lucide="bookmark" class="w-3 h-3"></i> Undangan KajianQ</p>
+                            
+                            <div class="flex gap-2 items-center mb-3">
+                                <img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=100&q=80" class="w-10 h-10 rounded-xl object-cover border border-[#10b981]/50 shadow-sm">
+                                <div>
+                                    <h4 class="text-white font-extrabold text-[13px] leading-tight">Fiqih Muamalah: Jual Beli</h4>
+                                    <p class="text-slate-400 text-[10px] font-semibold mt-0.5">Ust. Dr. Erwandi Tarmizi</p>
+                                </div>
+                            </div>
+                            <button onclick="goToScreen('kajianLobbyScreen')" class="w-full bg-[#10b981] text-[#09090b] py-2 rounded-xl text-[12px] font-bold active:scale-95 transition-transform flex items-center justify-center gap-1.5 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                                <i data-lucide="arrow-right-circle" class="w-4 h-4"></i> Ikut Ini Yuk
+                            </button>
+                        </div>
+                        <span class="text-slate-500 text-[9px] absolute -bottom-5 right-2 font-bold flex items-center gap-1">15:36 <i data-lucide="check-check" class="w-3 h-3 text-[#10b981]"></i></span>
+                    </div>
+                </div>
+                
+                <!-- Audio Bubble (Them) -->
+                <div class="flex justify-start w-full mt-4">
+                    <div class="bg-[#18181b] border border-white/10 text-white p-2 rounded-[24px] rounded-tl-sm w-[220px] shadow-sm relative flex items-center gap-3">
+                        <button class="w-10 h-10 bg-[#10b981] rounded-full flex items-center justify-center shrink-0 cursor-pointer shadow-[0_0_10px_rgba(16,185,129,0.3)] text-[#09090b]">
+                            <i data-lucide="play" class="w-5 h-5 ml-1"></i>
+                        </button>
+                        <div class="flex-1 flex flex-col justify-center h-full">
+                            <!-- Visualizer Mockup -->
+                            <div class="flex items-center gap-[2px] h-4">
+                                <div class="w-1 h-[40%] bg-slate-500 rounded-full"></div>
+                                <div class="w-1 h-[80%] bg-slate-500 rounded-full"></div>
+                                <div class="w-1 h-[60%] bg-[#10b981] rounded-full"></div>
+                                <div class="w-1 h-[100%] bg-[#10b981] rounded-full"></div>
+                                <div class="w-1 h-[70%] bg-[#10b981] rounded-full"></div>
+                                <div class="w-1 h-[30%] bg-slate-500 rounded-full"></div>
+                                <div class="w-1 h-[50%] bg-slate-500 rounded-full"></div>
+                                <div class="w-1 h-[20%] bg-slate-500 rounded-full"></div>
+                                <div class="w-1 h-[40%] bg-slate-500 rounded-full"></div>
+                                <div class="w-1 h-[80%] bg-slate-500 rounded-full"></div>
+                                <div class="w-1 h-[50%] bg-slate-500 rounded-full"></div>
+                                <div class="w-1 h-[30%] bg-slate-500 rounded-full"></div>
+                            </div>
+                            <div class="flex justify-between w-full mt-1">
+                                <span class="text-[#10b981] text-[9px] font-bold">0:04</span>
+                                <span class="text-slate-500 text-[9px] font-bold">0:12</span>
+                            </div>
+                        </div>
+                        <span class="text-slate-500 text-[9px] absolute -bottom-5 right-1 font-bold">15:38</span>
+                    </div>
+                </div>
+
+                <!-- Spacing block for scroll -->
+                <div class="h-10 w-full shrink-0 chat-spacer"></div>
+            </div>
+
+            <!-- Share Menu Modal -->
+            <div id="chat-share-menu" class="hidden absolute bottom-[85px] left-4 bg-[#18181b]/95 backdrop-blur-xl border border-white/10 p-3 rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.8)] z-40 flex-col gap-1 w-[220px] transition-all transform origin-bottom-left">
+                <div onclick="sendShareCard('kajian')" class="flex items-center gap-3 p-2.5 hover:bg-white/5 rounded-xl cursor-pointer text-white text-[13px] font-bold transition-colors">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-[#10b981]/10 flex items-center justify-center border border-[#10b981]/30"><i data-lucide="book-open" class="w-4 h-4 text-[#10b981]"></i></div>
+                    Bagikan KajianQ
+                </div>
+                <div onclick="sendShareCard('tadarus')" class="flex items-center gap-3 p-2.5 hover:bg-white/5 rounded-xl cursor-pointer text-white text-[13px] font-bold transition-colors">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-[#2dd4bf]/10 flex items-center justify-center border border-[#2dd4bf]/30"><i data-lucide="users" class="w-4 h-4 text-[#2dd4bf]"></i></div>
+                    Undangan TadarusQ
+                </div>
+                <div onclick="sendShareCard('murajaah')" class="flex items-center gap-3 p-2.5 hover:bg-white/5 rounded-xl cursor-pointer text-white text-[13px] font-bold transition-colors">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-[#fbbf24]/10 flex items-center justify-center border border-[#fbbf24]/30"><i data-lucide="swords" class="w-4 h-4 text-[#fbbf24]"></i></div>
+                    Tantang 1v1 Murajaah
+                </div>
+                <div class="h-px w-full bg-white/10 my-1"></div>
+                <div onclick="sendShareCard('social')" class="flex items-center gap-3 p-2.5 hover:bg-white/5 rounded-xl cursor-pointer text-white text-[13px] font-bold transition-colors">
+                    <div class="w-8 h-8 shrink-0 rounded-full bg-white/10 flex items-center justify-center border border-white/20"><i data-lucide="layout-grid" class="w-4 h-4 text-white"></i></div>
+                    Bagikan Postingan
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="bg-[#121214] px-4 py-4 border-t border-white/5 relative z-30 pb-8 rounded-t-[32px] shadow-[0_-10px_30px_rgba(0,0,0,0.8)] flex items-center gap-3">
+                <button onclick="toggleShareMenu()" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition cursor-pointer shrink-0">
+                    <i data-lucide="plus" class="w-5 h-5"></i>
+                </button>
+                <div class="flex-1 bg-[#18181b] border border-white/10 rounded-full px-4 py-2.5 flex items-center gap-2 relative">
+                    <i data-lucide="smile" class="w-5 h-5 text-slate-500 cursor-pointer hover:text-white transition"></i>
+                    <input type="text" placeholder="Tulis pesan..." class="bg-transparent text-white text-[14px] w-full focus:outline-none placeholder-slate-500 font-medium">
+                </div>
+                <button class="w-10 h-10 rounded-full bg-gradient-to-r from-[#10b981] to-[#064e3b] flex items-center justify-center text-white shadow-[0_0_15px_rgba(16,185,129,0.3)] active:scale-95 transition cursor-pointer shrink-0 border border-[#10b981]/50">
+                    <i data-lucide="mic" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- MODAL: ADAB WARNING (BLOCK OPPOSITE GENDER)-->
+        <!-- ========================================== -->
+        <div id="adabWarningModal" class="absolute inset-0 z-[300] hidden items-center justify-center bg-black/80 backdrop-blur-md">
+            <div id="adabWarningBox" class="bg-[#09090b] border border-red-500/50 p-6 rounded-[32px] w-[85%] flex flex-col items-center text-center shadow-[0_15px_50px_rgba(239,68,68,0.2)]">
+                <div class="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mb-4 border border-red-500/30 text-red-500 relative">
+                    <div class="absolute inset-0 rounded-full bg-red-500/20 animate-ping"></div>
+                    <i data-lucide="shield-alert" class="w-10 h-10 relative z-10"></i>
+                </div>
+                <h3 class="text-white font-extrabold text-[20px] mb-2 tracking-tight">Peringatan Adab</h3>
+                <p class="text-slate-400 text-[13px] font-medium leading-relaxed mb-6">
+                    Demi menjaga adab pergaulan Islami, obrolan pribadi dengan lawan jenis diblokir oleh sistem. Silakan buat <b>Grup</b> dengan syarat minimal 2 Laki-laki & 2 Perempuan untuk keperluan syar'i.
+                </p>
+                <button onclick="closeAdabWarning()" class="w-full bg-red-500 text-white font-bold py-3.5 rounded-[18px] shadow-[0_0_20px_rgba(239,68,68,0.4)] active:scale-95 transition-transform cursor-pointer">
+                    Saya Mengerti
                 </button>
             </div>
         </div>
@@ -1142,7 +1654,8 @@
                 <button onclick="goToScreen('cameraScreen'); startLiveCamera();" class="w-14 h-14 bg-[#10b981] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)] -mt-10 border-[6px] border-[#09090b] text-[#09090b] hover:scale-105 active:scale-95 transition-transform cursor-pointer">
                     <i data-lucide="plus" class="w-7 h-7 font-black"></i>
                 </button>
-                <button class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
+                <!-- Messages Inactive -> Points to chatNotifScreen -->
+                <button onclick="goToScreen('chatNotifScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
                     <i data-lucide="message-circle" class="w-6 h-6"></i>
                 </button>
                 <button onclick="goToScreen('mySpaceQScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer relative">
@@ -2001,7 +2514,8 @@
                 <button onclick="goToScreen('cameraScreen'); startLiveCamera();" class="w-14 h-14 bg-[#10b981] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)] -mt-10 border-[6px] border-[#09090b] text-[#09090b] hover:scale-105 active:scale-95 transition-transform cursor-pointer">
                     <i data-lucide="plus" class="w-6 h-6 font-black"></i>
                 </button>
-                <button class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
+                <!-- Messages Inactive -> Points to chatNotifScreen -->
+                <button onclick="goToScreen('chatNotifScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
                     <i data-lucide="message-circle" class="w-6 h-6"></i>
                 </button>
                 <button class="text-[#10b981] flex flex-col items-center gap-1 active:scale-95 transition-all cursor-pointer relative">
@@ -2157,7 +2671,228 @@
         <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[130px] h-[5px] bg-white/40 rounded-full z-[100] pointer-events-none"></div>
     </div>
 
-    <script>
+        <script>
+        // ==========================================
+        // CHAT & ADAB LOGIC
+        // ==========================================
+        function attemptPrivateChat(targetGender, targetName) {
+            if (targetGender === 'wanita') {
+                // Munculkan Modal Peringatan
+                const modal = document.getElementById('adabWarningModal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                    
+                    // Mainkan animasi bounce pada kotak peringatan
+                    const box = document.getElementById('adabWarningBox');
+                    if (box) {
+                        box.classList.remove('anim-bounce-warning');
+                        void box.offsetWidth; // Trigger reflow untuk me-restart animasi
+                        box.classList.add('anim-bounce-warning');
+                    }
+                }
+            } else {
+                // Laki-laki atau grup, izinkan masuk
+                openChatDetail(targetName);
+            }
+        }
+
+        function closeAdabWarning() {
+            const modal = document.getElementById('adabWarningModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function openChatDetail(name) {
+            const nameElem = document.getElementById('chat-detail-name');
+            if (nameElem) {
+                nameElem.innerText = name;
+            }
+            goToScreen('chatDetailScreen');
+        }
+
+        // ==========================================
+        // SHARE MENU LOGIC (CHAT DETAIL)
+        // ==========================================
+        function toggleShareMenu() {
+            const menu = document.getElementById('chat-share-menu');
+            if(menu) {
+                if(menu.classList.contains('hidden')) {
+                    menu.classList.remove('hidden');
+                    menu.classList.add('flex', 'modal-slide-up');
+                } else {
+                    menu.classList.add('hidden');
+                    menu.classList.remove('flex', 'modal-slide-up');
+                }
+            }
+        }
+
+        function sendShareCard(type) {
+            // Sembunyikan menu
+            toggleShareMenu();
+
+            const container = document.getElementById('chat-messages-container');
+            if(!container) return;
+
+            const timeNow = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            let cardHtml = '';
+
+            // 1. Bagikan KajianQ
+            if (type === 'kajian') {
+                cardHtml = `
+                <div class="flex justify-end w-full mt-4 modal-slide-up">
+                    <div class="bg-gradient-to-r from-[#10b981]/20 to-[#064e3b]/40 border border-[#10b981]/30 p-2 rounded-[24px] rounded-tr-sm w-[260px] shadow-[0_5px_20px_rgba(16,185,129,0.15)] relative">
+                        <div class="bg-[#09090b] rounded-[18px] p-3 border border-white/5 relative overflow-hidden">
+                            <div class="absolute -right-6 -top-6 w-20 h-20 bg-[#10b981]/20 rounded-full blur-xl pointer-events-none"></div>
+                            
+                            <p class="text-[#10b981] text-[10px] font-black uppercase tracking-widest mb-2 flex items-center gap-1"><i data-lucide="bookmark" class="w-3 h-3"></i> Undangan KajianQ</p>
+                            
+                            <div class="flex gap-2 items-center mb-3">
+                                <img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=100&q=80" class="w-10 h-10 rounded-xl object-cover border border-[#10b981]/50 shadow-sm shrink-0">
+                                <div>
+                                    <h4 class="text-white font-extrabold text-[13px] leading-tight">Fiqih Muamalah</h4>
+                                    <p class="text-slate-400 text-[10px] font-semibold mt-0.5">Ust. Dr. Erwandi Tarmizi</p>
+                                </div>
+                            </div>
+                            <button onclick="goToScreen('kajianLobbyScreen')" class="w-full bg-[#10b981] text-[#09090b] py-2 rounded-xl text-[12px] font-bold active:scale-95 transition-transform flex items-center justify-center gap-1.5 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                                <i data-lucide="arrow-right-circle" class="w-4 h-4"></i> Ikut Ini Yuk
+                            </button>
+                        </div>
+                        <span class="text-slate-500 text-[9px] absolute -bottom-5 right-2 font-bold flex items-center gap-1">${timeNow} <i data-lucide="check-check" class="w-3 h-3 text-[#10b981]"></i></span>
+                    </div>
+                </div>`;
+            } 
+            // 2. Bagikan TadarusQ
+            else if (type === 'tadarus') {
+                cardHtml = `
+                <div class="flex justify-end w-full mt-4 modal-slide-up">
+                    <div class="bg-gradient-to-r from-[#2dd4bf]/20 to-[#0f766e]/40 border border-[#2dd4bf]/30 p-2 rounded-[24px] rounded-tr-sm w-[260px] shadow-[0_5px_20px_rgba(45,212,191,0.15)] relative">
+                        <div class="bg-[#09090b] rounded-[18px] p-3 border border-white/5 relative overflow-hidden">
+                            <div class="absolute -right-6 -top-6 w-20 h-20 bg-[#2dd4bf]/20 rounded-full blur-xl pointer-events-none"></div>
+                            
+                            <p class="text-[#2dd4bf] text-[10px] font-black uppercase tracking-widest mb-2 flex items-center gap-1"><i data-lucide="users" class="w-3 h-3"></i> Undangan TadarusQ</p>
+                            
+                            <div class="flex gap-2 items-center mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0f766e] to-[#09090b] flex items-center justify-center border border-[#2dd4bf]/50 shadow-sm shrink-0">
+                                    <i data-lucide="book-open" class="w-5 h-5 text-[#2dd4bf]"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-extrabold text-[13px] leading-tight">Gas Khatam Juz 30</h4>
+                                    <p class="text-slate-400 text-[10px] font-semibold mt-0.5">👤 6/10 Peserta • Ikhwan</p>
+                                </div>
+                            </div>
+                            <button onclick="joinTadarusRoom(78, 'Gas Khatam Juz 30')" class="w-full bg-[#2dd4bf] text-[#09090b] py-2 rounded-xl text-[12px] font-bold active:scale-95 transition-transform flex items-center justify-center gap-1.5 shadow-[0_0_10px_rgba(45,212,191,0.3)]">
+                                <i data-lucide="mic" class="w-4 h-4"></i> Gabung Ruangan
+                            </button>
+                        </div>
+                        <span class="text-slate-500 text-[9px] absolute -bottom-5 right-2 font-bold flex items-center gap-1">${timeNow} <i data-lucide="check-check" class="w-3 h-3 text-[#10b981]"></i></span>
+                    </div>
+                </div>`;
+            } 
+            // 3. Bagikan Tantangan MurajaahQ
+            else if (type === 'murajaah') {
+                cardHtml = `
+                <div class="flex justify-end w-full mt-4 modal-slide-up">
+                    <div class="bg-gradient-to-r from-[#fbbf24]/20 to-[#b45309]/40 border border-[#fbbf24]/30 p-2 rounded-[24px] rounded-tr-sm w-[260px] shadow-[0_5px_20px_rgba(251,191,36,0.15)] relative">
+                        <div class="bg-[#09090b] rounded-[18px] p-3 border border-white/5 relative overflow-hidden">
+                            <div class="absolute -right-6 -top-6 w-20 h-20 bg-[#fbbf24]/20 rounded-full blur-xl pointer-events-none"></div>
+                            
+                            <p class="text-[#fbbf24] text-[10px] font-black uppercase tracking-widest mb-2 flex items-center gap-1"><i data-lucide="swords" class="w-3 h-3"></i> Tantangan MurajaahQ</p>
+                            
+                            <div class="flex gap-2 items-center mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#b45309] to-[#09090b] flex items-center justify-center border border-[#fbbf24]/50 shadow-sm shrink-0">
+                                    <i data-lucide="shield" class="w-5 h-5 text-[#fbbf24]"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-extrabold text-[13px] leading-tight">Saya menantangmu!</h4>
+                                    <p class="text-slate-400 text-[10px] font-semibold mt-0.5">1v1 Hafalan Cepat</p>
+                                </div>
+                            </div>
+                            <button onclick="goToScreen('murajaahVersusLobbyScreen')" class="w-full bg-[#fbbf24] text-[#09090b] py-2 rounded-xl text-[12px] font-bold active:scale-95 transition-transform flex items-center justify-center gap-1.5 shadow-[0_0_10px_rgba(251,191,36,0.3)]">
+                                <i data-lucide="crosshair" class="w-4 h-4"></i> Terima Tantangan
+                            </button>
+                        </div>
+                        <span class="text-slate-500 text-[9px] absolute -bottom-5 right-2 font-bold flex items-center gap-1">${timeNow} <i data-lucide="check-check" class="w-3 h-3 text-[#10b981]"></i></span>
+                    </div>
+                </div>`;
+            } 
+            // 4. Bagikan SocialQ
+            else if (type === 'social') {
+                cardHtml = `
+                <div class="flex justify-end w-full mt-4 modal-slide-up">
+                    <div class="bg-gradient-to-r from-white/10 to-white/5 border border-white/20 p-2 rounded-[24px] rounded-tr-sm w-[260px] shadow-[0_5px_20px_rgba(0,0,0,0.3)] relative">
+                        <div class="bg-[#09090b] rounded-[18px] p-3 border border-white/5 relative overflow-hidden">
+                            <p class="text-slate-300 text-[10px] font-black uppercase tracking-widest mb-2 flex items-center gap-1"><i data-lucide="layout-grid" class="w-3 h-3"></i> Postingan SocialQ</p>
+                            <div class="relative w-full h-[120px] rounded-xl overflow-hidden mb-3 border border-white/10 bg-[#18181b]">
+                                <video src="https://vjs.zencdn.net/v/oceans.mp4" class="w-full h-full object-cover" muted loop></video>
+                                <div class="absolute inset-0 bg-black/30 flex items-center justify-center pointer-events-none">
+                                    <i data-lucide="play-circle" class="w-10 h-10 text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]"></i>
+                                </div>
+                            </div>
+                            <h4 class="text-white font-extrabold text-[13px] leading-tight mb-1 truncate">Momen otentikku.</h4>
+                            <button onclick="goToScreen('socialQScreen')" class="w-full bg-white text-[#09090b] py-2 rounded-xl text-[12px] font-bold active:scale-95 transition-transform flex items-center justify-center gap-1.5 mt-2">
+                                Lihat Postingan
+                            </button>
+                        </div>
+                        <span class="text-slate-500 text-[9px] absolute -bottom-5 right-2 font-bold flex items-center gap-1">${timeNow} <i data-lucide="check-check" class="w-3 h-3 text-[#10b981]"></i></span>
+                    </div>
+                </div>`;
+            }
+
+            // Memasukkan pesan ke DOM
+            container.insertAdjacentHTML('beforeend', cardHtml);
+            
+            // Re-render Icons
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+
+            // Memastikan scroll berada di bawah & Menghapus spacer lama
+            const existingSpacers = container.querySelectorAll('.chat-spacer');
+            existingSpacers.forEach(s => s.remove());
+            container.insertAdjacentHTML('beforeend', `<div class="h-10 w-full shrink-0 chat-spacer"></div>`);
+            
+            // Auto Scroll
+            container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+
+            // Panggil simulasi teman menjawab (Konteks Chat: Fahmi Idris)
+            simulateFriendReply(type);
+        }
+
+        function simulateFriendReply(type) {
+            // Beri waktu 3 detik agar terlihat natural seolah sedang mengetik
+            setTimeout(() => {
+                const container = document.getElementById('chat-messages-container');
+                if(!container) return;
+
+                const timeNow = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                let replyText = '';
+
+                // Logika balasan berdasarkan apa yang dibagikan pengguna
+                if (type === 'kajian') replyText = "Wah masya Allah, ana ikut daftar juga kalau begitu. Syukran infonya akhi.";
+                else if (type === 'tadarus') replyText = "Siap gas! Ana wudhu dulu baru nyusul masuk room ya.";
+                else if (type === 'murajaah') replyText = "Boleh, siapa takut! Ana siap bantai antum di Juz 30 😎🔥";
+                else if (type === 'social') replyText = "Masya Allah momennya. Semoga istiqomah terus ya antum!";
+
+                const replyHtml = `
+                <div class="flex justify-start w-full mt-4 modal-slide-up">
+                    <div class="bg-[#18181b] border border-white/10 text-white p-3.5 rounded-[20px] rounded-tl-sm max-w-[80%] shadow-sm relative">
+                        <p class="text-[14px] leading-relaxed">${replyText}</p>
+                        <span class="text-slate-500 text-[9px] absolute -bottom-5 right-1 font-bold">${timeNow}</span>
+                    </div>
+                </div>`;
+
+                container.insertAdjacentHTML('beforeend', replyHtml);
+                
+                // Rapikan scroll lagi
+                const existingSpacers = container.querySelectorAll('.chat-spacer');
+                existingSpacers.forEach(s => s.remove());
+                container.insertAdjacentHTML('beforeend', `<div class="h-10 w-full shrink-0 chat-spacer"></div>`);
+                container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' });
+                
+            }, 3000); 
+        }
+
         // ==========================================
         // ROUTING & CORE UI - 100% PROTECTED DOM
         // ==========================================
