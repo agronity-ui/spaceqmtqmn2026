@@ -2745,6 +2745,24 @@
         </div>
 
         <!-- Home Indicator -->
+        <div id="murajaahCooldownModal" class="absolute inset-0 z-[300] hidden items-center justify-center bg-black/80 backdrop-blur-md">
+            <div class="bg-[#09090b] border border-orange-500/50 p-6 rounded-[32px] w-[85%] flex flex-col items-center text-center shadow-[0_15px_50px_rgba(249,115,22,0.2)] transform transition-transform duration-300 scale-95" id="cooldownModalBox">
+                <div class="w-20 h-20 bg-orange-500/10 rounded-full flex items-center justify-center mb-4 border border-orange-500/30 text-orange-500 relative">
+                    <i data-lucide="heart-crack" class="w-10 h-10 relative z-10"></i>
+                </div>
+                <h3 class="text-white font-extrabold text-[20px] mb-2 tracking-tight">Nyawa Habis!</h3>
+                <p class="text-slate-400 text-[13px] font-medium leading-relaxed mb-4">
+                    Kamu terlalu banyak melakukan kesalahan. Silakan baca dan ingat kembali hafalanmu di Mushaf. Fitur ini terbuka dalam:
+                </p>
+                <div class="bg-[#18181b] border border-white/10 px-6 py-3 rounded-2xl mb-6 shadow-inner">
+                    <span id="cooldown-timer-text" class="text-orange-500 font-black text-[24px] tracking-widest">60:00</span>
+                </div>
+                <button onclick="closeCooldownModal(); openQuranList();" class="w-full bg-gradient-to-r from-orange-500 to-amber-600 text-white font-bold py-3.5 rounded-[18px] shadow-[0_0_20px_rgba(249,115,22,0.4)] active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2">
+                    <i data-lucide="book-open" class="w-5 h-5"></i> Baca Al-Qur'an
+                </button>
+                <button onclick="closeCooldownModal()" class="w-full mt-3 text-slate-500 text-[12px] font-bold hover:text-white transition-colors cursor-pointer">Tutup</button>
+            </div>
+        </div>
         <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[130px] h-[5px] bg-white/40 rounded-full z-[100] pointer-events-none"></div>
     </div>
 
@@ -3855,7 +3873,45 @@
         let isMurajaahEvaluating = false;
         let murajaahHearts = 5;
         let murajaahXP = 0;
-
+        let cooldownInterval = null;
+        function checkMurajaahCooldown() {
+            const cooldownEnd = localStorage.getItem('murajaahCooldownEnd');
+            if (!cooldownEnd) return false;
+            if (Date.now() < parseInt(cooldownEnd)) { return true; } 
+            else {
+                localStorage.removeItem('murajaahCooldownEnd');
+                murajaahHearts = 5; updateGamification(); return false;
+            }
+        }
+        function showCooldownModal() {
+            const modal = document.getElementById('murajaahCooldownModal');
+            const box = document.getElementById('cooldownModalBox');
+            if(modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
+            setTimeout(() => { if(box) { box.classList.remove('scale-95'); box.classList.add('scale-100'); } }, 50);
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+            clearInterval(cooldownInterval);
+            cooldownInterval = setInterval(() => {
+                const end = localStorage.getItem('murajaahCooldownEnd');
+                if(!end) { clearInterval(cooldownInterval); closeCooldownModal(); return; }
+                const diff = parseInt(end) - Date.now();
+                if(diff <= 0) {
+                    clearInterval(cooldownInterval); closeCooldownModal();
+                    murajaahHearts = 5; updateGamification();
+                    alert("Alhamdulillah, energi Murajaah kamu sudah penuh kembali!");
+                } else {
+                    const m = Math.floor((diff / 1000 / 60));
+                    const s = Math.floor((diff / 1000) % 60);
+                    const txt = document.getElementById('cooldown-timer-text');
+                    if(txt) txt.innerText = (m < 10 ? '0'+m : m) + ':' + (s < 10 ? '0'+s : s);
+                }
+            }, 1000);
+        }
+        function closeCooldownModal() {
+            const modal = document.getElementById('murajaahCooldownModal');
+            const box = document.getElementById('cooldownModalBox');
+            if(box) { box.classList.remove('scale-100'); box.classList.add('scale-95'); }
+            setTimeout(() => { if(modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); } }, 300);
+        }
         function getRankDetails(xp) {
             if (xp < 100) return { name: 'Pemula', iconColor: 'text-orange-500' };
             if (xp < 300) return { name: 'Pejuang', iconColor: 'text-slate-400' };
@@ -3927,7 +3983,8 @@
         }
 
         async function loadMurajaahSurah(surahNumber) {
-            goToScreen('murajaahScreen'); 
+            if (checkMurajaahCooldown()) { showCooldownModal(); return; }
+            goToScreen('murajaahScreen');; 
             
             const loading = document.getElementById('murajaah-loading');
             const content = document.getElementById('murajaah-content');
