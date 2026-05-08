@@ -4018,20 +4018,6 @@
         }
 
         function renderMurajaahAyah() {
-            // Cek apakah ayat yang baru saja diselesaikan adalah ayat terakhir surah
-            // Contoh: Jika surah yang dipilih adalah Al-Fatihah, ayat ke-7 adalah ayat terakhir.
-            const totalAyat = this.getSurahTotalAyat(this.currentSurahId); // Fungsi buatan (asumsi kamu sudah punya cara dpt total ayat)
-
-            if (this.currentAyahIndex + 1 > totalAyat) { // Jika index sudah melebihi total ayat
-                // Misi Surah Selesai! Tampilkan Overlay.
-                showSurahCompletionOverlay(this.currentSurahName); // Panggil fungsi dengan nama surah
-                // Reset murajaah jika perlu, atau stop di sini.
-                // this.currentAyahIndex = 0; // Opsional: reset ke awal surah
-                return; // Berhenti agar tidak merender ayat di luar range
-            }
-
-            // ... (lanjutkan render ayat berikutnya secara normal jika bukan ayat terakhir) ...
-        },
             const ayah = murajaahAyahs[currentMurajaahIndex];
             if (!ayah) return;
 
@@ -4248,10 +4234,9 @@
                 currentMurajaahIndex++;
                 setTimeout(() => renderMurajaahAyah(), 300);
             } else {
-    // Ambil nama surah dari judul layar murajaah
-    const surahName = document.getElementById('murajaah-nav')?.parentElement?.querySelector('h2')?.innerText || "Surah";
-    showSurahCompletionOverlay(surahName);
-}
+                alert("Alhamdulillah, kamu telah menyelesaikan hafalan surah ini!");
+                goToScreen('murajaahMapScreen');
+            }
         }
 
         // ==========================================
@@ -5074,56 +5059,6 @@ function injectStagedCard(type, title, subtitle) {
     if(typeof lucide !== 'undefined') lucide.createIcons();
     setTimeout(() => { container.scrollTop = container.scrollHeight; }, 100);
 }
-        // --- FUNGSI UNTUK MENAMPILKAN & MENUTUP OVERLAY ---
-function showSurahCompletionOverlay(surahName) {
-    const overlay = document.getElementById('surah-completion-overlay');
-    const info = document.getElementById('completion-surah-info');
-    
-    if (overlay && info) {
-        info.innerHTML = `Surah <span class="text-[#10b981] font-bold">${surahName}</span>`;
-        overlay.classList.remove('hidden');
-        overlay.classList.add('flex');
-    }
-}
-
-function closeSurahCompletionOverlay() {
-    const overlay = document.getElementById('surah-completion-overlay');
-    if (overlay) {
-        overlay.classList.add('hidden');
-        overlay.classList.remove('flex');
-        // Balik ke Map setelah selesai
-        goToScreen('murajaahMapScreen');
-    }
-}
     </script>
-    <div id="surah-completion-overlay" class="fixed inset-0 bg-black/80 flex items-center justify-center p-6 z-[300] hidden transition-opacity duration-300">
-        <div class="bg-[#09090b] w-full max-w-sm rounded-3xl p-8 border-2 border-[#10b981]/60 shadow-[0_0_50px_rgba(16,185,129,0.5)] flex flex-col items-center text-center animate-completion-pop">
-            
-            <div class="relative w-36 h-36 mb-6 flex items-center justify-center">
-                <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-[#10b981] to-[#b5a26c] shadow-[0_0_60px_rgba(16,185,129,0.8)] animate-pulse-golden"></div>
-                <div class="relative bg-zinc-950/90 rounded-full w-[130px] h-[130px] flex items-center justify-center border border-white/10">
-                    <span class="text-6xl drop-shadow-[0_0_15px_rgba(181,162,108,0.9)] animate-shimmer-mushaf">📖</span>
-                </div>
-            </div>
-
-            <h1 class="text-[17px] font-medium text-[#10b981]/90 tracking-wide uppercase mt-2 mb-1">Misi Murajaah Selesai!</h1>
-            <h2 class="text-3xl font-black text-[#b5a26c] leading-none tracking-tight drop-shadow-[0_0_20px_rgba(181,162,108,0.7)]">Alhamdulillah!</h2>
-            
-            <div class="text-white/60 font-medium text-[16px] mt-6 flex flex-col gap-1 items-center">
-                <span>Semoga hafalanmu kokoh di hati.</span>
-                <span id="completion-surah-info" class="text-white/90 font-bold text-[18px]">Surah <span class="text-[#10b981]">[Nama Surah]</span></span>
-            </div>
-
-            <div class="w-full bg-[#10b981]/10 rounded-2xl p-4 mt-8 mb-6 border border-[#10b981]/20 flex items-center gap-3">
-                <span class="text-3xl">✨</span>
-                <p class="text-white/90 font-medium text-[15px] text-left leading-snug">Pahala yang besar telah menanti. Teruslah istiqamah.</p>
-            </div>
-
-            <button onclick="closeSurahCompletionOverlay()" class="w-full h-14 bg-gradient-to-tr from-[#10b981] to-[#064e3b] text-white rounded-xl flex items-center justify-center gap-3 shadow-[0_4px_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_30px_rgba(16,185,129,0.7)] transition-all group active:scale-95">
-                <span class="font-bold text-[17px] tracking-tight">Kumpulkan Berkah & Lanjut</span>
-                <svg class="w-6 h-6 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </button>
-        </div>
-    </div>
 </body>
 </html>
