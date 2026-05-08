@@ -1772,16 +1772,28 @@
         <div id="tadarusLobbyScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-[40]">
             <!-- Header -->
             <div class="pt-14 pb-4 px-6 flex items-center justify-between bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-30 border-b border-white/5">
-                <button onclick="goToScreen('homeScreen')" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer active:scale-95">
+                <button onclick="goToScreen('homeScreen')" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer active:scale-95 border border-white/5">
                     <i data-lucide="arrow-left" class="w-5 h-5 text-white"></i>
                 </button>
                 <h2 class="text-[20px] font-extrabold text-white">Lobby TadarusQ</h2>
-                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer">
+                <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors cursor-pointer border border-white/5">
                     <i data-lucide="search" class="w-5 h-5 text-white"></i>
                 </button>
             </div>
             
             <div class="flex-1 overflow-y-auto hide-scroll px-6 pt-6 pb-24 flex flex-col">
+                <div onclick="openQuranList()" class="w-full bg-[#18181b] border border-[#10b981]/30 rounded-[24px] p-4 flex items-center gap-4 mb-6 shadow-[0_0_20px_rgba(16,185,129,0.1)] hover:border-[#10b981]/60 transition-all cursor-pointer active:scale-95 group relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 w-16 h-16 bg-[#10b981]/10 rounded-full blur-xl group-hover:scale-150 transition-transform duration-500"></div>
+                    <div class="w-12 h-12 rounded-full bg-[#10b981]/10 flex items-center justify-center border border-[#10b981]/30 group-hover:bg-[#10b981]/20 transition-colors shrink-0 z-10">
+                        <i data-lucide="book-open" class="w-6 h-6 text-[#10b981]"></i>
+                    </div>
+                    <div class="relative z-10 flex-1">
+                        <h3 class="font-extrabold text-white text-[16px] leading-tight mb-1">Mushaf Pribadi</h3>
+                        <p class="text-slate-400 text-[12px] font-semibold">Baca Al-Qur'an Penuh</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-5 h-5 text-[#10b981] opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all relative z-10 shrink-0"></i>
+                </div>
+
                 <div class="w-full bg-gradient-to-br from-[#064e3b] to-[#09090b] rounded-[28px] p-5 shadow-[0_10px_30px_rgba(0,0,0,0.8)] border border-white/10 cursor-pointer hover:-translate-y-2 transition-transform relative z-10 mb-4">
                     <div class="flex justify-between items-start mb-3">
                         <div>
@@ -2667,11 +2679,47 @@
             </div>
         </div>
 
+        <!-- ========================================== -->
+        <!-- NEW SCREEN: QURAN LIST                     -->
+        <!-- ========================================== -->
+        <div id="quranListScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-[#09090b] flex flex-col z-[80]">
+            <!-- Header -->
+            <div class="pt-14 px-6 pb-4 flex items-center justify-between bg-[#09090b]/90 backdrop-blur-md sticky top-0 z-30 border-b border-white/5">
+                <button onclick="goToScreen('tadarusLobbyScreen')" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#18181b] hover:bg-white/10 transition-colors cursor-pointer active:scale-95 border border-white/5">
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-white"></i>
+                </button>
+                <h2 class="text-[20px] font-extrabold text-white tracking-tight">Al-Qur'an</h2>
+                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-[#18181b] hover:bg-white/10 transition-colors cursor-pointer border border-white/5">
+                    <i data-lucide="search" class="w-5 h-5 text-white"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div id="quran-surah-container" class="flex-1 overflow-y-auto hide-scroll pb-10 px-4 pt-4 flex flex-col gap-2"></div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- NEW SCREEN: QURAN READ (FULL SCREEN)       -->
+        <!-- ========================================== -->
+        <div id="quranReadScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-[#09090b] flex flex-col z-[90]">
+            <!-- Header Sticky -->
+            <div class="pt-14 px-6 pb-4 flex items-center justify-between bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-30 border-b border-white/5">
+                <button onclick="goToScreen('quranListScreen')" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#18181b] hover:bg-white/10 transition-colors cursor-pointer active:scale-95 border border-white/5">
+                    <i data-lucide="arrow-left" class="w-5 h-5 text-white"></i>
+                </button>
+                <h2 id="quran-read-title" class="text-[18px] font-extrabold text-white tracking-tight">Nama Surah</h2>
+                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-[#18181b] hover:bg-white/10 transition-colors cursor-pointer border border-white/5">
+                    <i data-lucide="settings" class="w-5 h-5 text-white"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div id="quran-ayah-container" class="flex-1 overflow-y-auto hide-scroll px-6 pb-20 flex flex-col"></div>
+        </div>
+
         <!-- Home Indicator -->
         <div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[130px] h-[5px] bg-white/40 rounded-full z-[100] pointer-events-none"></div>
     </div>
 
-        <script>
+    <script>
         // ==========================================
         // CHAT & ADAB LOGIC
         // ==========================================
@@ -4690,6 +4738,99 @@
             
             // Hapus event yang sudah dikonsumsi
             deferredPrompt = null;
+        }
+
+        // ==========================================
+        // QURANQ (MUSHAF PRIBADI) LOGIC
+        // ==========================================
+        function openQuranList() {
+            goToScreen('quranListScreen');
+            const container = document.getElementById('quran-surah-container');
+            if(!container) return;
+
+            if (murajaahSurahs && murajaahSurahs.length > 0) {
+                let html = '';
+                murajaahSurahs.forEach(surah => {
+                    html += `
+                    <div onclick="openQuranSurah(${surah.nomor}, '${surah.namaLatin.replace(/'/g, "\\'")}')" class="bg-[#18181b] border border-white/5 rounded-2xl p-4 flex items-center justify-between cursor-pointer hover:border-[#10b981]/50 hover:bg-white/5 active:scale-95 transition-all group shadow-sm">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center text-slate-400 font-bold text-[12px] group-hover:bg-[#10b981]/20 group-hover:text-[#10b981] transition-colors border border-white/10">
+                                ${surah.nomor}
+                            </div>
+                            <div>
+                                <h4 class="text-white font-extrabold text-[15px] leading-tight mb-1">${surah.namaLatin}</h4>
+                                <div class="flex items-center gap-2 text-[10px] font-semibold text-slate-500 uppercase tracking-widest">
+                                    <span>${surah.tempatTurun}</span>
+                                    <span class="w-1 h-1 rounded-full bg-slate-600"></span>
+                                    <span>${surah.jumlahAyat} Ayat</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="font-arabic text-[#10b981] text-[22px] drop-shadow-[0_0_5px_rgba(16,185,129,0.3)] font-bold" style="font-family: 'Amiri', serif;">${surah.nama}</span>
+                    </div>
+                    `;
+                });
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = `<div class="flex justify-center mt-10"><i data-lucide="loader-2" class="w-8 h-8 animate-spin text-[#10b981]"></i></div>`;
+                if(typeof lucide !== 'undefined') lucide.createIcons();
+            }
+        }
+
+        async function openQuranSurah(nomor, nama) {
+            const titleElem = document.getElementById('quran-read-title');
+            if(titleElem) titleElem.innerText = nama;
+            
+            const container = document.getElementById('quran-ayah-container');
+            if(!container) return;
+            
+            container.innerHTML = `
+                <div class="flex flex-col items-center justify-center mt-32 gap-4">
+                    <i data-lucide="loader-2" class="w-10 h-10 animate-spin text-[#10b981]"></i>
+                    <span class="text-slate-400 text-sm font-bold">Memuat Ayat...</span>
+                </div>
+            `;
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+            goToScreen('quranReadScreen');
+
+            try {
+                const res = await fetch(`https://equran.id/api/v2/surat/${nomor}`);
+                const result = await res.json();
+                
+                if(result.code === 200) {
+                    let html = '<div class="pt-6"></div>';
+                    
+                    if (nomor !== 1 && nomor !== 9) {
+                        html += `
+                        <div class="text-center w-full mb-8 mt-2">
+                            <span class="font-arabic text-[28px] text-white drop-shadow-md" style="font-family: 'Amiri', serif;">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</span>
+                        </div>
+                        `;
+                    }
+
+                    result.data.ayat.forEach(ayah => {
+                        let cleanText = ayah.teksArab;
+                        if (nomor !== 1 && nomor !== 9 && ayah.nomorAyat === 1) {
+                            cleanText = cleanText.replace(/بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ /g, '').replace(/بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ /g, '');
+                        }
+
+                        html += `
+                        <div class="flex flex-col gap-3 mt-4">
+                            <div class="bg-white/10 text-white w-9 h-9 rounded-lg flex items-center justify-center text-[13px] font-extrabold shrink-0 mb-2 border border-white/10 shadow-sm">
+                                ${ayah.nomorAyat}
+                            </div>
+                            <p class="font-arabic text-[32px] leading-[2.5] text-right text-white pb-4" dir="rtl" style="font-family: 'Amiri', serif;">${cleanText}</p>
+                            <p class="text-[14px] text-slate-400 font-medium leading-relaxed pb-6 border-b border-white/5">
+                                ${ayah.teksIndonesia}
+                            </p>
+                        </div>
+                        `;
+                    });
+                    container.innerHTML = html;
+                }
+            } catch(e) {
+                container.innerHTML = `<div class="text-red-500 text-center mt-10 font-bold">Gagal memuat surah. Periksa koneksi internet Anda.</div>`;
+            }
         }
 
         // MENJALANKAN INISIASI KETIKA HALAMAN DIMUAT
