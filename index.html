@@ -4051,7 +4051,7 @@
             if(arabicElem) arabicElem.classList.add('blur-md');
             
             const blurOverlay = document.getElementById('murajaah-blur-overlay');
-            if(blurOverlay) { blurOverlay.classList.remove('hidden'); blurOverlay.classList.add('flex'); }
+            if(blurOverlay) { blurOverlay.classList.add('hidden'); blurOverlay.classList.remove('flex'); } // Sembunyikan di awal
             
             hideMurajaahFeedback();
         }
@@ -4181,6 +4181,10 @@
                     if(title) { title.innerText = "Belum Tepat"; title.className = "font-black text-[24px] text-duo-red-dark leading-none"; }
                     if(desc) { desc.innerText = feedbackText || "Coba perhatikan makhraj dan tajwidnya lagi."; desc.className = "font-bold text-[15px] text-duo-red-dark/80 mt-2"; }
                     
+                    // Munculkan tombol bantuan Ketuk Ayat karena user salah
+                    const blurOverlay = document.getElementById('murajaah-blur-overlay');
+                    if(blurOverlay) { blurOverlay.classList.remove('hidden'); blurOverlay.classList.add('flex'); }
+
                     if (transcript && trans) {
                         trans.classList.remove('hidden');
                         trans.innerText = `Simulasi Analisis: "${transcript}"`;
