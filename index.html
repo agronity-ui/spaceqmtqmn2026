@@ -4274,9 +4274,18 @@
             startVersusMatch(surahNum);
         }
 
-        function startVersusFromModal() {
+function startVersusFromModal() {
             closeCreateVersusModal();
             setTimeout(() => {
+                // CEK APAKAH SEDANG DARI MENU SHARE CHAT
+                if (window.isSharingMurajaahToChat) {
+                    // Jangan masuk ke game, tapi inject kartu ke chat
+                    injectStagedCard('murajaah', 'Tantangan 1v1', 'Menunggu lawan');
+                    window.isSharingMurajaahToChat = false; // reset flag
+                    return; // Hentikan fungsi di sini agar layar tidak pindah ke roda putar
+                }
+                
+                // JIKA BUKAN DARI CHAT, JALANKAN GAME SEPERTI BIASA
                 let targetSurah = window.selectedVsSurah || 112;
                 startVersusMatch(targetSurah);
             }, 300);
