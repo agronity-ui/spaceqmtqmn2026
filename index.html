@@ -328,6 +328,25 @@
             70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
             100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
+
+        @keyframes completion-pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-completion-pop { animation: completion-pop 0.5s cubic-bezier(0.17, 0.89, 0.32, 1.28) forwards; }
+        @keyframes shimmer-mushaf {
+            0% { filter: brightness(1); transform: scale(1); }
+            50% { filter: brightness(1.3); transform: scale(1.05); }
+            100% { filter: brightness(1); transform: scale(1); }
+        }
+        .animate-shimmer-mushaf { animation: shimmer-mushaf 3s infinite; }
+        @keyframes pulse-golden {
+            0% { box-shadow: 0 0 20px rgba(181, 162, 108, 0.4); }
+            50% { box-shadow: 0 0 60px rgba(181, 162, 108, 0.8); }
+            100% { box-shadow: 0 0 20px rgba(181, 162, 108, 0.4); }
+        }
+        .animate-pulse-golden { animation: pulse-golden 3s infinite; }
+
     </style>
 </head>
 <body class="bg-[#09090b] sm:bg-zinc-950 flex items-center justify-center min-h-[100dvh] sm:p-4 font-sans antialiased m-0 p-0 overflow-hidden sm:overflow-auto">
@@ -2230,6 +2249,32 @@
             </div>
         </div>
 
+
+        <div id="surah-completion-overlay" class="absolute inset-0 bg-black/80 flex items-center justify-center p-6 z-[300] hidden transition-opacity duration-300 backdrop-blur-md">
+            <div class="bg-[#09090b] w-full max-w-sm rounded-3xl p-8 border-2 border-[#10b981]/60 shadow-[0_0_50px_rgba(16,185,129,0.5)] flex flex-col items-center text-center animate-completion-pop">
+                <div class="relative w-36 h-36 mb-6 flex items-center justify-center">
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-[#10b981] to-[#b5a26c] shadow-[0_0_60px_rgba(16,185,129,0.8)] animate-pulse-golden"></div>
+                    <div class="relative bg-zinc-950/90 rounded-full w-[130px] h-[130px] flex items-center justify-center border border-white/10">
+                        <span class="text-6xl drop-shadow-[0_0_15px_rgba(181,162,108,0.9)] animate-shimmer-mushaf">📖</span>
+                    </div>
+                </div>
+                <h1 class="text-[17px] font-medium text-[#10b981]/90 tracking-wide uppercase mt-2 mb-1">Misi Murajaah Selesai!</h1>
+                <h2 class="text-3xl font-black text-[#b5a26c] leading-none tracking-tight drop-shadow-[0_0_20px_rgba(181,162,108,0.7)]">Alhamdulillah!</h2>
+                <div class="text-white/60 font-medium text-[16px] mt-6 flex flex-col gap-1 items-center">
+                    <span>Semoga hafalanmu kokoh di hati.</span>
+                    <span id="completion-surah-info" class="text-white/90 font-bold text-[18px]">Surah <span class="text-[#10b981]">[Nama Surah]</span></span>
+                </div>
+                <div class="w-full bg-[#10b981]/10 rounded-2xl p-4 mt-8 mb-6 border border-[#10b981]/20 flex items-center gap-3">
+                    <span class="text-3xl">✨</span>
+                    <p class="text-white/90 font-medium text-[13px] text-left leading-snug">Pahala yang besar telah menanti. Teruslah istiqamah.</p>
+                </div>
+                <button onclick="closeSurahCompletionOverlay()" class="w-full h-14 bg-gradient-to-tr from-[#10b981] to-[#064e3b] text-white rounded-xl flex items-center justify-center gap-3 shadow-[0_4px_20px_rgba(16,185,129,0.4)] hover:shadow-[0_0_30px_rgba(16,185,129,0.7)] transition-all group active:scale-95 cursor-pointer">
+                    <span class="font-bold text-[17px] tracking-tight">Kumpulkan Berkah & Lanjut</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5 transform transition-transform group-hover:translate-x-1"></i>
+                </button>
+            </div>
+        </div>
+
         <!-- ========================================== -->
         <!-- MODAL: CREATE ROOM TADARUSQ                -->
         <!-- ========================================== -->
@@ -3978,6 +4023,7 @@
         }
 
         async function loadMurajaahSurah(surahNumber) {
+            window.selectedMurajaahSurah = surahNumber;
             if (checkMurajaahCooldown()) { showCooldownModal(); return; }
             goToScreen('murajaahScreen');; 
             
@@ -4234,8 +4280,9 @@
                 currentMurajaahIndex++;
                 setTimeout(() => renderMurajaahAyah(), 300);
             } else {
-                alert("Alhamdulillah, kamu telah menyelesaikan hafalan surah ini!");
-                goToScreen('murajaahMapScreen');
+                const surahObj = murajaahSurahs.find(s => s.nomor === window.selectedMurajaahSurah);
+                const surahName = surahObj ? surahObj.namaLatin : "Selesai";
+                showSurahCompletionOverlay(surahName);
             }
         }
 
@@ -5059,6 +5106,25 @@ function injectStagedCard(type, title, subtitle) {
     if(typeof lucide !== 'undefined') lucide.createIcons();
     setTimeout(() => { container.scrollTop = container.scrollHeight; }, 100);
 }
+        function showSurahCompletionOverlay(surahName) {
+            const overlay = document.getElementById('surah-completion-overlay');
+            const info = document.getElementById('completion-surah-info');
+            if (overlay && info) {
+                info.innerHTML = `Surah <span class="text-[#10b981] font-bold">${surahName}</span>`;
+                overlay.classList.remove('hidden');
+                overlay.classList.add('flex');
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+        function closeSurahCompletionOverlay() {
+            const overlay = document.getElementById('surah-completion-overlay');
+            if (overlay) {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+                goToScreen('murajaahMapScreen');
+            }
+        }
+
     </script>
 </body>
 </html>
