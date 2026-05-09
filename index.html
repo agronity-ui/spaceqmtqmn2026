@@ -1764,7 +1764,8 @@
             <div class="flex-1 flex flex-col items-center justify-center relative px-6">
                 <!-- Circular Scanning UI -->
                 <div class="w-[200px] h-[200px] rounded-full border-[6px] border-[#18181b] overflow-hidden relative shadow-[0_0_50px_rgba(16,185,129,0.2)] mb-8 bg-[#09090b]">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover filter grayscale brightness-[0.5]">
+                    <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600&q=80" class="w-full h-full object-cover filter sepia hue-rotate-190 brightness-[0.4] contrast-125">
+                    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwYzAtMTEgOS0yMCAyMC0yMHY0MGMtMTEgMC0yMC05LTIwLTIweiIgZmlsbD0iIzEwYjk4MSIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')] opacity-50 z-10"></div>
                     <!-- Scanline -->
                     <div class="absolute w-full h-[4px] bg-[#10b981] shadow-[0_0_20px_4px_#10b981] animate-scan z-20"></div>
                 </div>
@@ -2222,7 +2223,7 @@
             </div>
 
             <div id="murajaah-bottom-action" class="absolute bottom-0 w-full p-6 border-t border-white/10 bg-[#121214] z-20 pb-8 transition-transform duration-300 transform translate-y-0 shadow-[0_-20px_40px_rgba(0,0,0,0.8)] rounded-t-[32px]">
-                <button id="murajaah-record-btn" onclick="toggleMurajaahRecord()" class="w-full bg-gradient-to-r from-[#10b981] to-[#064e3b] rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] active:scale-95 transition-all cursor-pointer relative overflow-hidden shadow-[0_0_25px_rgba(16,185,129,0.4)] border border-white/20">
+                <button id="murajaah-record-btn" onclick="toggleMurajaahRecord(event)" class="w-full bg-gradient-to-r from-[#10b981] to-[#064e3b] rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] active:scale-95 transition-all cursor-pointer relative overflow-hidden shadow-[0_0_25px_rgba(16,185,129,0.4)] border border-white/20">
                     <i data-lucide="mic" class="w-7 h-7"></i> MULAI REKAM
                 </button>
                 <p id="murajaah-status-text" class="text-center text-slate-400 font-bold text-[13px] mt-4">Ketuk untuk mulai membaca ayat ke-<span id="murajaah-ayat-num">1</span></p>
@@ -2574,6 +2575,79 @@
                     <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-7 h-7 rounded-full border-2 border-[#10b981] object-cover shadow-[0_0_10px_rgba(16,185,129,0.5)]">
                     <div class="w-1.5 h-1.5 bg-[#10b981] rounded-full absolute -bottom-2 shadow-[0_0_8px_rgba(16,185,129,1)]"></div>
                 </button>
+            </div>
+        </div>
+
+        <div id="otherUserProfileScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-[85]">
+            <div class="absolute inset-0 w-full h-[40%] bg-gradient-to-b from-[#10b981]/20 to-[#09090b] pointer-events-none"></div>
+            <div class="pt-14 px-6 flex justify-between items-center relative z-30">
+                <button onclick="goToScreen('socialQScreen')" class="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-black/60 transition-colors cursor-pointer border border-white/20"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
+                <button class="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/20"><i data-lucide="more-horizontal" class="w-5 h-5"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto hide-scroll flex flex-col items-center pt-8 px-6 relative z-30">
+                <img id="other-profile-img" src="" class="w-24 h-24 rounded-full object-cover border-4 border-[#10b981] shadow-[0_0_20px_rgba(16,185,129,0.4)] mb-4">
+                <h2 id="other-profile-name" class="text-2xl font-black text-white leading-tight">Nama</h2>
+                <p id="other-profile-title" class="text-slate-400 text-[13px] font-semibold mb-6">Title</p>
+                <div class="flex gap-3 w-full mb-8">
+                    <button class="flex-1 bg-[#10b981] text-[#09090b] font-bold py-3 rounded-2xl shadow-[0_0_15px_rgba(16,185,129,0.3)] active:scale-95 transition-transform">Ikuti</button>
+                    <button class="flex-1 bg-[#18181b] border border-white/10 text-white font-bold py-3 rounded-2xl hover:bg-white/10 active:scale-95 transition-transform">Kirim Pesan</button>
+                </div>
+                <div class="w-full bg-[#18181b] border border-white/5 rounded-3xl p-6 text-center shadow-sm">
+                    <i data-lucide="lock" class="w-8 h-8 text-slate-600 mx-auto mb-3"></i>
+                    <h3 class="text-white font-bold mb-1">Postingan Privat</h3>
+                    <p class="text-slate-400 text-xs">Ikuti akun ini untuk melihat kreasi dan rutinitas amalannya.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="commentsModal" class="absolute inset-0 bg-black/60 backdrop-blur-sm z-[200] hidden flex-col justify-end transition-opacity duration-300">
+            <div class="absolute inset-0 cursor-pointer" onclick="closeCommentsModal()"></div>
+            <div id="commentsSheet" class="w-full h-[70%] bg-[#121214]/95 backdrop-blur-3xl rounded-t-[32px] border-t border-white/10 flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)] transform translate-y-full transition-transform duration-300 relative z-10">
+                <div class="w-12 h-1.5 bg-white/20 rounded-full mx-auto mt-4 mb-2 shrink-0"></div>
+                <div class="px-6 py-2 flex justify-between items-center border-b border-white/5 shrink-0">
+                    <h3 class="text-[15px] font-bold text-white">Komentar (<span id="comment-count">124</span>)</h3>
+                    <button onclick="closeCommentsModal()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 text-slate-300"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+
+                <div id="comments-list-container" class="flex-1 overflow-y-auto hide-scroll px-6 py-4 flex flex-col gap-5">
+                    <div class="flex gap-3">
+                        <img src="https://i.pravatar.cc/100?img=1" class="w-9 h-9 rounded-full object-cover">
+                        <div class="flex-1">
+                            <h4 class="text-slate-400 text-[12px] font-bold">Aisyah Rizki <span class="text-slate-600 font-normal ml-1">2j</span></h4>
+                            <p class="text-white text-[13px] leading-snug mt-0.5">Masya Allah, semoga istiqomah terus ya! Videonya sangat menginspirasi.</p>
+                            <div class="flex gap-4 mt-2 text-slate-500 text-[11px] font-semibold">
+                                <span class="hover:text-white cursor-pointer">Balas</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-1 cursor-pointer group">
+                            <i data-lucide="heart" class="w-4 h-4 text-slate-500 group-hover:text-red-500 transition-colors"></i>
+                            <span class="text-slate-500 text-[10px]">12</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <img src="https://i.pravatar.cc/100?img=33" class="w-9 h-9 rounded-full object-cover">
+                        <div class="flex-1">
+                            <h4 class="text-slate-400 text-[12px] font-bold">Fahmi Idris <span class="text-slate-600 font-normal ml-1">5j</span></h4>
+                            <p class="text-white text-[13px] leading-snug mt-0.5">Barakallah fiik. Edit videonya pakai aplikasi apa ini akhi?</p>
+                            <div class="flex gap-4 mt-2 text-slate-500 text-[11px] font-semibold">
+                                <span class="hover:text-white cursor-pointer">Balas</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center gap-1 cursor-pointer group">
+                            <i data-lucide="heart" class="w-4 h-4 text-slate-500 group-hover:text-red-500 transition-colors"></i>
+                            <span class="text-slate-500 text-[10px]">4</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="px-4 py-4 bg-[#18181b] border-t border-white/5 shrink-0 pb-8 flex items-center gap-3">
+                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-9 h-9 rounded-full border border-[#10b981] object-cover shrink-0">
+                    <div class="flex-1 bg-[#09090b] border border-white/10 rounded-full px-4 py-2.5 flex items-center relative">
+                        <input type="text" id="new-comment-input" placeholder="Tambahkan komentar..." class="bg-transparent text-white text-[13px] w-full focus:outline-none placeholder-slate-500">
+                        <i data-lucide="smile" class="w-5 h-5 text-slate-400 absolute right-3 cursor-pointer"></i>
+                    </div>
+                    <button onclick="postNewComment()" class="w-9 h-9 bg-[#10b981] rounded-full flex items-center justify-center text-[#09090b] shadow-[0_0_10px_rgba(16,185,129,0.3)] shrink-0 active:scale-95 transition-transform"><i data-lucide="arrow-up" class="w-5 h-5"></i></button>
+                </div>
             </div>
         </div>
 
@@ -3539,11 +3613,11 @@
         function generateSocialQPosts() {
             const container = document.getElementById('socialq-main-feed-container');
             if (!container) return;
-            
+
             const names = ['Aisyah Rizki', 'Budi Santoso', 'Siti Aminah', 'Ahmad Fadil', 'Nisa Salsabila', 'Iqbal Ramadhan', 'Zahra Larasati', 'Fahmi Idris', 'Dian Sastro', 'Rizky Pratama', 'Hafizuddin', 'Khadijah Nur'];
             const titles = ['Graphic Designer • 1h', 'Product Manager • 2h', 'Web Developer • 5h', 'Content Creator • 1d', 'Software Engineer • Just now'];
             const captions = ['Alhamdulillah, selesai desain UI baru!', 'Bismillah, meeting sore ini lancar.', 'Menikmati kajian hari ini.', 'Masya Allah, indah sekali.', 'Tetap semangat puasanya teman-teman!'];
-            
+
             const videoUrls = [
                 'https://www.w3schools.com/html/mov_bbb.mp4',
                 'https://media.w3.org/2010/05/sintel/trailer.mp4',
@@ -3564,15 +3638,15 @@
                 <div class="w-full bg-[#18181b] rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)] border border-white/5 flex flex-col gap-4">
                     <div class="flex items-start justify-between">
                         <div class="flex items-center gap-3">
-                            <img src="${avatar}" class="w-[42px] h-[42px] rounded-full object-cover border border-[#10b981]" onclick="goToScreen('mySpaceQScreen')" style="cursor:pointer">
+                            <img src="${avatar}" class="w-[42px] h-[42px] rounded-full object-cover border border-[#10b981]" onclick="openOtherUserProfile('${name}', '${avatar}', '${title}')" style="cursor:pointer">
                             <div>
-                                <h4 class="font-bold text-white text-[14px] leading-tight flex items-center gap-1 cursor-pointer" onclick="goToScreen('mySpaceQScreen')">${name} <i data-lucide="badge-check" class="w-3 h-3 text-[#10b981] fill-[#10b981]/20"></i></h4>
+                                <h4 class="font-bold text-white text-[14px] leading-tight flex items-center gap-1 cursor-pointer" onclick="openOtherUserProfile('${name}', '${avatar}', '${title}')">${name} <i data-lucide="badge-check" class="w-3 h-3 text-[#10b981] fill-[#10b981]/20"></i></h4>
                                 <span class="text-[11px] text-slate-400 font-medium">${title}</span>
                             </div>
                         </div>
                         <button class="bg-white/10 text-white px-3 py-1.5 rounded-full text-[12px] font-bold border border-white/10 hover:bg-white/20 active:scale-95 transition-all">Follow</button>
                     </div>
-                    
+
                     <div class="w-[260px] h-[260px] mx-auto rounded-full bg-[#09090b] flex items-center justify-center overflow-hidden relative group cursor-pointer border-[6px] border-[#064e3b] shadow-[0_0_20px_rgba(16,185,129,0.2)]" onclick="togglePlay(this)">
                         <video src="${vidSrc}" preload="metadata" loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90"></video>
                         <div class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors pointer-events-none"></div>
@@ -3588,7 +3662,7 @@
                                 <span class="text-[12px] font-bold text-slate-300 ml-1">${Math.floor(Math.random() * 500) + 10}</span>
                             </div>
                             <div class="flex gap-4">
-                                <button class="flex items-center gap-1.5 text-slate-400 font-bold text-[12px] hover:text-white transition-all"><i data-lucide="message-circle" class="w-4 h-4"></i> ${Math.floor(Math.random() * 50)}</button>
+                                <button onclick="openCommentsModal()" class="flex items-center gap-1.5 text-slate-400 font-bold text-[12px] hover:text-white transition-all"><i data-lucide="message-circle" class="w-4 h-4"></i> ${Math.floor(Math.random() * 50)}</button>
                                 <button onclick="openShareContactModal()" class="flex items-center gap-1.5 text-slate-400 font-bold text-[12px] hover:text-[#10b981] transition-all"><i data-lucide="send" class="w-4 h-4"></i></button>
                             </div>
                         </div>
@@ -3597,6 +3671,46 @@
                 `;
             }
             if(container) container.innerHTML = html;
+        }
+
+        function openOtherUserProfile(name, img, title) {
+            document.getElementById('other-profile-name').innerText = name;
+            document.getElementById('other-profile-img').src = img;
+            document.getElementById('other-profile-title').innerText = title;
+            goToScreen('otherUserProfileScreen');
+        }
+
+        function openCommentsModal() {
+            const modal = document.getElementById('commentsModal');
+            const sheet = document.getElementById('commentsSheet');
+            if(modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
+            setTimeout(() => { if(sheet) sheet.classList.remove('translate-y-full'); }, 50);
+        }
+
+        function closeCommentsModal() {
+            const modal = document.getElementById('commentsModal');
+            const sheet = document.getElementById('commentsSheet');
+            if(sheet) sheet.classList.add('translate-y-full');
+            setTimeout(() => { if(modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); } }, 300);
+        }
+
+        function postNewComment() {
+            const input = document.getElementById('new-comment-input');
+            const list = document.getElementById('comments-list-container');
+            if(input.value.trim() === '') return;
+
+            const html = `
+                <div class="flex gap-3 animate-slideDown">
+                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-9 h-9 rounded-full object-cover border border-[#10b981]">
+                    <div class="flex-1">
+                        <h4 class="text-slate-400 text-[12px] font-bold">Ahmad Nafis <span class="text-[#10b981] font-normal ml-1 text-[10px]">Baru saja</span></h4>
+                        <p class="text-white text-[13px] leading-snug mt-0.5">${input.value}</p>
+                    </div>
+                </div>`;
+
+            list.insertAdjacentHTML('afterbegin', html);
+            input.value = '';
+            document.getElementById('comment-count').innerText = parseInt(document.getElementById('comment-count').innerText) + 1;
         }
 
         function togglePlay(container) {
@@ -4075,7 +4189,7 @@
             const ayatNumElem = document.getElementById('murajaah-ayat-num');
             
             if(arabicElem) arabicElem.innerText = ayah.text;
-            if(translationElem) translationElem.innerText = `"${ayah.translation}"`;
+            if(translationElem) { translationElem.innerText = `"${ayah.translation}"`; translationElem.classList.add('blur-md', 'select-none'); }
             if(ayatNumElem) ayatNumElem.innerText = ayah.numberInSurah;
             
             const topNum = document.getElementById('murajaah-ayat-num-top');
@@ -4094,6 +4208,7 @@
                 if(prevBtn) prevBtn.classList.remove('opacity-30', 'pointer-events-none');
             }
 
+            const nextBtnTop = document.getElementById('murajaah-next-btn-top'); if(nextBtnTop) nextBtnTop.classList.add('opacity-30', 'pointer-events-none');
             if(arabicElem) arabicElem.classList.add('blur-md');
             
             const blurOverlay = document.getElementById('murajaah-blur-overlay');
@@ -4109,35 +4224,33 @@
             if(blurOverlay) { blurOverlay.classList.add('hidden'); blurOverlay.classList.remove('flex'); }
         }
 
-        function toggleMurajaahRecord() {
+        function toggleMurajaahRecord(e) {
             if (isMurajaahEvaluating) return;
             if (isMurajaahRecording) return; 
+
+            let forcedOutcome = null;
+            if (e && e.currentTarget) {
+                const rect = e.currentTarget.getBoundingClientRect();
+                let clickX = e.type.includes('touch') ? (e.touches[0].clientX - rect.left) : (e.clientX - rect.left);
+                if (clickX < rect.width / 2) forcedOutcome = false;
+                else forcedOutcome = true;
+            }
 
             isMurajaahRecording = true;
             const btn = document.getElementById('murajaah-record-btn');
             const statusTxt = document.getElementById('murajaah-status-text');
-            
+
             if(btn) {
-                btn.innerHTML = `
-                    <div class="flex items-center gap-1 justify-center h-7 mr-2">
-                        <span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-1"></span>
-                        <span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-2"></span>
-                        <span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-3"></span>
-                        <span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-4"></span>
-                        <span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-5"></span>
-                    </div>
-                    MENDENGARKAN...`;
+                btn.innerHTML = `<div class="flex items-center gap-1 justify-center h-7 mr-2"><span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-1"></span><span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-2"></span><span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-3"></span><span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-4"></span><span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-5"></span></div>MENDENGARKAN...`;
                 btn.className = "w-full bg-duo-red border-b-[5px] border-duo-red-dark rounded-2xl py-4 flex items-center justify-center gap-1 text-white font-black text-[18px] animate-pulse active:border-b-0 active:translate-y-[5px] transition-all cursor-pointer shadow-[0_0_20px_rgba(255,75,75,0.4)]";
             }
             if(statusTxt) statusTxt.innerText = "Silakan bicara... (Simulasi mendengarkan 3 detik)";
-            
             if (typeof lucide !== 'undefined') lucide.createIcons();
             hideMurajaahFeedback();
 
             setTimeout(() => {
                 isMurajaahRecording = false;
                 isMurajaahEvaluating = true;
-                
                 if(btn) {
                     btn.innerHTML = `<i data-lucide="loader-2" class="w-7 h-7 animate-spin"></i> MEMPROSES...`;
                     btn.className = "w-full bg-gray-400 border-b-[5px] border-gray-500 rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] cursor-wait transition-all";
@@ -4147,14 +4260,11 @@
 
                 setTimeout(() => {
                     isMurajaahEvaluating = false;
-                    
-                    const isBenar = Math.random() > 0.15; 
+                    const isBenar = forcedOutcome !== null ? forcedOutcome : (Math.random() > 0.15); 
                     const feedbackMsg = isBenar ? "Bacaan tajwid dan makhrajmu sangat tepat!" : "Terdengar ada kesalahan makhraj, coba diulangi lagi.";
                     const fakeTranscript = isBenar ? "Sempurna." : "Terjadi sedikit kekeliruan pembacaan di akhir kalimat.";
-                    
                     showMurajaahFeedback(isBenar, feedbackMsg, fakeTranscript);
                 }, 1500);
-
             }, 3000);
         }
 
@@ -4190,6 +4300,8 @@
 
             setTimeout(() => {
                 if (isCorrect) {
+                    const trans = document.getElementById('murajaah-translation'); if(trans) trans.classList.remove('blur-md', 'select-none');
+                    const nextBtnTop = document.getElementById('murajaah-next-btn-top'); if(nextBtnTop) nextBtnTop.classList.remove('opacity-30', 'pointer-events-none');
                     murajaahXP += 15;
                     updateGamification();
                     
