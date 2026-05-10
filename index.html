@@ -347,12 +347,23 @@
         }
         .animate-pulse-golden { animation: pulse-golden 3s infinite; }
 
+        :root { --bg-app: #09090b; --bg-card: #18181b; --text-main: #ffffff; --border: rgba(255,255,255,0.1); }
+        body.light-mode { --bg-app: #f4f4f5; --bg-card: #ffffff; --text-main: #09090b; --border: rgba(0,0,0,0.1); }
+        body { background-color: var(--bg-app); color: var(--text-main); }
+        #MobileDeviceSimulator { background-color: var(--bg-app); color: var(--text-main); }
+        .bg-\[\#09090b\] { background-color: var(--bg-app) !important; }
+        .bg-\[\#18181b\] { background-color: var(--bg-card) !important; }
+        .text-white { color: var(--text-main) !important; }
+        .border-white\/5, .border-white\/10, .border-white\/20 { border-color: var(--border) !important; }
+        body.light-mode .text-slate-400 { color: #475569 !important; }
+        body.light-mode .text-slate-500 { color: #64748b !important; }
+
     </style>
 </head>
-<body class="bg-[#09090b] sm:bg-zinc-950 flex items-center justify-center min-h-[100dvh] sm:p-4 font-sans antialiased m-0 p-0 overflow-hidden sm:overflow-auto">
+<body class="bg-[#09090b] sm:bg-zinc-950 flex items-center justify-center min-h-[100dvh] sm:p-4 font-sans antialiased m-0 p-0 overflow-hidden sm:overflow-auto transition-colors duration-300">
 
     <!-- Mobile Device Simulator -->
-    <div class="relative w-full h-[100dvh] sm:h-[844px] sm:max-w-[390px] bg-[#09090b] sm:rounded-[45px] shadow-none sm:shadow-2xl overflow-hidden sm:border-[8px] sm:border-[#27272a] shrink-0">
+    <div id="MobileDeviceSimulator" class="relative isolate w-full h-[100dvh] sm:h-[844px] sm:max-w-[390px] bg-[#09090b] sm:rounded-[45px] shadow-none sm:shadow-2xl overflow-hidden sm:border-[8px] sm:border-[#27272a] shrink-0 transition-colors duration-300">
         
         <!-- Status Bar (Simulated) -->
         <div class="absolute top-0 left-0 w-full h-12 hidden sm:flex items-center justify-between px-6 z-[100] pointer-events-none">
@@ -503,7 +514,7 @@
             </div>
 
             <h2 class="text-[32px] sm:text-[36px] font-black text-white text-center leading-[1.1] tracking-tight">Jadi Bagian<br>Muhsinin</h2>
-            <p class="text-slate-400 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Dukung ekosistem ini agar terus hidup dan buka durasi ekstra 25 detik.</p>
+            <p class="text-slate-400 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Coba Gratis 1 Bulan (Trial). Selanjutnya Rp 25.000/bulan.</p>
 
             <button onclick="goToScreen('loginScreen')" class="absolute bottom-10 w-[85%] bg-gradient-to-r from-[#10b981] to-[#064e3b] text-white py-[16px] sm:py-[18px] rounded-[24px] font-bold text-[17px] shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[0.98] transition-transform">
                 Ayo Mulai!
@@ -1764,8 +1775,10 @@
             <div class="flex-1 flex flex-col items-center justify-center relative px-6">
                 <!-- Circular Scanning UI -->
                 <div class="w-[200px] h-[200px] rounded-full border-[6px] border-[#18181b] overflow-hidden relative shadow-[0_0_50px_rgba(16,185,129,0.2)] mb-8 bg-[#09090b]">
-                    <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600&q=80" class="w-full h-full object-cover filter sepia hue-rotate-190 brightness-[0.4] contrast-125">
-                    <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwYzAtMTEgOS0yMCAyMC0yMHY0MGMtMTEgMC0yMC05LTIwLTIweiIgZmlsbD0iIzEwYjk4MSIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')] opacity-50 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?w=600&q=80" class="w-full h-full object-cover filter sepia hue-rotate-190 brightness-50 contrast-125">
+                    <div class="absolute inset-0 bg-gradient-to-br from-[#10b981]/10 via-transparent to-[#56e4ff]/10 mix-blend-screen"></div>
+                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.18),transparent_60%)]"></div>
+                    <div class="absolute inset-0 opacity-60" style="background-image: linear-gradient(rgba(16,185,129,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.15) 1px, transparent 1px); background-size: 20px 20px;"></div>
                     <!-- Scanline -->
                     <div class="absolute w-full h-[4px] bg-[#10b981] shadow-[0_0_20px_4px_#10b981] animate-scan z-20"></div>
                 </div>
@@ -2204,7 +2217,7 @@
 
                 <div id="murajaah-content" class="flex-1 flex flex-col items-center relative overflow-hidden">
                     <div id="murajaah-text-container" class="w-full h-full overflow-y-auto hide-scroll transition-all duration-500 flex flex-col items-center px-6 py-4 pb-32 relative">
-                        <div id="murajaah-blur-overlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#09090b]/60 backdrop-blur-md rounded-2xl cursor-pointer" onclick="revealMurajaahAyah()">
+                        <div id="murajaah-blur-overlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-[#09090b]/60 backdrop-blur-md rounded-2xl cursor-pointer" onclick="requestRevealAyah()">
                             <div class="bg-[#10b981]/20 p-3 rounded-full shadow-[0_0_20px_rgba(16,185,129,0.4)] mb-2 text-[#10b981] hover:scale-110 transition-transform border border-[#10b981]/30">
                                 <i data-lucide="eye" class="w-6 h-6"></i>
                             </div>
@@ -2486,15 +2499,15 @@
 
                     <!-- Stats -->
                     <div class="flex justify-between items-center mb-6 px-2">
-                        <div class="text-center">
+                        <button onclick="goToScreen('followersListScreen')" class="text-center flex-1">
                             <h3 class="font-black text-[22px] text-white leading-none">521</h3>
                             <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1 block">Pengikut</span>
-                        </div>
-                        <div class="text-center">
+                        </button>
+                        <button onclick="goToScreen('followersListScreen')" class="text-center flex-1">
                             <h3 class="font-black text-[22px] text-white leading-none">345</h3>
                             <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1 block">Diikuti</span>
-                        </div>
-                        <div class="text-center">
+                        </button>
+                        <div class="text-center flex-1">
                             <h3 class="font-black text-[22px] text-[#10b981] leading-none drop-shadow-[0_0_5px_rgba(16,185,129,0.5)]">24</h3>
                             <span class="text-[10px] font-bold text-[#10b981] uppercase tracking-widest mt-1 block">Kreasi</span>
                         </div>
@@ -2506,6 +2519,16 @@
                         <span class="bg-[#18181b] text-slate-300 px-3 py-1.5 rounded-full text-[11px] font-bold border border-white/10">@design</span>
                         <span class="bg-[#10b981]/10 text-[#10b981] px-3 py-1.5 rounded-full text-[11px] font-bold border border-[#10b981]/30 shadow-[0_0_10px_rgba(16,185,129,0.2)]">@muhsinin</span>
                         <span class="bg-[#18181b] text-slate-300 px-3 py-1.5 rounded-full text-[11px] font-bold border border-white/10">@tech</span>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-yellow-500/20 to-yellow-700/40 border border-yellow-500/50 p-5 rounded-3xl mt-6 mb-10 shadow-[0_0_20px_rgba(234,179,8,0.2)]">
+                        <h3 class="text-yellow-400 font-black text-lg flex items-center gap-2"><i data-lucide="crown"></i> Muhsinin Membership</h3>
+                        <ul class="text-slate-300 text-xs mt-3 space-y-2 font-semibold">
+                            <li>✅ Coba Gratis 1 Bulan (Trial)</li>
+                            <li>✅ Selanjutnya Rp 25.000/bulan</li>
+                            <li>✅ Kapasitas Nyawa MurajaahQ menjadi 10</li>
+                        </ul>
+                        <button onclick="openMuhsininPaymentScreen()" class="w-full mt-4 bg-yellow-500 text-black font-black py-3 rounded-xl shadow-md hover:scale-105 transition-all">Aktifkan</button>
                     </div>
 
                     <!-- Posts (Circular Carousel) -->
@@ -2578,25 +2601,47 @@
             </div>
         </div>
 
-        <div id="otherUserProfileScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-[85]">
-            <div class="absolute inset-0 w-full h-[40%] bg-gradient-to-b from-[#10b981]/20 to-[#09090b] pointer-events-none"></div>
+                <div id="otherUserProfileScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-[85]">
+            <div class="absolute inset-0 w-full h-[42%] bg-gradient-to-b from-[#10b981]/25 via-[#064e3b]/15 to-[#09090b] pointer-events-none"></div>
             <div class="pt-14 px-6 flex justify-between items-center relative z-30">
                 <button onclick="goToScreen('socialQScreen')" class="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-black/60 transition-colors cursor-pointer border border-white/20"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
                 <button class="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/20"><i data-lucide="more-horizontal" class="w-5 h-5"></i></button>
             </div>
-            <div class="flex-1 overflow-y-auto hide-scroll flex flex-col items-center pt-8 px-6 relative z-30">
-                <img id="other-profile-img" src="" class="w-24 h-24 rounded-full object-cover border-4 border-[#10b981] shadow-[0_0_20px_rgba(16,185,129,0.4)] mb-4">
-                <h2 id="other-profile-name" class="text-2xl font-black text-white leading-tight">Nama</h2>
-                <p id="other-profile-title" class="text-slate-400 text-[13px] font-semibold mb-6">Title</p>
-                <div class="flex gap-3 w-full mb-8">
+            <div class="flex-1 overflow-y-auto hide-scroll flex flex-col px-6 relative z-30 pb-28 pt-8">
+                <div class="flex items-center gap-4 mb-4">
+                    <img id="other-profile-img" src="" class="w-24 h-24 rounded-full object-cover border-4 border-[#10b981] shadow-[0_0_20px_rgba(16,185,129,0.4)]">
+                    <div class="flex-1">
+                        <h2 id="other-profile-name" class="text-2xl font-black text-white leading-tight">Nama</h2>
+                        <p id="other-profile-title" class="text-slate-400 text-[13px] font-semibold mt-1">Title</p>
+                        <div class="flex gap-3 mt-4">
+                            <button onclick="goToScreen('followersListScreen')" class="flex-1 bg-[#18181b] border border-white/10 rounded-2xl py-3 text-white font-black text-[13px] active:scale-95 transition-transform">Followers <span class="text-[#10b981] ml-1">12.4k</span></button>
+                            <button onclick="goToScreen('followersListScreen')" class="flex-1 bg-[#18181b] border border-white/10 rounded-2xl py-3 text-white font-black text-[13px] active:scale-95 transition-transform">Following <span class="text-[#10b981] ml-1">345</span></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-3 w-full mb-6">
                     <button class="flex-1 bg-[#10b981] text-[#09090b] font-bold py-3 rounded-2xl shadow-[0_0_15px_rgba(16,185,129,0.3)] active:scale-95 transition-transform">Ikuti</button>
                     <button class="flex-1 bg-[#18181b] border border-white/10 text-white font-bold py-3 rounded-2xl hover:bg-white/10 active:scale-95 transition-transform">Kirim Pesan</button>
                 </div>
-                <div class="w-full bg-[#18181b] border border-white/5 rounded-3xl p-6 text-center shadow-sm">
-                    <i data-lucide="lock" class="w-8 h-8 text-slate-600 mx-auto mb-3"></i>
-                    <h3 class="text-white font-bold mb-1">Postingan Privat</h3>
-                    <p class="text-slate-400 text-xs">Ikuti akun ini untuk melihat kreasi dan rutinitas amalannya.</p>
+                <div class="grid grid-cols-3 gap-3 mt-4 p-2 rounded-[32px] overflow-hidden border border-white/5 bg-[#18181b]">
+                    <img src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=400&q=80" class="aspect-square object-cover rounded-full border border-[#10b981]/25 shadow-[0_0_12px_rgba(16,185,129,0.16)]">
+                    <img src="https://images.unsplash.com/photo-1519817914152-2a641d40dc33?w=400&q=80" class="aspect-square object-cover rounded-full border border-[#10b981]/25 shadow-[0_0_12px_rgba(16,185,129,0.16)]">
+                    <img src="https://images.unsplash.com/photo-1490730141103-6cac27aaab94?w=400&q=80" class="aspect-square object-cover rounded-full border border-[#10b981]/25 shadow-[0_0_12px_rgba(16,185,129,0.16)]">
+                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=400&q=80" class="aspect-square object-cover rounded-full border border-[#10b981]/25 shadow-[0_0_12px_rgba(16,185,129,0.16)]">
+                    <img src="https://images.unsplash.com/photo-1470816694743-2920e6c89f6d?w=400&q=80" class="aspect-square object-cover rounded-full border border-[#10b981]/25 shadow-[0_0_12px_rgba(16,185,129,0.16)]">
+                    <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?w=400&q=80" class="aspect-square object-cover rounded-full border border-[#10b981]/25 shadow-[0_0_12px_rgba(16,185,129,0.16)]">
                 </div>
+            </div>
+        </div>
+
+        <div id="followersListScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-[86]">
+            <div class="pt-14 px-6 pb-4 flex items-center justify-between bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-30 border-b border-white/5">
+                <button onclick="goToScreen('mySpaceQScreen')" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#18181b] border border-white/10 text-white hover:bg-white/10 transition-colors cursor-pointer active:scale-95"><i data-lucide="chevron-left" class="w-5 h-5"></i></button>
+                <h2 class="text-[20px] font-extrabold text-white tracking-tight">Followers</h2>
+                <div class="w-10"></div>
+            </div>
+            <div class="flex-1 overflow-y-auto hide-scroll px-6 py-5 pb-28">
+                <div id="followers-list-container" class="flex flex-col gap-3"></div>
             </div>
         </div>
 
@@ -2675,6 +2720,14 @@
                     </div>
                 </div>
 
+                <button onclick="toggleTheme()" class="w-full bg-[#18181b] border border-white/10 rounded-2xl p-4 flex items-center gap-3 hover:bg-white/10 active:scale-95 transition-all cursor-pointer shadow-sm mb-6">
+                    <div class="w-10 h-10 rounded-full bg-[#10b981]/15 text-[#10b981] flex items-center justify-center border border-[#10b981]/20"><i data-lucide="moon-star" class="w-5 h-5"></i></div>
+                    <div class="text-left">
+                        <h3 class="font-extrabold text-white text-[15px] leading-tight">Mode Tema</h3>
+                        <p class="text-slate-400 text-[12px] font-medium">Light / Dark Mode</p>
+                    </div>
+                </button>
+
                 <!-- Group 1: Akun -->
                 <div>
                     <h4 class="text-slate-500 text-[12px] font-bold uppercase tracking-wider mb-2 ml-2">Akun</h4>
@@ -2742,14 +2795,20 @@
                                 <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
                             </div>
                         </div>
-                        <div class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer">
+
+                        <div id="display-toggle-row" onclick="toggleTheme()" class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer">
                             <div class="flex items-center gap-3">
                                 <i data-lucide="monitor" class="w-5 h-5 text-[#10b981]"></i>
-                                <span class="text-white font-semibold text-[14px]">Display</span>
+                                <div>
+                                    <span class="text-white font-semibold text-[14px]">Display</span>
+                                    <p class="text-slate-400 text-[11px] font-medium">Dark / Light Mode</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-slate-400 text-[12px] font-semibold">Dark</span>
-                                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-500"></i>
+                            <div class="flex items-center gap-3">
+                                <span id="display-mode-label" class="text-slate-400 text-[12px] font-semibold">Dark</span>
+                                <div class="w-11 h-6 rounded-full bg-white/10 border border-white/10 p-1 flex items-center">
+                                    <div id="display-toggle-knob" class="w-4 h-4 rounded-full bg-[#10b981] transition-transform duration-300"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2796,7 +2855,138 @@
         <!-- ========================================== -->
         <!-- NEW SCREEN: QURAN LIST                     -->
         <!-- ========================================== -->
-        <div id="quranListScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-[#09090b] flex flex-col z-[80]">
+        
+        <!-- ========================================== -->
+        <!-- SCREEN: MUHSININ PAYMENT                  -->
+        <!-- ========================================== -->
+        <div id="paymentScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-[88]">
+            <div class="pt-14 px-6 flex items-center justify-between relative z-20">
+                <button onclick="goToScreen('mySpaceQScreen')" class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-colors active:scale-95">
+                    <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <h2 class="text-[18px] font-extrabold text-white tracking-tight">Pembayaran Muhsinin</h2>
+                <div class="w-10"></div>
+            </div>
+            <div class="flex-1 px-6 pb-8 overflow-y-auto hide-scroll flex flex-col justify-center">
+                <div class="relative overflow-hidden rounded-[32px] border border-[#10b981]/20 bg-gradient-to-b from-[#064e3b]/60 to-[#18181b] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 rounded-full bg-[#10b981]/20 blur-3xl"></div>
+                    <div class="relative z-10">
+                        <p id="payment-subtitle" class="text-[#10b981] text-[11px] font-black tracking-[0.2em] uppercase mb-2">Muhsinin Pro - 1 Month Trial</p>
+                        <h3 id="payment-title" class="text-white text-[28px] font-black leading-tight">Coba Gratis 1 Bulan, lalu lanjut otomatis.</h3>
+                        <div class="mt-6 space-y-3">
+                            <div class="flex items-center justify-between rounded-2xl bg-white/5 border border-white/10 p-4">
+                                <span class="text-slate-300 font-semibold">Harga Bulan ke-1</span>
+                                <span class="text-white font-black">Rp 0</span>
+                            </div>
+                            <div class="flex items-center justify-between rounded-2xl bg-white/5 border border-white/10 p-4">
+                                <span class="text-slate-300 font-semibold">Bulan ke-2 dst</span>
+                                <span class="text-white font-black">Rp 25.000</span>
+                            </div>
+                            <div class="flex items-center justify-between rounded-2xl bg-white/5 border border-white/10 p-4">
+                                <span class="text-slate-300 font-semibold">Metode</span>
+                                <span class="text-[#10b981] font-black">FaceID / Sidik Jari</span>
+                            </div>
+                        </div>
+                        <button id="muhsinin-pay-btn" onclick="confirmMuhsininPayment()" class="w-full mt-6 bg-[#10b981] text-[#09090b] font-black py-4 rounded-2xl shadow-[0_0_20px_rgba(16,185,129,0.35)] hover:scale-[0.99] active:scale-95 transition-transform flex items-center justify-center gap-2">
+                            <i data-lucide="fingerprint" class="w-5 h-5"></i>
+                            Konfirmasi dengan FaceID/Sidik Jari
+                        </button>
+                        <p class="text-slate-400 text-[11px] mt-3 leading-relaxed text-center">Trial dapat dibatalkan kapan saja sebelum penagihan berikutnya.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="payment-success-overlay" class="absolute inset-0 hidden items-center justify-center bg-black/70 backdrop-blur-md z-[90]">
+                <div class="bg-[#18181b] border border-white/10 rounded-[32px] px-6 py-5 text-center shadow-heavy animate-completion-pop">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-[#10b981]/15 border border-[#10b981]/20 flex items-center justify-center mb-4">
+                        <i data-lucide="check-circle-2" class="w-8 h-8 text-[#10b981]"></i>
+                    </div>
+                    <h3 class="text-white font-black text-[18px]">Pembayaran Tervalidasi</h3>
+                    <p class="text-slate-400 text-[12px] mt-1">Muhsinin aktif dalam beberapa detik.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN: VS SUMMARY                         -->
+        <!-- ========================================== -->
+        <div id="vsSummaryScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-[89]">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(16,185,129,0.20),transparent_55%)] pointer-events-none"></div>
+            <div class="pt-14 px-6 pb-4 flex items-center justify-between relative z-20">
+                <button onclick="goToScreen('murajaahVersusLobbyScreen')" class="w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white flex items-center justify-center hover:bg-white/10 transition-colors active:scale-95">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <div class="text-center flex-1 px-4">
+                    <div class="text-[12px] font-black tracking-[0.35em] text-[#10b981]">✨🎉✨</div>
+                    <h2 class="text-[18px] font-black text-white tracking-tight mt-2">HASIL PERTANDINGAN</h2>
+                </div>
+                <div class="w-10"></div>
+            </div>
+            <div class="flex-1 overflow-y-auto hide-scroll px-6 pb-8 relative z-10">
+                <div class="rounded-[32px] border border-white/10 bg-[#18181b]/90 backdrop-blur-2xl p-5 shadow-heavy">
+                    <div class="flex items-end justify-between gap-4 mb-5">
+                        <div>
+                            <p class="text-slate-400 text-[11px] font-black uppercase tracking-[0.2em]">Kamu</p>
+                            <div id="vs-summary-my-score" class="text-white text-[46px] font-black leading-none">0</div>
+                        </div>
+                        <div class="text-center pb-2">
+                            <p class="text-slate-500 text-[11px] font-black uppercase tracking-[0.2em]">Vs</p>
+                            <div class="w-14 h-14 rounded-full bg-[#10b981]/10 border border-[#10b981]/20 flex items-center justify-center text-[#10b981] font-black text-[18px]">VS</div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-slate-400 text-[11px] font-black uppercase tracking-[0.2em]">Lawan</p>
+                            <div id="vs-summary-bot-score" class="text-white text-[46px] font-black leading-none">0</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+                            <p class="text-slate-400 text-[11px] font-bold">Akurasi Bacaan</p>
+                            <p id="vs-summary-accuracy" class="text-white text-[22px] font-black mt-1">0%</p>
+                        </div>
+                        <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+                            <p class="text-slate-400 text-[11px] font-bold">Kecepatan Menjawab</p>
+                            <p id="vs-summary-speed" class="text-white text-[22px] font-black mt-1">0</p>
+                        </div>
+                        <div class="rounded-2xl bg-white/5 border border-white/10 p-4">
+                            <p class="text-slate-400 text-[11px] font-bold">Total XP</p>
+                            <p id="vs-summary-xp" class="text-white text-[22px] font-black mt-1">0</p>
+                        </div>
+                    </div>
+                    <div class="mt-5 rounded-[24px] border border-white/10 overflow-hidden">
+                        <div class="grid grid-cols-3 bg-white/5 px-4 py-3 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">
+                            <span></span><span class="text-center">Kamu</span><span class="text-center">Lawan</span>
+                        </div>
+                        <div class="grid grid-cols-3 px-4 py-4 border-t border-white/10 text-[13px] font-semibold text-white">
+                            <span class="text-slate-400">Benar</span><span id="vs-summary-my-correct" class="text-center">0</span><span id="vs-summary-bot-correct" class="text-center">0</span>
+                        </div>
+                        <div class="grid grid-cols-3 px-4 py-4 border-t border-white/10 text-[13px] font-semibold text-white">
+                            <span class="text-slate-400">Salah</span><span id="vs-summary-my-wrong" class="text-center">0</span><span id="vs-summary-bot-wrong" class="text-center">0</span>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="goToScreen('murajaahVersusLobbyScreen')" class="w-full mt-5 py-4 rounded-2xl bg-[#10b981] text-[#09090b] font-black shadow-[0_0_20px_rgba(16,185,129,0.35)] active:scale-95 transition-transform">Kembali ke Lobby</button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- ACTION CONFIRM MODAL                       -->
+        <!-- ========================================== -->
+        <div id="actionConfirmModal" class="absolute inset-0 z-[350] hidden items-center justify-center bg-black/80 backdrop-blur-md px-5">
+            <div id="actionConfirmBox" class="w-full max-w-[340px] rounded-[32px] border border-white/10 bg-[#18181b] p-6 shadow-heavy scale-95 transition-transform duration-300">
+                <div class="flex items-center gap-3 mb-4">
+                    <div id="actionConfirmIcon" class="w-12 h-12 rounded-full bg-[#10b981]/15 border border-[#10b981]/20 flex items-center justify-center text-[#10b981]"><i data-lucide="shield-check" class="w-6 h-6"></i></div>
+                    <div>
+                        <p class="text-[10px] font-black tracking-[0.25em] text-slate-400 uppercase">SpaceQ</p>
+                        <h3 id="actionConfirmTitle" class="text-white font-black text-[18px] leading-tight">Konfirmasi</h3>
+                    </div>
+                </div>
+                <p id="actionConfirmMessage" class="text-slate-300 text-[13px] leading-relaxed">Pesan</p>
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    <button id="actionConfirmCancel" onclick="closeActionConfirmModal()" class="rounded-2xl border border-white/10 bg-white/5 py-3 font-bold text-[13px] text-white hover:bg-white/10 transition-colors active:scale-95">Batal</button>
+                    <button id="actionConfirmContinue" onclick="runActionConfirmCallback()" class="rounded-2xl bg-[#10b981] py-3 font-black text-[13px] text-[#09090b] shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[0.99] transition-transform active:scale-95">Lanjutkan</button>
+                </div>
+            </div>
+        </div>
+<div id="quranListScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-[#09090b] flex flex-col z-[80]">
             <!-- Header -->
             <div class="pt-14 px-6 pb-4 flex items-center justify-between bg-[#09090b]/90 backdrop-blur-md sticky top-0 z-30 border-b border-white/5">
                 <button onclick="goToScreen('tadarusLobbyScreen')" class="w-10 h-10 flex items-center justify-center rounded-full bg-[#18181b] hover:bg-white/10 transition-colors cursor-pointer active:scale-95 border border-white/5">
@@ -2874,7 +3064,14 @@
                 <button onclick="closeCooldownModal(); openQuranList();" class="w-full bg-gradient-to-r from-orange-500 to-amber-600 text-white font-bold py-3.5 rounded-[18px] shadow-[0_0_20px_rgba(249,115,22,0.4)] active:scale-95 transition-transform cursor-pointer flex items-center justify-center gap-2">
                     <i data-lucide="book-open" class="w-5 h-5"></i> Baca Al-Qur'an
                 </button>
-                <button onclick="closeCooldownModal()" class="w-full mt-3 text-slate-500 text-[12px] font-bold hover:text-white transition-colors cursor-pointer">Tutup</button>
+                <div class="mt-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div class="flex items-center justify-center gap-2 text-[#fbbf24] font-bold text-[12px] text-center leading-relaxed">
+                        <i data-lucide="arrow-down" class="w-5 h-5 animate-bounce"></i>
+                        <span>Sambil menunggu nyawa pulih, yuk mantapkan hafalan di sini.</span>
+                    </div>
+                    <button onclick="goToScreen('tadarusLobbyScreen')" class="w-full mt-3 bg-[#2dd4bf] text-[#09090b] font-black py-3 rounded-2xl shadow-[0_0_20px_rgba(45,212,191,0.25)] active:scale-95 transition-transform">TadarusQ</button>
+                    </div>
+                    <button onclick="closeCooldownModal()" class="w-full mt-3 text-slate-500 text-[12px] font-bold hover:text-white transition-colors cursor-pointer">Tutup</button>
             </div>
         </div>
         <div class="hidden sm:block absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[130px] h-[5px] bg-white/40 rounded-full z-[100] pointer-events-none"></div>
@@ -3679,6 +3876,107 @@
             document.getElementById('other-profile-title').innerText = title;
             goToScreen('otherUserProfileScreen');
         }
+        function activateMuhsinin() {
+            window.isMuhsinin = true;
+            murajaahHeartsMax = 10;
+            murajaahHearts = 10;
+            maxSeconds = 25;
+            const instruction = document.getElementById('cam-instruction');
+            if (instruction) instruction.innerHTML = `Tahan untuk merekam<br>(Maks ${maxSeconds} detik)`;
+            if (cameraMode) setCameraMode(cameraMode);
+            updateGamification();
+            showSpaceQNotice('Muhsinin Aktif', 'Alhamdulillah, Anda sekarang Muhsinin!', 'success');
+        }
+        function openMuhsininPaymentScreen() {
+            const title = document.getElementById('payment-title');
+            const subtitle = document.getElementById('payment-subtitle');
+            const button = document.getElementById('muhsinin-pay-btn');
+            const overlay = document.getElementById('payment-success-overlay');
+            if (title) title.innerText = 'Muhsinin Pro - 1 Month Trial';
+            if (subtitle) subtitle.innerText = 'Coba Gratis 1 Bulan (Trial). Selanjutnya Rp 25.000/bulan.';
+            if (button) {
+                button.disabled = false;
+                button.classList.remove('opacity-60', 'pointer-events-none');
+                button.innerHTML = '<i data-lucide="fingerprint" class="w-5 h-5"></i> Konfirmasi dengan FaceID/Sidik Jari';
+            }
+            if (overlay) overlay.classList.add('hidden');
+            goToScreen('paymentScreen');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+        function confirmMuhsininPayment() {
+            const button = document.getElementById('muhsinin-pay-btn');
+            const overlay = document.getElementById('payment-success-overlay');
+            if (button) {
+                button.disabled = true;
+                button.classList.add('opacity-60', 'pointer-events-none');
+                button.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Memverifikasi...';
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            setTimeout(() => {
+                if (overlay) overlay.classList.remove('hidden');
+                if (overlay) overlay.classList.add('flex');
+                setTimeout(() => {
+                    activateMuhsinin();
+                    if (overlay) overlay.classList.add('hidden');
+                    if (overlay) overlay.classList.remove('flex');
+                    if (button) {
+                        button.disabled = false;
+                        button.classList.remove('opacity-60', 'pointer-events-none');
+                        button.innerHTML = '<i data-lucide="fingerprint" class="w-5 h-5"></i> Konfirmasi dengan FaceID/Sidik Jari';
+                    }
+                    goToScreen('mySpaceQScreen');
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                }, 1100);
+            }, 1200);
+        }
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            localStorage.setItem('spaceq-theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+            syncThemeToggleUI();
+        }
+        function syncThemeToggleUI() {
+            const label = document.getElementById('display-mode-label');
+            const knob = document.getElementById('display-toggle-knob');
+            const row = document.getElementById('display-toggle-row');
+            const isLight = document.body.classList.contains('light-mode');
+            if (label) label.innerText = isLight ? 'Light' : 'Dark';
+            if (knob) knob.style.transform = isLight ? 'translateX(20px)' : 'translateX(0px)';
+            if (row) row.classList.toggle('bg-white/5', isLight);
+        }
+        function renderFollowersList() {
+            const container = document.getElementById('followers-list-container');
+            if (!container) return;
+            let html = '';
+            const source = typeof dummyAudienceData !== 'undefined' ? dummyAudienceData : (window.dummyAudienceData || []);
+            source.forEach((user, index) => {
+                const following = index % 2 === 0;
+                const imgSrc = user.img ? (String(user.img).startsWith('http') ? user.img : `https://images.unsplash.com/photo-${user.img}?w=100&q=80`) : `https://i.pravatar.cc/100?img=${(index % 70) + 1}`;
+                html += `
+                <div class="bg-[#18181b] border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <img src="${imgSrc}" class="w-12 h-12 rounded-full object-cover border border-[#10b981]">
+                        <div>
+                            <h4 class="text-white font-bold text-[14px]">${user.name || user.title || 'Audience'}</h4>
+                            <p class="text-slate-400 text-[12px]">${user.title || 'Follower SpaceQ'}</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleAudienceFollow(this)" class="px-4 py-2 rounded-full text-[12px] font-black ${following ? 'bg-white/10 text-white' : 'bg-[#10b981] text-[#09090b]'}">${following ? 'Unfollow' : 'Follow'}</button>
+                </div>`;
+            });
+            container.innerHTML = html;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+        function toggleAudienceFollow(btn) {
+            if (!btn) return;
+            const following = btn.innerText.trim().toLowerCase() === 'follow';
+            if (following) {
+                btn.innerText = 'Unfollow';
+                btn.className = 'px-4 py-2 rounded-full text-[12px] font-black bg-white/10 text-white';
+            } else {
+                btn.innerText = 'Follow';
+                btn.className = 'px-4 py-2 rounded-full text-[12px] font-black bg-[#10b981] text-[#09090b]';
+            }
+        }
 
         function openCommentsModal() {
             const modal = document.getElementById('commentsModal');
@@ -3739,20 +4037,35 @@
         // ==========================================
         let liveStream = null;
 
-        async function startLiveCamera() {
+        async function startLiveCamera(askPermission = true) {
             const videoElem = document.getElementById('live-cam-feed');
             if (!videoElem) return;
 
+            if (askPermission && !window.__cameraPermissionGranted) {
+                openActionConfirmModal({
+                    title: 'Izin Kamera',
+                    message: 'SpaceQ memerlukan akses kamera untuk momen otentik. Berikan izin?',
+                    continueText: 'Berikan Izin',
+                    cancelText: 'Batal',
+                    tone: 'warning',
+                    iconHtml: '<i data-lucide="camera" class="w-6 h-6"></i>',
+                    onContinue: () => {
+                        window.__cameraPermissionGranted = true;
+                        startLiveCamera(false);
+                    }
+                });
+                return;
+            }
+
             try {
-                // Meminta akses ke kamera depan
                 liveStream = await navigator.mediaDevices.getUserMedia({ 
                     video: { facingMode: 'user' }, 
                     audio: false 
                 });
                 videoElem.srcObject = liveStream;
             } catch (err) {
-                console.error("Kamera gagal diakses:", err);
-                alert("Tidak dapat mengakses kamera. Pastikan izin kamera telah diberikan pada browser/perangkat Anda.");
+                console.error('Kamera gagal diakses:', err);
+                showSpaceQNotice('Kamera Tidak Aktif', 'Tidak dapat mengakses kamera. Pastikan izin kamera telah diberikan pada browser/perangkat Anda.', 'danger');
             }
         }
 
@@ -3772,6 +4085,7 @@
         // CAMERA (PHOTO & VIDEO TOGGLE)
         // ==========================================
         let recordTimer;
+        let maxSeconds = 15;
         let seconds = 0;
         let isRecording = false;
         let cameraMode = 'photo';
@@ -3799,7 +4113,7 @@
             } else {
                 if(btnVideo) btnVideo.className = "text-[#09090b] font-bold text-[13px] px-4 py-1.5 rounded-full transition-colors bg-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.3)]";
                 if(btnPhoto) btnPhoto.className = "text-slate-400 font-bold text-[13px] px-4 py-1.5 rounded-full transition-colors";
-                if(instruction) instruction.innerHTML = "Tahan untuk merekam<br>(Maks 15 detik)";
+                if(instruction) instruction.innerHTML = `Tahan untuk merekam<br>(Maks ${maxSeconds} detik)`;
                 if(recordInner) recordInner.className = "w-full h-full bg-red-500 rounded-full transition-all duration-300 pointer-events-none";
                 if(border) border.className = "w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[4px] border-red-500 overflow-hidden relative shadow-[0_0_50px_rgba(239,68,68,0.3)] bg-[#18181b] transition-all duration-300";
             }
@@ -3876,7 +4190,7 @@
             recordTimer = setInterval(() => {
                 seconds++;
                 if(timerTxt) timerTxt.innerText = "00:" + (seconds < 10 ? "0"+seconds : seconds);
-                if(seconds >= 15) stopRecording();
+                if(seconds >= maxSeconds) stopRecording();
             }, 1000);
         }
 
@@ -3997,7 +4311,7 @@
                                     <span class="text-[12px] font-bold text-slate-300 ml-1">0</span>
                                 </div>
                                 <div class="flex gap-4">
-                                    <button class="flex items-center gap-1.5 text-slate-400 font-bold text-[12px] hover:text-white transition-all"><i data-lucide="message-circle" class="w-4 h-4"></i> 0</button>
+                                    <button onclick="openCommentsModal()" class="flex items-center gap-1.5 text-slate-400 font-bold text-[12px] hover:text-white transition-all"><i data-lucide="message-circle" class="w-4 h-4"></i> 0</button>
                                     <button class="flex items-center gap-1.5 text-slate-400 font-bold text-[12px] hover:text-[#10b981] transition-all"><i data-lucide="send" class="w-4 h-4"></i></button>
                                 </div>
                             </div>
@@ -4020,12 +4334,14 @@
         // ==========================================
         // MURAJAAHQ & SIMULATION LOGIC (NO AI)
         // ==========================================
+        window.isMuhsinin = false;
         let murajaahSurahs = [];
         let murajaahAyahs = [];
         let currentMurajaahIndex = 0;
         let isMurajaahRecording = false;
         let isMurajaahEvaluating = false;
-        let murajaahHearts = 5;
+        let murajaahHeartsMax = 5;
+        let murajaahHearts = murajaahHeartsMax;
         let murajaahXP = 0;
         let cooldownInterval = null;
         function checkMurajaahCooldown() {
@@ -4034,7 +4350,7 @@
             if (Date.now() < parseInt(cooldownEnd)) { return true; } 
             else {
                 localStorage.removeItem('murajaahCooldownEnd');
-                murajaahHearts = 5; updateGamification(); return false;
+                murajaahHearts = murajaahHeartsMax; updateGamification(); return false;
             }
         }
         function showCooldownModal() {
@@ -4050,7 +4366,7 @@
                 const diff = parseInt(end) - Date.now();
                 if(diff <= 0) {
                     clearInterval(cooldownInterval); closeCooldownModal();
-                    murajaahHearts = 5; updateGamification();
+                    murajaahHearts = murajaahHeartsMax; updateGamification();
                     alert("Alhamdulillah, energi Murajaah kamu sudah penuh kembali!");
                 } else {
                     const m = Math.floor((diff / 1000 / 60));
@@ -4224,49 +4540,54 @@
             if(blurOverlay) { blurOverlay.classList.add('hidden'); blurOverlay.classList.remove('flex'); }
         }
 
-        function toggleMurajaahRecord(e) {
-            if (isMurajaahEvaluating) return;
-            if (isMurajaahRecording) return; 
-
-            let forcedOutcome = null;
-            if (e && e.currentTarget) {
-                const rect = e.currentTarget.getBoundingClientRect();
-                let clickX = e.type.includes('touch') ? (e.touches[0].clientX - rect.left) : (e.clientX - rect.left);
-                if (clickX < rect.width / 2) forcedOutcome = false;
-                else forcedOutcome = true;
-            }
-
-            isMurajaahRecording = true;
-            const btn = document.getElementById('murajaah-record-btn');
-            const statusTxt = document.getElementById('murajaah-status-text');
-
-            if(btn) {
-                btn.innerHTML = `<div class="flex items-center gap-1 justify-center h-7 mr-2"><span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-1"></span><span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-2"></span><span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-3"></span><span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-4"></span><span class="w-1.5 h-6 bg-white rounded-full animate-wave wave-delay-5"></span></div>MENDENGARKAN...`;
-                btn.className = "w-full bg-duo-red border-b-[5px] border-duo-red-dark rounded-2xl py-4 flex items-center justify-center gap-1 text-white font-black text-[18px] animate-pulse active:border-b-0 active:translate-y-[5px] transition-all cursor-pointer shadow-[0_0_20px_rgba(255,75,75,0.4)]";
-            }
-            if(statusTxt) statusTxt.innerText = "Silakan bicara... (Simulasi mendengarkan 3 detik)";
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-            hideMurajaahFeedback();
-
-            setTimeout(() => {
-                isMurajaahRecording = false;
-                isMurajaahEvaluating = true;
-                if(btn) {
-                    btn.innerHTML = `<i data-lucide="loader-2" class="w-7 h-7 animate-spin"></i> MEMPROSES...`;
-                    btn.className = "w-full bg-gray-400 border-b-[5px] border-gray-500 rounded-2xl py-4 flex items-center justify-center gap-3 text-white font-black text-[18px] cursor-wait transition-all";
+        function requestRevealAyah() {
+            openActionConfirmModal({
+                title: 'Buka Ayat?',
+                message: 'Gunakan 4 nyawa untuk melihat ayat ini?',
+                continueText: 'Lanjutkan',
+                cancelText: 'Batal',
+                tone: 'warning',
+                iconHtml: '<i data-lucide="book-open-check" class="w-6 h-6"></i>',
+                onContinue: () => {
+                    murajaahHearts -= 4; updateGamification();
+                    if (murajaahHearts <= 0) { triggerGameOverTadarus(); } 
+                    else {
+                        document.getElementById('murajaah-arabic').classList.remove('blur-md');
+                        document.getElementById('murajaah-translation').classList.remove('blur-md', 'select-none');
+                        document.getElementById('murajaah-blur-overlay').classList.add('hidden');
+                        document.getElementById('murajaah-next-btn-top').classList.remove('opacity-30', 'pointer-events-none');
+                    }
                 }
-                if(statusTxt) statusTxt.innerText = "Menganalisis kecocokan makhraj dan tajwid...";
-                if (typeof lucide !== 'undefined') lucide.createIcons();
-
-                setTimeout(() => {
-                    isMurajaahEvaluating = false;
-                    const isBenar = forcedOutcome !== null ? forcedOutcome : (Math.random() > 0.15); 
-                    const feedbackMsg = isBenar ? "Bacaan tajwid dan makhrajmu sangat tepat!" : "Terdengar ada kesalahan makhraj, coba diulangi lagi.";
-                    const fakeTranscript = isBenar ? "Sempurna." : "Terjadi sedikit kekeliruan pembacaan di akhir kalimat.";
-                    showMurajaahFeedback(isBenar, feedbackMsg, fakeTranscript);
-                }, 1500);
-            }, 3000);
+            });
         }
+        function triggerGameOverTadarus() {
+            const cooldownTime = window.isMuhsinin ? (30 * 60 * 1000) : (60 * 60 * 1000);
+            localStorage.setItem('murajaahCooldownEnd', Date.now() + cooldownTime);
+            showSpaceQNotice('Nyawa Habis', 'Nyawa habis! Lakukan Murajaah di Mushaf sekarang.', 'warning');
+            goToScreen('tadarusLobbyScreen');
+        }
+
+        function toggleMurajaahRecord(e) {
+    if (isMurajaahEvaluating || isMurajaahRecording) return; 
+    let forcedOutcome = null;
+    if (e && e.currentTarget) {
+        const rect = e.currentTarget.getBoundingClientRect();
+        let clickX = e.type.includes('touch') ? (e.touches[0].clientX - rect.left) : (e.clientX - rect.left);
+        forcedOutcome = (clickX > rect.width / 2); // Kiri=Salah, Kanan=Benar
+    }
+    isMurajaahRecording = true;
+    const btn = document.getElementById('murajaah-record-btn');
+    if(btn) { btn.innerHTML = `<div class="flex gap-1 justify-center animate-pulse">MENDENGARKAN...</div>`; btn.classList.add('bg-duo-red'); }
+    setTimeout(() => {
+        isMurajaahRecording = false; isMurajaahEvaluating = true;
+        if(btn) { btn.innerHTML = `MEMPROSES...`; btn.classList.replace('bg-duo-red', 'bg-gray-400'); }
+        setTimeout(() => {
+            isMurajaahEvaluating = false;
+            const isBenar = forcedOutcome !== null ? forcedOutcome : (Math.random() > 0.15); 
+            showMurajaahFeedback(isBenar, isBenar ? "Tepat!" : "Salah makhraj.", "");
+        }, 1500);
+    }, 3000);
+}
 
         function resetMurajaahBtn() {
             const btn = document.getElementById('murajaah-record-btn');
@@ -4305,13 +4626,6 @@
                     murajaahXP += 15;
                     updateGamification();
                     
-                    if(btn) {
-                        const floatingXP = document.createElement('div');
-                        floatingXP.className = 'xp-float text-[20px] font-black right-10 -top-8';
-                        floatingXP.innerText = '+15 XP';
-                        btn.appendChild(floatingXP);
-                        setTimeout(() => floatingXP.remove(), 1500);
-                    }
 
                     if(bgFlash) { void bgFlash.offsetWidth; bgFlash.classList.add('flash-correct'); }
                     if(mascot) { mascot.innerText = "🤩"; void mascot.offsetWidth; mascot.classList.add('anim-bounce'); }
@@ -4325,6 +4639,11 @@
                         btn.innerText = "LANJUT";
                         btn.className = "w-full bg-duo-green border-b-[5px] border-duo-green-dark rounded-2xl py-4 text-white font-black text-[18px] active:border-b-0 active:translate-y-[5px] transition-all cursor-pointer relative";
                         btn.onclick = nextMurajaahAyah;
+                        const floatXP = document.createElement('div');
+                        floatXP.className = 'absolute text-2xl font-black text-[#10b981] animate-bounce z-50';
+                        floatXP.innerText = '+15 XP';
+                        btn.appendChild(floatXP);
+                        setTimeout(() => floatXP.remove(), 2000);
                     }
                     revealMurajaahAyah(); 
                 } else {
@@ -4591,6 +4910,8 @@ function startVersusFromModal() {
             // Simulasi musuh
             vsSimInterval = setInterval(() => {
                 if (Math.random() > 0.4 && !isVsTransitioning) {
+                    showToastNotif("Lawan sedang merekam...", "warning");
+                    setTimeout(() => showToastNotif("Lawan menjawab benar!", "success"), 2000);
                     vsP2Score++;
                     updateVsScores();
                     const p2 = document.getElementById('vs-p2-score');
@@ -4613,6 +4934,125 @@ function startVersusFromModal() {
             const p2 = document.getElementById('vs-p2-score');
             if(p1) p1.innerText = vsP1Score;
             if(p2) p2.innerText = vsP2Score;
+        }
+        function showToastNotif(message, type = 'info') {
+            let host = document.getElementById('toast-host');
+            if (!host) {
+                host = document.createElement('div');
+                host.id = 'toast-host';
+                host.className = 'fixed top-6 left-1/2 -translate-x-1/2 z-[500] flex flex-col gap-2 pointer-events-none w-[90%] max-w-[360px]';
+                document.body.appendChild(host);
+            }
+            const toast = document.createElement('div');
+            const typeClass = type === 'success' ? 'bg-[#10b981]/95 text-white' : type === 'warning' ? 'bg-[#fbbf24]/95 text-black' : 'bg-[#18181b]/95 text-white';
+            toast.className = `pointer-events-none rounded-2xl px-4 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.4)] border border-white/10 ${typeClass}`;
+            toast.innerHTML = `<div class="text-[13px] font-bold">${message}</div>`;
+            host.appendChild(toast);
+            setTimeout(() => toast.remove(), 2300);
+        }
+
+        let actionConfirmCallback = null;
+        function openActionConfirmModal(config = {}) {
+            const modal = document.getElementById('actionConfirmModal');
+            const box = document.getElementById('actionConfirmBox');
+            const title = document.getElementById('actionConfirmTitle');
+            const message = document.getElementById('actionConfirmMessage');
+            const cancelBtn = document.getElementById('actionConfirmCancel');
+            const continueBtn = document.getElementById('actionConfirmContinue');
+            const icon = document.getElementById('actionConfirmIcon');
+            actionConfirmCallback = typeof config.onContinue === 'function' ? config.onContinue : null;
+            if (title) title.innerText = config.title || 'Konfirmasi';
+            if (message) message.innerText = config.message || '';
+            if (continueBtn) continueBtn.innerText = config.continueText || 'Lanjutkan';
+            if (cancelBtn) {
+                const hideCancel = config.cancelText === null || config.cancelText === undefined || config.cancelText === '';
+                cancelBtn.innerText = config.cancelText || 'Batal';
+                cancelBtn.classList.toggle('hidden', hideCancel);
+            }
+            if (icon) {
+                icon.className = `w-12 h-12 rounded-full border flex items-center justify-center ${config.tone === 'warning' ? 'bg-amber-500/15 border-amber-500/20 text-amber-400' : config.tone === 'danger' ? 'bg-red-500/15 border-red-500/20 text-red-400' : 'bg-[#10b981]/15 border-[#10b981]/20 text-[#10b981]'}`;
+                icon.innerHTML = config.iconHtml || '<i data-lucide="shield-check" class="w-6 h-6"></i>';
+            }
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+            if (box) {
+                box.classList.remove('scale-95');
+                box.classList.add('scale-100');
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+        function closeActionConfirmModal() {
+            const modal = document.getElementById('actionConfirmModal');
+            const box = document.getElementById('actionConfirmBox');
+            actionConfirmCallback = null;
+            if (box) {
+                box.classList.remove('scale-100');
+                box.classList.add('scale-95');
+            }
+            setTimeout(() => {
+                if (modal) {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }
+            }, 180);
+        }
+        function runActionConfirmCallback() {
+            const cb = actionConfirmCallback;
+            closeActionConfirmModal();
+            if (typeof cb === 'function') cb();
+        }
+        function showSpaceQNotice(title, message, tone = 'info', continueText = 'Tutup') {
+            openActionConfirmModal({
+                title,
+                message,
+                continueText,
+                cancelText: '',
+                tone,
+                onContinue: null
+            });
+        }
+        window.alert = (message) => showSpaceQNotice('SpaceQ', String(message), 'info');
+        window.confirm = (message) => {
+            openActionConfirmModal({
+                title: 'Konfirmasi',
+                message: String(message),
+                continueText: 'Lanjutkan',
+                cancelText: 'Batal',
+                tone: 'warning',
+                onContinue: () => { window.__confirmChoice = true; }
+            });
+            window.__confirmChoice = false;
+            return false;
+        };
+        function showVsSummaryModal(meBenar, meSalah, botBenar, botSalah) {
+            const screen = document.getElementById('vsSummaryScreen');
+            const myScore = document.getElementById('vs-summary-my-score');
+            const botScore = document.getElementById('vs-summary-bot-score');
+            const accuracy = document.getElementById('vs-summary-accuracy');
+            const speed = document.getElementById('vs-summary-speed');
+            const xp = document.getElementById('vs-summary-xp');
+            const myCorrect = document.getElementById('vs-summary-my-correct');
+            const myWrong = document.getElementById('vs-summary-my-wrong');
+            const botCorrect = document.getElementById('vs-summary-bot-correct');
+            const botWrong = document.getElementById('vs-summary-bot-wrong');
+            if (myScore) myScore.innerText = meBenar;
+            if (botScore) botScore.innerText = botBenar;
+            if (accuracy) accuracy.innerText = `${Math.min(100, Math.max(0, Math.round((meBenar / Math.max(1, meBenar + meSalah)) * 100)))}%`;
+            if (speed) speed.innerText = `${Math.max(140, 520 - (meBenar * 50) - (meSalah * 25))} ms`;
+            if (xp) xp.innerText = `${meBenar * 120 + Math.max(0, 5 - meSalah) * 10} XP`;
+            if (myCorrect) myCorrect.innerText = meBenar;
+            if (myWrong) myWrong.innerText = meSalah;
+            if (botCorrect) botCorrect.innerText = botBenar;
+            if (botWrong) botWrong.innerText = botSalah;
+            goToScreen('vsSummaryScreen');
+            if (screen) screen.classList.remove('hide-screen', 'hide-splash');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function showVersusSummary(myData, botData) {
+            showVsSummaryModal(myData.score, myData.salah, botData.score, botData.salah);
         }
 
         function renderVsAyah() {
@@ -4707,21 +5147,26 @@ function startVersusFromModal() {
         }
 
         function checkVsWin() {
-            if(vsP1Score >= 3) {
+            if(vsP1Score >= 3 || vsP2Score >= 3) {
                 clearInterval(vsSimInterval);
                 revealVsAyah();
-                setTimeout(() => { 
-                    alert("🎉 KAMU MENANG PERTANDINGAN 1V1 INI!"); 
-                    goToScreen('murajaahVersusLobbyScreen'); 
-                }, 1500);
-                return true;
-            } else if(vsP2Score >= 3) {
-                clearInterval(vsSimInterval);
-                revealVsAyah();
-                setTimeout(() => { 
-                    alert("💥 YAAH KAMU KALAH KALI INI! Jangan menyerah."); 
-                    goToScreen('murajaahVersusLobbyScreen'); 
-                }, 1500);
+                const myData = {
+                    score: vsP1Score,
+                    benar: vsP1Score,
+                    salah: Math.max(0, 3 - vsP1Score),
+                    accuracy: Math.min(100, Math.max(0, Math.round((vsP1Score / Math.max(1, vsP1Score + Math.max(0, 3 - vsP1Score))) * 100))),
+                    speed: Math.max(140, 520 - (vsP1Score * 50) - (Math.max(0, 3 - vsP1Score) * 25)),
+                    xp: vsP1Score * 120 + Math.max(0, 5 - Math.max(0, 3 - vsP1Score)) * 10
+                };
+                const botData = {
+                    score: vsP2Score,
+                    benar: vsP2Score,
+                    salah: Math.max(0, 3 - vsP2Score),
+                    accuracy: Math.min(100, Math.max(0, Math.round((vsP2Score / Math.max(1, vsP2Score + Math.max(0, 3 - vsP2Score))) * 100))),
+                    speed: Math.max(140, 520 - (vsP2Score * 50) - (Math.max(0, 3 - vsP2Score) * 25)),
+                    xp: vsP2Score * 120 + Math.max(0, 5 - Math.max(0, 3 - vsP2Score)) * 10
+                };
+                showVersusSummary(myData, botData);
                 return true;
             }
             return false;
@@ -5091,6 +5536,8 @@ function startVersusFromModal() {
             try {
                 // Memanggil Inisiasi PWA
                 initPWA();
+                if (localStorage.getItem('spaceq-theme') === 'light') document.body.classList.add('light-mode');
+                syncThemeToggleUI();
 
                 const link = document.createElement('link');
                 link.href = 'https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap';
@@ -5099,6 +5546,7 @@ function startVersusFromModal() {
 
                 generateSocialQPosts();
                 generateJuzGrid();
+                renderFollowersList();
                 
                 // Ambil data API agar list surah konsisten
                 fetch('https://equran.id/api/v2/surat').then(r=>r.json()).then(res => {
@@ -5236,7 +5684,6 @@ function injectStagedCard(type, title, subtitle) {
                 goToScreen('murajaahMapScreen');
             }
         }
-
     </script>
 </body>
 </html>
