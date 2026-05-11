@@ -138,6 +138,42 @@
             animation: photoFlash 0.3s ease-out;
         }
 
+        /* Camera zoom slider */
+        #cam-zoom-slider {
+            width: 16px;
+        }
+        #cam-zoom-slider::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(16,185,129,0.2), rgba(16,185,129,0.75));
+            border-radius: 9999px;
+        }
+        #cam-zoom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 9999px;
+            background: #ffffff;
+            border: 2px solid #10b981;
+            box-shadow: 0 0 10px rgba(16,185,129,0.35);
+            margin-top: -2px;
+        }
+        #cam-zoom-slider::-moz-range-track {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(16,185,129,0.2), rgba(16,185,129,0.75));
+            border-radius: 9999px;
+        }
+        #cam-zoom-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 9999px;
+            background: #ffffff;
+            border: 2px solid #10b981;
+            box-shadow: 0 0 10px rgba(16,185,129,0.35);
+        }
+
         /* Modal Slide Animations */
         .modal-slide-up {
             animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -1715,10 +1751,22 @@
             </div>
             
             <!-- Record Controls -->
-            <div class="pb-24 pt-4 flex flex-col items-center z-40 relative">
+            <div class="pb-24 pt-4 flex flex-col items-center z-40 relative w-full px-6">
                 <span id="record-timer" class="text-white text-[18px] mb-4 font-bold tracking-widest hidden bg-black/50 px-4 py-1 rounded-full backdrop-blur-md border border-white/10">00:00</span>
-                
-                <!-- Tombol Rekam -->
+
+                <div class="absolute right-6 bottom-32 flex flex-col gap-4">
+                    <button onclick="switchCamera()" class="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full flex items-center justify-center text-white border border-white/20 shadow-lg hover:bg-white/20 transition-all active:scale-95 flex-col gap-1">
+                        <i data-lucide="switch-camera" class="w-5 h-5"></i>
+                    </button>
+                    <button id="cam-pause-btn" onclick="togglePauseRecording()" class="w-10 h-10 bg-black/40 backdrop-blur-md rounded-full items-center justify-center text-white border border-white/20 shadow-lg hover:bg-white/20 transition-all active:scale-95 hidden">
+                        <i data-lucide="pause" id="cam-pause-icon" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div class="absolute left-6 bottom-32 h-32 flex items-center gap-2">
+                    <input type="range" id="cam-zoom-slider" min="1" max="5" step="0.1" value="1" oninput="setCameraZoom(this.value)" class="h-32 appearance-none bg-transparent w-4 cam-zoom-slider" style="writing-mode: bt-lr; -webkit-appearance: slider-vertical;">
+                </div>
+
                 <button id="record-btn" 
                     onmousedown="startRecording(event)" 
                     onmouseup="stopRecording(event)" 
@@ -1728,8 +1776,8 @@
                     class="w-[84px] h-[84px] bg-transparent border-[5px] border-[#10b981] rounded-full p-1.5 cursor-pointer flex items-center justify-center select-none touch-none transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]">
                     <div id="record-inner" class="w-full h-full bg-[#10b981] rounded-full transition-all duration-300 pointer-events-none"></div>
                 </button>
-                
-                <p id="cam-instruction" class="text-slate-400 text-[13px] font-semibold mt-6 text-center max-w-[200px]">Ketuk untuk menjepret<br>momen otentikmu</p>
+
+                <p id="cam-instruction" class="text-slate-400 text-[13px] font-semibold mt-6 text-center max-w-[200px]">Ketuk untuk foto<br>Tahan untuk video</p>
             </div>
         </div>
 
@@ -2016,7 +2064,7 @@
                     </div>
                 </div>
 
-                <div class="flex items-center gap-1 text-red-500 font-bold text-[16px]">
+                <div onclick="cheatResetCooldown()" class="flex items-center gap-1 text-red-500 font-bold text-[16px] cursor-pointer hover:scale-110 active:scale-95 transition-transform" title="Developer Cheat: Reset Nyawa">
                     <i data-lucide="heart" class="w-6 h-6 fill-current drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]"></i> <span id="map-hearts-header">5</span>
                 </div>
             </div>
@@ -3824,6 +3872,48 @@
             ];
 
             let html = '';
+            const vipVideos = [
+                "https://www.image2url.com/r2/default/videos/1778507875444-78e9e9df-4b61-4cdf-b2c9-a373ae8c8ff4.mp4",
+                "https://www.image2url.com/r2/default/videos/1778508343963-e3e5e7ea-7aa7-44d2-81aa-18713221fef1.mp4",
+                "https://www.image2url.com/r2/default/videos/1778508389307-b5a2aef8-a498-4da5-be33-accf89e000dc.mp4"
+            ];
+
+            vipVideos.forEach((vidSrc, idx) => {
+                html += `
+                <div class="w-full bg-[#18181b] rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)] border border-[#10b981]/50 flex flex-col gap-4 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gradient-to-l from-[#10b981] to-transparent text-black font-black text-[10px] px-4 py-1 rounded-bl-xl z-10">VIP POST</div>
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="https://i.pravatar.cc/100?img=${idx+10}" class="w-[42px] h-[42px] rounded-full object-cover border-2 border-[#10b981]" onclick="openOtherUserProfile('VIP User', 'https://i.pravatar.cc/100?img=${idx+10}', 'VIP Creator')">
+                            <div>
+                                <h4 class="font-bold text-white text-[14px] leading-tight flex items-center gap-1 cursor-pointer">VIP Creator <i data-lucide="badge-check" class="w-3 h-3 text-[#10b981] fill-[#10b981]/20"></i></h4>
+                                <span class="text-[11px] text-slate-400 font-medium">SpaceQ Exclusive</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-[260px] h-[260px] mx-auto rounded-full bg-[#09090b] flex items-center justify-center overflow-hidden relative group cursor-pointer border-[6px] border-[#064e3b] shadow-[0_0_30px_rgba(16,185,129,0.3)]" onclick="togglePlay(this)">
+                        <video src="${vidSrc}" loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90"></video>
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors pointer-events-none"></div>
+                        <i data-lucide="play-circle" class="play-icon absolute w-14 h-14 text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.8)] group-hover:scale-110 transition-transform pointer-events-none transition-opacity duration-300"></i>
+                    </div>
+
+                    <div class="px-2">
+                        <p class="text-[13px] text-slate-300 font-medium mb-4">"Masya Allah, indahnya ciptaan Allah. ✨ #SpaceQ #Inspirasi"</p>
+                        <div class="flex items-center justify-between border-t border-white/10 pt-3">
+                            <div class="flex gap-1 items-center bg-[#09090b] border border-white/10 px-3 py-1.5 rounded-full shadow-inner">
+                                <i data-lucide="heart" class="w-4 h-4 text-[#10b981] fill-[#10b981]"></i>
+                                <span class="text-[12px] font-bold text-slate-300 ml-1">1.2k</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <button onclick="openCommentsModal()" class="flex items-center gap-1.5 text-slate-400 font-bold text-[12px] hover:text-white transition-all"><i data-lucide="message-circle" class="w-4 h-4"></i> 128</button>
+                                <button onclick="openShareContactModal()" class="flex items-center gap-1.5 text-slate-400 font-bold text-[12px] hover:text-[#10b981] transition-all"><i data-lucide="send" class="w-4 h-4"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            });
+
             for (let i = 0; i < 20; i++) {
                 const name = names[Math.floor(Math.random() * names.length)];
                 const title = titles[Math.floor(Math.random() * titles.length)];
@@ -4036,6 +4126,8 @@
         // CAMERA LOGIC (LIVE FEED & RECORDING)
         // ==========================================
         let liveStream = null;
+        let currentFacingMode = 'user';
+        let cameraTrack = null;
 
         async function startLiveCamera(askPermission = true) {
             const videoElem = document.getElementById('live-cam-feed');
@@ -4057,24 +4149,59 @@
                 return;
             }
 
+            if (liveStream) {
+                liveStream.getTracks().forEach(t => t.stop());
+                liveStream = null;
+                cameraTrack = null;
+            }
+
             try {
-                liveStream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: 'user' }, 
-                    audio: false 
+                liveStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: currentFacingMode },
+                    audio: false
                 });
                 videoElem.srcObject = liveStream;
+                cameraTrack = liveStream.getVideoTracks()[0] || null;
+                videoElem.style.transform = currentFacingMode === 'user' ? 'scaleX(-1)' : 'scaleX(1)';
             } catch (err) {
                 console.error('Kamera gagal diakses:', err);
                 showSpaceQNotice('Kamera Tidak Aktif', 'Tidak dapat mengakses kamera. Pastikan izin kamera telah diberikan pada browser/perangkat Anda.', 'danger');
             }
         }
 
+        function switchCamera() {
+            currentFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
+            startLiveCamera(false);
+        }
+
+        function setCameraZoom(val) {
+            if (cameraTrack && cameraTrack.getCapabilities) {
+                const caps = cameraTrack.getCapabilities();
+                if (caps && caps.zoom) {
+                    cameraTrack.applyConstraints({ advanced: [{ zoom: Number(val) }] }).catch(e => console.log(e));
+                }
+            }
+        }
+
+        function togglePauseRecording() {
+            if(!mediaRecorder) return;
+            const icon = document.getElementById('cam-pause-icon');
+            if(mediaRecorder.state === 'recording') {
+                mediaRecorder.pause();
+                if(icon) icon.setAttribute('data-lucide', 'play');
+            } else if(mediaRecorder.state === 'paused') {
+                mediaRecorder.resume();
+                if(icon) icon.setAttribute('data-lucide', 'pause');
+            }
+            if(typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
         function stopLiveCamera() {
             const videoElem = document.getElementById('live-cam-feed');
             if (liveStream) {
-                // Hentikan setiap track (kamera) yang sedang berjalan
                 liveStream.getTracks().forEach(track => track.stop());
                 liveStream = null;
+                cameraTrack = null;
             }
             if (videoElem) {
                 videoElem.srcObject = null;
@@ -4103,6 +4230,11 @@
             const instruction = document.getElementById('cam-instruction');
             const recordInner = document.getElementById('record-inner');
             const border = document.getElementById('cam-viewfinder-border');
+            const pauseBtn = document.getElementById('cam-pause-btn');
+            const pauseIcon = document.getElementById('cam-pause-icon');
+
+            if(pauseBtn) pauseBtn.classList.add('hidden');
+            if(pauseIcon) pauseIcon.setAttribute('data-lucide', 'pause');
 
             if (mode === 'photo') {
                 if(btnPhoto) btnPhoto.className = "text-[#09090b] font-bold text-[13px] px-4 py-1.5 rounded-full transition-colors bg-[#10b981] shadow-[0_0_10px_rgba(16,185,129,0.3)]";
@@ -4132,9 +4264,11 @@
                     canvas.width = videoElem.videoWidth;
                     canvas.height = videoElem.videoHeight;
                     const ctx = canvas.getContext('2d');
-                    // Balikkan (flip) secara horizontal agar sama dengan cermin kamera depan
-                    ctx.translate(canvas.width, 0);
-                    ctx.scale(-1, 1);
+                    // Balikkan (flip) hanya untuk kamera depan agar hasil konsisten dengan preview
+                    if (currentFacingMode === 'user') {
+                        ctx.translate(canvas.width, 0);
+                        ctx.scale(-1, 1);
+                    }
                     ctx.drawImage(videoElem, 0, 0, canvas.width, canvas.height);
                     tempCapturedMedia = canvas.toDataURL('image/jpeg', 0.85);
                 }
@@ -4181,6 +4315,11 @@
             if(btn) btn.classList.add('recording-pulse');
             if(innerBtn) innerBtn.classList.add('scale-75', 'rounded-[10px]');
             
+                        const pauseBtn = document.getElementById('cam-pause-btn');
+            const pauseIcon = document.getElementById('cam-pause-icon');
+            if (pauseBtn) pauseBtn.classList.remove('hidden');
+            if (pauseIcon) pauseIcon.setAttribute('data-lucide', 'pause');
+
             seconds = 0;
             if(timerTxt) {
                 timerTxt.innerText = "00:00";
@@ -4210,6 +4349,11 @@
             if(innerBtn) innerBtn.classList.remove('scale-75', 'rounded-[10px]');
             if(timerTxt) timerTxt.classList.add('hidden');
             
+                        const pauseBtn = document.getElementById('cam-pause-btn');
+            const pauseIcon = document.getElementById('cam-pause-icon');
+            if(pauseBtn) pauseBtn.classList.add('hidden');
+            if(pauseIcon) pauseIcon.setAttribute('data-lucide', 'pause');
+
             if(seconds > 0 && mediaRecorder && mediaRecorder.state !== 'inactive') {
                 mediaRecorder.onstop = () => {
                     const blob = new Blob(recordedChunks, { type: 'video/mp4' }); // Fallback mime type
@@ -4258,7 +4402,7 @@
                 vidElem.muted = true;
                 vidElem.playsInline = true;
                 // scale-x-[-1] agar efek cermin dari kamera depan tetap terjaga pada saat preview
-                vidElem.className = 'w-full h-full object-cover transform scale-x-[-1]';
+                vidElem.className = `w-full h-full object-cover transform ${currentFacingMode === 'user' ? 'scale-x-[-1]' : 'scale-x-[1]'}`;
                 container.insertBefore(vidElem, container.firstChild);
             }
         }
@@ -4675,10 +4819,7 @@
 
                     if (murajaahHearts <= 0) {
                         setTimeout(() => {
-                            alert("Yaah! Nyawa kamu habis 💔\n\nIstirahat dulu, yuk ulangi hafalannya lagi!");
-                            murajaahHearts = 5; 
-                            updateGamification();
-                            goToScreen('murajaahMapScreen'); 
+                            triggerGameOverTadarus();
                         }, 1000);
                     }
                 }
@@ -5217,10 +5358,11 @@ function startVersusFromModal() {
 
         let tadarusAyahsData = [];
         let activeTadarusAyah = 0;
+        window.selectedTadarusSurahs = [];
 
-        function joinTadarusRoom(surahNumber, roomName) {
+        async function joinTadarusRoom(surahNumbersArray, roomName) {
             goToScreen('tadarusRoomScreen'); 
-            
+
             const titleElem = document.getElementById('tadarus-room-title');
             if(titleElem) titleElem.innerText = roomName;
 
@@ -5230,31 +5372,55 @@ function startVersusFromModal() {
                 if (typeof lucide !== 'undefined') lucide.createIcons();
             }
 
-            fetch(`https://equran.id/api/v2/surat/${surahNumber}`)
-                .then(res => res.json())
-                .then(result => {
-                    if (result.code === 200) {
-                        const bismillahElem = document.getElementById('tadarus-bismillah');
-                        if(bismillahElem) {
-                            if(surahNumber === 1 || surahNumber === 9) {
-                                bismillahElem.style.display = 'none'; // Sembunyikan untuk Fatihah & At-Taubah
-                            } else {
-                                bismillahElem.style.display = 'block';
-                                bismillahElem.innerText = "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ"; 
-                            }
-                        }
+            const surahNumbers = Array.from(new Set(
+                (Array.isArray(surahNumbersArray) ? surahNumbersArray : [surahNumbersArray]).filter(Boolean)
+            ));
 
-                        tadarusAyahsData = result.data.ayat.map(ayah => {
+            try {
+                const results = await Promise.all(
+                    surahNumbers.map(async (surahNumber) => {
+                        const res = await fetch(`https://equran.id/api/v2/surat/${surahNumber}`);
+                        const result = await res.json();
+                        return { surahNumber, result };
+                    })
+                );
+
+                const mergedAyahs = [];
+                const firstValidSurah = results.find(item => item.result && item.result.code === 200 && item.result.data);
+
+                results.forEach(({ surahNumber, result }) => {
+                    if (result && result.code === 200 && result.data && Array.isArray(result.data.ayat)) {
+                        result.data.ayat.forEach(ayah => {
                             let cleanText = ayah.teksArab;
                             if (surahNumber !== 1 && surahNumber !== 9 && ayah.nomorAyat === 1) {
                                 cleanText = cleanText.replace(/بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ /g, '').replace(/بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ /g, '');
                             }
-                            return { text: cleanText, numberInSurah: ayah.nomorAyat };
+                            mergedAyahs.push({
+                                text: cleanText,
+                                numberInSurah: ayah.nomorAyat,
+                                surahNumber,
+                                surahName: result.data.namaLatin || result.data.nama || ''
+                            });
                         });
-                        renderTadarusAyahs();
                     }
-                })
-                .catch(e => console.error("Error fetching tadarus room surah:", e));
+                });
+
+                const bismillahElem = document.getElementById('tadarus-bismillah');
+                if(bismillahElem && firstValidSurah && firstValidSurah.result && firstValidSurah.result.data) {
+                    const firstSurahNumber = firstValidSurah.surahNumber;
+                    if(firstSurahNumber === 1 || firstSurahNumber === 9) {
+                        bismillahElem.style.display = 'none';
+                    } else {
+                        bismillahElem.style.display = 'block';
+                        bismillahElem.innerText = "بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ"; 
+                    }
+                }
+
+                tadarusAyahsData = mergedAyahs;
+                renderTadarusAyahs();
+            } catch (e) {
+                console.error("Error fetching tadarus room surah:", e);
+            }
         }
 
         function startTadarusRoom() {
@@ -5262,16 +5428,16 @@ function startVersusFromModal() {
             setTimeout(() => { 
                 const nameInput = document.getElementById('create-room-name');
                 const roomName = (nameInput && nameInput.value.trim() !== '') ? nameInput.value : 'Ruang Tadarus Baru';
-                const targetSurah = window.selectedTadarusSurah || 1; 
-                
-                joinTadarusRoom(targetSurah, roomName);
+                const targetSurahs = (Array.isArray(window.selectedTadarusSurahs) && window.selectedTadarusSurahs.length > 0) ? window.selectedTadarusSurahs : [1];
+
+                joinTadarusRoom(targetSurahs, roomName);
             }, 300);
         }
 
         function renderTadarusAyahs() {
             const container = document.getElementById('tadarus-ayahs-container');
             if (!container) return;
-            
+
             let html = '';
             tadarusAyahsData.forEach((ayah, index) => {
                 const isActive = index === 0 ? 'bg-[#10b981]/20 text-[#047857] rounded-lg px-2 shadow-sm border border-[#10b981]/30' : '';
@@ -5294,16 +5460,35 @@ function startVersusFromModal() {
             });
         }
 
+        function selectJuzForTadarus(juzNum, btnElement) {
+            document.querySelectorAll('#juz-grid button').forEach(b => {
+                b.classList.remove('bg-[#10b981]', 'text-[#09090b]');
+                b.classList.add('bg-[#18181b]', 'text-slate-400');
+            });
+            if(btnElement) {
+                btnElement.classList.remove('bg-[#18181b]', 'text-slate-400');
+                btnElement.classList.add('bg-[#10b981]', 'text-[#09090b]');
+            }
+
+            window.selectedTadarusSurahs = [];
+            if(juzNum === 30) {
+                for(let i = 78; i <= 114; i++) window.selectedTadarusSurahs.push(i);
+            } else {
+                window.selectedTadarusSurahs.push(1);
+            }
+        }
+
         function generateJuzGrid() {
             const grid = document.getElementById('juz-grid');
             if (!grid) return;
             let html = '';
             for (let i = 1; i <= 30; i++) {
                 const isActive = i === 30 ? 'bg-[#10b981] text-[#09090b] shadow-sm' : 'bg-[#18181b] text-slate-400 hover:text-white border border-white/10 hover:bg-white/5';
-                html += `<button onclick="window.selectedTadarusSurah=${i === 30 ? 78 : 1}" class="py-2 rounded-xl text-[12px] font-bold transition-colors ${isActive}">${i}</button>`;
+                html += `<button onclick="selectJuzForTadarus(${i}, this)" class="py-2 rounded-xl text-[12px] font-bold transition-colors ${isActive}">${i}</button>`;
             }
             grid.innerHTML = html;
-            window.selectedTadarusSurah = 78; // default to Juz 30 / An-Naba
+            window.selectedTadarusSurahs = [];
+            for(let i = 78; i <= 114; i++) window.selectedTadarusSurahs.push(i);
         }
 
         function generateSurahList() {
@@ -5312,8 +5497,9 @@ function startVersusFromModal() {
             let html = '';
             if (murajaahSurahs && murajaahSurahs.length > 0) {
                 murajaahSurahs.forEach((surah) => {
-                    const isActive = surah.nomor === 1 ? 'text-[#10b981] bg-[#10b981]/10 border border-[#10b981]/30' : 'text-slate-400 hover:bg-white/5 border border-transparent';
-                    html += `<button class="t-surah-item text-left px-3 py-2 rounded-xl text-[12px] font-bold cursor-pointer transition-colors ${isActive}" data-name="${surah.namaLatin.toLowerCase()}" onclick="selectTadarusSurah(${surah.nomor}, this)">${surah.nomor}. ${surah.namaLatin}</button>`;
+                    const isSelected = Array.isArray(window.selectedTadarusSurahs) && window.selectedTadarusSurahs.includes(surah.nomor);
+                    const isActive = isSelected ? 'text-[#10b981] bg-[#10b981]/10 border border-[#10b981]/30' : 'text-slate-400 hover:bg-white/5 border border-transparent';
+                    html += `<button class="t-surah-item text-left px-3 py-2 rounded-xl text-[12px] font-bold cursor-pointer transition-colors ${isActive}" data-name="${surah.namaLatin.toLowerCase()}" onclick="toggleTadarusSurah(${surah.nomor}, this)">${surah.nomor}. ${surah.namaLatin}</button>`;
                 });
             } else {
                 html += '<div class="text-slate-500 text-center text-xs mt-4">Memuat data...</div>';
@@ -5335,17 +5521,19 @@ function startVersusFromModal() {
             });
         }
 
-        function selectTadarusSurah(number, btnElement) {
-            window.selectedTadarusSurah = number;
-            document.querySelectorAll('.t-surah-item').forEach(btn => {
-                btn.classList.remove('text-[#10b981]', 'bg-[#10b981]/10', 'border-[#10b981]/30');
-                btn.classList.add('text-slate-400', 'border-transparent');
-            });
-            if (btnElement) {
+        function toggleTadarusSurah(number, btnElement) {
+            const index = window.selectedTadarusSurahs.indexOf(number);
+            if (index > -1) {
+                window.selectedTadarusSurahs.splice(index, 1);
+                btnElement.classList.remove('text-[#10b981]', 'bg-[#10b981]/10', 'border-[#10b981]/30');
+                btnElement.classList.add('text-slate-400', 'border-transparent');
+            } else {
+                window.selectedTadarusSurahs.push(number);
                 btnElement.classList.remove('text-slate-400', 'border-transparent');
                 btnElement.classList.add('text-[#10b981]', 'bg-[#10b981]/10', 'border-[#10b981]/30');
             }
         }
+
 
         // ==========================================
         // PROGRESSIVE WEB APP (PWA) DYNAMIC INJECTION
@@ -5684,6 +5872,14 @@ function injectStagedCard(type, title, subtitle) {
                 goToScreen('murajaahMapScreen');
             }
         }
-    </script>
+    
+        function cheatResetCooldown() {
+            localStorage.removeItem('murajaahCooldownEnd');
+            murajaahHearts = window.isMuhsinin ? 10 : 5;
+            updateGamification();
+            closeCooldownModal();
+            showSpaceQNotice("Cheat Diaktifkan", "Hukuman cooldown telah dihapus. Nyawa diisi penuh kembali!", "success");
+        }
+</script>
 </body>
 </html>
