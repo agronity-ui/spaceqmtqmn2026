@@ -383,17 +383,12 @@
         }
         .animate-pulse-golden { animation: pulse-golden 3s infinite; }
 
-        :root { --bg-app: #09090b; --bg-card: #18181b; --text-main: #ffffff; --border: rgba(255,255,255,0.1); }
-        body.light-mode { --bg-app: #f4f4f5; --bg-card: #ffffff; --text-main: #09090b; --border: rgba(0,0,0,0.1); }
-        body { background-color: var(--bg-app); color: var(--text-main); }
-        #MobileDeviceSimulator { background-color: var(--bg-app); color: var(--text-main); }
-        .bg-\[\#09090b\] { background-color: var(--bg-app) !important; }
-        .bg-\[\#18181b\] { background-color: var(--bg-card) !important; }
-        .text-white { color: var(--text-main) !important; }
-        .border-white\/5, .border-white\/10, .border-white\/20 { border-color: var(--border) !important; }
-        body.light-mode .text-slate-400 { color: #475569 !important; }
-        body.light-mode .text-slate-500 { color: #64748b !important; }
-
+        body { background-color: #09090b; color: #ffffff; }
+        #MobileDeviceSimulator { background-color: #09090b; color: #ffffff; }
+        .bg-\[\#09090b\] { background-color: #09090b !important; }
+        .bg-\[\#18181b\] { background-color: #18181b !important; }
+        .text-white { color: #ffffff !important; }
+        .border-white\/5, .border-white\/10, .border-white\/20 { border-color: rgba(255,255,255,0.1) !important; }
     </style>
 </head>
 <body class="bg-[#09090b] sm:bg-zinc-950 flex items-center justify-center min-h-[100dvh] sm:p-4 font-sans antialiased m-0 p-0 overflow-hidden sm:overflow-auto transition-colors duration-300">
@@ -433,13 +428,11 @@
         <!-- ========================================== -->
         <div id="ob1" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-[#09090b] flex flex-col items-center pt-20 sm:pt-28 px-6">
             <div class="relative w-full h-[280px] sm:h-[320px] flex items-center justify-center shrink-0">
-                <div class="absolute w-32 h-40 bg-[#18181b] border border-white/10 rounded-2xl shadow-heavy -rotate-12 -translate-x-14 -translate-y-6 p-2 flex flex-col items-center">
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80" class="w-full h-24 rounded-xl object-cover mb-2 filter brightness-90">
-                    <div class="w-full h-4 bg-white/10 rounded-full"></div>
+                <div class="absolute w-32 h-40 bg-[#18181b] border border-white/10 rounded-full shadow-heavy -rotate-12 -translate-x-14 -translate-y-6 p-2 flex flex-col items-center overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80" class="w-full h-full rounded-full object-cover">
                 </div>
-                <div class="absolute w-32 h-40 bg-[#18181b] border border-white/10 rounded-2xl shadow-heavy rotate-[15deg] translate-x-16 -translate-y-2 p-2 flex flex-col items-center">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80" class="w-full h-24 rounded-xl object-cover mb-2 filter brightness-90">
-                    <div class="w-full h-4 bg-white/10 rounded-full"></div>
+                <div class="absolute w-32 h-40 bg-[#18181b] border border-white/10 rounded-full shadow-heavy rotate-[15deg] translate-x-16 -translate-y-2 p-2 flex flex-col items-center overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80" class="w-full h-full rounded-full object-cover">
                 </div>
                 <div class="absolute z-10 w-28 h-28 bg-gradient-to-tr from-[#10b981] to-[#064e3b] rounded-3xl shadow-[0_0_40px_rgba(16,185,129,0.4)] flex items-center justify-center border border-white/20">
                     <span class="text-[54px] font-black text-[#09090b] tracking-tighter drop-shadow-sm">Q</span>
@@ -453,8 +446,8 @@
                 <div class="w-2 h-2 rounded-full bg-white/20"></div>
             </div>
 
-            <h2 class="text-[32px] sm:text-[36px] font-black text-white text-center leading-[1.1] tracking-tight">SocialQ:<br>No Filter, Just Real</h2>
-            <p class="text-slate-400 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Bagikan momen 15 detik yang otentik. Temukan inspirasi nyata setiap hari.</p>
+            <h2 class="text-[32px] sm:text-[36px] font-black text-white text-center leading-[1.1] tracking-tight">SocialQ:<br>Real, Hangat, Bermakna</h2>
+            <p class="text-slate-400 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Bagikan momen singkat yang jujur. Rasakan feed yang hangat, sederhana, dan terasa hidup.</p>
 
             <button onclick="goToScreen('ob2')" class="absolute bottom-10 w-[85%] bg-gradient-to-r from-[#10b981] to-[#064e3b] text-white py-[16px] sm:py-[18px] rounded-[24px] font-bold text-[17px] shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[0.98] transition-transform">
                 Wah, mantap!
@@ -524,8 +517,59 @@
             <h2 class="text-[32px] sm:text-[36px] font-black text-white text-center leading-[1.1] tracking-tight">KajianQ:<br>Ilmu Mendalam</h2>
             <p class="text-slate-400 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Ikuti kelas intensif dari asatidz pilihan dengan ruang diskusi yang kondusif.</p>
 
-            <button onclick="goToScreen('ob4')" class="absolute bottom-10 w-[85%] bg-gradient-to-r from-[#10b981] to-[#064e3b] text-white py-[16px] sm:py-[18px] rounded-[24px] font-bold text-[17px] shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[0.98] transition-transform">
+            <button onclick="goToScreen('ob_murajaah')" class="absolute bottom-10 w-[85%] bg-gradient-to-r from-[#10b981] to-[#064e3b] text-white py-[16px] sm:py-[18px] rounded-[24px] font-bold text-[17px] shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[0.98] transition-transform">
                 Lanjut!
+            </button>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- SCREEN 3.5: ONBOARDING - MURAJAAHQ         -->
+        <!-- ========================================== -->
+        <div id="ob_murajaah" class="screen-transition hide-screen absolute inset-0 w-full h-full bg-[#09090b] flex flex-col items-center pt-20 sm:pt-28 px-6 overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute top-16 left-1/2 -translate-x-1/2 w-[320px] h-[320px] bg-[radial-gradient(circle,rgba(251,191,36,0.18)_0%,transparent_65%)] blur-2xl"></div>
+                <div class="absolute top-24 left-10 w-16 h-16 rounded-full bg-[#fbbf24]/10 border border-[#fbbf24]/20 animate-pulse"></div>
+                <div class="absolute bottom-32 right-8 w-20 h-20 rounded-full bg-[#10b981]/10 border border-[#10b981]/20 animate-pulse"></div>
+            </div>
+
+            <div class="relative w-full h-[280px] sm:h-[320px] flex items-center justify-center shrink-0">
+                <div class="absolute -translate-x-20 -translate-y-16 w-18 h-18 rounded-2xl bg-[#18181b] border border-[#fbbf24]/30 shadow-[0_0_30px_rgba(251,191,36,0.25)] rotate-[-18deg] flex items-center justify-center overflow-hidden animate-completion-pop">
+                    <i data-lucide="sparkles" class="w-8 h-8 text-[#fbbf24]"></i>
+                </div>
+                <div class="absolute translate-x-16 -translate-y-8 w-20 h-24 rounded-[24px] bg-[#18181b] border border-white/10 shadow-heavy rotate-[12deg] p-3 flex flex-col justify-between overflow-hidden">
+                    <div class="h-2 w-8 bg-[#fbbf24]/50 rounded-full"></div>
+                    <div class="h-2 w-12 bg-white/10 rounded-full"></div>
+                    <div class="h-2 w-10 bg-[#10b981]/30 rounded-full"></div>
+                </div>
+                <div class="absolute translate-x-0 translate-y-10 w-24 h-24 rounded-full bg-[#18181b] border border-[#fbbf24]/30 shadow-[0_0_45px_rgba(251,191,36,0.35)] flex items-center justify-center overflow-hidden">
+                    <div class="w-16 h-16 rounded-full bg-[radial-gradient(circle,rgba(251,191,36,0.35)_0%,rgba(16,185,129,0.2)_45%,transparent_75%)]"></div>
+                </div>
+                <div class="absolute -translate-x-24 translate-y-12 w-16 h-20 rounded-[20px] bg-[#18181b] border border-white/10 shadow-heavy -rotate-[10deg] p-2 flex flex-col gap-2 overflow-hidden">
+                    <div class="h-2 w-10 bg-white/10 rounded-full"></div>
+                    <div class="h-2 w-8 bg-[#fbbf24]/40 rounded-full"></div>
+                    <div class="h-2 w-12 bg-[#10b981]/25 rounded-full"></div>
+                </div>
+                <div class="absolute z-10 w-32 h-32 rounded-full bg-[#18181b]/90 border border-[#fbbf24]/20 shadow-[0_0_55px_rgba(251,191,36,0.25)] flex items-center justify-center backdrop-blur-md">
+                    <div class="w-24 h-24 rounded-full border border-[#fbbf24]/30 bg-[#09090b] flex items-center justify-center">
+                        <span class="text-[#fbbf24] font-black text-4xl">Q</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-2 mt-2 mb-4 shrink-0">
+                <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                <div class="w-2 h-2 rounded-full bg-[#fbbf24] shadow-[0_0_10px_rgba(251,191,36,0.8)]"></div>
+                <div class="w-2 h-2 rounded-full bg-white/20"></div>
+            </div>
+
+            <h2 class="text-[32px] sm:text-[36px] font-black text-white text-center leading-[1.1] tracking-tight">MurajaahQ:<br>Uji Hafalan Tanpa Mencontek</h2>
+            <p class="text-slate-400 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Sistem deteksi suara AI yang ketat. Salah makhraj? Gunakan nyawa untuk melihat bantuan atau istirahat sejenak untuk memantapkan hafalan.</p>
+
+            <button onclick="goToScreen('ob4')" class="absolute bottom-10 w-[85%] bg-gradient-to-r from-[#fbbf24] to-[#b45309] text-[#09090b] py-[16px] sm:py-[18px] rounded-[24px] font-black text-[17px] shadow-[0_0_20px_rgba(251,191,36,0.25)] hover:scale-[0.98] transition-transform">
+                Mantap, lanjut!
             </button>
         </div>
 
@@ -550,7 +594,7 @@
             </div>
 
             <h2 class="text-[32px] sm:text-[36px] font-black text-white text-center leading-[1.1] tracking-tight">Jadi Bagian<br>Muhsinin</h2>
-            <p class="text-slate-400 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Coba Gratis 1 Bulan (Trial). Selanjutnya Rp 25.000/bulan.</p>
+            <p class="text-slate-400 text-center mt-3 text-[14px] sm:text-[15px] font-semibold px-4">Coba Gratis 30 Hari (Trial). Lanjut otomatis Rp 25.000/bulan. Bisa dibatalkan kapan saja.</p>
 
             <button onclick="goToScreen('loginScreen')" class="absolute bottom-10 w-[85%] bg-gradient-to-r from-[#10b981] to-[#064e3b] text-white py-[16px] sm:py-[18px] rounded-[24px] font-bold text-[17px] shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[0.98] transition-transform">
                 Ayo Mulai!
@@ -1788,8 +1832,8 @@
             <div class="pt-14 px-6 flex justify-center items-center z-30">
                 <span class="text-white font-bold text-[15px]">Pratinjau <span id="preview-type-text">Foto</span> (Raw)</span>
             </div>
-            
-            <div class="flex-1 flex items-center justify-center relative px-6">
+
+            <div class="flex-1 flex flex-col items-center justify-center relative px-6 gap-5">
                 <!-- Preview Circular -->
                 <div class="w-full aspect-square max-w-[320px] max-h-[320px] rounded-full border-[8px] border-white/10 overflow-hidden relative shadow-[0_0_40px_rgba(255,255,255,0.05)]">
                     <img id="preview-img" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600" class="w-full h-full object-cover">
@@ -1798,8 +1842,13 @@
                         <i data-lucide="play" class="w-16 h-16 text-white drop-shadow-md"></i>
                     </div>
                 </div>
+
+                <div class="w-full max-w-[320px]">
+                    <label class="text-[12px] font-bold text-slate-400 ml-1 mb-2 block">Custom Caption</label>
+                    <textarea id="custom-caption-input" rows="3" maxlength="220" placeholder="Tulis caption yang hangat dan jujur..." class="w-full resize-none bg-[#18181b] border border-white/10 text-white placeholder-slate-500 text-[14px] font-semibold rounded-[20px] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#10b981]/50 focus:border-[#10b981] transition-all leading-relaxed"></textarea>
+                </div>
             </div>
-            
+
             <!-- Tindakan Final (Tanpa Edit) -->
             <div class="pb-16 px-6">
                 <div class="bg-[#18181b] border border-white/10 rounded-2xl p-4 mb-6 backdrop-blur-md">
@@ -1808,14 +1857,13 @@
                     </p>
                     <p class="text-center text-slate-400 text-[11px] mt-2 leading-relaxed">SpaceQ tidak menyediakan fitur filter atau pemotong media untuk menjaga keaslian momenmu.</p>
                 </div>
-                
+
                 <div class="flex gap-4">
                     <button onclick="goToScreen('cameraScreen'); startLiveCamera();" class="flex-1 py-4 rounded-xl bg-[#18181b] border border-white/10 text-white font-bold text-[14px] hover:bg-white/10 transition-colors active:scale-95 cursor-pointer">Batal</button>
                     <button onclick="startModeration()" class="flex-[2] py-4 rounded-xl bg-gradient-to-r from-[#10b981] to-[#064e3b] text-white font-bold text-[14px] shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:scale-[1.02] active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2">Posting ke SocialQ <i data-lucide="send" class="w-4 h-4"></i></button>
                 </div>
             </div>
         </div>
-
         <!-- ========================================== -->
         <!-- SCREEN 11: MODERASI SISTEM                 -->
         <!-- ========================================== -->
@@ -2384,11 +2432,23 @@
                             <span class="bg-[#10b981]/10 text-[#10b981] border border-[#10b981]/30 px-3 py-1.5 rounded-xl text-[12px] font-bold flex items-center gap-1.5 shadow-[0_0_10px_rgba(16,185,129,0.2)]"><i data-lucide="lock" class="w-3 h-3"></i> Ikhwan</span>
                         </div>
                         <div class="h-[1px] w-full bg-white/10"></div>
-                        <div class="flex justify-between items-center">
-                            <div><h4 class="font-bold text-[13px] text-white">Privasi Ruang</h4></div>
-                            <div class="w-12 h-6 bg-[#10b981] rounded-full relative cursor-pointer flex items-center shadow-[0_0_10px_rgba(16,185,129,0.3)]">
-                                <div class="w-5 h-5 bg-[#09090b] rounded-full absolute right-0.5 shadow-sm transition-all border border-white/20"></div>
+                        <div class="flex justify-between items-start gap-3">
+                            <div class="min-w-0">
+                                <h4 class="font-bold text-[13px] text-white">Privasi Ruang</h4>
+                                <p class="text-[11px] text-slate-500 mt-1">Ruang privat dilindungi PIN 4 digit dan hanya aktif untuk Muhsinin.</p>
                             </div>
+                            <div class="flex items-center gap-2 shrink-0">
+                                <button id="private-room-lock-btn" onclick="handlePrivateRoomLockClick(event)" class="w-8 h-8 rounded-full bg-[#18181b] border border-white/10 flex items-center justify-center hover:bg-white/5 active:scale-95 transition-colors" aria-label="Kunci privasi ruang">
+                                    <i id="private-room-lock-icon" data-lucide="lock" class="w-4 h-4 text-yellow-500"></i>
+                                </button>
+                                <button id="private-room-toggle" onclick="handlePrivateRoomToggle()" class="w-12 h-6 bg-[#10b981] rounded-full relative cursor-pointer flex items-center shadow-[0_0_10px_rgba(16,185,129,0.3)] transition-colors">
+                                    <div data-private-knob class="w-5 h-5 bg-[#09090b] rounded-full absolute right-0.5 shadow-sm transition-transform border border-white/20"></div>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="private-room-pin-wrap" class="hidden pt-1">
+                            <label class="text-[12px] font-bold text-slate-400 ml-1 mb-2 block">PIN 4 Digit</label>
+                            <input id="private-room-pin" type="password" inputmode="numeric" maxlength="4" placeholder="1234" class="w-full bg-[#09090b] border border-white/10 text-white placeholder-slate-500 text-[14px] font-bold rounded-2xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#10b981] tracking-[0.35em] text-center">
                         </div>
                     </div>
                 </div>
@@ -2399,6 +2459,7 @@
         </div>
 
         <!-- ========================================== -->
+        <!-- NEW MODAL: CREATE ROOM VERSUS 1V1          -->        <!-- ========================================== -->
         <!-- NEW MODAL: CREATE ROOM VERSUS 1V1          -->
         <!-- ========================================== -->
         <div id="createVersusModal" class="absolute inset-0 z-[120] hidden">
@@ -2469,7 +2530,7 @@
                 </div>
 
                 <div class="mb-6">
-                    <label class="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-2 block">Pilih Metode</label>
+                    <label class="text-[12px] font-bold text-slate-500 uppercase tracking-wider mb-2 block">Pilih Pembayaran</label>
                     <div class="flex gap-3">
                         <div class="flex-1 border border-[#10b981] bg-[#10b981]/10 shadow-[0_0_10px_rgba(16,185,129,0.2)] rounded-xl p-3 flex items-center justify-center gap-2 cursor-pointer">
                             <i data-lucide="qr-code" class="w-5 h-5 text-[#10b981]"></i>
@@ -2569,13 +2630,15 @@
                         <span class="bg-[#18181b] text-slate-300 px-3 py-1.5 rounded-full text-[11px] font-bold border border-white/10">@tech</span>
                     </div>
 
-                    <div class="bg-gradient-to-r from-yellow-500/20 to-yellow-700/40 border border-yellow-500/50 p-5 rounded-3xl mt-6 mb-10 shadow-[0_0_20px_rgba(234,179,8,0.2)]">
+                    <div class="bg-gradient-to-br from-yellow-500/20 to-yellow-700/30 border border-yellow-500/50 p-5 rounded-3xl mt-6 mb-10 shadow-[0_0_20px_rgba(234,179,8,0.2)]">
                         <h3 class="text-yellow-400 font-black text-lg flex items-center gap-2"><i data-lucide="crown"></i> Muhsinin Membership</h3>
-                        <ul class="text-slate-300 text-xs mt-3 space-y-2 font-semibold">
-                            <li>✅ Coba Gratis 1 Bulan (Trial)</li>
-                            <li>✅ Selanjutnya Rp 25.000/bulan</li>
-                            <li>✅ Kapasitas Nyawa MurajaahQ menjadi 10</li>
-                        </ul>
+                        <div class="mt-3 space-y-3 text-slate-200 text-[12px] leading-relaxed font-medium">
+                            <p><span class="text-white font-bold">Verified Golden Badge:</span> Lencana Centang Emas eksklusif di profil dan setiap komentar, menandakan kontribusi nyata Anda bagi ekosistem.</p>
+                            <p><span class="text-white font-bold">Private Tadarus Room:</span> Kemampuan membuat ruang mengaji tertutup dengan proteksi PIN untuk keluarga atau komunitas terbatas.</p>
+                            <p><span class="text-white font-bold">Priority Q&amp;A Queue:</span> Akun Anda akan berada di urutan paling atas saat mengantre bertanya (Raise Hand) di setiap KajianQ.</p>
+                            <p><span class="text-white font-bold">Maximum Performance:</span> Nyawa MurajaahQ bertambah menjadi 10, Cooldown hanya 15 menit, dan durasi SocialQ hingga 60 detik.</p>
+                            <p><span class="text-white font-bold">Trial Flow:</span> Akses trial 30 hari pertama Rp 0. Langganan bulan berikutnya otomatis Rp 25.000. Batalkan kapan saja melalui pengaturan.</p>
+                        </div>
                         <button onclick="openMuhsininPaymentScreen()" class="w-full mt-4 bg-yellow-500 text-black font-black py-3 rounded-xl shadow-md hover:scale-105 transition-all">Aktifkan</button>
                     </div>
 
@@ -2844,19 +2907,17 @@
                             </div>
                         </div>
 
-                        <div id="display-toggle-row" onclick="toggleTheme()" class="flex items-center justify-between p-4 hover:bg-white/5 transition-colors cursor-pointer">
+                        <div id="display-toggle-row" class="flex items-center justify-between p-4 bg-white/5 border border-white/5 rounded-2xl">
                             <div class="flex items-center gap-3">
                                 <i data-lucide="monitor" class="w-5 h-5 text-[#10b981]"></i>
                                 <div>
                                     <span class="text-white font-semibold text-[14px]">Display</span>
-                                    <p class="text-slate-400 text-[11px] font-medium">Dark / Light Mode</p>
+                                    <p class="text-slate-400 text-[11px] font-medium">Pure Dark Experience</p>
                                 </div>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <span id="display-mode-label" class="text-slate-400 text-[12px] font-semibold">Dark</span>
-                                <div class="w-11 h-6 rounded-full bg-white/10 border border-white/10 p-1 flex items-center">
-                                    <div id="display-toggle-knob" class="w-4 h-4 rounded-full bg-[#10b981] transition-transform duration-300"></div>
-                                </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-slate-400 text-[12px] font-semibold">Locked</span>
+                                <i data-lucide="lock" class="w-4 h-4 text-yellow-500"></i>
                             </div>
                         </div>
                     </div>
@@ -2919,15 +2980,15 @@
                 <div class="relative overflow-hidden rounded-[32px] border border-[#10b981]/20 bg-gradient-to-b from-[#064e3b]/60 to-[#18181b] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
                     <div class="absolute -right-10 -top-10 w-32 h-32 rounded-full bg-[#10b981]/20 blur-3xl"></div>
                     <div class="relative z-10">
-                        <p id="payment-subtitle" class="text-[#10b981] text-[11px] font-black tracking-[0.2em] uppercase mb-2">Muhsinin Pro - 1 Month Trial</p>
-                        <h3 id="payment-title" class="text-white text-[28px] font-black leading-tight">Coba Gratis 1 Bulan, lalu lanjut otomatis.</h3>
+                        <p id="payment-subtitle" class="text-[#10b981] text-[11px] font-black tracking-[0.2em] uppercase mb-2">Muhsinin Pro - 30 Hari Trial</p>
+                        <h3 id="payment-title" class="text-white text-[28px] font-black leading-tight">Akses trial 30 hari pertama Rp 0, lalu langganan otomatis Rp 25.000/bulan.</h3>
                         <div class="mt-6 space-y-3">
                             <div class="flex items-center justify-between rounded-2xl bg-white/5 border border-white/10 p-4">
-                                <span class="text-slate-300 font-semibold">Harga Bulan ke-1</span>
+                                <span class="text-slate-300 font-semibold">30 Hari Pertama</span>
                                 <span class="text-white font-black">Rp 0</span>
                             </div>
                             <div class="flex items-center justify-between rounded-2xl bg-white/5 border border-white/10 p-4">
-                                <span class="text-slate-300 font-semibold">Bulan ke-2 dst</span>
+                                <span class="text-slate-300 font-semibold">Setelah Trial</span>
                                 <span class="text-white font-black">Rp 25.000</span>
                             </div>
                             <div class="flex items-center justify-between rounded-2xl bg-white/5 border border-white/10 p-4">
@@ -2939,7 +3000,7 @@
                             <i data-lucide="fingerprint" class="w-5 h-5"></i>
                             Konfirmasi dengan FaceID/Sidik Jari
                         </button>
-                        <p class="text-slate-400 text-[11px] mt-3 leading-relaxed text-center">Trial dapat dibatalkan kapan saja sebelum penagihan berikutnya.</p>
+                        <p class="text-slate-400 text-[11px] mt-3 leading-relaxed text-center">Batalkan kapan saja melalui pengaturan.</p>
                     </div>
                 </div>
             </div>
@@ -3881,7 +3942,6 @@
             vipVideos.forEach((vidSrc, idx) => {
                 html += `
                 <div class="w-full bg-[#18181b] rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)] border border-[#10b981]/50 flex flex-col gap-4 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-gradient-to-l from-[#10b981] to-transparent text-black font-black text-[10px] px-4 py-1 rounded-bl-xl z-10">VIP POST</div>
                     <div class="flex items-start justify-between">
                         <div class="flex items-center gap-3">
                             <img src="https://i.pravatar.cc/100?img=${idx+10}" class="w-[42px] h-[42px] rounded-full object-cover border-2 border-[#10b981]" onclick="openOtherUserProfile('VIP User', 'https://i.pravatar.cc/100?img=${idx+10}', 'VIP Creator')">
@@ -4018,20 +4078,6 @@
                     if (typeof lucide !== 'undefined') lucide.createIcons();
                 }, 1100);
             }, 1200);
-        }
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            localStorage.setItem('spaceq-theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-            syncThemeToggleUI();
-        }
-        function syncThemeToggleUI() {
-            const label = document.getElementById('display-mode-label');
-            const knob = document.getElementById('display-toggle-knob');
-            const row = document.getElementById('display-toggle-row');
-            const isLight = document.body.classList.contains('light-mode');
-            if (label) label.innerText = isLight ? 'Light' : 'Dark';
-            if (knob) knob.style.transform = isLight ? 'translateX(20px)' : 'translateX(0px)';
-            if (row) row.classList.toggle('bg-white/5', isLight);
         }
         function renderFollowersList() {
             const container = document.getElementById('followers-list-container');
@@ -4410,17 +4456,17 @@
         function startModeration() {
             goToScreen('moderationScreen');
             setTimeout(() => {
-                alert("✅ Lolos Moderasi.\n\nTidak ditemukan ujaran kebencian atau konten negatif. Berhasil diposting ke SocialQ!");
-                
-                // Ambil container SocialQ feed
+                showSpaceQNotice("Lolos Moderasi", "Tidak ditemukan ujaran kebencian atau konten negatif. Berhasil diposting ke SocialQ!", "success");
+
                 const container = document.getElementById('socialq-main-feed-container');
                 if (container && tempCapturedMedia) {
-                    
+                    const captionInput = document.getElementById('custom-caption-input');
+                    const customCaption = captionInput && captionInput.value.trim() ? captionInput.value.trim() : 'Momen otentikku. Alhamdulillah 🌿✨';
+
                     let mediaHtml = '';
                     if (tempMediaType === 'photo') {
                         mediaHtml = `<img src="${tempCapturedMedia}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90">`;
                     } else {
-                        // Jika video, pakai transform mirror scale-x-[-1]
                         mediaHtml = `
                         <video src="${tempCapturedMedia}" loop muted playsinline class="w-full h-full object-cover transform scale-x-[-1] transition-transform duration-700 group-hover:scale-105 filter brightness-90"></video>
                         <div class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors pointer-events-none"></div>
@@ -4428,7 +4474,6 @@
                         `;
                     }
 
-                    // Template String HTML untuk dipasang ke puncak list feed
                     const htmlString = `
                     <div class="w-full bg-[#18181b] rounded-[24px] p-5 shadow-[0_4px_20px_rgba(0,0,0,0.3)] border border-[#10b981]/30 flex flex-col gap-4 mb-4">
                         <div class="flex items-start justify-between">
@@ -4441,13 +4486,13 @@
                             </div>
                             <button class="bg-[#10b981] text-[#09090b] px-3 py-1.5 rounded-full text-[12px] font-bold shadow-[0_0_10px_rgba(16,185,129,0.3)]">Baru</button>
                         </div>
-                        
+
                         <div class="w-[260px] h-[260px] mx-auto rounded-full bg-[#09090b] flex items-center justify-center overflow-hidden relative group cursor-pointer border-[6px] border-[#064e3b] shadow-[0_0_20px_rgba(16,185,129,0.2)]" ${tempMediaType === 'video' ? 'onclick="togglePlay(this)"' : ''}>
                             ${mediaHtml}
                         </div>
 
                         <div class="px-2">
-                            <p class="text-[13px] text-slate-300 font-medium mb-4">"Momen otentikku. Alhamdulillah 🌿✨"</p>
+                            <p class="text-[13px] text-slate-300 font-medium mb-4">"${customCaption.replace(/"/g, '&quot;')}"</p>
                             <div class="flex items-center justify-between border-t border-white/10 pt-3">
                                 <div class="flex gap-1 items-center bg-[#09090b] border border-white/10 px-3 py-1.5 rounded-full shadow-inner">
                                     <i data-lucide="thumbs-up" class="w-4 h-4 text-slate-400"></i>
@@ -4463,11 +4508,8 @@
                     </div>
                     `;
 
-                    // Masukkan struktur HTML tadi ke posisi paling atas
                     container.insertAdjacentHTML('afterbegin', htmlString);
                     if (typeof lucide !== 'undefined') lucide.createIcons();
-
-                    // Kosongkan Blob URI / Media Cache agar tidak memenuhi memori HP pengguna
                     tempCapturedMedia = null;
                 }
 
@@ -4475,7 +4517,7 @@
             }, 3000);
         }
 
-        // ==========================================
+// ==========================================
         // MURAJAAHQ & SIMULATION LOGIC (NO AI)
         // ==========================================
         window.isMuhsinin = false;
@@ -4511,7 +4553,7 @@
                 if(diff <= 0) {
                     clearInterval(cooldownInterval); closeCooldownModal();
                     murajaahHearts = murajaahHeartsMax; updateGamification();
-                    alert("Alhamdulillah, energi Murajaah kamu sudah penuh kembali!");
+                    showSpaceQNotice("Nyawa Penuh", "Alhamdulillah, energi Murajaah kamu sudah penuh kembali!", "success");
                 } else {
                     const m = Math.floor((diff / 1000 / 60));
                     const s = Math.floor((diff / 1000) % 60);
@@ -5002,7 +5044,7 @@ function startVersusFromModal() {
                     setTimeout(() => startVsRound(), 500);
                 }
             }).catch(e => {
-                alert("Gagal memuat surah.");
+                showSpaceQNotice("Gagal Memuat", "Gagal memuat surah.", "danger");
                 goToScreen('murajaahVersusLobbyScreen');
             });
         }
@@ -5342,6 +5384,49 @@ function startVersusFromModal() {
             }, 300);
         }
 
+        function updateCreateRoomPrivacyUI() {
+            const toggle = document.getElementById('private-room-toggle');
+            const pinWrap = document.getElementById('private-room-pin-wrap');
+            const pinInput = document.getElementById('private-room-pin');
+            const lockIcon = document.getElementById('private-room-lock-icon');
+            const isPrivate = !!window.tadarusRoomIsPrivate;
+            if (toggle) {
+                const knob = toggle.querySelector('[data-private-knob]');
+                toggle.classList.toggle('bg-[#10b981]', !isPrivate);
+                toggle.classList.toggle('bg-white/10', isPrivate);
+                if (knob) {
+                    knob.classList.toggle('translate-x-6', isPrivate);
+                    knob.classList.toggle('translate-x-0', !isPrivate);
+                }
+            }
+            if (pinWrap) pinWrap.classList.toggle('hidden', !isPrivate);
+            if (pinInput && !isPrivate) pinInput.value = '';
+            if (lockIcon) {
+                lockIcon.classList.toggle('text-yellow-500', !isPrivate);
+                lockIcon.classList.toggle('text-slate-500', isPrivate);
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function handlePrivateRoomLockClick(e) {
+            if (e) e.preventDefault();
+            if (!window.isMuhsinin) {
+                showSpaceQNotice('Muhsinin Diperlukan', 'Fitur Ruang Privat (PIN) hanya tersedia untuk anggota Muhsinin.', 'warning');
+                return;
+            }
+            window.tadarusRoomIsPrivate = !window.tadarusRoomIsPrivate;
+            updateCreateRoomPrivacyUI();
+        }
+
+        function handlePrivateRoomToggle() {
+            if (!window.isMuhsinin) {
+                showSpaceQNotice('Muhsinin Diperlukan', 'Fitur Ruang Privat (PIN) hanya tersedia untuk anggota Muhsinin.', 'warning');
+                return;
+            }
+            window.tadarusRoomIsPrivate = !window.tadarusRoomIsPrivate;
+            updateCreateRoomPrivacyUI();
+        }
+
         function switchTadarusTab(tab) {
             const tabs = ['juz', 'surah', 'bebas'];
             tabs.forEach(t => {
@@ -5427,9 +5512,23 @@ function startVersusFromModal() {
             closeCreateRoomModal();
             setTimeout(() => { 
                 const nameInput = document.getElementById('create-room-name');
+                const pinInput = document.getElementById('private-room-pin');
                 const roomName = (nameInput && nameInput.value.trim() !== '') ? nameInput.value : 'Ruang Tadarus Baru';
                 const targetSurahs = (Array.isArray(window.selectedTadarusSurahs) && window.selectedTadarusSurahs.length > 0) ? window.selectedTadarusSurahs : [1];
+                const isPrivate = !!window.tadarusRoomIsPrivate;
+                const pin = pinInput ? pinInput.value.trim() : '';
 
+                if (isPrivate && !window.isMuhsinin) {
+                    showSpaceQNotice('Muhsinin Diperlukan', 'Fitur Ruang Privat (PIN) hanya tersedia untuk anggota Muhsinin.', 'warning');
+                    return;
+                }
+
+                if (isPrivate && !/^\d{4}$/.test(pin)) {
+                    showSpaceQNotice('PIN Tidak Valid', 'Masukkan PIN 4 digit untuk ruang privat.', 'warning');
+                    return;
+                }
+
+                window.tadarusCreatedRoom = { name: roomName, isPrivate, pin, targetSurahs };
                 joinTadarusRoom(targetSurahs, roomName);
             }, 300);
         }
@@ -5619,7 +5718,7 @@ function startVersusFromModal() {
                     installBtn.classList.remove('flex');
                 }
                 // Notifikasi sukses
-                alert("✨ SpaceQ siap di homescreen Anda! Silakan nikmati akses yang lebih cepat.");
+                showSpaceQNotice("PWA Siap", "SpaceQ siap di homescreen Anda! Silakan nikmati akses yang lebih cepat.", "success");
             }
             
             // Hapus event yang sudah dikonsumsi
@@ -5724,8 +5823,6 @@ function startVersusFromModal() {
             try {
                 // Memanggil Inisiasi PWA
                 initPWA();
-                if (localStorage.getItem('spaceq-theme') === 'light') document.body.classList.add('light-mode');
-                syncThemeToggleUI();
 
                 const link = document.createElement('link');
                 link.href = 'https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap';
@@ -5776,7 +5873,7 @@ function closeShareContactModal() {
 
 function executeShareToContact(name) {
     closeShareContactModal();
-    setTimeout(() => alert("Berhasil membagikan ke " + name), 300);
+    setTimeout(() => showSpaceQNotice("Berbagi Berhasil", "Berhasil membagikan ke " + name, "success"), 300);
 }
 
 function toggleShareMenu() {
