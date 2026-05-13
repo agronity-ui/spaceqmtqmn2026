@@ -2327,6 +2327,9 @@
                         <p id="murajaah-translation" class="text-center text-slate-400 font-semibold italic text-[16px] leading-relaxed pb-8 w-full">
                             "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang."
                         </p>
+                        <button id="murajaah-repeat-btn" onclick="repeatMurajaahAyah()" class="hidden mt-1 w-full rounded-2xl border border-[#10b981]/70 bg-transparent px-4 py-3 text-[14px] font-bold text-[#10b981] transition-all duration-200 hover:border-[#10b981] hover:bg-[#10b981]/10 hover:text-white active:scale-[0.99]">
+                            Tutup &amp; Coba Hafalkan Lagi
+                        </button>
                     </div>
                 </div>
             </div>
@@ -4681,16 +4684,16 @@
             const arabicElem = document.getElementById('murajaah-arabic');
             const translationElem = document.getElementById('murajaah-translation');
             const ayatNumElem = document.getElementById('murajaah-ayat-num');
-            
+
             if(arabicElem) arabicElem.innerText = ayah.text;
             if(translationElem) { translationElem.innerText = `"${ayah.translation}"`; translationElem.classList.add('blur-md', 'select-none'); }
             if(ayatNumElem) ayatNumElem.innerText = ayah.numberInSurah;
-            
+
             const topNum = document.getElementById('murajaah-ayat-num-top');
             if(topNum) topNum.innerText = ayah.numberInSurah;
             const topTotal = document.getElementById('murajaah-ayat-total');
             if(topTotal) topTotal.innerText = murajaahAyahs.length;
-            
+
             const progressPercent = ((currentMurajaahIndex + 1) / murajaahAyahs.length) * 100;
             const progressElem = document.getElementById('murajaah-progress');
             if(progressElem) progressElem.style.width = `${progressPercent}%`;
@@ -4704,45 +4707,92 @@
 
             const nextBtnTop = document.getElementById('murajaah-next-btn-top'); if(nextBtnTop) nextBtnTop.classList.add('opacity-30', 'pointer-events-none');
             if(arabicElem) arabicElem.classList.add('blur-md');
-            
+
             const blurOverlay = document.getElementById('murajaah-blur-overlay');
             if(blurOverlay) { blurOverlay.classList.add('hidden'); blurOverlay.classList.remove('flex'); } // Sembunyikan di awal
-            
+            hideMurajaahRepeatButton();
+
             hideMurajaahFeedback();
         }
 
         function revealMurajaahAyah() {
             const arabicElem = document.getElementById('murajaah-arabic');
+            const translationElem = document.getElementById('murajaah-translation');
             const blurOverlay = document.getElementById('murajaah-blur-overlay');
+            const repeatBtn = document.getElementById('murajaah-repeat-btn');
             if(arabicElem) arabicElem.classList.remove('blur-md');
+            if(translationElem) translationElem.classList.remove('blur-md', 'select-none');
             if(blurOverlay) { blurOverlay.classList.add('hidden'); blurOverlay.classList.remove('flex'); }
+            if(repeatBtn) repeatBtn.classList.remove('hidden');
+        }
+
+        function hideMurajaahRepeatButton() {
+            const repeatBtn = document.getElementById('murajaah-repeat-btn');
+            if(repeatBtn) repeatBtn.classList.add('hidden');
+        }
+
+        function repeatMurajaahAyah() {
+            const arabicElem = document.getElementById('murajaah-arabic');
+            const translationElem = document.getElementById('murajaah-translation');
+            const blurOverlay = document.getElementById('murajaah-blur-overlay');
+            const bottomAction = document.getElementById('murajaah-bottom-action');
+
+            if(arabicElem) arabicElem.classList.add('blur-md');
+            if(translationElem) translationElem.classList.add('blur-md', 'select-none');
+            if(blurOverlay) { blurOverlay.classList.remove('hidden'); blurOverlay.classList.add('flex'); }
+            if(bottomAction) bottomAction.style.transform = 'translateY(0)';
+            resetMurajaahBtn();
+            hideMurajaahRepeatButton();
         }
 
         function requestRevealAyah() {
+            if (murajaahHearts < 2) {
+                showSpaceQNotice("Nyawa Tidak Cukup", "Kamu butuh minimal 2 nyawa untuk menggunakan fitur bantuan ini.", "warning");
+                return;
+            }
+
             openActionConfirmModal({
                 title: 'Buka Ayat?',
-                message: 'Gunakan 4 nyawa untuk melihat ayat ini?',
-                continueText: 'Lanjutkan',
+                message: 'Gunakan 2 nyawa untuk melihat ayat ini?',
+                continueText: 'Bayar 2 Nyawa',
                 cancelText: 'Batal',
                 tone: 'warning',
                 iconHtml: '<i data-lucide="book-open-check" class="w-6 h-6"></i>',
                 onContinue: () => {
-                    murajaahHearts -= 4; updateGamification();
-                    if (murajaahHearts <= 0) { triggerGameOverTadarus(); } 
-                    else {
-                        document.getElementById('murajaah-arabic').classList.remove('blur-md');
-                        document.getElementById('murajaah-translation').classList.remove('blur-md', 'select-none');
-                        document.getElementById('murajaah-blur-overlay').classList.add('hidden');
-                        document.getElementById('murajaah-next-btn-top').classList.remove('opacity-30', 'pointer-events-none');
+                    // Kurangi nyawa
+                    murajaahHearts -= 2;
+                    updateGamification();
+                    
+                    // Buka ayatnya tanpa memicu Game Over (User bisa lanjut walau nyawa sisa 0)
+                    const arabicElem = document.getElementById('murajaah-arabic');
+                    const translationElem = document.getElementById('murajaah-translation');
+                    const blurOverlay = document.getElementById('murajaah-blur-overlay');
+                    const repeatBtn = document.getElementById('murajaah-repeat-btn');
+                    
+                    if(arabicElem) arabicElem.classList.remove('blur-md');
+                    if(translationElem) translationElem.classList.remove('blur-md', 'select-none');
+                    if(blurOverlay) {
+                        blurOverlay.classList.add('hidden');
+                        blurOverlay.classList.remove('flex');
                     }
+                    
+                    // Munculkan tombol Ulangi
+                    if(repeatBtn) repeatBtn.classList.remove('hidden');
                 }
             });
         }
+
         function triggerGameOverTadarus() {
             const cooldownTime = window.isMuhsinin ? (30 * 60 * 1000) : (60 * 60 * 1000);
             localStorage.setItem('murajaahCooldownEnd', Date.now() + cooldownTime);
-            showSpaceQNotice('Nyawa Habis', 'Nyawa habis! Lakukan Murajaah di Mushaf sekarang.', 'warning');
-            goToScreen('tadarusLobbyScreen');
+            
+            showSpaceQNotice(
+                'Nyawa Habis! 💔',
+                'Nyawa anda sudah habis. Mari kembali ingat hafalanmu dengan membaca Al Quran di TadarusQ.',
+                'danger',
+                'Ke TadarusQ',
+                () => goToScreen('tadarusLobbyScreen')
+            );
         }
 
         function toggleMurajaahRecord(e) {
@@ -4780,10 +4830,10 @@
 
         function showMurajaahFeedback(isCorrect, feedbackText, transcript) {
             resetMurajaahBtn();
-            
+
             const bottomAction = document.getElementById('murajaah-bottom-action');
             if(bottomAction) bottomAction.style.transform = 'translateY(150%)';
-            
+
             const feedbackSheet = document.getElementById('murajaah-feedback');
             const icon = document.getElementById('murajaah-feedback-icon');
             const iconBg = document.getElementById('murajaah-feedback-icon-container');
@@ -4801,9 +4851,10 @@
                 if (isCorrect) {
                     const trans = document.getElementById('murajaah-translation'); if(trans) trans.classList.remove('blur-md', 'select-none');
                     const nextBtnTop = document.getElementById('murajaah-next-btn-top'); if(nextBtnTop) nextBtnTop.classList.remove('opacity-30', 'pointer-events-none');
+                    hideMurajaahRepeatButton();
                     murajaahXP += 15;
                     updateGamification();
-                    
+
 
                     if(bgFlash) { void bgFlash.offsetWidth; bgFlash.classList.add('flash-correct'); }
                     if(mascot) { mascot.innerText = "🤩"; void mascot.offsetWidth; mascot.classList.add('anim-bounce'); }
@@ -4835,10 +4886,11 @@
                     if(iconBg) iconBg.className = "w-14 h-14 bg-white rounded-full flex items-center justify-center shrink-0 shadow-sm border-[4px] border-white";
                     if(title) { title.innerText = "Belum Tepat"; title.className = "font-black text-[24px] text-duo-red-dark leading-none"; }
                     if(desc) { desc.innerText = feedbackText || "Coba perhatikan makhraj dan tajwidnya lagi."; desc.className = "font-bold text-[15px] text-duo-red-dark/80 mt-2"; }
-                    
+
                     // Munculkan tombol bantuan Ketuk Ayat karena user salah
                     const blurOverlay = document.getElementById('murajaah-blur-overlay');
                     if(blurOverlay) { blurOverlay.classList.remove('hidden'); blurOverlay.classList.add('flex'); }
+                    hideMurajaahRepeatButton();
 
                     if (transcript && trans) {
                         trans.classList.remove('hidden');
@@ -5178,14 +5230,14 @@ function startVersusFromModal() {
             closeActionConfirmModal();
             if (typeof cb === 'function') cb();
         }
-        function showSpaceQNotice(title, message, tone = 'info', continueText = 'Tutup') {
+        function showSpaceQNotice(title, message, tone = 'info', continueText = 'Tutup', onContinue = null) {
             openActionConfirmModal({
                 title,
                 message,
                 continueText,
                 cancelText: '',
                 tone,
-                onContinue: null
+                onContinue
             });
         }
         window.alert = (message) => showSpaceQNotice('SpaceQ', String(message), 'info');
