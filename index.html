@@ -383,13 +383,1159 @@
         }
         .animate-pulse-golden { animation: pulse-golden 3s infinite; }
 
+
+
+        /* ========================================= */
+        /* SHOLATQ + JURNALQ PREMIUM PROTOTYPE UI    */
+        /* ========================================= */
+        .sq-orb-bg {
+            background:
+                radial-gradient(circle at 78% 12%, rgba(16,185,129,0.22) 0, transparent 30%),
+                radial-gradient(circle at 24% 0%, rgba(16,185,129,0.12) 0, transparent 34%),
+                linear-gradient(180deg, #050807 0%, #09090b 62%, #030605 100%);
+        }
+        .sq-glass {
+            background: linear-gradient(135deg, rgba(16,185,129,0.16), rgba(11,18,18,0.92) 52%, rgba(4,12,11,0.96));
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 22px 55px rgba(0,0,0,0.46);
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+        }
+        .sq-glass-soft {
+            background: linear-gradient(135deg, rgba(17,24,39,0.82), rgba(5,12,11,0.92));
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+        .sq-card-shine::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.04) 42%, rgba(16,185,129,0.10) 50%, transparent 68%);
+            transform: translateX(-100%);
+            animation: sqShimmer 5.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes sqShimmer { 0%, 48% { transform: translateX(-105%); } 72%, 100% { transform: translateX(110%); } }
+        .sq-mosque-scene {
+            position: absolute;
+            right: -6px;
+            top: 0;
+            width: 48%;
+            height: 100%;
+            opacity: .74;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 47% 18%, rgba(167,243,208,.75) 0 7px, transparent 8px),
+                radial-gradient(circle at 58% 52%, rgba(16,185,129,.33) 0, transparent 42%),
+                linear-gradient(180deg, transparent 0%, rgba(6,78,59,.25) 100%);
+        }
+        .sq-mosque-scene::before {
+            content: "☾";
+            position: absolute;
+            top: 18px;
+            left: 16px;
+            font-size: 46px;
+            color: #a7f3d0;
+            filter: drop-shadow(0 0 16px rgba(16,185,129,.7));
+        }
+        .sq-mosque-scene::after {
+            content: "";
+            position: absolute;
+            right: 12px;
+            bottom: 22px;
+            width: 132px;
+            height: 94px;
+            opacity: .92;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(16,185,129,.68) 0 32px, transparent 33px),
+                linear-gradient(to top, rgba(16,185,129,.55), rgba(16,185,129,.18));
+            clip-path: polygon(0 100%, 0 54%, 18% 54%, 18% 38%, 30% 38%, 30% 54%, 40% 54%, 40% 22%, 50% 2%, 60% 22%, 60% 54%, 72% 54%, 72% 34%, 84% 34%, 84% 54%, 100% 54%, 100% 100%);
+            filter: drop-shadow(0 0 24px rgba(16,185,129,.36));
+        }
+        .sq-window-scene {
+            background:
+                radial-gradient(circle at 52% 38%, rgba(16,185,129,.25), transparent 32%),
+                linear-gradient(180deg, rgba(4,120,87,.26), rgba(3,7,18,.94));
+            border: 1px solid rgba(16,185,129,.28);
+            box-shadow: inset 0 0 32px rgba(16,185,129,.12), 0 0 28px rgba(16,185,129,.13);
+        }
+        .sq-window-scene::before {
+            content: "☾";
+            position: absolute;
+            top: 10px;
+            right: 22px;
+            color: #a7f3d0;
+            font-size: 34px;
+            filter: drop-shadow(0 0 14px rgba(16,185,129,.75));
+        }
+        .sq-ring {
+            width: 118px;
+            height: 118px;
+            border-radius: 9999px;
+            background: conic-gradient(#10b981 var(--sq-progress, 72%), rgba(255,255,255,0.09) 0);
+            display: grid;
+            place-items: center;
+            box-shadow: 0 0 28px rgba(16,185,129,.22), inset 0 0 18px rgba(255,255,255,.03);
+        }
+        .sq-ring::after {
+            content: "";
+            position: absolute;
+            width: 92px;
+            height: 92px;
+            border-radius: 9999px;
+            background: radial-gradient(circle, #0b1110, #050807);
+            box-shadow: inset 0 0 18px rgba(0,0,0,.7);
+        }
+        .sq-ring > * { position: relative; z-index: 2; }
+        .sq-icon-box {
+            width: 58px;
+            height: 58px;
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            color: #34d399;
+            background: linear-gradient(135deg, rgba(16,185,129,.22), rgba(15,23,42,.68));
+            border: 1px solid rgba(16,185,129,.25);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 0 24px rgba(16,185,129,.12);
+            flex-shrink: 0;
+        }
+        .sq-icon-box-lg {
+            width: 92px;
+            height: 92px;
+            border-radius: 28px;
+            display: grid;
+            place-items: center;
+            color: #34d399;
+            background: linear-gradient(135deg, rgba(16,185,129,.28), rgba(5,12,11,.86));
+            border: 1px solid rgba(16,185,129,.34);
+            box-shadow: 0 0 34px rgba(16,185,129,.18), inset 0 1px 0 rgba(255,255,255,.06);
+        }
+        .sq-switch {
+            width: 58px;
+            height: 32px;
+            border-radius: 9999px;
+            padding: 3px;
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.08);
+            transition: all .28s ease;
+            flex-shrink: 0;
+        }
+        .sq-switch span {
+            display: block;
+            width: 24px;
+            height: 24px;
+            border-radius: 9999px;
+            background: rgba(255,255,255,.92);
+            transition: transform .28s cubic-bezier(.2,.9,.2,1);
+            box-shadow: 0 3px 10px rgba(0,0,0,.35);
+        }
+        .sq-switch.active {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 0 20px rgba(16,185,129,.32);
+        }
+        .sq-switch.active span { transform: translateX(26px); }
+        .sq-chip {
+            border: 1px solid rgba(255,255,255,.12);
+            background: rgba(255,255,255,.045);
+            color: rgba(255,255,255,.72);
+            border-radius: 9999px;
+            transition: all .25s ease;
+        }
+        .sq-chip.active, .sq-chip:hover {
+            color: #d1fae5;
+            border-color: rgba(16,185,129,.58);
+            background: linear-gradient(135deg, rgba(16,185,129,.30), rgba(6,78,59,.24));
+            box-shadow: 0 0 18px rgba(16,185,129,.18);
+        }
+        .sq-field {
+            width: 100%;
+            resize: none;
+            min-height: 92px;
+            background: transparent;
+            color: white;
+            outline: none;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .sq-field::placeholder { color: rgba(255,255,255,.48); }
+        .sq-calendar-day {
+            min-height: 42px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            border-radius: 16px;
+            color: rgba(255,255,255,.82);
+            font-weight: 800;
+        }
+        .sq-calendar-day.active {
+            border: 1px solid rgba(16,185,129,.8);
+            box-shadow: 0 0 20px rgba(16,185,129,.22);
+            color: #fff;
+            background: rgba(16,185,129,.12);
+        }
+        .sq-mini-dot { width: 7px; height: 7px; border-radius: 9999px; background: #34d399; box-shadow: 0 0 10px rgba(16,185,129,.8); }
+        .sq-bottom-nav {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100%;
+            padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
+            background: rgba(5,7,10,.82);
+            border-top: 1px solid rgba(255,255,255,.09);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 50;
+        }
+        .sq-hero-title { letter-spacing: -0.055em; }
+
         body { background-color: #09090b; color: #ffffff; }
         #MobileDeviceSimulator { background-color: #09090b; color: #ffffff; }
         .bg-\[\#09090b\] { background-color: #09090b !important; }
         .bg-\[\#18181b\] { background-color: #18181b !important; }
         .text-white { color: #ffffff !important; }
         .border-white\/5, .border-white\/10, .border-white\/20 { border-color: rgba(255,255,255,0.1) !important; }
-    </style>
+
+
+        /* ========================================= */
+        /* GLOBAL LAYOUT POLISH PATCH - 30 MEI 2026  */
+        /* Merapikan prototype tanpa mengubah fungsi */
+        /* ========================================= */
+        #MobileDeviceSimulator,
+        #MobileDeviceSimulator * {
+            box-sizing: border-box;
+        }
+
+        #MobileDeviceSimulator {
+            --sq-bottom-space: 112px;
+            --sq-page-pad: 20px;
+            font-size: 13px;
+        }
+
+        #MobileDeviceSimulator h1,
+        #MobileDeviceSimulator h2,
+        #MobileDeviceSimulator h3,
+        #MobileDeviceSimulator h4,
+        #MobileDeviceSimulator p,
+        #MobileDeviceSimulator span,
+        #MobileDeviceSimulator button,
+        #MobileDeviceSimulator label,
+        #MobileDeviceSimulator input,
+        #MobileDeviceSimulator textarea,
+        #MobileDeviceSimulator a,
+        #MobileDeviceSimulator div {
+            max-width: 100%;
+        }
+
+        #MobileDeviceSimulator h1,
+        #MobileDeviceSimulator h2,
+        #MobileDeviceSimulator h3,
+        #MobileDeviceSimulator h4,
+        #MobileDeviceSimulator p,
+        #MobileDeviceSimulator span,
+        #MobileDeviceSimulator button,
+        #MobileDeviceSimulator label,
+        #MobileDeviceSimulator a {
+            overflow-wrap: anywhere;
+            word-break: normal;
+        }
+
+        #MobileDeviceSimulator button,
+        #MobileDeviceSimulator .sq-chip,
+        #MobileDeviceSimulator input,
+        #MobileDeviceSimulator textarea {
+            min-width: 0;
+        }
+
+        #MobileDeviceSimulator button,
+        #MobileDeviceSimulator .sq-chip {
+            white-space: normal !important;
+            line-height: 1.25 !important;
+        }
+
+        #MobileDeviceSimulator .flex,
+        #MobileDeviceSimulator .grid {
+            min-width: 0;
+        }
+
+        #MobileDeviceSimulator .flex > *,
+        #MobileDeviceSimulator .grid > * {
+            min-width: 0;
+        }
+
+        #MobileDeviceSimulator [class*="leading-none"] { line-height: 1.04 !important; }
+        #MobileDeviceSimulator [class*="leading-tight"] { line-height: 1.12 !important; }
+        #MobileDeviceSimulator [class*="leading-relaxed"] { line-height: 1.45 !important; }
+
+        /* Kecilkan typography skala besar agar tidak keluar kotak */
+        #MobileDeviceSimulator .text-5xl { font-size: 2.25rem !important; line-height: 1.1 !important; }
+        #MobileDeviceSimulator .text-4xl { font-size: 2rem !important; line-height: 1.1 !important; }
+        #MobileDeviceSimulator .text-3xl { font-size: 1.65rem !important; line-height: 1.14 !important; }
+        #MobileDeviceSimulator .text-2xl { font-size: 1.35rem !important; line-height: 1.16 !important; }
+        #MobileDeviceSimulator .text-xl { font-size: 1.1rem !important; line-height: 1.25 !important; }
+        #MobileDeviceSimulator .text-lg { font-size: 1rem !important; line-height: 1.3 !important; }
+
+        #MobileDeviceSimulator [class*="text-[78px]"] { font-size: 48px !important; }
+        #MobileDeviceSimulator [class*="text-[66px]"] { font-size: 42px !important; }
+        #MobileDeviceSimulator [class*="text-[64px]"] { font-size: 40px !important; }
+        #MobileDeviceSimulator [class*="text-[60px]"] { font-size: 38px !important; }
+        #MobileDeviceSimulator [class*="text-[54px]"] { font-size: 36px !important; }
+        #MobileDeviceSimulator [class*="text-[46px]"] { font-size: 31px !important; }
+        #MobileDeviceSimulator [class*="text-[44px]"] { font-size: 30px !important; }
+        #MobileDeviceSimulator [class*="text-[42px]"] { font-size: 29px !important; }
+        #MobileDeviceSimulator [class*="text-[40px]"] { font-size: 28px !important; }
+        #MobileDeviceSimulator [class*="text-[38px]"] { font-size: 27px !important; }
+        #MobileDeviceSimulator [class*="text-[36px]"] { font-size: 27px !important; }
+        #MobileDeviceSimulator [class*="text-[34px]"] { font-size: 25px !important; }
+        #MobileDeviceSimulator [class*="text-[33px]"] { font-size: 25px !important; }
+        #MobileDeviceSimulator [class*="text-[32px]"] { font-size: 24px !important; }
+        #MobileDeviceSimulator [class*="text-[30px]"] { font-size: 23px !important; }
+        #MobileDeviceSimulator [class*="text-[28px]"] { font-size: 22px !important; }
+        #MobileDeviceSimulator [class*="text-[27px]"] { font-size: 21px !important; }
+        #MobileDeviceSimulator [class*="text-[26px]"] { font-size: 21px !important; }
+        #MobileDeviceSimulator [class*="text-[25px]"] { font-size: 20px !important; }
+        #MobileDeviceSimulator [class*="text-[24px]"] { font-size: 20px !important; }
+        #MobileDeviceSimulator [class*="text-[23px]"] { font-size: 19px !important; }
+        #MobileDeviceSimulator [class*="text-[22px]"] { font-size: 18px !important; }
+        #MobileDeviceSimulator [class*="text-[21px]"] { font-size: 18px !important; }
+        #MobileDeviceSimulator [class*="text-[20px]"] { font-size: 17px !important; }
+        #MobileDeviceSimulator [class*="text-[19px]"] { font-size: 16px !important; }
+        #MobileDeviceSimulator [class*="text-[18px]"] { font-size: 15.5px !important; }
+        #MobileDeviceSimulator [class*="text-[17px]"] { font-size: 15px !important; }
+        #MobileDeviceSimulator [class*="text-[16px]"] { font-size: 14px !important; }
+        #MobileDeviceSimulator [class*="text-[15px]"] { font-size: 13px !important; }
+        #MobileDeviceSimulator [class*="text-[14px]"] { font-size: 12.5px !important; }
+        #MobileDeviceSimulator [class*="text-[13.5px]"] { font-size: 12px !important; }
+        #MobileDeviceSimulator [class*="text-[13px]"] { font-size: 12px !important; }
+        #MobileDeviceSimulator [class*="text-[12px]"] { font-size: 11.3px !important; }
+        #MobileDeviceSimulator [class*="text-[11px]"] { font-size: 10.6px !important; }
+        #MobileDeviceSimulator [class*="text-[10px]"] { font-size: 9.8px !important; }
+        #MobileDeviceSimulator [class*="text-[9px]"] { font-size: 9px !important; }
+
+        /* Radius dan padding dipadatkan supaya kartu tidak terasa penuh */
+        #MobileDeviceSimulator [class*="rounded-[32px]"] { border-radius: 26px !important; }
+        #MobileDeviceSimulator [class*="rounded-[30px]"] { border-radius: 24px !important; }
+        #MobileDeviceSimulator [class*="rounded-[28px]"] { border-radius: 23px !important; }
+        #MobileDeviceSimulator [class*="rounded-[26px]"] { border-radius: 22px !important; }
+        #MobileDeviceSimulator [class*="rounded-[24px]"] { border-radius: 20px !important; }
+        #MobileDeviceSimulator [class*="rounded-[22px]"] { border-radius: 18px !important; }
+
+        #MobileDeviceSimulator .sq-glass,
+        #MobileDeviceSimulator .sq-glass-soft {
+            overflow: hidden;
+        }
+
+        #MobileDeviceSimulator .sq-icon-box { width: 48px !important; height: 48px !important; border-radius: 17px !important; }
+        #MobileDeviceSimulator .sq-icon-box-lg { width: 70px !important; height: 70px !important; border-radius: 22px !important; }
+        #MobileDeviceSimulator .sq-icon-box svg { width: 22px !important; height: 22px !important; }
+        #MobileDeviceSimulator .sq-icon-box-lg svg { width: 34px !important; height: 34px !important; }
+
+        #MobileDeviceSimulator .sq-ring {
+            width: 96px !important;
+            height: 96px !important;
+        }
+        #MobileDeviceSimulator .sq-ring::after {
+            width: 74px !important;
+            height: 74px !important;
+        }
+
+        #MobileDeviceSimulator .sq-field {
+            min-height: 74px !important;
+            font-size: 13px !important;
+            line-height: 1.45 !important;
+        }
+
+        #MobileDeviceSimulator .sq-bottom-nav {
+            padding: 10px 18px calc(10px + env(safe-area-inset-bottom)) !important;
+        }
+        #MobileDeviceSimulator .sq-bottom-nav button {
+            font-size: 10px !important;
+            gap: 3px !important;
+        }
+        #MobileDeviceSimulator .sq-bottom-nav svg {
+            width: 20px !important;
+            height: 20px !important;
+        }
+
+        /* Halaman SholatQ: rapikan baris jadwal yang sebelumnya terlalu besar */
+        #sholatHomeScreen #sq-prayer-list {
+            padding: 12px !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button {
+            gap: 10px !important;
+            padding: 12px !important;
+            align-items: center !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button > span:nth-child(1) {
+            width: 28px !important;
+            flex: 0 0 28px !important;
+            text-align: center !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button > span:nth-child(2) {
+            width: 76px !important;
+            flex: 0 0 76px !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button > span:nth-child(3) {
+            flex: 1 1 auto !important;
+            min-width: 0 !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button > span:nth-child(n+4) {
+            flex-shrink: 0 !important;
+        }
+
+        /* Quick feature grids dibuat 2 kolom agar tulisan tidak terjepit */
+        #homeScreen > div > .grid.grid-cols-4,
+        #sholatHomeScreen .grid.grid-cols-4,
+        #journalHomeScreen .grid.grid-cols-4,
+        #journalWriteScreen .grid.grid-cols-4 {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        #homeScreen > div > .grid.grid-cols-4 > button,
+        #sholatHomeScreen .grid.grid-cols-4 > button,
+        #journalHomeScreen .grid.grid-cols-4 > button,
+        #journalWriteScreen .grid.grid-cols-4 > button {
+            min-height: 112px !important;
+            padding: 14px !important;
+        }
+
+        #homeScreen .grid-cols-5 {
+            grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+            gap: 6px !important;
+        }
+        #homeScreen .grid-cols-5 .sq-chip {
+            padding-left: 4px !important;
+            padding-right: 4px !important;
+        }
+
+        /* Journal analytics: card stat dibuat turun agar tidak memaksa 3 kolom sempit */
+        #journalHistoryScreen .grid.grid-cols-3,
+        #journalInsightScreen .grid.grid-cols-3 {
+            grid-template-columns: 1fr !important;
+        }
+        #journalInsightScreen [class*="grid-cols-[1fr_auto_1fr_1.1fr]"] {
+            grid-template-columns: 1fr !important;
+            gap: 14px !important;
+        }
+        #journalInsightScreen [class*="grid-cols-[1fr_auto_1fr_1.1fr]"] > div {
+            width: 100% !important;
+        }
+        #journalInsightScreen .sq-glass.rounded-[26px].p-5.mt-4.flex,
+        #journalInsightScreen .sq-glass.rounded-[26px].p-5.mt-4.flex.items-center {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 14px !important;
+        }
+
+        /* Header mobile: biarkan judul panjang turun baris rapi */
+        #MobileDeviceSimulator [class*="pt-10"].flex.items-center.justify-between,
+        #MobileDeviceSimulator [class*="pt-12"].flex.items-center.justify-between,
+        #MobileDeviceSimulator [class*="pt-14"].flex.items-center.justify-between {
+            gap: 12px !important;
+        }
+        #MobileDeviceSimulator [class*="pt-10"].flex.items-center.justify-between > .text-center,
+        #MobileDeviceSimulator [class*="pt-12"].flex.items-center.justify-between > .text-center,
+        #MobileDeviceSimulator [class*="pt-14"].flex.items-center.justify-between > .text-center {
+            min-width: 0 !important;
+            flex: 1 1 auto !important;
+        }
+        #MobileDeviceSimulator [class*="pt-10"].flex.items-center.justify-between > button,
+        #MobileDeviceSimulator [class*="pt-12"].flex.items-center.justify-between > button,
+        #MobileDeviceSimulator [class*="pt-14"].flex.items-center.justify-between > button {
+            flex-shrink: 0 !important;
+        }
+
+        /* Kartu horizontal padat: aman untuk layar 390px */
+        #MobileDeviceSimulator .sq-glass > .flex.items-center,
+        #MobileDeviceSimulator .sq-glass-soft.flex.items-center,
+        #MobileDeviceSimulator .sq-glass.flex.items-center {
+            min-width: 0 !important;
+        }
+        #MobileDeviceSimulator .sq-glass > .flex.items-center > .flex-1,
+        #MobileDeviceSimulator .sq-glass-soft.flex.items-center > .flex-1,
+        #MobileDeviceSimulator .sq-glass.flex.items-center > .flex-1 {
+            min-width: 0 !important;
+        }
+
+        /* Pastikan bottom fixed tidak menutup konten halaman */
+        #MobileDeviceSimulator .flex-1.overflow-y-auto,
+        #MobileDeviceSimulator .flex-1.overflow-auto {
+            padding-bottom: max(var(--sq-bottom-space), 88px) !important;
+        }
+
+        /* Penyesuaian ekstra untuk layar kecil / ketika dibuka full mobile */
+        @media (max-width: 430px) {
+            #MobileDeviceSimulator { --sq-page-pad: 16px; }
+            #MobileDeviceSimulator [class*="px-6"] { padding-left: 18px !important; padding-right: 18px !important; }
+            #MobileDeviceSimulator [class*="px-5"] { padding-left: 16px !important; padding-right: 16px !important; }
+            #MobileDeviceSimulator [class*="mx-5"] { margin-left: 16px !important; margin-right: 16px !important; }
+            #MobileDeviceSimulator [class*="gap-5"] { gap: 14px !important; }
+            #MobileDeviceSimulator [class*="gap-4"] { gap: 12px !important; }
+            #MobileDeviceSimulator [class*="p-5"] { padding: 16px !important; }
+            #MobileDeviceSimulator [class*="p-4"] { padding: 13px !important; }
+            #MobileDeviceSimulator [class*="py-4"] { padding-top: 12px !important; padding-bottom: 12px !important; }
+            #MobileDeviceSimulator [class*="w-14"],
+            #MobileDeviceSimulator [class*="h-14"] { width: 46px !important; height: 46px !important; }
+            #MobileDeviceSimulator [class*="w-12"],
+            #MobileDeviceSimulator [class*="h-12"] { width: 42px !important; height: 42px !important; }
+            #MobileDeviceSimulator [class*="w-10"],
+            #MobileDeviceSimulator [class*="h-10"] { width: 36px !important; height: 36px !important; }
+            #MobileDeviceSimulator svg.w-10,
+            #MobileDeviceSimulator svg.h-10 { width: 28px !important; height: 28px !important; }
+            #MobileDeviceSimulator svg.w-9,
+            #MobileDeviceSimulator svg.h-9 { width: 26px !important; height: 26px !important; }
+            #MobileDeviceSimulator svg.w-8,
+            #MobileDeviceSimulator svg.h-8 { width: 24px !important; height: 24px !important; }
+            #MobileDeviceSimulator svg.w-7,
+            #MobileDeviceSimulator svg.h-7 { width: 22px !important; height: 22px !important; }
+            #MobileDeviceSimulator svg.w-6,
+            #MobileDeviceSimulator svg.h-6 { width: 20px !important; height: 20px !important; }
+            #MobileDeviceSimulator .sq-ring { width: 88px !important; height: 88px !important; }
+            #MobileDeviceSimulator .sq-ring::after { width: 68px !important; height: 68px !important; }
+        }
+
+        @media (max-width: 360px) {
+            #homeScreen .grid-cols-5 {
+                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+            }
+            #MobileDeviceSimulator [class*="text-[40px]"] { font-size: 25px !important; }
+            #MobileDeviceSimulator [class*="text-[32px]"] { font-size: 22px !important; }
+            #MobileDeviceSimulator .sq-ring { width: 78px !important; height: 78px !important; }
+            #MobileDeviceSimulator .sq-ring::after { width: 60px !important; height: 60px !important; }
+        }
+
+    
+        /* ========================================= */
+        /* FINAL LAYOUT HOTFIX V2 - anti teks vertikal */
+        /* Ditambahkan untuk merapikan JurnalQ/Home tanpa mengubah JS/fungsi */
+        /* ========================================= */
+        #MobileDeviceSimulator {
+            --sq-bottom-space: 104px;
+            container-type: inline-size;
+        }
+
+        /* Matikan efek "huruf turun per baris" dari patch sebelumnya */
+        #MobileDeviceSimulator h1,
+        #MobileDeviceSimulator h2,
+        #MobileDeviceSimulator h3,
+        #MobileDeviceSimulator h4,
+        #MobileDeviceSimulator p,
+        #MobileDeviceSimulator span,
+        #MobileDeviceSimulator button,
+        #MobileDeviceSimulator label,
+        #MobileDeviceSimulator a,
+        #MobileDeviceSimulator div {
+            word-break: normal !important;
+            overflow-wrap: break-word !important;
+            hyphens: none !important;
+        }
+
+        #MobileDeviceSimulator .sq-chip,
+        #MobileDeviceSimulator .sq-chip *,
+        #MobileDeviceSimulator .sq-bottom-nav button,
+        #MobileDeviceSimulator .sq-bottom-nav button * {
+            word-break: keep-all !important;
+            overflow-wrap: normal !important;
+            white-space: nowrap !important;
+        }
+
+        #MobileDeviceSimulator .sq-chip {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            min-width: 0 !important;
+            line-height: 1.15 !important;
+            text-align: center !important;
+        }
+
+        #MobileDeviceSimulator .sq-chip br {
+            display: block !important;
+        }
+
+        /* Pengaturan ini dibuat global karena simulator HP tetap 390px meski viewport desktop besar */
+        #MobileDeviceSimulator [class*="px-6"] { padding-left: 18px !important; padding-right: 18px !important; }
+        #MobileDeviceSimulator [class*="px-5"] { padding-left: 16px !important; padding-right: 16px !important; }
+        #MobileDeviceSimulator [class*="mx-5"] { margin-left: 16px !important; margin-right: 16px !important; }
+        #MobileDeviceSimulator [class*="gap-5"] { gap: 14px !important; }
+        #MobileDeviceSimulator [class*="gap-4"] { gap: 12px !important; }
+        #MobileDeviceSimulator [class*="p-5"] { padding: 16px !important; }
+        #MobileDeviceSimulator [class*="p-4"] { padding: 13px !important; }
+        #MobileDeviceSimulator [class*="py-4"] { padding-top: 12px !important; padding-bottom: 12px !important; }
+
+        /* Kartu JurnalQ di Beranda: dibuat grid 3 zona supaya label mood dan streak tidak gepeng */
+        #homeScreen .sq-glass:has(#sq-home-journal-preview) {
+            padding: 16px !important;
+        }
+        #homeScreen .sq-glass:has(#sq-home-journal-preview) > .relative.z-10.flex.items-center {
+            display: grid !important;
+            grid-template-columns: 58px minmax(0, 1fr) 92px !important;
+            align-items: center !important;
+            gap: 12px !important;
+        }
+        #homeScreen .sq-glass:has(#sq-home-journal-preview) .sq-icon-box-lg {
+            width: 58px !important;
+            height: 58px !important;
+            border-radius: 20px !important;
+        }
+        #homeScreen .sq-glass:has(#sq-home-journal-preview) .sq-icon-box-lg svg {
+            width: 28px !important;
+            height: 28px !important;
+        }
+        #homeScreen .sq-glass:has(#sq-home-journal-preview) .flex.gap-2.mt-3 {
+            flex-wrap: wrap !important;
+            gap: 6px !important;
+        }
+        #homeScreen .sq-glass:has(#sq-home-journal-preview) .flex.gap-2.mt-3 .sq-chip {
+            max-width: 100% !important;
+            padding: 5px 8px !important;
+            font-size: 10.5px !important;
+        }
+        #homeScreen .sq-glass:has(#sq-home-journal-preview) > .relative.z-10.flex.items-center > .flex.flex-col {
+            width: 92px !important;
+            min-width: 92px !important;
+            gap: 8px !important;
+        }
+        #homeScreen .sq-glass:has(#sq-home-journal-preview) > .relative.z-10.flex.items-center > .flex.flex-col .sq-glass-soft {
+            width: 100% !important;
+            padding: 8px 6px !important;
+            border-radius: 18px !important;
+        }
+        #homeScreen .sq-glass:has(#sq-home-journal-preview) > .relative.z-10.flex.items-center > .flex.flex-col button {
+            width: 100% !important;
+            justify-content: center !important;
+            padding: 10px 8px !important;
+            border-radius: 16px !important;
+            font-size: 12px !important;
+            white-space: nowrap !important;
+        }
+
+        /* Jadwal sholat mini tetap 5 kolom, tetapi teksnya dipadatkan */
+        #homeScreen .grid.grid-cols-5 {
+            grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+            gap: 6px !important;
+        }
+        #homeScreen .grid.grid-cols-5 .sq-chip {
+            padding: 7px 2px !important;
+            font-size: 10px !important;
+            line-height: 1.15 !important;
+        }
+
+        /* Grid fitur dan template selalu 2 kolom di simulator HP, bukan hanya saat viewport kecil */
+        #homeScreen > div > .grid.grid-cols-4,
+        #sholatHomeScreen .grid.grid-cols-4,
+        #journalHomeScreen .grid.grid-cols-4,
+        #journalWriteScreen .grid.grid-cols-4 {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 10px !important;
+        }
+        #homeScreen > div > .grid.grid-cols-4 > button,
+        #sholatHomeScreen .grid.grid-cols-4 > button,
+        #journalHomeScreen .grid.grid-cols-4 > button,
+        #journalWriteScreen .grid.grid-cols-4 > button {
+            min-height: 104px !important;
+            padding: 13px !important;
+        }
+        #journalHomeScreen .grid.grid-cols-4 > button.sq-chip {
+            min-height: 0 !important;
+            padding: 10px 8px !important;
+            font-size: 12px !important;
+        }
+
+        /* Halaman Tulis Jurnal: kartu streak tidak lagi memaksa teks menjadi vertikal */
+        #journalWriteScreen .sq-glass-soft:has(> p.italic) {
+            display: grid !important;
+            grid-template-columns: auto minmax(0, 1fr) auto !important;
+            align-items: center !important;
+            gap: 8px 12px !important;
+        }
+        #journalWriteScreen .sq-glass-soft:has(> p.italic) > span {
+            grid-column: 1 !important;
+            grid-row: 1 / span 2 !important;
+        }
+        #journalWriteScreen .sq-glass-soft:has(> p.italic) > .flex-1 {
+            grid-column: 2 !important;
+            min-width: 0 !important;
+        }
+        #journalWriteScreen .sq-glass-soft:has(> p.italic) > p.italic {
+            grid-column: 2 / 4 !important;
+            width: 100% !important;
+            margin: 0 !important;
+            font-size: 12px !important;
+            line-height: 1.35 !important;
+            white-space: normal !important;
+            overflow-wrap: break-word !important;
+        }
+        #journalWriteScreen .sq-glass-soft:has(> p.italic) > i {
+            grid-column: 3 !important;
+            grid-row: 1 !important;
+        }
+        #journalWriteScreen .sq-glass-soft:has(> p.italic) p {
+            word-break: normal !important;
+            overflow-wrap: break-word !important;
+        }
+
+        /* Header panjang tidak menindih tombol */
+        #MobileDeviceSimulator .pt-10.flex.items-center.justify-between,
+        #MobileDeviceSimulator .pt-12.flex.items-center.justify-between,
+        #MobileDeviceSimulator .pt-14.flex.items-center.justify-between {
+            gap: 10px !important;
+        }
+        #MobileDeviceSimulator .pt-10.flex.items-center.justify-between > div,
+        #MobileDeviceSimulator .pt-12.flex.items-center.justify-between > div,
+        #MobileDeviceSimulator .pt-14.flex.items-center.justify-between > div {
+            min-width: 0 !important;
+        }
+
+        /* Tombol aksi besar jangan terlalu dominan */
+        #journalHomeScreen button[onclick="goToScreen('journalWriteScreen')"] {
+            padding-top: 14px !important;
+            padding-bottom: 14px !important;
+            font-size: 18px !important;
+            gap: 10px !important;
+        }
+
+        /* Fallback untuk browser lama yang belum mendukung :has */
+        @supports not selector(:has(*)) {
+            #homeScreen .mx-5.mt-4.sq-glass.rounded-\[32px\] > .flex.items-center {
+                align-items: flex-start !important;
+                gap: 10px !important;
+            }
+            #homeScreen .mx-5.mt-4.sq-glass.rounded-\[32px\] .sq-chip {
+                white-space: nowrap !important;
+            }
+            #journalWriteScreen .sq-glass-soft.rounded-\[22px\].p-4.mt-4.flex.items-center.gap-4 {
+                flex-wrap: wrap !important;
+            }
+        }
+
+
+
+        /* ========================================= */
+        /* HOME SHOLATQ & JURNALQ REDESIGN PATCH     */
+        /* Kartu lebih rapi, padat, dan radius lebih halus */
+        /* ========================================= */
+        #homeScreen .home-main-card {
+            border-radius: 18px !important;
+            border-color: rgba(255,255,255,.10) !important;
+        }
+        #homeScreen .home-prayer-card {
+            padding: 16px !important;
+            min-height: 226px;
+        }
+        #homeScreen .home-journal-card {
+            padding: 14px !important;
+            min-height: 0 !important;
+        }
+        #homeScreen .home-icon {
+            width: 44px !important;
+            height: 44px !important;
+            border-radius: 13px !important;
+        }
+        #homeScreen .home-icon svg {
+            width: 22px !important;
+            height: 22px !important;
+        }
+        #homeScreen .home-outline-btn,
+        #homeScreen .home-write-btn,
+        #homeScreen .home-private-badge,
+        #homeScreen .home-note-box,
+        #homeScreen .home-streak-pill,
+        #homeScreen .home-mood-chip,
+        #homeScreen .home-schedule-chip {
+            border-radius: 12px !important;
+        }
+        #homeScreen .home-prayer-ornament {
+            width: 42% !important;
+            right: -18px !important;
+            top: 10px !important;
+            opacity: .36 !important;
+        }
+        #homeScreen .home-prayer-ornament::before {
+            top: 0 !important;
+            left: 20px !important;
+            font-size: 38px !important;
+        }
+        #homeScreen .home-prayer-ornament::after {
+            right: 2px !important;
+            bottom: 12px !important;
+            width: 104px !important;
+            height: 76px !important;
+        }
+        #homeScreen .home-ring {
+            width: 82px !important;
+            height: 82px !important;
+        }
+        #homeScreen .home-ring::after {
+            width: 62px !important;
+            height: 62px !important;
+        }
+        #homeScreen .home-schedule-chip {
+            padding: 7px 2px !important;
+            font-size: 9.5px !important;
+            line-height: 1.12 !important;
+            white-space: normal !important;
+            overflow-wrap: normal !important;
+            word-break: keep-all !important;
+            background: rgba(255,255,255,.05) !important;
+        }
+        #homeScreen .home-note-box {
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+        }
+        #homeScreen .home-journal-preview {
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: normal !important;
+            overflow-wrap: break-word !important;
+        }
+        #homeScreen .home-journal-card .sq-chip,
+        #homeScreen .home-journal-card .sq-chip * {
+            white-space: nowrap !important;
+            word-break: keep-all !important;
+        }
+        #homeScreen .home-journal-card .sq-chip {
+            max-width: 92px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        #homeScreen .grid.grid-cols-4 > button.sq-glass-soft {
+            border-radius: 16px !important;
+            min-height: 108px !important;
+            padding: 13px !important;
+        }
+        #homeScreen .mx-5.mt-3.sq-glass-soft,
+        #homeScreen .mx-5.mt-4.sq-glass-soft,
+        #homeScreen .mx-5.mt-3.sq-glass,
+        #homeScreen .mx-5.mt-4.sq-glass {
+            border-radius: 16px !important;
+        }
+
+
+        /* ========================================= */
+        /* SPACEQ FINAL UI/UX STABILIZATION - 2026   */
+        /* Beranda floating nav, SocialQ preview,     */
+        /* SholatQ compact, mobile-safe layout.       */
+        /* ========================================= */
+        html {
+            width: 100%;
+            min-height: 100%;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            overscroll-behavior: none;
+        }
+        body {
+            width: 100%;
+            min-height: 100dvh;
+            overscroll-behavior: none;
+            touch-action: manipulation;
+        }
+        #MobileDeviceSimulator {
+            --sq-bottom-space: clamp(100px, 13dvh, 122px);
+            --sq-page-pad: clamp(16px, 4.4vw, 20px);
+            width: min(100vw, 390px);
+            max-width: 390px;
+            line-height: 1.42;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: geometricPrecision;
+            contain: layout paint;
+        }
+        #MobileDeviceSimulator * {
+            min-width: 0;
+        }
+        #MobileDeviceSimulator p {
+            line-height: 1.48 !important;
+        }
+        #MobileDeviceSimulator h1,
+        #MobileDeviceSimulator h2,
+        #MobileDeviceSimulator h3,
+        #MobileDeviceSimulator h4 {
+            text-wrap: balance;
+        }
+        #MobileDeviceSimulator button,
+        #MobileDeviceSimulator a,
+        #MobileDeviceSimulator input,
+        #MobileDeviceSimulator textarea {
+            -webkit-tap-highlight-color: transparent;
+        }
+        #MobileDeviceSimulator .flex-1.overflow-y-auto,
+        #MobileDeviceSimulator .flex-1.overflow-auto {
+            padding-bottom: calc(var(--sq-bottom-space) + env(safe-area-inset-bottom)) !important;
+        }
+
+        @supports (height: 100svh) {
+            body { min-height: 100svh; }
+            #MobileDeviceSimulator { height: 100svh; }
+            @media (min-width: 640px) {
+                #MobileDeviceSimulator { height: 844px; }
+            }
+        }
+
+        /* Beranda: navigation menu dibuat mengambang ringan ala SocialQ */
+        #homeScreen .home-floating-feature-nav {
+            margin-left: 20px !important;
+            margin-right: 20px !important;
+            padding: 12px !important;
+            border-radius: 28px !important;
+            background: rgba(9, 12, 14, 0.58) !important;
+            border: 1px solid rgba(255,255,255,0.10) !important;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+        }
+        #homeScreen .home-floating-feature-nav > button {
+            min-height: 94px !important;
+            padding: 12px !important;
+            border-radius: 20px !important;
+            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.035)) !important;
+            border: 1px solid rgba(255,255,255,0.10) !important;
+            box-shadow: 0 10px 26px rgba(0,0,0,0.18) !important;
+        }
+        #homeScreen .home-floating-feature-nav > button div {
+            margin-bottom: 9px !important;
+        }
+        #homeScreen .home-floating-feature-nav h4 {
+            font-size: 13.2px !important;
+            line-height: 1.18 !important;
+        }
+        #homeScreen .home-floating-feature-nav p {
+            font-size: 10.7px !important;
+            line-height: 1.35 !important;
+            margin-top: 4px !important;
+        }
+
+        #homeScreen .sq-bottom-nav {
+            left: 50% !important;
+            bottom: max(12px, env(safe-area-inset-bottom)) !important;
+            transform: translateX(-50%) !important;
+            width: min(calc(100% - 28px), 356px) !important;
+            padding: 11px 16px calc(11px + env(safe-area-inset-bottom)) !important;
+            border-radius: 30px !important;
+            background: rgba(9, 9, 11, 0.72) !important;
+            border: 1px solid rgba(255,255,255,0.13) !important;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.72), inset 0 1px 0 rgba(255,255,255,0.06) !important;
+            backdrop-filter: blur(28px) saturate(130%) !important;
+            -webkit-backdrop-filter: blur(28px) saturate(130%) !important;
+        }
+        #homeScreen .sq-bottom-nav .flex {
+            max-width: none !important;
+        }
+        #homeScreen .sq-bottom-nav button {
+            min-height: 42px !important;
+            min-width: 42px !important;
+            padding: 0 3px !important;
+            font-size: 10px !important;
+            line-height: 1.1 !important;
+            border-radius: 18px !important;
+        }
+        #homeScreen .sq-bottom-nav button[onclick*="cameraScreen"] {
+            width: 58px !important;
+            height: 58px !important;
+            min-width: 58px !important;
+            margin-top: -34px !important;
+            border-width: 6px !important;
+            border-color: rgba(7,16,15,.95) !important;
+            box-shadow: 0 0 30px rgba(16,185,129,.38), 0 16px 32px rgba(0,0,0,.45) !important;
+        }
+
+        /* Preview SocialQ di bagian bawah Beranda */
+        #homeScreen .home-social-preview-header {
+            align-items: flex-end !important;
+        }
+        #homeScreen .home-see-all-btn {
+            padding: 8px 10px !important;
+            border-radius: 999px !important;
+            background: rgba(16,185,129,0.10) !important;
+            border: 1px solid rgba(16,185,129,0.22) !important;
+            box-shadow: 0 0 20px rgba(16,185,129,0.10) !important;
+            white-space: nowrap !important;
+        }
+        #homeScreen .home-social-preview {
+            border-radius: 28px !important;
+            padding: 12px 0 10px 12px !important;
+            background: rgba(9, 12, 14, 0.54) !important;
+            border: 1px solid rgba(255,255,255,0.10) !important;
+            box-shadow: 0 20px 46px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+            backdrop-filter: blur(22px);
+            -webkit-backdrop-filter: blur(22px);
+        }
+        #homeScreen .home-social-card {
+            width: 152px !important;
+            border-radius: 22px !important;
+            overflow: hidden !important;
+            background: rgba(24,24,27,0.78) !important;
+            border: 1px solid rgba(255,255,255,0.10) !important;
+            box-shadow: 0 14px 34px rgba(0,0,0,.25) !important;
+        }
+        #homeScreen .home-social-card:last-child {
+            margin-right: 12px !important;
+        }
+        #homeScreen .home-social-media {
+            height: 134px !important;
+            position: relative !important;
+            display: grid !important;
+            place-items: center !important;
+            overflow: hidden !important;
+            background: #020617 !important;
+        }
+        #homeScreen .home-social-media > video {
+            position: absolute !important;
+            inset: 0 !important;
+            filter: brightness(.78) saturate(1.05);
+        }
+        #homeScreen .home-social-media-cover {
+            position: absolute !important;
+            inset: 0 !important;
+            background: radial-gradient(circle at center, rgba(16,185,129,0.05), rgba(0,0,0,0.38)) !important;
+        }
+        #homeScreen .home-social-media i {
+            position: relative !important;
+            z-index: 2 !important;
+        }
+        #homeScreen .line-clamp-2 {
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+        }
+
+        /* SholatQ dibuat sedikit lebih compact tanpa kehilangan keterbacaan */
+        #sholatHomeScreen {
+            font-size: 12.5px !important;
+        }
+        #sholatHomeScreen .flex-1.overflow-y-auto {
+            padding-left: 18px !important;
+            padding-right: 18px !important;
+        }
+        #sholatHomeScreen .sq-glass,
+        #sholatHomeScreen .sq-glass-soft {
+            border-radius: 21px !important;
+        }
+        #sholatHomeScreen .mt-5.sq-glass {
+            padding: 15px !important;
+        }
+        #sholatHomeScreen .mt-5.sq-glass .relative.z-10.flex {
+            gap: 13px !important;
+        }
+        #sholatHomeScreen #sq-main-name {
+            font-size: clamp(27px, 8.2vw, 32px) !important;
+            line-height: 1.02 !important;
+        }
+        #sholatHomeScreen #sq-main-time {
+            font-size: clamp(17px, 5vw, 20px) !important;
+        }
+        #sholatHomeScreen #sq-prayer-list {
+            border-radius: 22px !important;
+            padding: 10px !important;
+            gap: 7px !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button {
+            min-height: 58px !important;
+            padding: 10px 11px !important;
+            border-radius: 17px !important;
+            gap: 9px !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button > span:nth-child(1) {
+            font-size: 21px !important;
+            width: 28px !important;
+            flex: 0 0 28px !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button > span:nth-child(2) {
+            width: 78px !important;
+            flex: 0 0 78px !important;
+            font-size: 16px !important;
+            line-height: 1.15 !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button > span:nth-child(3) {
+            font-size: 15px !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button > span:nth-child(n+4),
+        #sholatHomeScreen #sq-prayer-list button > i {
+            font-size: 11.5px !important;
+            white-space: nowrap !important;
+        }
+        #sholatHomeScreen .grid.grid-cols-4 {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 10px !important;
+        }
+        #sholatHomeScreen .grid.grid-cols-4 > button {
+            min-height: 92px !important;
+            padding: 12px !important;
+            border-radius: 18px !important;
+        }
+
+        /* SocialQ video: audio tidak lagi terkunci mute permanen */
+        #socialQScreen .socialq-media-shell {
+            position: relative !important;
+        }
+        #socialQScreen .socialq-sound-btn,
+        #homeScreen .socialq-sound-btn {
+            position: absolute !important;
+            right: 12px !important;
+            bottom: 12px !important;
+            z-index: 12 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 5px !important;
+            min-height: 32px !important;
+            padding: 7px 10px !important;
+            border-radius: 999px !important;
+            color: #fff !important;
+            background: rgba(2, 6, 23, 0.68) !important;
+            border: 1px solid rgba(255,255,255,0.18) !important;
+            box-shadow: 0 10px 24px rgba(0,0,0,.36) !important;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            font-size: 11px !important;
+            font-weight: 900 !important;
+            line-height: 1 !important;
+            cursor: pointer !important;
+            pointer-events: auto !important;
+        }
+        #socialQScreen .socialq-sound-btn.is-on,
+        #homeScreen .socialq-sound-btn.is-on {
+            color: #052e21 !important;
+            background: rgba(16,185,129,0.94) !important;
+            border-color: rgba(16,185,129,0.95) !important;
+            box-shadow: 0 0 22px rgba(16,185,129,.30) !important;
+        }
+        #socialQScreen #socialq-main-feed-container > div {
+            border-radius: 22px !important;
+            padding: 16px !important;
+        }
+        #socialQScreen #socialq-main-feed-container p {
+            line-height: 1.45 !important;
+        }
+
+        @media (max-width: 370px) {
+            #homeScreen .home-floating-feature-nav {
+                margin-left: 16px !important;
+                margin-right: 16px !important;
+                padding: 10px !important;
+            }
+            #homeScreen .home-social-card {
+                width: 142px !important;
+            }
+            #homeScreen .home-social-media {
+                height: 126px !important;
+            }
+            #homeScreen .sq-bottom-nav {
+                width: min(calc(100% - 20px), 344px) !important;
+                padding-left: 12px !important;
+                padding-right: 12px !important;
+            }
+            #sholatHomeScreen #sq-prayer-list button > span:nth-child(2) {
+                width: 70px !important;
+                flex-basis: 70px !important;
+            }
+        }
+
+</style>
 </head>
 <body class="bg-[#09090b] sm:bg-zinc-950 flex items-center justify-center min-h-[100dvh] sm:p-4 font-sans antialiased m-0 p-0 overflow-hidden sm:overflow-auto transition-colors duration-300">
 
@@ -697,200 +1843,480 @@
         <!-- ========================================== -->
         <!-- SCREEN 7: HOME FEED (REDESIGNED DARK MODE) -->
         <!-- ========================================== -->
-        <div id="homeScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col bg-[#09090b] overflow-hidden z-10">
-            <!-- 1. Header & Headline (Sticky) -->
-            <div class="pt-14 pb-4 px-6 flex items-center justify-between bg-[#09090b]/95 backdrop-blur-md sticky top-0 z-30 border-b border-white/5">
-                <div class="flex items-center gap-3">
-                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-10 h-10 rounded-full object-cover border-2 border-[#10b981] shadow-[0_0_15px_rgba(16,185,129,0.3)] cursor-pointer" onclick="goToScreen('mySpaceQScreen')">
-                </div>
-                <button class="relative w-10 h-10 bg-white/5 rounded-full flex items-center justify-center shadow-sm border border-white/10 hover:bg-white/10 transition-colors cursor-pointer active:scale-95">
-                    <i data-lucide="bell" class="w-5 h-5 text-white"></i>
-                    <div class="absolute top-2 right-2 w-2.5 h-2.5 bg-[#10b981] rounded-full shadow-[0_0_8px_rgba(16,185,129,0.8)]"></div>
-                </button>
-            </div>
 
-            <!-- Scrollable Body Container -->
-            <div class="flex-1 overflow-y-auto overflow-x-hidden hide-scroll pb-32">
-                <!-- Headline -->
-                <div class="px-6 mb-6 mt-2">
-                    <h1 class="text-[32px] font-black text-white leading-[1.1] tracking-tight">Tingkatkan Amal &<br>Ilmu Hari Ini!</h1>
-                </div>
-
-                <!-- 2. Top Feature Cards (Horizontal Scroll) -->
-                <div class="flex overflow-x-auto hide-scroll gap-4 px-6 pb-6 snap-x snap-mandatory">
-                    <!-- KajianQ Card -->
-                    <div onclick="goToScreen('kajianLobbyScreen')" class="snap-start w-[280px] shrink-0 bg-gradient-to-br from-[#064e3b] to-[#09090b] rounded-[32px] p-6 border border-white/10 flex flex-col min-h-[260px] relative overflow-hidden cursor-pointer group shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]">
-                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-[#10b981]/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
-                        <div class="relative z-10 flex flex-col h-full">
-                            <div class="flex gap-2 mb-4">
-                                <span class="bg-white/10 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5"><i data-lucide="globe" class="w-3.5 h-3.5 opacity-70"></i> Online</span>
-                                <span class="bg-[#10b981]/20 backdrop-blur-md text-[#10b981] text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> 20:00 WIB</span>
-                            </div>
-                            <div class="mb-auto mt-2">
-                                <h3 class="text-white font-black text-[24px] leading-tight mb-1 drop-shadow-md">KajianQ<br>Masterclass</h3>
-                                <p class="text-gray-300 text-[13px] font-semibold mt-2">Ust. Dr. Erwandi Tarmizi</p>
-                            </div>
-                            <div class="flex justify-between items-end mt-6">
-                                <div class="flex gap-[-10px] items-center">
-                                    <img src="https://i.pravatar.cc/100?img=11" class="w-8 h-8 rounded-full border-2 border-[#064e3b] object-cover relative z-30">
-                                    <img src="https://i.pravatar.cc/100?img=12" class="w-8 h-8 rounded-full border-2 border-[#064e3b] object-cover relative z-20 -ml-3">
-                                    <img src="https://i.pravatar.cc/100?img=13" class="w-8 h-8 rounded-full border-2 border-[#064e3b] object-cover relative z-10 -ml-3">
-                                    <span class="text-[11px] text-white/70 font-bold ml-2">+1.2k</span>
-                                </div>
-                                <div class="w-12 h-12 bg-[#10b981] rounded-2xl flex items-center justify-center text-[#09090b] shadow-[0_0_25px_rgba(16,185,129,0.4)] group-hover:scale-110 active:scale-95 transition-transform">
-                                    <i data-lucide="arrow-right" class="w-6 h-6"></i>
-                                </div>
-                            </div>
+        <div id="homeScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col sq-orb-bg overflow-hidden z-10">
+            <div class="absolute inset-0 pointer-events-none opacity-70" style="background-image: radial-gradient(rgba(16,185,129,.42) 1px, transparent 1px); background-size: 44px 44px;"></div>
+            <div class="flex-1 overflow-y-auto overflow-x-hidden hide-scroll pb-32 relative z-10">
+                <div class="pt-14 px-6 flex items-center justify-between">
+                    <div class="flex items-center gap-3 cursor-pointer" onclick="goToScreen('mySpaceQScreen')">
+                        <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=120&q=80" class="w-12 h-12 rounded-full object-cover border-2 border-[#10b981] shadow-[0_0_22px_rgba(16,185,129,.32)]">
+                        <div>
+                            <h3 class="text-white font-extrabold text-[17px] leading-tight">Assalamu’alaikum, Farhan</h3>
+                            <p class="text-slate-400 text-[13px] font-semibold">Semoga harimu penuh keberkahan <span class="text-[#10b981]">♥</span></p>
                         </div>
                     </div>
-
-                    <!-- TadarusQ Card -->
-                    <div onclick="goToScreen('tadarusLobbyScreen')" class="snap-start w-[280px] shrink-0 bg-gradient-to-br from-[#0f766e] to-[#09090b] rounded-[32px] p-6 border border-white/10 flex flex-col min-h-[260px] relative overflow-hidden cursor-pointer group shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]">
-                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-[#2dd4bf]/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
-                        <div class="relative z-10 flex flex-col h-full">
-                            <div class="flex gap-2 mb-4">
-                                <span class="bg-white/10 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5"><i data-lucide="users" class="w-3.5 h-3.5 opacity-70"></i> Ikhwan</span>
-                                <span class="bg-[#2dd4bf]/20 backdrop-blur-md text-[#2dd4bf] text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5"><i data-lucide="book-open" class="w-3.5 h-3.5"></i> Juz 30</span>
-                            </div>
-                            <div class="mb-auto mt-2">
-                                <h3 class="text-white font-black text-[24px] leading-tight mb-1 drop-shadow-md">TadarusQ<br>Live Ngaji</h3>
-                                <p class="text-gray-300 text-[13px] font-semibold mt-2">Ruang Interaktif 10 Peserta</p>
-                            </div>
-                            <div class="flex justify-between items-end mt-6">
-                                <div class="flex gap-[-10px] items-center">
-                                    <img src="https://i.pravatar.cc/100?img=33" class="w-8 h-8 rounded-full border-2 border-[#0f766e] object-cover relative z-30">
-                                    <img src="https://i.pravatar.cc/100?img=44" class="w-8 h-8 rounded-full border-2 border-[#0f766e] object-cover relative z-20 -ml-3">
-                                    <span class="text-[11px] text-white/70 font-bold ml-2">6/10</span>
-                                </div>
-                                <div class="w-12 h-12 bg-[#2dd4bf] rounded-2xl flex items-center justify-center text-[#09090b] shadow-[0_0_25px_rgba(45,212,191,0.4)] group-hover:scale-110 active:scale-95 transition-transform">
-                                    <i data-lucide="mic" class="w-6 h-6"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- MurajaahQ Card -->
-                    <div onclick="goToScreen('murajaahMapScreen')" class="snap-start w-[280px] shrink-0 bg-gradient-to-br from-[#b45309] to-[#09090b] rounded-[32px] p-6 border border-white/10 flex flex-col min-h-[260px] relative overflow-hidden cursor-pointer group shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]">
-                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-40 h-40 bg-[#fbbf24]/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
-                        <div class="relative z-10 flex flex-col h-full">
-                            <div class="flex gap-2 mb-4">
-                                <span class="bg-white/10 backdrop-blur-md text-white text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5"><i data-lucide="zap" class="w-3.5 h-3.5 opacity-70"></i> AI Auto</span>
-                                <span class="bg-[#fbbf24]/20 backdrop-blur-md text-[#fbbf24] text-[11px] font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5"><i data-lucide="swords" class="w-3.5 h-3.5"></i> Versus 1v1</span>
-                            </div>
-                            <div class="mb-auto mt-2">
-                                <h3 class="text-white font-black text-[24px] leading-tight mb-1 drop-shadow-md">MurajaahQ<br>Uji Hafalan</h3>
-                                <p class="text-gray-300 text-[13px] font-semibold mt-2">Gas Khatamkan Targetmu!</p>
-                            </div>
-                            <div class="flex justify-between items-end mt-6">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-8 h-8 rounded-full border-2 border-[#b45309] bg-[#fbbf24] flex items-center justify-center shadow-sm relative z-30 text-[#b45309]">
-                                        <i data-lucide="star" class="w-4 h-4 fill-current"></i>
-                                    </div>
-                                    <span class="text-[13px] text-white font-bold ml-1">1,240 XP</span>
-                                </div>
-                                <div class="w-12 h-12 bg-[#fbbf24] rounded-2xl flex items-center justify-center text-[#09090b] shadow-[0_0_25px_rgba(251,191,36,0.4)] group-hover:scale-110 active:scale-95 transition-transform">
-                                    <i data-lucide="gamepad-2" class="w-6 h-6"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. SocialQ Preview Section -->
-                <div class="px-6 mt-4 mb-5 flex justify-between items-end">
-                    <h2 class="font-extrabold text-[22px] text-white tracking-tight">SocialQ</h2>
-                    <span class="text-slate-400 text-[12px] font-bold hover:text-white cursor-pointer transition-colors" onclick="goToScreen('socialQScreen')">Jelajahi Semua</span>
-                </div>
-                
-                <!-- Pills / Filters -->
-                <div class="flex gap-3 px-6 overflow-x-auto hide-scroll mb-5">
-                    <button class="bg-[#10b981] text-[#09090b] px-5 py-2 rounded-full text-[13px] font-extrabold shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-transform active:scale-95">Semua</button>
-                    <button class="bg-[#18181b] text-slate-400 hover:text-white hover:bg-white/10 border border-white/10 px-5 py-2 rounded-full text-[13px] font-bold shrink-0 transition-all active:scale-95 flex items-center gap-2">
-                        Trending <span class="bg-[#10b981] text-[#09090b] px-1.5 py-0.5 rounded-full text-[10px] font-black shadow-[0_0_8px_rgba(16,185,129,0.5)]">9</span>
+                    <button onclick="goToScreen('sholatReminderSettingsScreen')" class="relative w-14 h-14 bg-white/5 rounded-[22px] flex items-center justify-center border border-white/15 shadow-lg active:scale-95 transition-transform">
+                        <i data-lucide="bell" class="w-6 h-6 text-white"></i>
+                        <span class="absolute top-3 right-3 w-2.5 h-2.5 bg-[#10b981] rounded-full shadow-[0_0_12px_rgba(16,185,129,.9)]"></span>
                     </button>
-                    <button class="bg-[#18181b] text-slate-400 hover:text-white hover:bg-white/10 border border-white/10 px-5 py-2 rounded-full text-[13px] font-bold shrink-0 transition-all active:scale-95">Diikuti</button>
                 </div>
 
-                <!-- Preview Cards -->
-                <div class="flex overflow-x-auto hide-scroll gap-4 px-6 pb-8 snap-x snap-mandatory">
-                    <!-- Post Card 1 -->
-                    <div onclick="goToScreen('socialQScreen')" class="snap-start min-w-[280px] bg-[#18181b] rounded-[28px] p-5 border border-white/5 cursor-pointer hover:border-white/20 transition-all relative group shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
-                        <div class="flex justify-between items-center mb-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full border-2 border-[#10b981] p-0.5 relative">
-                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" class="w-full h-full rounded-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-bold text-[14px]">Aisyah Rizki</h4>
-                                    <p class="text-slate-400 text-[11px] font-semibold">Baru saja</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-1.5 text-[#10b981] text-[10px] font-black tracking-widest px-2.5 py-1 bg-[#10b981]/10 rounded-md border border-[#10b981]/20">
-                                <div class="w-1.5 h-1.5 bg-[#10b981] rounded-full animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.8)]"></div> LIVE
+                <div class="px-6 mt-9 mb-6 relative">
+                    <div class="absolute right-8 -top-10 text-[#a7f3d0] text-[60px] opacity-80 drop-shadow-[0_0_24px_rgba(16,185,129,.6)]">☾</div>
+                    <h1 class="sq-hero-title text-[40px] font-black leading-[1.05] text-white">Tingkatkan<br>Amal & Ilmu Hari Ini!</h1>
+                </div>
+
+                <div onclick="goToScreen('sholatHomeScreen')" class="home-main-card home-prayer-card mx-5 sq-glass sq-card-shine rounded-[18px] p-4 relative overflow-hidden cursor-pointer active:scale-[.99] transition-transform">
+                    <div class="sq-mosque-scene home-prayer-ornament"></div>
+                    <div class="relative z-10 flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="sq-icon-box home-icon"><i data-lucide="home" class="w-6 h-6"></i></div>
+                            <div class="min-w-0">
+                                <h2 class="text-white text-[21px] font-extrabold leading-tight">SholatQ</h2>
+                                <p class="text-slate-400 text-[12px] font-semibold truncate">Waktu sholat berikutnya</p>
                             </div>
                         </div>
-                        <div class="w-[160px] h-[160px] mx-auto rounded-full overflow-hidden relative mb-4 border-[4px] border-white/5 shadow-sm">
-                            <video src="https://vjs.zencdn.net/v/oceans.mp4" loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
-                            <div class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors">
-                                <i data-lucide="play-circle" class="w-12 h-12 text-white drop-shadow-[0_0_15px_rgba(0,0,0,0.5)]"></i>
-                            </div>
-                        </div>
-                        <h3 class="text-white/90 font-bold text-[15px] leading-snug line-clamp-2">"Alhamdulillah, progres hafalan Al-Baqarah makin lancar..."</h3>
+                        <button onclick="event.stopPropagation(); goToScreen('sholatHomeScreen')" class="home-outline-btn shrink-0 px-3.5 py-2 rounded-[13px] bg-white/8 border border-white/10 text-white text-[12px] font-extrabold flex items-center gap-1.5">Jadwal <i data-lucide="chevron-right" class="w-4 h-4"></i></button>
                     </div>
 
-                    <!-- Post Card 2 -->
-                    <div onclick="goToScreen('socialQScreen')" class="snap-start min-w-[280px] bg-[#18181b] rounded-[28px] p-5 border border-white/5 cursor-pointer hover:border-white/20 transition-all relative group shadow-[0_4px_20px_rgba(0,0,0,0.3)]">
-                        <div class="flex justify-between items-center mb-4">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full border border-white/20 p-0.5 relative">
-                                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100" class="w-full h-full rounded-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-bold text-[14px]">Rizky Pratama</h4>
-                                    <p class="text-slate-400 text-[11px] font-semibold">2 jam yang lalu</p>
-                                </div>
+                    <div class="relative z-10 mt-4 grid grid-cols-[84px_minmax(0,1fr)] gap-4 items-center">
+                        <div class="sq-ring home-ring shrink-0" style="--sq-progress:73%">
+                            <div class="text-center">
+                                <div id="sq-home-countdown" class="text-white text-[17px] font-black leading-none">01:24:36</div>
+                                <div class="text-slate-400 text-[10.5px] font-bold mt-1">menuju</div>
                             </div>
                         </div>
-                        <div class="w-[160px] h-[160px] mx-auto rounded-full overflow-hidden relative mb-4 border-[4px] border-white/5 shadow-sm">
-                            <video src="https://www.w3schools.com/html/mov_bbb.mp4" loop muted playsinline class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
-                            <div class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/40 transition-colors">
-                                <i data-lucide="play-circle" class="w-12 h-12 text-white drop-shadow-[0_0_15px_rgba(0,0,0,0.5)]"></i>
+                        <div class="min-w-0">
+                            <p class="text-slate-400 text-[11px] font-extrabold uppercase tracking-[.16em]">Menuju</p>
+                            <div class="flex items-end gap-2 mt-1 flex-wrap">
+                                <h3 id="sq-home-next" class="text-[#10b981] text-[32px] font-black leading-none drop-shadow-[0_0_16px_rgba(16,185,129,.34)]">Ashar</h3>
+                                <p class="text-white text-[17px] font-extrabold leading-none pb-0.5"><span id="sq-home-time">15:45</span> <span class="text-slate-400 font-semibold">WIB</span></p>
                             </div>
+                            <p class="mt-2 text-slate-400 text-[11.5px] font-semibold flex items-center gap-1 truncate"><i data-lucide="map-pin" class="w-3.5 h-3.5 shrink-0"></i> Banjarmasin, Indonesia</p>
                         </div>
-                        <h3 class="text-white/90 font-bold text-[15px] leading-snug line-clamp-2">"Suasana kajian Ustadz Oemar Mita sore ini. Masya Allah ramai."</h3>
+                    </div>
+
+                    <div class="relative z-10 grid grid-cols-5 gap-1.5 mt-4">
+                        <button class="sq-chip home-schedule-chip py-1.5 text-[10px] font-extrabold">Subuh<br><span class="text-slate-400">04:27</span></button>
+                        <button class="sq-chip home-schedule-chip py-1.5 text-[10px] font-extrabold">Dzuhur<br><span class="text-slate-400">11:56</span></button>
+                        <button class="sq-chip home-schedule-chip py-1.5 text-[10px] font-extrabold active">Ashar<br><span class="text-white">15:45</span></button>
+                        <button class="sq-chip home-schedule-chip py-1.5 text-[10px] font-extrabold">Maghrib<br><span class="text-slate-400">17:59</span></button>
+                        <button class="sq-chip home-schedule-chip py-1.5 text-[10px] font-extrabold">Isya<br><span class="text-slate-400">19:09</span></button>
                     </div>
                 </div>
 
+                <div onclick="goToScreen('journalHomeScreen')" class="home-main-card home-journal-card mx-5 mt-3 sq-glass rounded-[18px] p-4 relative overflow-hidden cursor-pointer active:scale-[.99] transition-transform">
+                    <div class="absolute right-[-24px] top-[-30px] w-32 h-32 rounded-full bg-[#10b981]/12 blur-2xl"></div>
+                    <div class="absolute left-5 bottom-[-36px] w-28 h-28 rounded-full bg-[#34d399]/8 blur-2xl"></div>
+
+                    <div class="relative z-10 flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-3 min-w-0">
+                            <div class="sq-icon-box home-icon"><i data-lucide="notebook-pen" class="w-6 h-6"></i></div>
+                            <div class="min-w-0">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <h2 class="text-white text-[21px] font-extrabold leading-tight">JurnalQ</h2>
+                                    <span class="home-private-badge text-[10px] font-black text-[#34d399] px-2 py-1 border border-[#10b981]/25 bg-[#10b981]/10 rounded-[9px]">Private</span>
+                                </div>
+                                <p class="text-slate-400 text-[12px] font-semibold mt-0.5 truncate">Refleksi singkat, syukur, dan tenang.</p>
+                            </div>
+                        </div>
+                        <div class="home-streak-pill shrink-0 text-center border border-white/10 bg-white/6 px-3 py-2 rounded-[13px]">
+                            <div class="text-[14px] leading-none">🔥 <span id="sq-home-streak" class="text-[#10b981] text-[20px] font-black">17</span></div>
+                            <p class="text-slate-400 text-[9.5px] font-bold mt-1 uppercase tracking-[.08em]">Hari</p>
+                        </div>
+                    </div>
+
+                    <div class="home-note-box relative z-10 mt-3 rounded-[13px] p-3 border border-white/10 bg-white/[.045]">
+                        <p class="text-[#34d399] text-[11px] font-black flex items-center gap-1.5"><i data-lucide="lock" class="w-3.5 h-3.5"></i> Jurnal Hari Ini <span class="w-1.5 h-1.5 rounded-full bg-[#10b981]"></span></p>
+                        <p id="sq-home-journal-preview" class="home-journal-preview text-slate-300 text-[12.5px] leading-relaxed mt-1">Alhamdulillah, hari ini bisa lebih sabar dan bermanfaat untuk orang lain.</p>
+                    </div>
+
+                    <div class="relative z-10 mt-3 flex items-center justify-between gap-2">
+                        <div class="flex gap-1.5 min-w-0 overflow-hidden">
+                            <span class="sq-chip active home-mood-chip px-2.5 py-1 text-[11px] font-bold">😊 Bersyukur</span>
+                            <span class="sq-chip home-mood-chip px-2.5 py-1 text-[11px] font-bold">♡ Tenang</span>
+                        </div>
+                        <button onclick="event.stopPropagation(); goToScreen('journalWriteScreen')" class="home-write-btn shrink-0 bg-gradient-to-r from-[#10b981] to-[#059669] text-white px-4 py-2.5 rounded-[13px] text-[12.5px] font-extrabold flex items-center gap-1.5 shadow-[0_0_22px_rgba(16,185,129,.24)] active:scale-95 transition-transform">Tulis <i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+
+                <div class="home-floating-feature-nav grid grid-cols-4 gap-3 px-5 mt-4">
+                    <button onclick="goToScreen('kajianLobbyScreen')" class="sq-glass-soft rounded-[24px] p-4 text-left min-h-[142px] active:scale-95 transition-transform">
+                        <div class="text-[#bbf7d0] mb-5"><i data-lucide="book-open" class="w-8 h-8"></i></div>
+                        <h4 class="text-white font-extrabold text-[15px]">KajianQ</h4>
+                        <p class="text-slate-400 text-[11px] font-semibold mt-1">Ilmu untuk diamalkan</p>
+                    </button>
+                    <button onclick="goToScreen('tadarusLobbyScreen')" class="sq-glass-soft rounded-[24px] p-4 text-left min-h-[142px] active:scale-95 transition-transform">
+                        <div class="text-[#67e8f9] mb-5"><i data-lucide="book-open-check" class="w-8 h-8"></i></div>
+                        <h4 class="text-white font-extrabold text-[15px]">TadarusQ</h4>
+                        <p class="text-slate-400 text-[11px] font-semibold mt-1">Baca & pahami Al-Qur’an</p>
+                    </button>
+                    <button onclick="goToScreen('murajaahMapScreen')" class="sq-glass-soft rounded-[24px] p-4 text-left min-h-[142px] active:scale-95 transition-transform">
+                        <div class="text-[#60a5fa] mb-5"><i data-lucide="shield-check" class="w-8 h-8"></i></div>
+                        <h4 class="text-white font-extrabold text-[15px]">MurajaahQ</h4>
+                        <p class="text-slate-400 text-[11px] font-semibold mt-1">Hafalan terjaga</p>
+                    </button>
+                    <button onclick="goToScreen('socialQScreen')" class="sq-glass-soft rounded-[24px] p-4 text-left min-h-[142px] active:scale-95 transition-transform">
+                        <div class="text-[#c4b5fd] mb-5"><i data-lucide="users" class="w-8 h-8"></i></div>
+                        <h4 class="text-white font-extrabold text-[15px]">SocialQ</h4>
+                        <p class="text-slate-400 text-[11px] font-semibold mt-1">Komunitas baik</p>
+                    </button>
+                </div>
+
+                <div class="home-social-preview-header px-5 mt-7 flex items-center justify-between gap-3">
+                    <div class="min-w-0">
+                        <h3 class="text-white text-[20px] font-extrabold leading-tight">Preview SocialQ</h3>
+                        <p class="text-slate-400 text-[12px] font-semibold mt-0.5">Cuplikan 3 postingan terbaru dari komunitas</p>
+                    </div>
+                    <button onclick="goToScreen('socialQScreen')" class="home-see-all-btn shrink-0 text-[#10b981] text-[13px] font-extrabold flex items-center gap-1 active:scale-95 transition-transform">Lihat Semua <i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                </div>
+
+                <div class="home-social-preview mx-5 mt-3">
+                    <div class="flex gap-3 overflow-x-auto hide-scroll snap-x pb-2">
+                        <article onclick="goToScreen('socialQScreen')" class="home-social-card snap-start shrink-0 cursor-pointer active:scale-[.98] transition-transform">
+                            <div class="home-social-media">
+                                <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata" class="w-full h-full object-cover"></video>
+                                <div class="home-social-media-cover"></div>
+                                <i data-lucide="play-circle" class="w-9 h-9 text-white drop-shadow-lg"></i>
+                            </div>
+                            <div class="p-3">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <img src="https://i.pravatar.cc/100?img=12" class="w-7 h-7 rounded-full object-cover border border-[#10b981]/60">
+                                    <div class="min-w-0">
+                                        <h4 class="text-white text-[12px] font-extrabold truncate">Aisyah Rizki</h4>
+                                        <p class="text-slate-500 text-[10px] font-bold">1 jam lalu</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-300 text-[11.5px] leading-snug mt-2 line-clamp-2">Alhamdulillah, momen kecil hari ini terasa lebih bermakna.</p>
+                            </div>
+                        </article>
+
+                        <article onclick="goToScreen('socialQScreen')" class="home-social-card snap-start shrink-0 cursor-pointer active:scale-[.98] transition-transform">
+                            <div class="home-social-media">
+                                <video src="https://media.w3.org/2010/05/sintel/trailer.mp4" muted loop playsinline preload="metadata" class="w-full h-full object-cover"></video>
+                                <div class="home-social-media-cover"></div>
+                                <i data-lucide="play-circle" class="w-9 h-9 text-white drop-shadow-lg"></i>
+                            </div>
+                            <div class="p-3">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <img src="https://i.pravatar.cc/100?img=18" class="w-7 h-7 rounded-full object-cover border border-[#10b981]/60">
+                                    <div class="min-w-0">
+                                        <h4 class="text-white text-[12px] font-extrabold truncate">Ahmad Fadil</h4>
+                                        <p class="text-slate-500 text-[10px] font-bold">2 jam lalu</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-300 text-[11.5px] leading-snug mt-2 line-clamp-2">Bismillah, saling menguatkan lewat konten yang baik.</p>
+                            </div>
+                        </article>
+
+                        <article onclick="goToScreen('socialQScreen')" class="home-social-card snap-start shrink-0 cursor-pointer active:scale-[.98] transition-transform">
+                            <div class="home-social-media">
+                                <video src="https://media.w3.org/2010/05/bunny/trailer.mp4" muted loop playsinline preload="metadata" class="w-full h-full object-cover"></video>
+                                <div class="home-social-media-cover"></div>
+                                <i data-lucide="play-circle" class="w-9 h-9 text-white drop-shadow-lg"></i>
+                            </div>
+                            <div class="p-3">
+                                <div class="flex items-center gap-2 min-w-0">
+                                    <img src="https://i.pravatar.cc/100?img=24" class="w-7 h-7 rounded-full object-cover border border-[#10b981]/60">
+                                    <div class="min-w-0">
+                                        <h4 class="text-white text-[12px] font-extrabold truncate">Nisa Salsabila</h4>
+                                        <p class="text-slate-500 text-[10px] font-bold">Baru saja</p>
+                                    </div>
+                                </div>
+                                <p class="text-slate-300 text-[11.5px] leading-snug mt-2 line-clamp-2">Masya Allah, inspirasi sore dari perjalanan hari ini.</p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
             </div>
 
-            <!-- 4. Floating Bottom Nav (Dark Mode) -->
-            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] bg-[#09090b]/80 backdrop-blur-3xl rounded-[32px] py-4 px-6 shadow-[0_20px_50px_rgba(0,0,0,0.8)] border border-white/10 flex justify-between items-center z-50">
-                <!-- Home active -->
-                <button class="text-[#10b981] flex flex-col items-center gap-1 active:scale-95 transition-transform cursor-pointer relative">
-                    <i data-lucide="home" class="w-6 h-6 fill-[#10b981]/20 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]"></i>
-                    <div class="absolute -bottom-2 w-1 h-1 bg-[#10b981] rounded-full shadow-[0_0_8px_rgba(16,185,129,1)]"></div>
-                </button>
-                
-                <!-- Social inactive -->
-                <button onclick="goToScreen('socialQScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
-                    <i data-lucide="layout-grid" class="w-6 h-6"></i>
-                </button>
-                
-                <!-- Add center -->
-                <button onclick="goToScreen('cameraScreen'); startLiveCamera();" class="w-14 h-14 bg-[#10b981] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.4)] -mt-10 border-[6px] border-[#09090b] text-[#09090b] hover:scale-105 active:scale-95 transition-transform cursor-pointer">
-                    <i data-lucide="plus" class="w-7 h-7 font-black"></i>
-                </button>
-                
-                <!-- Messages inactive -->
-                <button onclick="goToScreen('chatNotifScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer">
-                    <i data-lucide="message-circle" class="w-6 h-6"></i>
-                </button>
-                
-                <!-- Profile inactive -->
-                <button onclick="goToScreen('mySpaceQScreen')" class="text-slate-400 hover:text-white active:scale-95 transition-all cursor-pointer relative">
-                    <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=100&q=80" class="w-7 h-7 rounded-full border-2 border-slate-500 object-cover opacity-80 hover:opacity-100 hover:border-white transition-all">
-                </button>
+            <div class="sq-bottom-nav">
+                <div class="flex justify-between items-end max-w-[390px] mx-auto">
+                    <button class="text-[#10b981] flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="home" class="w-6 h-6 fill-[#10b981]/20"></i>Home</button>
+                    <button onclick="goToScreen('socialQScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold active:scale-95 transition-transform"><i data-lucide="layout-grid" class="w-6 h-6"></i>Social</button>
+                    <button onclick="goToScreen('cameraScreen'); startLiveCamera();" class="w-16 h-16 -mt-8 rounded-full bg-gradient-to-br from-[#34d399] to-[#059669] text-white flex items-center justify-center border-[7px] border-[#07100f] shadow-[0_0_30px_rgba(16,185,129,.42)] active:scale-95 transition-transform"><i data-lucide="plus" class="w-9 h-9"></i></button>
+                    <button onclick="goToScreen('chatNotifScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold active:scale-95 transition-transform"><i data-lucide="message-circle" class="w-6 h-6"></i>Chat</button>
+                    <button onclick="goToScreen('mySpaceQScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold active:scale-95 transition-transform"><i data-lucide="user" class="w-6 h-6"></i>Profil</button>
+                </div>
             </div>
+        </div>
+
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7A: SHOLATQ ACTIVATION              -->
+        <!-- ========================================== -->
+        <div id="sholatActivationScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col sq-orb-bg overflow-hidden z-[58]">
+            <div class="absolute inset-0 pointer-events-none opacity-70" style="background-image: radial-gradient(rgba(16,185,129,.38) 1px, transparent 1px); background-size: 46px 46px;"></div>
+            <div class="flex-1 overflow-y-auto hide-scroll px-5 pb-28 relative z-10">
+                <div class="pt-14 flex items-center justify-between">
+                    <button onclick="goToScreen('homeScreen')" class="w-14 h-14 rounded-[22px] bg-white/5 border border-white/15 flex items-center justify-center active:scale-95 transition-transform"><i data-lucide="arrow-left" class="w-6 h-6 text-white"></i></button>
+                    <button onclick="goToScreen('sholatReminderSettingsScreen')" class="relative w-14 h-14 rounded-[22px] bg-white/5 border border-white/15 flex items-center justify-center"><i data-lucide="bell" class="w-6 h-6 text-white"></i><span class="absolute top-3 right-3 w-2.5 h-2.5 rounded-full bg-[#10b981]"></span></button>
+                </div>
+                <div class="relative mt-12 mb-6">
+                    <div class="sq-mosque-scene !w-[58%] !opacity-70"></div>
+                    <h1 class="sq-hero-title text-[42px] font-black text-white leading-[1.05] relative z-10">Aktifkan SholatQ</h1>
+                    <p class="text-slate-400 text-[17px] font-medium leading-relaxed mt-4 max-w-[300px] relative z-10">Atur preferensi kamu agar SpaceQ dapat mengingatkan waktu sholat secara otomatis.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="sq-glass rounded-[30px] p-5">
+                        <div class="flex gap-5">
+                            <div class="sq-icon-box-lg"><i data-lucide="map-pin" class="w-12 h-12"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-start gap-3">
+                                    <div>
+                                        <h2 class="text-white text-[24px] font-black">Lokasi Otomatis</h2>
+                                        <p class="text-slate-400 text-[15px] leading-relaxed mt-1">Gunakan lokasi kamu untuk waktu sholat yang akurat.</p>
+                                    </div>
+                                    <span class="sq-chip active px-3 py-1 text-[13px] font-bold flex items-center gap-1"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Aktif</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="sqSelectLocation()" class="w-full mt-5 rounded-[22px] bg-white/5 border border-white/10 py-4 px-4 flex items-center justify-between active:scale-[.99] transition-transform"><span class="text-white font-bold">Lokasi</span><span class="text-[#34d399] font-extrabold flex items-center gap-2">Banjarmasin, Indonesia <i data-lucide="chevron-down" class="w-5 h-5 text-white"></i></span></button>
+                    </div>
+
+                    <div class="sq-glass rounded-[30px] p-5">
+                        <div class="flex gap-5">
+                            <div class="sq-icon-box-lg"><i data-lucide="bell" class="w-12 h-12"></i></div>
+                            <div class="flex-1">
+                                <div class="flex justify-between gap-3">
+                                    <div><h2 class="text-white text-[24px] font-black">Notifikasi Pengingat</h2><p class="text-slate-400 text-[15px] leading-relaxed mt-1">Dapatkan pengingat sebelum dan saat waktu sholat.</p></div>
+                                    <span class="sq-chip active px-3 py-1 h-fit text-[13px] font-bold flex items-center gap-1"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Aktif</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5 rounded-[22px] bg-white/5 border border-white/10 p-3 flex items-center gap-2 overflow-x-auto hide-scroll">
+                            <span class="text-white font-bold px-2">Pengingat</span>
+                            <button onclick="sqSelectReminderChip(this)" class="sq-chip active px-3 py-2 text-[12px] font-bold shrink-0"><i data-lucide="bell" class="w-4 h-4 inline mr-1"></i>30 menit sebelum</button>
+                            <button onclick="sqSelectReminderChip(this)" class="sq-chip px-3 py-2 text-[12px] font-bold shrink-0"><i data-lucide="bell" class="w-4 h-4 inline mr-1"></i>Saat adzan</button>
+                            <button onclick="sqSelectReminderChip(this)" class="sq-chip px-3 py-2 text-[12px] font-bold shrink-0"><i data-lucide="bell" class="w-4 h-4 inline mr-1"></i>10 menit sesudah</button>
+                        </div>
+                    </div>
+
+                    <div class="sq-glass rounded-[30px] p-5">
+                        <div class="flex gap-5">
+                            <div class="sq-icon-box-lg"><i data-lucide="volume-2" class="w-12 h-12"></i></div>
+                            <div class="flex-1">
+                                <div class="flex justify-between gap-3"><div><h2 class="text-white text-[24px] font-black">Suara Adzan</h2><p class="text-slate-400 text-[15px] leading-relaxed mt-1">Pilih suara adzan favorit kamu untuk pengalaman terbaik.</p></div><span class="sq-chip active px-3 py-1 h-fit text-[13px] font-bold flex items-center gap-1"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Aktif</span></div>
+                            </div>
+                        </div>
+                        <button onclick="goToScreen('sholatReminderSettingsScreen')" class="w-full mt-5 rounded-[22px] bg-white/5 border border-white/10 py-4 px-4 flex items-center justify-between active:scale-[.99] transition-transform"><span class="text-white font-bold">Suara</span><span id="sq-activation-adzan" class="text-[#34d399] font-extrabold flex items-center gap-2">Adzan Madinah <i data-lucide="chevron-down" class="w-5 h-5 text-white"></i></span></button>
+                    </div>
+
+                    <div class="sq-glass rounded-[30px] p-5 flex items-center gap-5 relative overflow-hidden">
+                        <div class="sq-window-scene absolute right-3 top-3 bottom-3 w-[120px] rounded-[24px] opacity-70"></div>
+                        <div class="sq-ring shrink-0" style="--sq-progress:72%"><div class="text-center"><div id="sq-activation-countdown" class="text-white text-[20px] font-black leading-none">01:24:36</div><div class="text-slate-400 text-[12px] font-bold mt-1">menuju</div></div></div>
+                        <div class="h-24 w-px bg-white/12"></div>
+                        <div class="relative z-10"><p class="text-slate-400 font-semibold">Preview Waktu Sholat</p><h3 id="sq-activation-name" class="text-[#10b981] text-[34px] font-black leading-none mt-2">Ashar</h3><p class="text-white text-[19px] font-extrabold mt-2"><span id="sq-activation-time">15:45</span> WIB</p><p class="text-slate-400 text-[13px] font-semibold mt-2 flex items-center gap-1"><i data-lucide="map-pin" class="w-4 h-4"></i>Banjarmasin, Indonesia</p></div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-0 sq-glass-soft rounded-[24px] p-4 text-center">
+                        <div><i data-lucide="calendar-days" class="w-7 h-7 mx-auto text-[#bbf7d0]"></i><p class="text-slate-400 text-[12px] mt-2">Metode Hisab</p><p class="text-[#34d399] font-bold text-[13px]">Kemenag RI</p></div>
+                        <div class="border-x border-white/10"><i data-lucide="book-open" class="w-7 h-7 mx-auto text-[#bbf7d0]"></i><p class="text-slate-400 text-[12px] mt-2">Mazhab</p><p class="text-[#34d399] font-bold text-[13px]">Syafi’i</p></div>
+                        <div><i data-lucide="shield-check" class="w-7 h-7 mx-auto text-[#bbf7d0]"></i><p class="text-slate-400 text-[12px] mt-2">Akurasi</p><p class="text-[#34d399] font-bold text-[13px]">Tinggi</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-[#050807] via-[#050807]/95 to-transparent z-20">
+                <button onclick="sqActivatePrayerReminders()" class="w-full py-5 rounded-[26px] bg-gradient-to-r from-[#10b981] to-[#059669] text-white text-[22px] font-black flex items-center justify-between px-7 shadow-[0_0_34px_rgba(16,185,129,.36)] active:scale-[.98] transition-transform"><span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-6 h-6"></i>Aktifkan Pengingat Sholat</span><i data-lucide="chevron-right" class="w-7 h-7"></i></button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7B: SHOLATQ HOME / JADWAL           -->
+        <!-- ========================================== -->
+        <div id="sholatHomeScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col sq-orb-bg overflow-hidden z-[58]">
+            <div class="absolute inset-0 pointer-events-none opacity-55" style="background-image: radial-gradient(rgba(16,185,129,.35) 1px, transparent 1px); background-size: 48px 48px;"></div>
+            <div class="flex-1 overflow-y-auto hide-scroll px-5 pb-32 relative z-10">
+                <div class="pt-10 flex items-center justify-between">
+                    <button onclick="goToScreen('homeScreen')" class="w-14 h-14 rounded-full bg-white/5 border border-white/15 flex items-center justify-center active:scale-95 transition-transform"><i data-lucide="arrow-left" class="w-6 h-6 text-white"></i></button>
+                    <h1 class="text-white text-[26px] font-black">SholatQ</h1>
+                    <button onclick="goToScreen('sholatReminderSettingsScreen')" class="relative w-14 h-14 bg-white/5 rounded-[22px] flex items-center justify-center border border-white/15"><i data-lucide="bell" class="w-6 h-6 text-white"></i><span class="absolute top-3 right-3 w-2.5 h-2.5 bg-[#10b981] rounded-full"></span></button>
+                </div>
+
+                <div class="mt-5 sq-glass rounded-[30px] p-5 relative overflow-hidden">
+                    <div class="sq-mosque-scene"></div>
+                    <div class="relative z-10 flex items-center gap-5">
+                        <div class="sq-ring shrink-0" style="--sq-progress:74%"><div class="text-center"><div id="sq-main-countdown" class="text-white text-[21px] font-black leading-none">00:59:41</div><div class="text-slate-300 text-[13px] font-bold mt-1">menuju</div></div></div>
+                        <div><p class="text-slate-400 text-[19px] font-semibold">Menuju</p><h2 id="sq-main-name" class="text-[#10b981] text-[40px] font-black leading-none">Maghrib</h2><p class="text-white text-[24px] font-black mt-2"><span id="sq-main-time">17:59</span> <span class="text-slate-400 font-semibold">WIB</span></p><p class="text-slate-400 font-semibold mt-3 flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4"></i>Banjarmasin, Indonesia</p></div>
+                    </div>
+                </div>
+
+                <div class="mt-7 flex items-end justify-between gap-3">
+                    <div><h2 class="text-white text-[22px] font-black">Jadwal Sholat Hari Ini</h2><p class="text-slate-400 text-[14px] font-semibold mt-1">Sabtu, 17 Mei 2025 / 19 Dzulqa’dah 1446 H</p></div>
+                    <div class="sq-glass-soft rounded-[20px] px-4 py-3 text-center"><div class="text-[22px]">🔥 <span class="text-[#10b981] text-[25px] font-black">85%</span></div><p class="text-slate-400 text-[11px] font-semibold">Selesai Hari Ini</p></div>
+                </div>
+
+                <div id="sq-prayer-list" class="mt-4 sq-glass rounded-[30px] p-4 space-y-2">
+                    <button data-prayer-row="Subuh" onclick="sqMarkPrayerDone('Subuh')" class="w-full flex items-center gap-4 rounded-[22px] px-4 py-4 text-left border border-transparent hover:bg-white/5 active:scale-[.99] transition-all"><span class="text-[28px] w-9">🌅</span><span class="text-white text-[22px] font-black w-28">Subuh</span><span class="text-slate-400 text-[20px] font-bold flex-1">04:27</span><span data-prayer-check="Subuh" class="w-8 h-8 rounded-full bg-[#10b981] text-[#04110d] flex items-center justify-center"><i data-lucide="check" class="w-5 h-5"></i></span></button>
+                    <button data-prayer-row="Dzuhur" onclick="sqMarkPrayerDone('Dzuhur')" class="w-full flex items-center gap-4 rounded-[22px] px-4 py-4 text-left border border-transparent hover:bg-white/5 active:scale-[.99] transition-all"><span class="text-[28px] w-9">☀️</span><span class="text-white text-[22px] font-black w-28">Dzuhur</span><span class="text-slate-400 text-[20px] font-bold flex-1">11:56</span><span data-prayer-check="Dzuhur" class="w-8 h-8 rounded-full bg-[#10b981] text-[#04110d] flex items-center justify-center"><i data-lucide="check" class="w-5 h-5"></i></span></button>
+                    <button data-prayer-row="Ashar" onclick="sqMarkPrayerDone('Ashar')" class="w-full flex items-center gap-4 rounded-[22px] px-4 py-4 text-left border border-transparent hover:bg-white/5 active:scale-[.99] transition-all"><span class="text-[28px] w-9">🌤️</span><span class="text-white text-[22px] font-black w-28">Ashar</span><span class="text-slate-400 text-[20px] font-bold flex-1">15:45</span><span class="text-[#34d399] font-bold mr-2">Selesai</span><span data-prayer-check="Ashar" class="w-8 h-8 rounded-full border border-[#10b981] text-[#10b981] flex items-center justify-center"><i data-lucide="check" class="w-5 h-5"></i></span></button>
+                    <button data-prayer-row="Maghrib" onclick="goToScreen('sholatAlertScreen')" class="w-full flex items-center gap-4 rounded-[22px] px-4 py-4 text-left border border-[#10b981]/35 bg-[#10b981]/13 shadow-[0_0_24px_rgba(16,185,129,.12)] active:scale-[.99] transition-all"><span class="text-[28px] w-9">🌇</span><span class="text-[#34d399] text-[22px] font-black w-28">Maghrib</span><span class="text-white text-[20px] font-black flex-1">17:59</span><span class="flex items-center gap-2 text-white font-black"><span class="w-2.5 h-2.5 bg-[#10b981] rounded-full"></span><span id="sq-row-countdown">00:59:41</span></span><i data-lucide="chevron-right" class="w-5 h-5 text-white"></i></button>
+                    <button data-prayer-row="Isya" onclick="sqMarkPrayerDone('Isya')" class="w-full flex items-center gap-4 rounded-[22px] px-4 py-4 text-left border border-transparent hover:bg-white/5 active:scale-[.99] transition-all"><span class="text-[28px] w-9">🌙</span><span class="text-white text-[22px] font-black w-28">Isya</span><span class="text-slate-400 text-[20px] font-bold flex-1">19:09</span><span class="text-slate-400 font-semibold mr-2">Belum Waktu</span><i data-lucide="clock" class="w-6 h-6 text-slate-400"></i></button>
+                </div>
+
+                <div class="mt-4 sq-glass-soft rounded-[26px] p-4 flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-full border border-[#10b981]/30 flex items-center justify-center text-[#34d399] shadow-[0_0_20px_rgba(16,185,129,.18)]"><i data-lucide="check-circle-2" class="w-8 h-8"></i></div>
+                    <div class="flex-1"><h4 class="text-white font-black">Jangan lupa niat karena Allah</h4><p class="text-slate-400 font-semibold mt-1">Sholat adalah tiang agama.</p></div>
+                    <button onclick="sqMarkPrayerDone()" class="sq-switch" data-sq-mark-current><span></span></button>
+                </div>
+
+                <div class="grid grid-cols-4 gap-3 mt-4">
+                    <button onclick="sqToast('Kompas kiblat disimulasikan: Qiblat 295°', 'info')" class="sq-glass-soft rounded-[22px] p-4 text-center active:scale-95 transition-transform"><i data-lucide="compass" class="w-10 h-10 mx-auto text-[#34d399]"></i><h4 class="text-white font-black text-[13px] mt-3">Arah Kiblat</h4><p class="text-slate-400 text-[11px] mt-1">Qiblat 295°</p></button>
+                    <button onclick="sqToast('Menampilkan 5 masjid terdekat di sekitar lokasi kamu.', 'info')" class="sq-glass-soft rounded-[22px] p-4 text-center active:scale-95 transition-transform"><i data-lucide="building-2" class="w-10 h-10 mx-auto text-[#34d399]"></i><h4 class="text-white font-black text-[13px] mt-3">Masjid Terdekat</h4><p class="text-slate-400 text-[11px] mt-1">Temukan masjid</p></button>
+                    <button onclick="sqToast('Doa setelah adzan dibuka dalam mode baca.', 'info')" class="sq-glass-soft rounded-[22px] p-4 text-center active:scale-95 transition-transform"><i data-lucide="book-open" class="w-10 h-10 mx-auto text-[#34d399]"></i><h4 class="text-white font-black text-[13px] mt-3">Doa Setelah Adzan</h4><p class="text-slate-400 text-[11px] mt-1">Bacaan dianjurkan</p></button>
+                    <button onclick="sqToggleFocusMode(this)" class="sq-glass-soft rounded-[22px] p-4 text-center active:scale-95 transition-transform"><i data-lucide="moon" class="w-10 h-10 mx-auto text-[#34d399]"></i><h4 class="text-white font-black text-[13px] mt-3">Mode Fokus</h4><p class="text-slate-400 text-[11px] mt-1">Hindari gangguan</p></button>
+                </div>
+
+                <div class="mt-4 sq-glass-soft rounded-[26px] p-4 flex items-center gap-4"><i data-lucide="calendar-days" class="w-10 h-10 text-[#86efac]"></i><div class="flex-1"><h4 class="text-white font-black">Konsistensi adalah kunci</h4><p class="text-slate-400 font-semibold mt-1">Terus jaga sholat tepat waktu.</p></div><div class="text-center px-5 border-l border-white/10"><div class="text-[#10b981] text-[30px] font-black">7</div><p class="text-slate-400 text-[12px]">hari<br>Streak</p></div><i data-lucide="badge-star" class="w-10 h-10 text-[#86efac]"></i></div>
+                <div class="mt-4 sq-glass-soft rounded-[26px] p-4 flex items-center gap-4"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="bell" class="w-6 h-6"></i></div><div class="flex-1"><h4 class="text-white font-bold">Aktifkan notifikasi untuk pengingat sholat</h4><p class="text-slate-400 text-[13px] mt-1">Agar tidak ketinggalan waktu sholat.</p></div><button onclick="goToScreen('sholatActivationScreen')" class="bg-[#10b981] text-white px-5 py-2.5 rounded-[18px] font-bold active:scale-95 transition-transform">Aktifkan</button></div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7C: SHOLAT REMINDER SETTINGS        -->
+        <!-- ========================================== -->
+        <div id="sholatReminderSettingsScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col sq-orb-bg overflow-hidden z-[59]">
+            <div class="absolute inset-0 pointer-events-none opacity-60" style="background-image: radial-gradient(rgba(16,185,129,.35) 1px, transparent 1px); background-size: 44px 44px;"></div>
+            <div class="flex-1 overflow-y-auto hide-scroll px-5 pb-10 relative z-10">
+                <div class="pt-10 flex items-center justify-between">
+                    <button onclick="goToScreen('sholatHomeScreen')" class="w-14 h-14 rounded-[22px] bg-white/5 border border-white/15 flex items-center justify-center active:scale-95 transition-transform"><i data-lucide="arrow-left" class="w-6 h-6 text-[#34d399]"></i></button>
+                    <div class="flex-1 ml-5"><p class="text-white font-semibold">Pengaturan Pengingat</p></div>
+                    <button onclick="sqToast('Pengaturan pengingat sudah tersimpan otomatis.', 'success')" class="relative w-14 h-14 bg-white/5 rounded-[22px] flex items-center justify-center border border-white/15"><i data-lucide="bell" class="w-6 h-6 text-white"></i><span class="absolute top-3 right-3 w-2.5 h-2.5 bg-[#10b981] rounded-full"></span></button>
+                </div>
+                <div class="mt-9 mb-6 relative"><div class="sq-mosque-scene !w-[55%] !opacity-50"></div><h1 class="sq-hero-title text-[40px] font-black text-white leading-none relative z-10">Pengaturan Pengingat</h1><p class="text-slate-400 text-[16px] mt-3 relative z-10">Atur cara SholatQ mengingatkanmu untuk sholat tepat waktu.</p></div>
+
+                <div class="sq-glass rounded-[30px] p-4 space-y-0">
+                    <div class="flex items-center gap-4 p-2 mb-1"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="settings-2" class="w-6 h-6"></i></div><div><h3 class="text-white text-[18px] font-black">Waktu Pengingat</h3><p class="text-slate-400 text-[13px]">Pilih kapan kamu ingin diingatkan.</p></div></div>
+                    <div class="border-t border-white/10"></div>
+                    <div class="flex items-center gap-4 py-4"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="clock" class="w-6 h-6"></i></div><div class="flex-1 text-white font-bold text-[17px]">30 menit sebelum</div><button data-sq-toggle="before30" onclick="sqToggleReminder('before30')" class="sq-switch active"><span></span></button></div>
+                    <div class="border-t border-white/10"></div>
+                    <div class="flex items-center gap-4 py-4"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="clock" class="w-6 h-6"></i></div><div class="flex-1 text-white font-bold text-[17px]">10 menit sebelum</div><button data-sq-toggle="before10" onclick="sqToggleReminder('before10')" class="sq-switch active"><span></span></button></div>
+                    <div class="border-t border-white/10"></div>
+                    <div class="flex items-center gap-4 py-4"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="bell" class="w-6 h-6"></i></div><div class="flex-1 text-white font-bold text-[17px]">Saat adzan</div><button data-sq-toggle="adhan" onclick="sqToggleReminder('adhan')" class="sq-switch active"><span></span></button></div>
+                    <div class="border-t border-white/10"></div>
+                    <div class="flex items-center gap-4 pt-4"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="refresh-cw" class="w-6 h-6"></i></div><div class="flex-1"><p class="text-white font-bold text-[17px]">Ingatkan lagi jika belum ditandai</p><p class="text-slate-400 text-[13px]">Akan mengingatkan setiap 15 menit</p></div><button data-sq-toggle="repeat" onclick="sqToggleReminder('repeat')" class="sq-switch active"><span></span></button></div>
+                </div>
+
+                <div class="sq-glass rounded-[30px] p-4 mt-4 space-y-0">
+                    <div class="flex items-center gap-4 py-3"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="graduation-cap" class="w-6 h-6"></i></div><div class="flex-1"><p class="text-white font-bold text-[17px]">Mode senyap saat kelas</p><p class="text-slate-400 text-[13px]">Nonaktifkan suara pengingat saat kelas berlangsung.</p></div><button data-sq-toggle="classSilent" onclick="sqToggleReminder('classSilent')" class="sq-switch"><span></span></button></div>
+                    <div class="border-t border-white/10"></div>
+                    <div class="flex items-center gap-4 py-3"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="calendar-days" class="w-6 h-6"></i></div><div class="flex-1"><p class="text-white font-bold text-[17px]">Pengingat Jumat</p><p class="text-slate-400 text-[13px]">Ingatkan waktu sholat Jumat setiap hari Jumat.</p></div><button data-sq-toggle="friday" onclick="sqToggleReminder('friday')" class="sq-switch active"><span></span></button></div>
+                    <div class="border-t border-white/10"></div>
+                    <div class="flex items-center gap-4 py-3"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="smartphone-vibration" class="w-6 h-6"></i></div><div class="flex-1"><p class="text-white font-bold text-[17px]">Getar saja</p><p class="text-slate-400 text-[13px]">Hanya getar, tanpa suara.</p></div><button data-sq-toggle="vibrate" onclick="sqToggleReminder('vibrate')" class="sq-switch"><span></span></button></div>
+                </div>
+
+                <div class="sq-glass rounded-[30px] p-4 mt-4">
+                    <div class="flex items-center justify-between gap-4"><div class="flex items-center gap-4"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="volume-2" class="w-6 h-6"></i></div><div><h3 class="text-white text-[20px] font-black">Suara Adzan</h3><p class="text-slate-400 text-[13px]">Pilih suara untuk notifikasi adzan.</p></div></div><button onclick="sqCycleAdzanVoice()" class="px-4 py-3 rounded-full bg-white/5 border border-white/10 text-white font-bold flex items-center gap-2">Pilih Suara <i data-lucide="chevron-right" class="w-5 h-5"></i></button></div>
+                    <div class="flex gap-4 mt-6 items-center">
+                        <div class="w-[98px] h-[98px] rounded-[24px] bg-gradient-to-br from-[#063226] to-[#06100e] border border-[#10b981]/35 flex items-center justify-center shadow-[0_0_34px_rgba(16,185,129,.22)]"><i data-lucide="mic" class="w-12 h-12 text-[#a7f3d0]"></i></div>
+                        <div class="flex-1 min-w-0"><h4 id="sq-adzan-voice" class="text-white text-[18px] font-black">Suara Ust. Hanan Attaki</h4><p id="sq-adzan-desc" class="text-slate-400 text-[13px] mt-1">Jernih & menenangkan <span class="sq-chip active px-2 py-0.5 text-[11px] ml-2">Dipilih</span></p><div class="mt-4 rounded-[20px] bg-white/4 border border-white/10 p-3 flex items-center gap-3"><button onclick="sqPreviewAdzan()" id="sq-adzan-play" class="w-11 h-11 rounded-full bg-gradient-to-br from-[#10b981] to-[#047857] text-white flex items-center justify-center"><i data-lucide="play" class="w-5 h-5 fill-current"></i></button><div class="flex-1"><p class="text-slate-400 text-[13px] font-semibold">Preview Adzan</p><div class="h-1.5 bg-white/10 rounded-full mt-2"><div id="sq-adzan-progress" class="h-full bg-[#10b981] rounded-full w-[0%]"></div></div></div><span id="sq-adzan-time" class="text-slate-400 text-[13px] font-bold">00:00</span></div></div>
+                    </div>
+                </div>
+                <div class="sq-glass border border-[#10b981]/35 rounded-[26px] p-4 mt-4 flex items-center gap-4"><div class="sq-icon-box-lg !w-20 !h-20"><i data-lucide="shield-check" class="w-10 h-10"></i></div><div><p class="text-white font-black">Ringkasan Pintar</p><p class="text-[#34d399] font-black text-[18px] mt-1">SholatQ aktif untuk semua 5 waktu sholat hari ini.</p><div class="flex gap-3 mt-3 text-[12px] font-bold text-white flex-wrap"><span>Subuh ✓</span><span>Dzuhur ✓</span><span>Ashar ✓</span><span>Maghrib ✓</span><span>Isya ✓</span></div></div></div>
+                <button onclick="sqToast('Pengingat tetap berjalan walau aplikasi ditutup. Pastikan izin notifikasi aktif.', 'info')" class="w-full sq-glass-soft rounded-[24px] p-4 mt-4 flex items-center gap-4 text-left"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="info" class="w-6 h-6"></i></div><p class="text-slate-400 text-[14px] flex-1">Pengingat akan tetap berjalan meskipun aplikasi ditutup. Pastikan izin notifikasi diaktifkan di pengaturan perangkat.</p><i data-lucide="chevron-right" class="w-5 h-5 text-slate-400"></i></button>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7D: PRAYER ALERT / REMINDER MODAL   -->
+        <!-- ========================================== -->
+        <div id="sholatAlertScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col sq-orb-bg overflow-hidden z-[82]">
+            <div class="absolute inset-0 pointer-events-none opacity-60" style="background-image: radial-gradient(rgba(16,185,129,.42) 1px, transparent 1px); background-size: 48px 48px;"></div>
+            <div class="flex-1 overflow-y-auto hide-scroll px-5 pb-8 relative z-10">
+                <div class="pt-10 flex items-center justify-between"><div class="sq-chip active px-5 py-3 text-[15px] font-bold flex items-center gap-2"><i data-lucide="bell" class="w-5 h-5"></i>Pengingat Sholat</div><button onclick="goToScreen('sholatHomeScreen')" class="w-14 h-14 rounded-[22px] bg-white/5 border border-white/15 flex items-center justify-center"><i data-lucide="x" class="w-7 h-7 text-white"></i></button></div>
+                <div class="mt-16 grid grid-cols-[1fr_165px] gap-3 items-start">
+                    <div><p class="text-white/80 text-[34px] font-black leading-none">Waktunya</p><h1 id="sq-alert-prayer" class="text-[#10b981] text-[78px] font-black leading-none mt-3 drop-shadow-[0_0_24px_rgba(16,185,129,.35)]">Ashar</h1><div class="w-[160px] h-px bg-gradient-to-r from-[#d6b35e] to-transparent mt-8 mb-8"></div><p class="text-white text-[24px] leading-relaxed font-semibold">Tinggalkan sejenak aktivitasmu, mari tunaikan sholat.</p></div>
+                    <div class="relative h-[330px] rounded-[34px] sq-window-scene overflow-hidden flex items-end justify-center p-5"><div class="absolute bottom-8 w-28 h-28 bg-[#10b981]/20 blur-3xl rounded-full"></div><div class="relative z-10 text-center text-[#a7f3d0] text-[66px] drop-shadow-[0_0_22px_rgba(16,185,129,.6)]">☾</div></div>
+                </div>
+                <div class="sq-glass-soft rounded-[24px] p-5 mt-5 w-[56%]"><p class="text-slate-300 text-[16px] font-semibold">Waktu tersisa menuju <span id="sq-alert-name-small">Ashar</span></p><h3 id="sq-alert-countdown" class="text-[#10b981] text-[34px] font-black mt-2">01:24:36</h3><div class="h-2 bg-white/10 rounded-full mt-4 overflow-hidden"><div id="sq-alert-progress" class="h-full bg-[#10b981] w-[62%] rounded-full"></div></div><p id="sq-alert-time" class="text-slate-300 font-bold mt-3">15:45 WIB</p></div>
+                <button onclick="sqMarkPrayerDone();" class="w-full mt-6 py-5 rounded-[26px] bg-gradient-to-r from-[#10b981] to-[#047857] text-white text-[26px] font-black flex items-center justify-between px-8 shadow-[0_0_34px_rgba(16,185,129,.34)] active:scale-[.98] transition-transform"><span class="flex items-center gap-4"><i data-lucide="check-circle-2" class="w-9 h-9"></i>Saya Sudah Sholat</span><i data-lucide="chevron-right" class="w-7 h-7"></i></button>
+                <button onclick="sqSnoozePrayer()" class="w-full mt-4 sq-glass-soft rounded-[22px] p-4 flex items-center gap-6 text-left active:scale-[.99] transition-transform"><i data-lucide="bell" class="w-7 h-7 text-slate-200"></i><span class="text-slate-300 text-[19px] font-semibold flex-1">Ingatkan 10 Menit Lagi</span><i data-lucide="chevron-right" class="w-6 h-6 text-slate-300"></i></button>
+                <button onclick="sqToast('Doa setelah adzan dibuka dalam mode baca.', 'info')" class="w-full mt-3 sq-glass-soft rounded-[22px] p-4 flex items-center gap-6 text-left"><i data-lucide="book-open" class="w-7 h-7 text-slate-200"></i><span class="text-slate-300 text-[19px] font-semibold flex-1">Buka Doa Setelah Adzan</span><i data-lucide="chevron-right" class="w-6 h-6 text-slate-300"></i></button>
+                <div class="sq-glass rounded-[28px] p-5 mt-4"><h3 class="text-white text-[19px] font-black flex items-center gap-2"><i data-lucide="sparkles" class="w-6 h-6 text-[#34d399]"></i>Persiapan Sholat</h3><p class="text-slate-400 font-semibold mt-1">Pastikan semua sudah siap.</p><div class="grid grid-cols-3 gap-0 text-center mt-5"><div><div class="text-[42px]">💧</div><p class="text-white font-black">Wudhu</p><p class="text-slate-400">Sudah</p></div><div class="border-x border-white/10"><div class="text-[42px]">▣</div><p class="text-white font-black">Sajadah</p><p class="text-slate-400">Siap</p></div><div><div class="text-[42px]">🧭</div><p class="text-white font-black">Arah Kiblat</p><p class="text-slate-400">Tepat</p></div></div></div>
+                <div class="sq-glass rounded-[26px] p-5 mt-4 flex gap-4 items-center"><div class="text-[54px]">📖</div><div><p class="text-white text-[17px] leading-relaxed font-medium">“Sesungguhnya sholat itu adalah kewajiban yang ditentukan waktunya atas orang-orang beriman.”</p><p class="text-[#34d399] font-bold mt-3">(QS. An-Nisa: 103)</p></div></div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7E: JURNALQ HOME                    -->
+        <!-- ========================================== -->
+        <div id="journalHomeScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col sq-orb-bg overflow-hidden z-[58]">
+            <div class="absolute inset-0 pointer-events-none opacity-60" style="background-image: radial-gradient(rgba(16,185,129,.36) 1px, transparent 1px); background-size: 47px 47px;"></div>
+            <div class="flex-1 overflow-y-auto hide-scroll px-5 pb-36 relative z-10">
+                <div class="pt-10 flex items-center justify-between"><div><h1 class="text-white text-[40px] font-black leading-none">JurnalQ</h1><p class="text-slate-400 text-[16px] font-semibold mt-2">Menulis hati, merawat diri. <span class="text-[#10b981]">♥</span></p></div><div class="flex items-center gap-3"><div class="sq-glass-soft rounded-[18px] px-4 py-3 text-center"><div class="text-[18px]">🔥 <span id="sq-journal-streak" class="text-[#fbbf24] font-black text-[23px]">17</span></div><p class="text-slate-400 text-[11px]">Hari Beruntun</p></div><button onclick="goToScreen('sholatReminderSettingsScreen')" class="relative w-14 h-14 rounded-[22px] bg-white/5 border border-white/15 flex items-center justify-center"><i data-lucide="bell" class="w-6 h-6 text-white"></i><span class="absolute top-3 right-3 w-2.5 h-2.5 bg-[#10b981] rounded-full"></span></button></div></div>
+                <div class="sq-glass rounded-[30px] p-5 mt-6 relative overflow-hidden"><div class="sq-window-scene absolute right-3 top-3 bottom-3 w-[140px] rounded-[28px] opacity-80"></div><div class="relative z-10 max-w-[270px]"><p class="text-[#34d399] text-[15px] font-bold flex items-center gap-2"><i data-lucide="feather" class="w-5 h-5"></i>Prompt Hari Ini</p><h2 class="text-white text-[33px] font-black leading-tight mt-4">Apa hal yang paling kamu syukuri hari ini?</h2><p class="text-slate-300 text-[15px] leading-relaxed mt-4">Luangkan waktu sejenak untuk menuliskan hal-hal baik dalam hidupmu.</p><p class="text-[#34d399] font-bold mt-5 flex items-center gap-2"><i data-lucide="clock" class="w-5 h-5"></i>Butuh 3–5 menit</p></div></div>
+                <h3 class="text-white text-[18px] font-black mt-6 mb-3">Bagaimana perasaanmu hari ini?</h3>
+                <div class="grid grid-cols-4 gap-3"><button onclick="sqSelectMoodQuick('Tenang')" class="sq-chip active py-3 text-[15px] font-bold">☺️ Tenang</button><button onclick="sqSelectMoodQuick('Bersyukur')" class="sq-chip py-3 text-[15px] font-bold">❤️ Bersyukur</button><button onclick="sqSelectMoodQuick('Lelah')" class="sq-chip py-3 text-[15px] font-bold">😔 Lelah</button><button onclick="sqSelectMoodQuick('Semangat')" class="sq-chip py-3 text-[15px] font-bold">⚡ Semangat</button></div>
+                <h3 class="text-white text-[18px] font-black mt-6 mb-3">Mulai dengan Template</h3>
+                <div class="grid grid-cols-4 gap-3">
+                    <button onclick="sqUseJournalTemplate('syukur')" class="sq-glass rounded-[22px] p-4 text-left min-h-[140px] active:scale-95 transition-transform"><i data-lucide="heart-handshake" class="w-10 h-10 text-[#34d399]"></i><h4 class="text-white font-black mt-6">Syukur</h4><p class="text-slate-400 text-[12px] mt-1">Tuliskan hal-hal baik yang kamu syukuri.</p></button>
+                    <button onclick="sqUseJournalTemplate('refleksi')" class="sq-glass rounded-[22px] p-4 text-left min-h-[140px] active:scale-95 transition-transform"><i data-lucide="notebook-pen" class="w-10 h-10 text-[#34d399]"></i><h4 class="text-white font-black mt-6">Refleksi Hari Ini</h4><p class="text-slate-400 text-[12px] mt-1">Ceritakan pengalaman dan pelajaran.</p></button>
+                    <button onclick="sqUseJournalTemplate('target')" class="sq-glass rounded-[22px] p-4 text-left min-h-[140px] active:scale-95 transition-transform"><i data-lucide="target" class="w-10 h-10 text-[#34d399]"></i><h4 class="text-white font-black mt-6">Target Besok</h4><p class="text-slate-400 text-[12px] mt-1">Rencanakan hal baik besok.</p></button>
+                    <button onclick="sqUseJournalTemplate('doa')" class="sq-glass rounded-[22px] p-4 text-left min-h-[140px] active:scale-95 transition-transform"><i data-lucide="hand-heart" class="w-10 h-10 text-[#34d399]"></i><h4 class="text-white font-black mt-6">Doa</h4><p class="text-slate-400 text-[12px] mt-1">Tuliskan doa dan harapan.</p></button>
+                </div>
+                <div class="flex items-center justify-between mt-7 mb-3"><h3 class="text-white text-[20px] font-black">Jurnal Terbaru</h3><button onclick="goToScreen('journalHistoryScreen')" class="text-[#10b981] font-bold flex items-center gap-1">Lihat Semua <i data-lucide="chevron-right" class="w-5 h-5"></i></button></div>
+                <div id="sq-journal-recent-list" class="sq-glass-soft rounded-[28px] p-3 space-y-1"></div>
+                <button onclick="goToScreen('journalWriteScreen')" class="w-full mt-4 py-5 rounded-[26px] bg-gradient-to-r from-[#10b981] to-[#059669] text-white text-[23px] font-black flex items-center justify-center gap-4 shadow-[0_0_34px_rgba(16,185,129,.34)] active:scale-[.98] transition-transform"><i data-lucide="feather" class="w-7 h-7"></i>Tulis Jurnal Baru</button>
+            </div>
+            <div class="sq-bottom-nav"><div class="flex justify-between items-end max-w-[390px] mx-auto"><button onclick="goToScreen('homeScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="home" class="w-6 h-6"></i>Home</button><button onclick="goToScreen('socialQScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="layout-grid" class="w-6 h-6"></i>Social</button><button onclick="goToScreen('journalWriteScreen')" class="w-16 h-16 -mt-8 rounded-full bg-gradient-to-br from-[#34d399] to-[#059669] text-white flex items-center justify-center border-[7px] border-[#07100f] shadow-[0_0_30px_rgba(16,185,129,.42)]"><i data-lucide="plus" class="w-9 h-9"></i></button><button onclick="goToScreen('journalInsightScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="bar-chart-3" class="w-6 h-6"></i>Insight</button><button onclick="goToScreen('mySpaceQScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="user" class="w-6 h-6"></i>Profil</button></div></div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7F: JURNALQ WRITE                   -->
+        <!-- ========================================== -->
+        <div id="journalWriteScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col sq-orb-bg overflow-hidden z-[62]">
+            <div class="flex items-center justify-between pt-10 px-5 pb-4 relative z-10"><button onclick="goToScreen('journalHomeScreen')" class="w-14 h-14 rounded-[20px] bg-white/5 border border-white/15 flex items-center justify-center"><i data-lucide="arrow-left" class="w-7 h-7 text-white"></i></button><h1 class="text-white text-[24px] font-black">Tulis Jurnal</h1><button onclick="sqSaveJournal()" class="text-[#10b981] text-[17px] font-black">Simpan</button></div>
+            <div class="flex-1 overflow-y-auto hide-scroll px-5 pb-6 relative z-10">
+                <h3 class="text-white text-[18px] font-black mb-3">Bagaimana perasaanmu hari ini?</h3>
+                <div class="sq-glass-soft rounded-[26px] p-4 flex justify-between gap-2 overflow-x-auto hide-scroll mb-4">
+                    <button onclick="sqSelectJournalMood('Bahagia', this)" class="sq-journal-mood active min-w-[70px] text-center"><div class="w-14 h-14 rounded-full border border-[#10b981] bg-[#10b981]/16 flex items-center justify-center text-[27px] mx-auto shadow-[0_0_20px_rgba(16,185,129,.22)]">😊</div><p class="text-[#34d399] text-[12px] font-bold mt-2">Bahagia</p></button>
+                    <button onclick="sqSelectJournalMood('Tenang', this)" class="sq-journal-mood min-w-[70px] text-center"><div class="w-14 h-14 rounded-full border border-white/10 bg-white/8 flex items-center justify-center text-[25px] mx-auto">🙂</div><p class="text-slate-400 text-[12px] font-bold mt-2">Tenang</p></button>
+                    <button onclick="sqSelectJournalMood('Fokus', this)" class="sq-journal-mood min-w-[70px] text-center"><div class="w-14 h-14 rounded-full border border-white/10 bg-white/8 flex items-center justify-center text-[25px] mx-auto">😄</div><p class="text-slate-400 text-[12px] font-bold mt-2">Fokus</p></button>
+                    <button onclick="sqSelectJournalMood('Lelah', this)" class="sq-journal-mood min-w-[70px] text-center"><div class="w-14 h-14 rounded-full border border-white/10 bg-white/8 flex items-center justify-center text-[25px] mx-auto">☹️</div><p class="text-slate-400 text-[12px] font-bold mt-2">Lelah</p></button>
+                    <button onclick="sqSelectJournalMood('Khawatir', this)" class="sq-journal-mood min-w-[70px] text-center"><div class="w-14 h-14 rounded-full border border-white/10 bg-white/8 flex items-center justify-center text-[25px] mx-auto">😟</div><p class="text-slate-400 text-[12px] font-bold mt-2">Khawatir</p></button>
+                    <button onclick="sqSelectJournalMood('Stres', this)" class="sq-journal-mood min-w-[70px] text-center"><div class="w-14 h-14 rounded-full border border-white/10 bg-white/8 flex items-center justify-center text-[25px] mx-auto">😖</div><p class="text-slate-400 text-[12px] font-bold mt-2">Stres</p></button>
+                </div>
+                <div class="space-y-4">
+                    <div class="sq-glass rounded-[26px] p-5 relative overflow-hidden"><div class="sq-mosque-scene !w-[34%] !opacity-30"></div><h3 class="text-white text-[24px] font-black flex items-center gap-3"><i data-lucide="heart" class="w-7 h-7 text-[#34d399]"></i>Hari Ini Aku Merasa...</h3><textarea id="sq-journal-feel" oninput="sqUpdateWordCount('sq-journal-feel','sq-word-feel')" class="sq-field mt-4" placeholder="Ceritakan perasaanmu hari ini..."></textarea><p id="sq-word-feel" class="text-slate-400 text-right text-[13px] font-bold">0 kata</p></div>
+                    <div class="sq-glass rounded-[26px] p-5 relative overflow-hidden"><div class="sq-window-scene absolute right-4 bottom-4 w-28 h-28 rounded-[22px] opacity-35"></div><h3 class="text-white text-[24px] font-black flex items-center gap-3"><i data-lucide="leaf" class="w-7 h-7 text-[#34d399]"></i>Hal yang Aku Syukuri</h3><textarea id="sq-journal-grateful" oninput="sqUpdateWordCount('sq-journal-grateful','sq-word-grateful')" class="sq-field mt-4" placeholder="Sebutkan hal-hal baik yang kamu syukuri hari ini..."></textarea><p id="sq-word-grateful" class="text-slate-400 text-right text-[13px] font-bold">0 kata</p></div>
+                    <div class="sq-glass rounded-[26px] p-5 relative overflow-hidden"><div class="sq-window-scene absolute right-4 bottom-4 w-28 h-28 rounded-[22px] opacity-35"></div><h3 class="text-white text-[24px] font-black flex items-center gap-3"><i data-lucide="book-open" class="w-7 h-7 text-[#34d399]"></i>Pelajaran Hari Ini</h3><textarea id="sq-journal-lesson" oninput="sqUpdateWordCount('sq-journal-lesson','sq-word-lesson')" class="sq-field mt-4" placeholder="Apa pelajaran atau hikmah yang kamu dapatkan..."></textarea><p id="sq-word-lesson" class="text-slate-400 text-right text-[13px] font-bold">0 kata</p></div>
+                    <div class="sq-glass rounded-[26px] p-5 relative overflow-hidden"><div class="sq-mosque-scene !w-[34%] !opacity-30"></div><h3 class="text-white text-[24px] font-black flex items-center gap-3"><i data-lucide="heart-handshake" class="w-7 h-7 text-[#34d399]"></i>Doa Malam Ini</h3><textarea id="sq-journal-prayer" oninput="sqUpdateWordCount('sq-journal-prayer','sq-word-prayer')" class="sq-field mt-4" placeholder="Tuliskan doa dan harapanmu..."></textarea><p id="sq-word-prayer" class="text-slate-400 text-right text-[13px] font-bold">0 kata</p></div>
+                </div>
+                <div class="sq-glass-soft rounded-[24px] p-4 mt-4 grid grid-cols-4 gap-2 text-center"><button onclick="sqToast('Mode catatan suara disimulasikan. Audio akan tersimpan sebagai lampiran jurnal.', 'info')"><i data-lucide="mic" class="w-7 h-7 mx-auto text-[#10b981]"></i><p class="text-slate-400 text-[12px] mt-2">Catatan Suara</p></button><button onclick="sqToast('Foto berhasil ditambahkan secara simulasi.', 'success')"><i data-lucide="image" class="w-7 h-7 mx-auto text-slate-300"></i><p class="text-slate-400 text-[12px] mt-2">Tambah Foto</p></button><button onclick="sqToast('Tag #Syukur ditambahkan.', 'success')"><i data-lucide="tag" class="w-7 h-7 mx-auto text-slate-300"></i><p class="text-slate-400 text-[12px] mt-2">Tambah Tag</p></button><button onclick="sqFillFromJurnalAI()"><i data-lucide="sparkles" class="w-7 h-7 mx-auto text-slate-300"></i><p class="text-slate-400 text-[12px] mt-2">Dari JurnalQ</p></button></div>
+                <div class="sq-glass-soft rounded-[22px] p-4 mt-4 flex items-center gap-4"><span class="text-[28px]">🔥</span><div class="flex-1"><p class="text-slate-400 font-bold">Streak-mu</p><p class="text-[#34d399] font-black">17 hari berturut-turut</p></div><p class="text-slate-400 italic">“Terus menulis, terus tumbuh.”</p><i data-lucide="chevron-right" class="w-5 h-5 text-slate-400"></i></div>
+                <p class="text-center text-slate-400 text-[12px] font-semibold mt-3"><i data-lucide="lock" class="w-4 h-4 inline text-[#10b981]"></i> Jurnal pribadimu aman dan terenkripsi</p>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7G: JURNALQ HISTORY / REVIEW        -->
+        <!-- ========================================== -->
+        <div id="journalHistoryScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col sq-orb-bg overflow-hidden z-[61]">
+            <div class="flex-1 overflow-y-auto hide-scroll px-5 pb-32 relative z-10">
+                <div class="pt-12 flex items-center justify-between"><div class="flex items-center gap-3"><img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=120&q=80" class="w-12 h-12 rounded-full object-cover border border-[#10b981]"><div><h3 class="text-white font-bold text-[17px]">Assalamu’alaikum, Farhan</h3><p class="text-slate-400 text-[13px] font-semibold">Semoga harimu penuh keberkahan <span class="text-[#10b981]">♥</span></p></div></div><button onclick="goToScreen('sholatReminderSettingsScreen')" class="relative w-14 h-14 bg-white/5 rounded-[22px] flex items-center justify-center border border-white/15"><i data-lucide="bell" class="w-6 h-6 text-white"></i><span class="absolute top-3 right-3 w-2.5 h-2.5 bg-[#10b981] rounded-full"></span></button></div>
+                <div class="mt-10 relative"><div class="sq-mosque-scene !w-[50%] !opacity-45"></div><h1 class="text-white text-[40px] font-black leading-none relative z-10">Riwayat & Review</h1><p class="text-slate-400 text-[17px] font-semibold mt-3 relative z-10">Lihat konsistensi ibadah dan refleksimu</p></div>
+                <div class="sq-glass rounded-[30px] p-5 mt-6"><div class="flex items-center justify-between"><div class="flex items-center gap-4"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="calendar-days" class="w-6 h-6"></i></div><h2 class="text-white text-[24px] font-black">Mei 2025</h2><i data-lucide="chevron-down" class="w-5 h-5 text-slate-300"></i></div><div class="flex gap-2"><button onclick="sqToast('Bulan sebelumnya ditampilkan secara simulasi.', 'info')" class="w-12 h-10 rounded-[16px] bg-white/8 border border-white/10 flex items-center justify-center"><i data-lucide="arrow-left" class="w-5 h-5"></i></button><button onclick="sqToast('Bulan berikutnya ditampilkan secara simulasi.', 'info')" class="w-12 h-10 rounded-[16px] bg-white/8 border border-white/10 flex items-center justify-center"><i data-lucide="arrow-right" class="w-5 h-5"></i></button></div></div><div class="grid grid-cols-7 text-center text-slate-300 font-bold text-[13px] mt-5 mb-2"><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span></div><div id="sq-calendar-grid" class="grid grid-cols-7 gap-1"></div><div class="flex gap-2 mt-4"><span class="sq-chip active px-3 py-2 text-[12px] font-bold">✓ Sholat lengkap</span><span class="sq-chip active px-3 py-2 text-[12px] font-bold">• Jurnal ditulis</span></div></div>
+                <div class="sq-glass rounded-[30px] p-5 mt-4"><div class="flex justify-between items-start"><div><h3 class="text-white text-[21px] font-black">Review Bulan Ini</h3><p class="text-slate-400 font-semibold">Mei 2025</p></div><button onclick="goToScreen('journalInsightScreen')" class="sq-chip px-4 py-2 text-[13px] font-bold">Lihat Insight <i data-lucide="chevron-right" class="w-4 h-4 inline"></i></button></div><div class="grid grid-cols-3 gap-3 mt-5"><div class="sq-glass-soft rounded-[22px] p-4"><i data-lucide="clock" class="w-8 h-8 text-[#34d399]"></i><p class="text-[#10b981] text-[30px] font-black mt-3">26 <span class="text-[13px]">hari</span></p><p class="text-slate-300 text-[13px]">sholat tepat waktu dari 31 hari</p></div><div class="sq-glass-soft rounded-[22px] p-4"><i data-lucide="notebook" class="w-8 h-8 text-[#34d399]"></i><p id="sq-history-entry-count" class="text-[#10b981] text-[30px] font-black mt-3">12 <span class="text-[13px]">jurnal</span></p><p class="text-slate-300 text-[13px]">selesai ditulis dari 31 hari</p></div><div class="sq-glass-soft rounded-[22px] p-4"><i data-lucide="sparkles" class="w-8 h-8 text-[#34d399]"></i><p class="text-slate-300 text-[13px]">Tema dominan</p><p class="text-[#10b981] text-[21px] font-black mt-2">Bersyukur</p><p class="text-slate-400 text-[12px]">Terima kasih, nikmat, dan kebahagiaan.</p></div></div><div class="sq-glass-soft rounded-[20px] p-4 mt-4 flex items-center gap-4"><i data-lucide="sparkles" class="w-7 h-7 text-[#facc15]"></i><p class="text-slate-300 flex-1">MasyaAllah, konsistensimu luar biasa! Terus jaga semangat dan niat karena Allah.</p><i data-lucide="heart" class="w-7 h-7 text-[#34d399]"></i></div></div>
+                <div class="sq-glass rounded-[26px] p-4 mt-4"><div class="flex justify-between items-center mb-3"><h3 class="text-white text-[19px] font-black">Refleksi Terbaru</h3><button onclick="goToScreen('journalHomeScreen')" class="text-[#10b981] font-bold">Lihat Semua</button></div><div id="sq-history-latest" class="sq-glass-soft rounded-[20px] p-4 flex gap-4 items-start"><i data-lucide="notebook-pen" class="w-9 h-9 text-[#10b981]"></i><div><p class="text-slate-300 leading-relaxed">“Hari ini aku belajar untuk lebih sabar dan menerima segala takdir dengan hati yang lapang.”</p><p class="text-[#34d399] font-bold mt-2">29 Mei 2025</p></div></div></div>
+                <button onclick="sqExportReview()" class="w-full sq-glass-soft rounded-[22px] p-4 mt-4 flex items-center gap-4 text-left"><i data-lucide="upload" class="w-8 h-8 text-white"></i><div class="flex-1"><h4 class="text-white font-black">Ekspor / Bagikan Review Bulan Ini</h4><p class="text-slate-400 text-[13px]">Bagikan progres dan refleksimu kepada orang terdekat</p></div><i data-lucide="chevron-right" class="w-6 h-6 text-white"></i></button>
+            </div>
+            <div class="sq-bottom-nav"><div class="flex justify-between items-end max-w-[390px] mx-auto"><button onclick="goToScreen('homeScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="home" class="w-6 h-6"></i>Home</button><button onclick="goToScreen('journalHomeScreen')" class="text-[#10b981] flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="notebook-pen" class="w-6 h-6"></i>Jurnal</button><button onclick="goToScreen('journalWriteScreen')" class="w-16 h-16 -mt-8 rounded-full bg-gradient-to-br from-[#34d399] to-[#059669] text-white flex items-center justify-center border-[7px] border-[#07100f] shadow-[0_0_30px_rgba(16,185,129,.42)]"><i data-lucide="plus" class="w-9 h-9"></i></button><button onclick="goToScreen('journalInsightScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="bar-chart-3" class="w-6 h-6"></i>Insight</button><button onclick="goToScreen('mySpaceQScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="user" class="w-6 h-6"></i>Profil</button></div></div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7H: JURNALQ INSIGHT                 -->
+        <!-- ========================================== -->
+        <div id="journalInsightScreen" class="screen-transition hide-screen absolute inset-0 w-full h-full flex flex-col sq-orb-bg overflow-hidden z-[62]">
+            <div class="flex items-center justify-between pt-10 px-5 pb-4 relative z-10"><button onclick="goToScreen('journalHistoryScreen')" class="w-14 h-14 rounded-[20px] bg-white/5 border border-white/15 flex items-center justify-center"><i data-lucide="arrow-left" class="w-7 h-7 text-white"></i></button><div class="text-center"><h1 class="text-white text-[25px] font-black">Insight Jurnal</h1><p class="text-slate-400 font-semibold mt-1">Refleksi data, tumbuh bersama kebiasaan baik.</p></div><div class="w-14 h-14 relative"><div class="text-[#a7f3d0] text-[44px] leading-none">☾</div></div></div>
+            <div class="flex-1 overflow-y-auto hide-scroll px-5 pb-32 relative z-10">
+                <div class="sq-glass rounded-[30px] p-5"><div class="flex items-start justify-between"><div class="flex gap-3"><div class="sq-icon-box !w-12 !h-12"><i data-lucide="heart" class="w-6 h-6"></i></div><div><h3 class="text-white text-[20px] font-black">Tren Mood 7 Hari Terakhir</h3><p class="text-slate-400 font-semibold">Bagaimana perasaanmu setiap hari</p></div></div><button class="sq-chip px-4 py-2 text-[14px] font-bold">7 Hari <i data-lucide="chevron-down" class="w-4 h-4 inline"></i></button></div><div class="relative h-[210px] mt-5"><div class="absolute left-0 top-5 bottom-8 flex flex-col justify-between text-[22px]"><span>😊</span><span>😐</span><span>☹️</span></div><svg viewBox="0 0 310 150" class="absolute left-9 right-0 top-0 h-full w-[calc(100%-36px)] overflow-visible"><defs><linearGradient id="sqTrendFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#10b981" stop-opacity=".34"/><stop offset="1" stop-color="#10b981" stop-opacity="0"/></linearGradient></defs><path d="M10,95 C55,95 70,92 105,64 C140,38 156,95 190,109 C226,124 247,88 300,42" fill="none" stroke="#34d399" stroke-width="4" stroke-linecap="round"/><path d="M10,95 C55,95 70,92 105,64 C140,38 156,95 190,109 C226,124 247,88 300,42 L300,150 L10,150 Z" fill="url(#sqTrendFill)"/><g fill="#86efac" stroke="#052e21" stroke-width="3"><circle cx="10" cy="95" r="7"/><circle cx="72" cy="93" r="7"/><circle cx="117" cy="60" r="7"/><circle cx="156" cy="94" r="7"/><circle cx="205" cy="112" r="7"/><circle cx="255" cy="87" r="7"/><circle cx="300" cy="42" r="7"/></g></svg><div class="absolute bottom-0 left-10 right-0 flex justify-between text-slate-400 text-[13px] font-bold"><span>Jum<br>23</span><span>Sab<br>24</span><span>Min<br>25</span><span>Sen<br>26</span><span>Sel<br>27</span><span>Rab<br>28</span><span class="text-[#34d399]">Hari ini<br>29</span></div></div></div>
+                <div class="grid grid-cols-3 gap-3 mt-4"><div class="sq-glass-soft rounded-[24px] p-4"><p class="text-white font-black text-[17px]">🔥 Streak Menulis</p><p class="text-[#10b981] text-[44px] font-black mt-4">12 <span class="text-slate-400 text-[14px]">hari berturut-turut</span></p><div class="flex gap-1 mt-3"><span class="sq-mini-dot"></span><span class="sq-mini-dot"></span><span class="sq-mini-dot"></span><span class="sq-mini-dot"></span><span class="sq-mini-dot"></span><span class="sq-mini-dot"></span><span class="sq-mini-dot"></span><span class="w-5 h-5 rounded-full bg-white/12"></span></div><p class="text-slate-400 text-[12px] mt-3">Rekor terbaik: 18 hari</p></div><div class="sq-glass-soft rounded-[24px] p-4"><p class="text-white font-black text-[17px]"><i data-lucide="file-text" class="w-5 h-5 inline text-[#34d399]"></i> Total Entri Bulan Ini</p><p id="sq-insight-count" class="text-[#10b981] text-[44px] font-black mt-4">18</p><div class="h-10 flex items-end gap-1 mt-1"><span class="w-2 h-4 bg-[#34d399]"></span><span class="w-2 h-6 bg-[#34d399]"></span><span class="w-2 h-8 bg-[#34d399]"></span><span class="w-2 h-3 bg-[#34d399]"></span><span class="w-2 h-5 bg-[#34d399]"></span><span class="w-2 h-7 bg-[#34d399]"></span></div><p class="text-[#34d399] text-[12px] mt-3">↗ +12% dari bulan lalu</p></div><div class="sq-glass-soft rounded-[24px] p-4"><p class="text-white font-black text-[17px]">🙂 Rata-rata Mood Bulan Ini</p><p class="text-[#10b981] text-[44px] font-black mt-4">4.2 <span class="text-slate-400 text-[18px]">/ 5</span></p><p class="text-[#10b981] text-[22px]">★ ★ ★ ★ <span class="text-slate-700">★</span></p><p class="text-slate-400 text-[12px] mt-2">Lebih baik dari bulan lalu</p></div></div>
+                <div class="sq-glass rounded-[28px] p-5 mt-4"><h3 class="text-white text-[20px] font-black flex items-center gap-2"><i data-lucide="activity" class="w-6 h-6 text-[#34d399]"></i>Korelasi Kebiasaan & Ketenangan</h3><p class="text-slate-400 font-semibold ml-8">Semakin konsisten sholat, semakin tenang hati.</p><div class="grid grid-cols-[1fr_auto_1fr_1.1fr] gap-4 items-center mt-5"><div class="text-center"><div class="sq-ring mx-auto !w-[100px] !h-[100px]" style="--sq-progress:85%"><div><p class="text-white text-[25px] font-black">85%</p><p class="text-slate-400 text-[11px]">Minggu ini</p></div></div><p class="text-slate-300 text-[13px] mt-2">Konsistensi Sholat</p></div><div class="text-[#10b981] font-black">⇄<br><span class="text-[12px]">Korelasi<br>Positif</span></div><div class="text-center"><div class="sq-ring mx-auto !w-[100px] !h-[100px]" style="--sq-progress:78%"><div><p class="text-white text-[25px] font-black">78%</p><p class="text-slate-400 text-[11px]">Minggu ini</p></div></div><p class="text-slate-300 text-[13px] mt-2">Ketenangan Hati</p></div><div class="sq-window-scene rounded-[22px] p-5 min-h-[150px]"><p class="text-white text-[18px] leading-relaxed">Kamu sedang di jalan yang tepat.</p><p class="text-slate-300 text-[14px] mt-4">Terus jaga konsistensi, hati akan semakin tenteram.</p></div></div></div>
+                <div class="sq-glass rounded-[26px] p-5 mt-4"><h3 class="text-white text-[20px] font-black flex items-center gap-2"><i data-lucide="tag" class="w-6 h-6 text-[#fbbf24]"></i>Topik & Tema yang Sering Muncul</h3><p class="text-slate-400 font-semibold ml-8">Kata-kata yang paling sering kamu tulis</p><div class="flex flex-wrap gap-3 mt-4"><span class="sq-chip active px-4 py-2 font-bold">Syukur 23</span><span class="sq-chip px-4 py-2 font-bold">Sabar 18</span><span class="sq-chip px-4 py-2 font-bold">Fokus 15</span><span class="sq-chip px-4 py-2 font-bold">Keluarga 12</span><span class="sq-chip px-4 py-2 font-bold">Ikhlas 11</span><span class="sq-chip px-4 py-2 font-bold">Doa 10</span><span class="sq-chip px-4 py-2 font-bold">Semangat 9</span><span class="sq-chip px-4 py-2 font-bold">Rencana 7</span><span class="sq-chip px-4 py-2 font-bold">Belajar 7</span><span class="sq-chip px-4 py-2 font-bold">Jujur 6</span></div></div>
+                <div class="sq-glass rounded-[26px] p-5 mt-4 flex items-center gap-5"><div class="flex-1"><h3 class="text-white text-[20px] font-black">🏆 Progres Jurnalmu</h3><p class="text-slate-400">Konsistensi kecil, dampak besar.</p><p class="text-[#10b981] text-[42px] font-black mt-3">72%</p><p class="text-slate-300">Jalan yang luar biasa!</p><div class="h-2 bg-white/10 rounded-full mt-4 overflow-hidden"><div class="h-full bg-[#10b981] w-[72%]"></div></div></div><div class="flex-1 space-y-3 text-slate-300"><p><i data-lucide="check-square" class="w-5 h-5 inline text-[#34d399]"></i> Lebih konsisten menulis</p><p><i data-lucide="check-square" class="w-5 h-5 inline text-[#34d399]"></i> Mood lebih stabil</p><p><i data-lucide="check-square" class="w-5 h-5 inline text-[#34d399]"></i> Refleksi makin dalam</p></div><div class="text-center"><div class="sq-icon-box-lg"><i data-lucide="star" class="w-12 h-12 fill-current"></i></div><p class="text-[#34d399] font-black mt-3">Terus<br>Pertahankan!</p></div></div>
+            </div>
+            <div class="sq-bottom-nav"><div class="flex justify-between items-end max-w-[390px] mx-auto"><button onclick="goToScreen('homeScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="home" class="w-6 h-6"></i>Home</button><button onclick="goToScreen('journalHomeScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="notebook-pen" class="w-6 h-6"></i>Jurnal</button><button onclick="goToScreen('journalWriteScreen')" class="w-16 h-16 -mt-8 rounded-full bg-gradient-to-br from-[#34d399] to-[#059669] text-white flex items-center justify-center border-[7px] border-[#07100f] shadow-[0_0_30px_rgba(16,185,129,.42)]"><i data-lucide="plus" class="w-9 h-9"></i></button><button class="text-[#10b981] flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="bar-chart-3" class="w-6 h-6"></i>Insight</button><button onclick="goToScreen('mySpaceQScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="user" class="w-6 h-6"></i>Profil</button></div></div>
         </div>
 
         <!-- ========================================== -->
@@ -3434,6 +4860,9 @@
             }
             
             updateStatusBar(nextScreenId);
+            if (typeof sqOnScreenEnter === 'function') {
+                try { sqOnScreenEnter(nextScreenId); } catch(e) { console.warn('SpaceQ prototype hook:', e); }
+            }
             
             // Init Murajaah if needed
             if ((nextScreenId === 'murajaahScreen' || nextScreenId === 'murajaahMapScreen' || nextScreenId === 'murajaahVersusLobbyScreen') && !isMurajaahInit) {
@@ -4011,7 +5440,10 @@
                 </div>
                 `;
             }
-            if(container) container.innerHTML = html;
+            if(container) {
+                container.innerHTML = html;
+                enhanceSocialQVideoControls(container);
+            }
         }
 
         function openOtherUserProfile(name, img, title) {
@@ -4141,25 +5573,131 @@
             document.getElementById('comment-count').innerText = parseInt(document.getElementById('comment-count').innerText) + 1;
         }
 
+        function enhanceSocialQVideoControls(root = document) {
+            if (!root) return;
+            const videos = root.querySelectorAll('video');
+
+            videos.forEach((video) => {
+                if (video.closest('#cameraScreen') || video.closest('#previewScreen') || video.closest('#kajianRoomScreen') || video.closest('#tadarusRoomScreen')) return;
+
+                const shell = video.closest('.group') || video.parentElement;
+                if (!shell) return;
+
+                shell.classList.add('socialq-media-shell');
+                video.classList.add('socialq-video');
+                video.playsInline = true;
+                video.setAttribute('playsinline', '');
+                if (!video.hasAttribute('preload')) video.setAttribute('preload', 'metadata');
+                if (!video.dataset.spaceqAudioReady) {
+                    video.dataset.spaceqAudioReady = '1';
+                    video.muted = true;
+                    video.volume = 0;
+                }
+
+                if (!shell.querySelector('.socialq-sound-btn')) {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'socialq-sound-btn';
+                    btn.setAttribute('aria-label', 'Nyalakan suara video');
+                    btn.setAttribute('onclick', 'toggleSocialQSound(event, this)');
+                    btn.innerHTML = '<i data-lucide="volume-x" class="w-4 h-4"></i><span>Suara</span>';
+                    shell.appendChild(btn);
+                }
+                updateSocialQSoundUI(video);
+            });
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function updateSocialQSoundUI(video) {
+            if (!video) return;
+            const shell = video.closest('.socialq-media-shell') || video.closest('.group') || video.parentElement;
+            const btn = shell ? shell.querySelector('.socialq-sound-btn') : null;
+            if (!btn) return;
+
+            const soundOn = !video.muted && video.volume > 0;
+            btn.classList.toggle('is-on', soundOn);
+            btn.setAttribute('aria-label', soundOn ? 'Matikan suara video' : 'Nyalakan suara video');
+            btn.innerHTML = soundOn
+                ? '<i data-lucide="volume-2" class="w-4 h-4"></i><span>On</span>'
+                : '<i data-lucide="volume-x" class="w-4 h-4"></i><span>Suara</span>';
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function pauseOtherSocialQVideos(activeVideo) {
+            document.querySelectorAll('video').forEach(v => {
+                if (v !== activeVideo && !v.closest('#cameraScreen') && !v.closest('#previewScreen') && !v.closest('#kajianRoomScreen') && !v.closest('#tadarusRoomScreen')) {
+                    v.pause();
+                    v.muted = true;
+                    v.volume = 0;
+                    const otherShell = v.closest('.socialq-media-shell') || v.closest('.group') || v.parentElement;
+                    const otherIcon = otherShell ? otherShell.querySelector('.play-icon') : null;
+                    if (otherIcon) otherIcon.style.opacity = '1';
+                    updateSocialQSoundUI(v);
+                }
+            });
+        }
+
+        function toggleSocialQSound(event, btn) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            const shell = btn ? (btn.closest('.socialq-media-shell') || btn.closest('.group')) : null;
+            const video = shell ? shell.querySelector('video') : null;
+            if (!video) return;
+
+            const shouldTurnOn = video.muted || video.volume === 0;
+            if (shouldTurnOn) {
+                pauseOtherSocialQVideos(video);
+                video.muted = false;
+                video.volume = 1;
+                const playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => {
+                        video.muted = true;
+                        video.volume = 0;
+                        showSpaceQNotice('Ketuk Video', 'Browser menahan autoplay bersuara. Ketuk video sekali lagi untuk memutar suara.', 'info');
+                    });
+                }
+                const icon = shell.querySelector('.play-icon');
+                if (icon) icon.style.opacity = '0';
+            } else {
+                video.muted = true;
+                video.volume = 0;
+            }
+
+            updateSocialQSoundUI(video);
+        }
+
         function togglePlay(container) {
             if(!container) return;
             const video = container.querySelector('video');
             const icon = container.querySelector('.play-icon');
-            if (video && video.paused) {
-                document.querySelectorAll('video').forEach(v => {
-                    if (v !== video && !v.paused && !v.closest('#cameraScreen') && !v.closest('#previewScreen') && !v.closest('#kajianRoomScreen')) {
-                        v.pause();
-                        const otherGroup = v.closest('.group');
-                        const otherIcon = otherGroup ? otherGroup.querySelector('.play-icon') : null;
-                        if (otherIcon) otherIcon.style.opacity = '1';
-                    }
-                });
-                video.play();
-                if (icon) icon.style.opacity = '0'; 
-            } else if (video) {
+            if (!video) return;
+
+            if (video.paused) {
+                pauseOtherSocialQVideos(video);
+                video.muted = false;
+                video.volume = 1;
+                const playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === 'function') {
+                    playPromise.catch(() => {
+                        video.muted = true;
+                        video.volume = 0;
+                        video.play().catch(() => {});
+                        showSpaceQNotice('Mode Aman Browser', 'Video diputar mute. Tekan tombol Suara untuk menyalakan audio.', 'info');
+                    });
+                }
+                if (icon) icon.style.opacity = '0';
+            } else {
                 video.pause();
-                if (icon) icon.style.opacity = '1'; 
+                if (icon) icon.style.opacity = '1';
             }
+
+            updateSocialQSoundUI(video);
         }
 
         // ==========================================
@@ -4175,8 +5713,8 @@
 
             if (askPermission && !window.__cameraPermissionGranted) {
                 openActionConfirmModal({
-                    title: 'Izin Kamera',
-                    message: 'SpaceQ memerlukan akses kamera untuk momen otentik. Berikan izin?',
+                    title: 'Izin Kamera & Mikrofon',
+                    message: 'SpaceQ memerlukan akses kamera dan mikrofon agar video SocialQ bisa memiliki suara. Berikan izin?',
                     continueText: 'Berikan Izin',
                     cancelText: 'Batal',
                     tone: 'warning',
@@ -4195,12 +5733,27 @@
                 cameraTrack = null;
             }
 
+            const videoConstraint = { facingMode: currentFacingMode };
+            const audioConstraint = { echoCancellation: true, noiseSuppression: true, autoGainControl: true };
+
             try {
-                liveStream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: currentFacingMode },
-                    audio: false
-                });
+                try {
+                    liveStream = await navigator.mediaDevices.getUserMedia({
+                        video: videoConstraint,
+                        audio: audioConstraint
+                    });
+                } catch (audioErr) {
+                    console.warn('Mikrofon tidak aktif, mencoba kamera saja:', audioErr);
+                    liveStream = await navigator.mediaDevices.getUserMedia({
+                        video: videoConstraint,
+                        audio: false
+                    });
+                    showSpaceQNotice('Mikrofon Tidak Aktif', 'Video tetap bisa direkam, tetapi tanpa suara. Aktifkan izin mikrofon di browser jika ingin audio ikut terdengar.', 'warning');
+                }
+
                 videoElem.srcObject = liveStream;
+                videoElem.muted = true; // preview kamera tetap mute agar tidak feedback
+                videoElem.playsInline = true;
                 cameraTrack = liveStream.getVideoTracks()[0] || null;
                 videoElem.style.transform = currentFacingMode === 'user' ? 'scaleX(-1)' : 'scaleX(1)';
             } catch (err) {
@@ -4504,6 +6057,7 @@
                     `;
 
                     container.insertAdjacentHTML('afterbegin', htmlString);
+                    enhanceSocialQVideoControls(container);
                     if (typeof lucide !== 'undefined') lucide.createIcons();
                     tempCapturedMedia = null;
                 }
@@ -5879,8 +7433,15 @@ function startVersusFromModal() {
                 document.head.appendChild(link);
 
                 generateSocialQPosts();
+                const socialFeed = document.getElementById('socialq-main-feed-container');
+                if (socialFeed && !window.__spaceqSocialQAudioObserver) {
+                    window.__spaceqSocialQAudioObserver = new MutationObserver(() => enhanceSocialQVideoControls(socialFeed));
+                    window.__spaceqSocialQAudioObserver.observe(socialFeed, { childList: true, subtree: true });
+                    enhanceSocialQVideoControls(socialFeed);
+                }
                 generateJuzGrid();
                 renderFollowersList();
+                if (typeof sqInitPrototypeExtensions === 'function') sqInitPrototypeExtensions();
                 
                 // Ambil data API agar list surah konsisten
                 fetch('https://equran.id/api/v2/surat').then(r=>r.json()).then(res => {
@@ -6026,6 +7587,338 @@ function injectStagedCard(type, title, subtitle) {
             closeCooldownModal();
             showSpaceQNotice("Cheat Diaktifkan", "Hukuman cooldown telah dihapus. Nyawa diisi penuh kembali!", "success");
         }
+
+
+// ==========================================
+// SHOLATQ + JURNALQ PROTOTYPE LOGIC
+// ==========================================
+const sqPrayerTimes = [
+    { name: 'Subuh', time: '04:27', emoji: '🌅' },
+    { name: 'Dzuhur', time: '11:56', emoji: '☀️' },
+    { name: 'Ashar', time: '15:45', emoji: '🌤️' },
+    { name: 'Maghrib', time: '17:59', emoji: '🌇' },
+    { name: 'Isya', time: '19:09', emoji: '🌙' }
+];
+const sqState = {
+    prayerActive: false,
+    currentPrayer: 'Ashar',
+    selectedMood: 'Bahagia',
+    selectedVoiceIndex: 0,
+    timerStarted: false,
+    completedPrayers: { Subuh: true, Dzuhur: true, Ashar: true, Maghrib: false, Isya: false },
+    reminder: { before30: true, before10: true, adhan: true, repeat: true, classSilent: false, friday: true, vibrate: false },
+    journalEntries: []
+};
+const sqAdzanVoices = [
+    { title: 'Suara Ust. Hanan Attaki', desc: 'Jernih & menenangkan' },
+    { title: 'Adzan Madinah', desc: 'Syahdu dan lembut' },
+    { title: 'Adzan Makkah', desc: 'Merdu dan khidmat' },
+    { title: 'Adzan Lokal Banjar', desc: 'Hangat dan familiar' }
+];
+const sqDefaultEntries = [
+    { title: 'Bersyukur atas Hal-Hal Kecil', date: '25 Mei 2025', mood: 'Bersyukur', text: 'Hari ini aku bersyukur atas kesehatan, keluarga, dan kesempatan untuk belajar hal baru...' },
+    { title: 'Refleksi tentang Kesabaran', date: '24 Mei 2025', mood: 'Tenang', text: 'Kesabaran bukan berarti diam, tapi tetap yakin bahwa semua akan indah pada waktunya...' },
+    { title: 'Langkah Kecil, Perubahan Besar', date: '23 Mei 2025', mood: 'Semangat', text: 'Hari ini aku memulai kebiasaan baru: bangun pagi dan membaca Al-Qur’an. Semoga istiqomah...' }
+];
+
+function sqInitPrototypeExtensions() {
+    try {
+        const stored = localStorage.getItem('sqJournalEntries');
+        sqState.journalEntries = stored ? JSON.parse(stored) : [...sqDefaultEntries];
+    } catch(e) {
+        sqState.journalEntries = [...sqDefaultEntries];
+    }
+    sqRenderCalendar();
+    sqRenderJournalEntries();
+    sqSyncReminderSwitches();
+    sqUpdateCountdowns();
+    if (!sqState.timerStarted) {
+        sqState.timerStarted = true;
+        setInterval(sqUpdateCountdowns, 1000);
+    }
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function sqOnScreenEnter(screenId) {
+    const relevant = ['homeScreen','sholatHomeScreen','sholatActivationScreen','sholatReminderSettingsScreen','sholatAlertScreen','journalHomeScreen','journalWriteScreen','journalHistoryScreen','journalInsightScreen'];
+    if (relevant.includes(screenId)) {
+        sqUpdateCountdowns();
+        sqRenderJournalEntries();
+        sqRenderCalendar();
+        sqSyncReminderSwitches();
+        setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 120);
+    }
+}
+
+function sqToast(message, type = 'success') {
+    const title = type === 'success' ? 'Berhasil' : type === 'warning' ? 'Perhatian' : 'Info SpaceQ';
+    if (typeof showSpaceQNotice === 'function') showSpaceQNotice(title, message, type);
+    else alert(message);
+}
+
+function sqGetNextPrayer() {
+    const now = new Date();
+    for (const item of sqPrayerTimes) {
+        const [h, m] = item.time.split(':').map(Number);
+        const target = new Date();
+        target.setHours(h, m, 0, 0);
+        if (target > now) return { ...item, target };
+    }
+    const first = sqPrayerTimes[0];
+    const [h, m] = first.time.split(':').map(Number);
+    const target = new Date();
+    target.setDate(target.getDate() + 1);
+    target.setHours(h, m, 0, 0);
+    return { ...first, target };
+}
+
+function sqFormatDuration(ms) {
+    const total = Math.max(0, Math.floor(ms / 1000));
+    const h = String(Math.floor(total / 3600)).padStart(2, '0');
+    const m = String(Math.floor((total % 3600) / 60)).padStart(2, '0');
+    const s = String(total % 60).padStart(2, '0');
+    return `${h}:${m}:${s}`;
+}
+
+function sqSetText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+}
+
+function sqUpdateCountdowns() {
+    const next = sqGetNextPrayer();
+    const left = sqFormatDuration(next.target - new Date());
+    sqState.currentPrayer = next.name;
+    ['sq-home-countdown','sq-main-countdown','sq-row-countdown','sq-activation-countdown','sq-alert-countdown'].forEach(id => sqSetText(id, left));
+    ['sq-home-next','sq-main-name','sq-activation-name','sq-alert-prayer','sq-alert-name-small'].forEach(id => sqSetText(id, next.name));
+    ['sq-home-time','sq-main-time','sq-activation-time'].forEach(id => sqSetText(id, next.time));
+    sqSetText('sq-alert-time', `${next.time} WIB`);
+    document.querySelectorAll('[data-prayer-row]').forEach(row => {
+        const isNext = row.getAttribute('data-prayer-row') === next.name;
+        row.classList.toggle('border-[#10b981]/35', isNext);
+        row.classList.toggle('bg-[#10b981]/13', isNext);
+    });
+}
+
+function sqActivatePrayerReminders() {
+    sqState.prayerActive = true;
+    sqToast('Pengingat SholatQ aktif. Lokasi, notifikasi, suara adzan, dan mode ulang pengingat sudah disimulasikan.', 'success');
+    setTimeout(() => goToScreen('sholatHomeScreen'), 450);
+}
+
+function sqSelectLocation() {
+    sqToast('Lokasi otomatis disetel ke Banjarmasin, Indonesia. Pada prototype ini lokasi bersifat simulasi.', 'info');
+}
+
+function sqSelectReminderChip(btn) {
+    if (!btn) return;
+    const parent = btn.parentElement;
+    parent.querySelectorAll('.sq-chip').forEach(item => item.classList.remove('active'));
+    btn.classList.add('active');
+    sqToast(`Pengingat utama diubah menjadi: ${btn.textContent.trim()}.`, 'success');
+}
+
+function sqSyncReminderSwitches() {
+    Object.keys(sqState.reminder).forEach(key => {
+        document.querySelectorAll(`[data-sq-toggle="${key}"]`).forEach(btn => btn.classList.toggle('active', !!sqState.reminder[key]));
+    });
+}
+
+function sqToggleReminder(key) {
+    sqState.reminder[key] = !sqState.reminder[key];
+    sqSyncReminderSwitches();
+    const label = key === 'classSilent' ? 'Mode senyap saat kelas' : key === 'friday' ? 'Pengingat Jumat' : key === 'vibrate' ? 'Getar saja' : key === 'repeat' ? 'Pengingat ulang' : key === 'adhan' ? 'Saat adzan' : key === 'before10' ? '10 menit sebelum' : '30 menit sebelum';
+    sqToast(`${label} ${sqState.reminder[key] ? 'diaktifkan' : 'dinonaktifkan'}.`, 'success');
+}
+
+function sqCycleAdzanVoice() {
+    sqState.selectedVoiceIndex = (sqState.selectedVoiceIndex + 1) % sqAdzanVoices.length;
+    const voice = sqAdzanVoices[sqState.selectedVoiceIndex];
+    sqSetText('sq-adzan-voice', voice.title);
+    const desc = document.getElementById('sq-adzan-desc');
+    if (desc) desc.innerHTML = `${voice.desc} <span class="sq-chip active px-2 py-0.5 text-[11px] ml-2">Dipilih</span>`;
+    sqSetText('sq-activation-adzan', voice.title);
+    sqToast(`${voice.title} dipilih sebagai suara adzan.`, 'success');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function sqPreviewAdzan() {
+    const progress = document.getElementById('sq-adzan-progress');
+    const time = document.getElementById('sq-adzan-time');
+    const play = document.getElementById('sq-adzan-play');
+    if (play) play.innerHTML = '<i data-lucide="pause" class="w-5 h-5"></i>';
+    let sec = 0;
+    if (window.sqAdzanPreviewTimer) clearInterval(window.sqAdzanPreviewTimer);
+    window.sqAdzanPreviewTimer = setInterval(() => {
+        sec += 1;
+        if (progress) progress.style.width = `${Math.min(100, (sec / 20) * 100)}%`;
+        if (time) time.textContent = `00:${String(sec).padStart(2, '0')}`;
+        if (sec >= 20) {
+            clearInterval(window.sqAdzanPreviewTimer);
+            if (play) play.innerHTML = '<i data-lucide="play" class="w-5 h-5 fill-current"></i>';
+        }
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    }, 350);
+    sqToast('Preview adzan sedang diputar secara simulasi.', 'info');
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function sqMarkPrayerDone(name) {
+    const prayerName = name || sqState.currentPrayer;
+    sqState.completedPrayers[prayerName] = true;
+    const check = document.querySelector(`[data-prayer-check="${prayerName}"]`);
+    if (check) {
+        check.className = 'w-8 h-8 rounded-full bg-[#10b981] text-[#04110d] flex items-center justify-center';
+        check.innerHTML = '<i data-lucide="check" class="w-5 h-5"></i>';
+    }
+    const mark = document.querySelector('[data-sq-mark-current]');
+    if (mark) mark.classList.add('active');
+    sqToast(`${prayerName} ditandai selesai. Streak sholatmu bertambah.`, 'success');
+    if (currentScreen === 'sholatAlertScreen') setTimeout(() => goToScreen('sholatHomeScreen'), 450);
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function sqSnoozePrayer() {
+    sqToast('Pengingat ulang akan muncul 10 menit lagi. Dalam prototype ini ditampilkan sebagai simulasi.', 'info');
+    setTimeout(() => goToScreen('sholatHomeScreen'), 450);
+}
+
+function sqToggleFocusMode(btn) {
+    if (btn) btn.classList.toggle('ring-2');
+    sqToast('Mode Fokus aktif. Notifikasi non-ibadah akan disenyapkan selama 20 menit.', 'success');
+}
+
+function sqSelectMoodQuick(mood) {
+    sqState.selectedMood = mood;
+    document.querySelectorAll('#journalHomeScreen .sq-chip').forEach(chip => {
+        if (chip.textContent.includes('Tenang') || chip.textContent.includes('Bersyukur') || chip.textContent.includes('Lelah') || chip.textContent.includes('Semangat')) chip.classList.remove('active');
+        if (chip.textContent.includes(mood)) chip.classList.add('active');
+    });
+    sqToast(`Mood hari ini disetel: ${mood}.`, 'success');
+}
+
+function sqSelectJournalMood(mood, btn) {
+    sqState.selectedMood = mood;
+    document.querySelectorAll('.sq-journal-mood').forEach(item => {
+        item.classList.remove('active');
+        const circle = item.querySelector('div');
+        const label = item.querySelector('p');
+        if (circle) circle.className = 'w-14 h-14 rounded-full border border-white/10 bg-white/8 flex items-center justify-center text-[25px] mx-auto';
+        if (label) label.className = 'text-slate-400 text-[12px] font-bold mt-2';
+    });
+    if (btn) {
+        btn.classList.add('active');
+        const circle = btn.querySelector('div');
+        const label = btn.querySelector('p');
+        if (circle) circle.className = 'w-14 h-14 rounded-full border border-[#10b981] bg-[#10b981]/16 flex items-center justify-center text-[27px] mx-auto shadow-[0_0_20px_rgba(16,185,129,.22)]';
+        if (label) label.className = 'text-[#34d399] text-[12px] font-bold mt-2';
+    }
+}
+
+function sqCountWords(text) {
+    return (text || '').trim().split(/\s+/).filter(Boolean).length;
+}
+
+function sqUpdateWordCount(inputId, counterId) {
+    const input = document.getElementById(inputId);
+    sqSetText(counterId, `${sqCountWords(input ? input.value : '')} kata`);
+}
+
+function sqUseJournalTemplate(type) {
+    goToScreen('journalWriteScreen');
+    setTimeout(() => {
+        const feel = document.getElementById('sq-journal-feel');
+        const grateful = document.getElementById('sq-journal-grateful');
+        const lesson = document.getElementById('sq-journal-lesson');
+        const prayer = document.getElementById('sq-journal-prayer');
+        if (type === 'syukur' && grateful) grateful.value = 'Hari ini aku bersyukur karena...';
+        if (type === 'refleksi' && feel) feel.value = 'Hari ini aku merasa... karena...';
+        if (type === 'target' && lesson) lesson.value = 'Target kecil yang ingin aku lakukan besok adalah...';
+        if (type === 'doa' && prayer) prayer.value = 'Ya Allah, bimbing aku agar...';
+        ['feel','grateful','lesson','prayer'].forEach(name => sqUpdateWordCount(`sq-journal-${name}`, `sq-word-${name}`));
+    }, 180);
+}
+
+function sqFillFromJurnalAI() {
+    const grateful = document.getElementById('sq-journal-grateful');
+    const lesson = document.getElementById('sq-journal-lesson');
+    if (grateful && !grateful.value) grateful.value = 'Aku bersyukur karena masih diberi kesempatan memperbaiki diri dan menjaga ibadah hari ini.';
+    if (lesson && !lesson.value) lesson.value = 'Pelajaran hari ini: hal kecil yang dilakukan konsisten bisa membuat hati lebih tenang.';
+    ['grateful','lesson'].forEach(name => sqUpdateWordCount(`sq-journal-${name}`, `sq-word-${name}`));
+    sqToast('JurnalQ membantu mengisi inspirasi awal. Kamu tetap bisa mengeditnya.', 'success');
+}
+
+function sqSaveJournal() {
+    const feel = document.getElementById('sq-journal-feel')?.value || '';
+    const grateful = document.getElementById('sq-journal-grateful')?.value || '';
+    const lesson = document.getElementById('sq-journal-lesson')?.value || '';
+    const prayer = document.getElementById('sq-journal-prayer')?.value || '';
+    const full = [feel, grateful, lesson, prayer].filter(Boolean).join(' ');
+    if (sqCountWords(full) < 3) {
+        sqToast('Isi minimal beberapa kata dulu agar jurnal terasa bermakna.', 'warning');
+        return;
+    }
+    const entry = {
+        title: grateful ? 'Bersyukur atas Hal-Hal Baik' : 'Refleksi Hari Ini',
+        date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+        mood: sqState.selectedMood,
+        text: full.slice(0, 160) + (full.length > 160 ? '...' : '')
+    };
+    sqState.journalEntries.unshift(entry);
+    localStorage.setItem('sqJournalEntries', JSON.stringify(sqState.journalEntries));
+    ['feel','grateful','lesson','prayer'].forEach(name => {
+        const input = document.getElementById(`sq-journal-${name}`);
+        if (input) input.value = '';
+        sqUpdateWordCount(`sq-journal-${name}`, `sq-word-${name}`);
+    });
+    sqRenderJournalEntries();
+    sqToast('Jurnal tersimpan. Streak menulismu bertambah!', 'success');
+    setTimeout(() => goToScreen('journalHomeScreen'), 500);
+}
+
+function sqRenderJournalEntries() {
+    const entries = sqState.journalEntries.length ? sqState.journalEntries : sqDefaultEntries;
+    const recent = document.getElementById('sq-journal-recent-list');
+    if (recent) {
+        recent.innerHTML = entries.slice(0, 3).map((entry, index) => `
+            <button onclick="goToScreen('journalWriteScreen')" class="w-full flex gap-4 items-center text-left p-3 rounded-[20px] hover:bg-white/5 transition-colors">
+                <div class="w-16 h-14 rounded-[16px] bg-gradient-to-br from-[#0f766e] to-[#020617] border border-white/10 flex items-center justify-center text-[24px]">${index === 0 ? '🌙' : index === 1 ? '🏮' : '🌄'}</div>
+                <div class="flex-1 min-w-0"><h4 class="text-white font-black text-[15px] truncate">${entry.title}</h4><p class="text-slate-400 text-[13px] line-clamp-2 mt-1">${entry.text}</p></div>
+                <div class="text-right"><p class="text-slate-400 text-[12px] font-bold">${entry.date}</p><i data-lucide="more-vertical" class="w-5 h-5 text-slate-400 ml-auto mt-2"></i></div>
+            </button>`).join('');
+    }
+    const latest = document.getElementById('sq-history-latest');
+    if (latest && entries[0]) {
+        latest.innerHTML = `<i data-lucide="notebook-pen" class="w-9 h-9 text-[#10b981]"></i><div><p class="text-slate-300 leading-relaxed">“${entries[0].text}”</p><p class="text-[#34d399] font-bold mt-2">${entries[0].date}</p></div>`;
+    }
+    const count = Math.max(18, entries.length + 15);
+    sqSetText('sq-insight-count', String(count));
+    const historyCount = document.getElementById('sq-history-entry-count');
+    if (historyCount) historyCount.innerHTML = `${Math.max(12, entries.length + 9)} <span class="text-[13px]">jurnal</span>`;
+    const preview = document.getElementById('sq-home-journal-preview');
+    if (preview && entries[0]) preview.textContent = entries[0].text;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function sqRenderCalendar() {
+    const grid = document.getElementById('sq-calendar-grid');
+    if (!grid) return;
+    const days = [28,29,30,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,1];
+    const completeDays = new Set([1,2,3,5,6,8,9,11,12,14,15,17,18,19,20,22,23,25,26,27,29,30]);
+    const journalDays = new Set([2,4,7,10,13,16,21,24,28,31]);
+    grid.innerHTML = days.map((day, index) => {
+        const faded = index < 3 || index > 33;
+        const active = day === 30 && index === 32;
+        const hasCheck = completeDays.has(day) && !faded;
+        const hasJournal = journalDays.has(day) && !faded;
+        return `<div class="sq-calendar-day ${active ? 'active' : ''} ${faded ? 'opacity-30' : ''}"><span>${day}</span><div class="h-4 flex items-center gap-1">${hasCheck ? '<span class="w-5 h-5 rounded-full bg-[#34d399] text-[#052e21] text-[13px] flex items-center justify-center">✓</span>' : ''}${hasJournal ? '<span class="sq-mini-dot"></span>' : ''}</div></div>`;
+    }).join('');
+}
+
+function sqExportReview() {
+    sqToast('Review bulan ini siap dibagikan sebagai kartu progres. Fitur ekspor disimulasikan untuk lomba prototype.', 'success');
+}
+
 </script>
 </body>
 </html>
