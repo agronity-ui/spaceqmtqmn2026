@@ -1218,321 +1218,419 @@
 
 
         /* ========================================= */
-        /* SPACEQ FINAL UI/UX STABILIZATION - 2026   */
-        /* Beranda floating nav, SocialQ preview,     */
-        /* SholatQ compact, mobile-safe layout.       */
+        /* SPACEQ FINAL PERMANENT UI/UX PATCH        */
+        /* Konsistensi Android/iOS + Beranda/SocialQ */
         /* ========================================= */
         html {
-            width: 100%;
             min-height: 100%;
+            background: #09090b;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
-            overscroll-behavior: none;
         }
         body {
-            width: 100%;
             min-height: 100dvh;
+            width: 100%;
             overscroll-behavior: none;
             touch-action: manipulation;
         }
         #MobileDeviceSimulator {
-            --sq-bottom-space: clamp(100px, 13dvh, 122px);
-            --sq-page-pad: clamp(16px, 4.4vw, 20px);
             width: min(100vw, 390px);
             max-width: 390px;
-            line-height: 1.42;
+            min-width: 0;
+            height: 100dvh;
+            max-height: 844px;
+            font-size: clamp(12.2px, 3.35vw, 13.4px);
+            line-height: 1.45;
             -webkit-font-smoothing: antialiased;
             text-rendering: geometricPrecision;
-            contain: layout paint;
         }
-        #MobileDeviceSimulator * {
+        #MobileDeviceSimulator .screen-transition {
             min-width: 0;
+            min-height: 0;
         }
-        #MobileDeviceSimulator p {
-            line-height: 1.48 !important;
-        }
+        #MobileDeviceSimulator p,
         #MobileDeviceSimulator h1,
         #MobileDeviceSimulator h2,
         #MobileDeviceSimulator h3,
-        #MobileDeviceSimulator h4 {
-            text-wrap: balance;
-        }
+        #MobileDeviceSimulator h4,
+        #MobileDeviceSimulator span,
         #MobileDeviceSimulator button,
-        #MobileDeviceSimulator a,
-        #MobileDeviceSimulator input,
-        #MobileDeviceSimulator textarea {
-            -webkit-tap-highlight-color: transparent;
+        #MobileDeviceSimulator label {
+            letter-spacing: -0.01em;
         }
-        #MobileDeviceSimulator .flex-1.overflow-y-auto,
-        #MobileDeviceSimulator .flex-1.overflow-auto {
-            padding-bottom: calc(var(--sq-bottom-space) + env(safe-area-inset-bottom)) !important;
+        #MobileDeviceSimulator p,
+        #MobileDeviceSimulator button,
+        #MobileDeviceSimulator textarea,
+        #MobileDeviceSimulator input {
+            line-height: 1.42 !important;
         }
-
-        @supports (height: 100svh) {
-            body { min-height: 100svh; }
-            #MobileDeviceSimulator { height: 100svh; }
-            @media (min-width: 640px) {
-                #MobileDeviceSimulator { height: 844px; }
+        #MobileDeviceSimulator .truncate {
+            overflow-wrap: normal !important;
+            word-break: normal !important;
+        }
+        @media (max-width: 640px) {
+            #MobileDeviceSimulator {
+                width: 100vw;
+                max-width: none;
+                height: 100dvh;
+                max-height: none;
+                border-radius: 0;
+            }
+            body {
+                align-items: stretch !important;
+                justify-content: stretch !important;
+            }
+        }
+        @supports (-webkit-touch-callout: none) {
+            #MobileDeviceSimulator,
+            body {
+                min-height: -webkit-fill-available;
             }
         }
 
-        /* Beranda: navigation menu dibuat mengambang ringan ala SocialQ */
-        #homeScreen .home-floating-feature-nav {
-            margin-left: 20px !important;
-            margin-right: 20px !important;
-            padding: 12px !important;
-            border-radius: 28px !important;
-            background: rgba(9, 12, 14, 0.58) !important;
-            border: 1px solid rgba(255,255,255,0.10) !important;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.05) !important;
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
-        }
-        #homeScreen .home-floating-feature-nav > button {
-            min-height: 94px !important;
-            padding: 12px !important;
-            border-radius: 20px !important;
-            background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.035)) !important;
-            border: 1px solid rgba(255,255,255,0.10) !important;
-            box-shadow: 0 10px 26px rgba(0,0,0,0.18) !important;
-        }
-        #homeScreen .home-floating-feature-nav > button div {
-            margin-bottom: 9px !important;
-        }
-        #homeScreen .home-floating-feature-nav h4 {
-            font-size: 13.2px !important;
-            line-height: 1.18 !important;
-        }
-        #homeScreen .home-floating-feature-nav p {
-            font-size: 10.7px !important;
-            line-height: 1.35 !important;
-            margin-top: 4px !important;
-        }
-
-        #homeScreen .sq-bottom-nav {
+        /* Beranda: bottom navigation dibuat floating glassmorphism seperti SocialQ */
+        #homeScreen .sq-home-floating-nav {
             left: 50% !important;
-            bottom: max(12px, env(safe-area-inset-bottom)) !important;
+            right: auto !important;
+            bottom: calc(14px + env(safe-area-inset-bottom)) !important;
+            width: calc(100% - 28px) !important;
+            max-width: 362px !important;
             transform: translateX(-50%) !important;
-            width: min(calc(100% - 28px), 356px) !important;
-            padding: 11px 16px calc(11px + env(safe-area-inset-bottom)) !important;
-            border-radius: 30px !important;
-            background: rgba(9, 9, 11, 0.72) !important;
-            border: 1px solid rgba(255,255,255,0.13) !important;
-            box-shadow: 0 24px 60px rgba(0,0,0,0.72), inset 0 1px 0 rgba(255,255,255,0.06) !important;
-            backdrop-filter: blur(28px) saturate(130%) !important;
-            -webkit-backdrop-filter: blur(28px) saturate(130%) !important;
+            padding: 10px 13px !important;
+            border-radius: 28px !important;
+            background: linear-gradient(135deg, rgba(9, 14, 14, .76), rgba(8, 27, 23, .62)) !important;
+            border: 1px solid rgba(255,255,255,.13) !important;
+            box-shadow: 0 22px 55px rgba(0,0,0,.54), inset 0 1px 0 rgba(255,255,255,.07) !important;
+            backdrop-filter: blur(28px) saturate(155%) !important;
+            -webkit-backdrop-filter: blur(28px) saturate(155%) !important;
         }
-        #homeScreen .sq-bottom-nav .flex {
+        #homeScreen .sq-home-floating-nav > div {
             max-width: none !important;
+            width: 100% !important;
+            gap: 4px !important;
         }
-        #homeScreen .sq-bottom-nav button {
-            min-height: 42px !important;
-            min-width: 42px !important;
-            padding: 0 3px !important;
-            font-size: 10px !important;
-            line-height: 1.1 !important;
-            border-radius: 18px !important;
+        #homeScreen .sq-home-floating-nav button:not(.w-16) {
+            min-width: 44px !important;
+            padding: 5px 3px !important;
+            border-radius: 16px !important;
         }
-        #homeScreen .sq-bottom-nav button[onclick*="cameraScreen"] {
+        #homeScreen .sq-home-floating-nav .w-16.h-16 {
             width: 58px !important;
             height: 58px !important;
-            min-width: 58px !important;
-            margin-top: -34px !important;
             border-width: 6px !important;
-            border-color: rgba(7,16,15,.95) !important;
-            box-shadow: 0 0 30px rgba(16,185,129,.38), 0 16px 32px rgba(0,0,0,.45) !important;
+            margin-top: -28px !important;
+            box-shadow: 0 0 28px rgba(16,185,129,.42), 0 12px 28px rgba(0,0,0,.36) !important;
+        }
+        #homeScreen .flex-1.overflow-y-auto {
+            padding-bottom: calc(126px + env(safe-area-inset-bottom)) !important;
         }
 
-        /* Preview SocialQ di bagian bawah Beranda */
-        #homeScreen .home-social-preview-header {
-            align-items: flex-end !important;
+        /* Beranda: kartu navigasi/fitur terasa mengambang dan mudah diklik */
+        #homeScreen .grid.grid-cols-4 > button.sq-glass-soft {
+            background: linear-gradient(145deg, rgba(24,24,27,.78), rgba(9,14,14,.86)) !important;
+            border: 1px solid rgba(255,255,255,.105) !important;
+            box-shadow: 0 15px 32px rgba(0,0,0,.30), inset 0 1px 0 rgba(255,255,255,.045) !important;
+            backdrop-filter: blur(18px) !important;
+            -webkit-backdrop-filter: blur(18px) !important;
         }
-        #homeScreen .home-see-all-btn {
-            padding: 8px 10px !important;
-            border-radius: 999px !important;
-            background: rgba(16,185,129,0.10) !important;
-            border: 1px solid rgba(16,185,129,0.22) !important;
-            box-shadow: 0 0 20px rgba(16,185,129,0.10) !important;
-            white-space: nowrap !important;
+        #homeScreen .grid.grid-cols-4 > button.sq-glass-soft h4 {
+            font-size: 14px !important;
+            line-height: 1.18 !important;
         }
-        #homeScreen .home-social-preview {
-            border-radius: 28px !important;
-            padding: 12px 0 10px 12px !important;
-            background: rgba(9, 12, 14, 0.54) !important;
-            border: 1px solid rgba(255,255,255,0.10) !important;
-            box-shadow: 0 20px 46px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.05) !important;
-            backdrop-filter: blur(22px);
-            -webkit-backdrop-filter: blur(22px);
-        }
-        #homeScreen .home-social-card {
-            width: 152px !important;
-            border-radius: 22px !important;
-            overflow: hidden !important;
-            background: rgba(24,24,27,0.78) !important;
-            border: 1px solid rgba(255,255,255,0.10) !important;
-            box-shadow: 0 14px 34px rgba(0,0,0,.25) !important;
-        }
-        #homeScreen .home-social-card:last-child {
-            margin-right: 12px !important;
-        }
-        #homeScreen .home-social-media {
-            height: 134px !important;
-            position: relative !important;
-            display: grid !important;
-            place-items: center !important;
-            overflow: hidden !important;
-            background: #020617 !important;
-        }
-        #homeScreen .home-social-media > video {
-            position: absolute !important;
-            inset: 0 !important;
-            filter: brightness(.78) saturate(1.05);
-        }
-        #homeScreen .home-social-media-cover {
-            position: absolute !important;
-            inset: 0 !important;
-            background: radial-gradient(circle at center, rgba(16,185,129,0.05), rgba(0,0,0,0.38)) !important;
-        }
-        #homeScreen .home-social-media i {
-            position: relative !important;
-            z-index: 2 !important;
-        }
-        #homeScreen .line-clamp-2 {
-            display: -webkit-box !important;
-            -webkit-line-clamp: 2 !important;
-            -webkit-box-orient: vertical !important;
-            overflow: hidden !important;
+        #homeScreen .grid.grid-cols-4 > button.sq-glass-soft p {
+            font-size: 11px !important;
+            line-height: 1.35 !important;
         }
 
-        /* SholatQ dibuat sedikit lebih compact tanpa kehilangan keterbacaan */
-        #sholatHomeScreen {
+        /* Beranda: preview SocialQ horizontal */
+        #homeScreen .home-social-preview-head {
+            padding-inline: 20px !important;
+            margin-top: 26px !important;
+        }
+        #homeScreen .home-social-preview-scroll {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 12px 20px 8px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        #homeScreen .home-social-preview-card {
+            flex: 0 0 164px;
+            min-height: 228px;
+            scroll-snap-align: start;
+            border-radius: 18px;
+            background: linear-gradient(145deg, rgba(24,24,27,.82), rgba(5,12,11,.94));
+            border: 1px solid rgba(255,255,255,.10);
+            box-shadow: 0 18px 36px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.05);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        #homeScreen .home-social-preview-media {
+            height: 118px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            background: radial-gradient(circle at 30% 20%, rgba(16,185,129,.28), transparent 36%), #0b1110;
+        }
+        #homeScreen .home-social-preview-media img,
+        #homeScreen .home-social-preview-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: brightness(.86) saturate(1.08);
+        }
+        #homeScreen .home-social-preview-card .preview-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            object-fit: cover;
+            border: 2px solid rgba(16,185,129,.8);
+            box-shadow: 0 0 12px rgba(16,185,129,.22);
+        }
+        #homeScreen .home-social-preview-card h4 {
             font-size: 12.5px !important;
+            line-height: 1.18 !important;
         }
-        #sholatHomeScreen .flex-1.overflow-y-auto {
-            padding-left: 18px !important;
-            padding-right: 18px !important;
+        #homeScreen .home-social-preview-card p {
+            font-size: 10.7px !important;
+            line-height: 1.34 !important;
         }
+        #homeScreen .home-social-preview-card .preview-caption {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        #homeScreen .home-social-preview-seeall {
+            white-space: nowrap !important;
+            border-radius: 999px !important;
+            background: rgba(16,185,129,.13) !important;
+            border: 1px solid rgba(16,185,129,.26) !important;
+            padding: 8px 11px !important;
+        }
+        @media (max-width: 360px) {
+            #homeScreen .home-social-preview-card { flex-basis: 150px; }
+        }
+
+        /* SholatQ: font dan kartu diperkecil sedikit agar tidak penuh */
+        #sholatHomeScreen {
+            font-size: 12.4px !important;
+        }
+        #sholatHomeScreen h1 { font-size: 27px !important; line-height: 1.12 !important; }
+        #sholatHomeScreen h2 { font-size: 20px !important; line-height: 1.16 !important; }
+        #sholatHomeScreen h3 { font-size: 17px !important; line-height: 1.18 !important; }
+        #sholatHomeScreen p,
+        #sholatHomeScreen span,
+        #sholatHomeScreen button { line-height: 1.32 !important; }
         #sholatHomeScreen .sq-glass,
         #sholatHomeScreen .sq-glass-soft {
-            border-radius: 21px !important;
-        }
-        #sholatHomeScreen .mt-5.sq-glass {
-            padding: 15px !important;
-        }
-        #sholatHomeScreen .mt-5.sq-glass .relative.z-10.flex {
-            gap: 13px !important;
-        }
-        #sholatHomeScreen #sq-main-name {
-            font-size: clamp(27px, 8.2vw, 32px) !important;
-            line-height: 1.02 !important;
-        }
-        #sholatHomeScreen #sq-main-time {
-            font-size: clamp(17px, 5vw, 20px) !important;
+            border-radius: 18px !important;
+            padding: 14px !important;
         }
         #sholatHomeScreen #sq-prayer-list {
-            border-radius: 22px !important;
             padding: 10px !important;
-            gap: 7px !important;
-        }
-        #sholatHomeScreen #sq-prayer-list button {
-            min-height: 58px !important;
-            padding: 10px 11px !important;
-            border-radius: 17px !important;
-            gap: 9px !important;
-        }
-        #sholatHomeScreen #sq-prayer-list button > span:nth-child(1) {
-            font-size: 21px !important;
-            width: 28px !important;
-            flex: 0 0 28px !important;
-        }
-        #sholatHomeScreen #sq-prayer-list button > span:nth-child(2) {
-            width: 78px !important;
-            flex: 0 0 78px !important;
-            font-size: 16px !important;
-            line-height: 1.15 !important;
-        }
-        #sholatHomeScreen #sq-prayer-list button > span:nth-child(3) {
-            font-size: 15px !important;
-        }
-        #sholatHomeScreen #sq-prayer-list button > span:nth-child(n+4),
-        #sholatHomeScreen #sq-prayer-list button > i {
-            font-size: 11.5px !important;
-            white-space: nowrap !important;
-        }
-        #sholatHomeScreen .grid.grid-cols-4 {
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-            gap: 10px !important;
-        }
-        #sholatHomeScreen .grid.grid-cols-4 > button {
-            min-height: 92px !important;
-            padding: 12px !important;
             border-radius: 18px !important;
         }
+        #sholatHomeScreen #sq-prayer-list button {
+            min-height: 52px !important;
+            padding: 10px 11px !important;
+            border-radius: 15px !important;
+            gap: 9px !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button > span:nth-child(2) {
+            width: 70px !important;
+            flex-basis: 70px !important;
+            font-size: 12.5px !important;
+        }
+        #sholatHomeScreen #sq-prayer-list button > span:nth-child(3) {
+            font-size: 13px !important;
+        }
+        #sholatHomeScreen .sq-chip {
+            font-size: 11.4px !important;
+            padding: 8px 10px !important;
+        }
 
-        /* SocialQ video: audio tidak lagi terkunci mute permanen */
+        /* SocialQ: mekanisme suara yang jelas tanpa autoplay bersuara */
         #socialQScreen .socialq-media-shell {
-            position: relative !important;
+            width: min(260px, 76vw) !important;
+            height: min(260px, 76vw) !important;
         }
-        #socialQScreen .socialq-sound-btn,
-        #homeScreen .socialq-sound-btn {
-            position: absolute !important;
-            right: 12px !important;
-            bottom: 12px !important;
-            z-index: 12 !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 5px !important;
-            min-height: 32px !important;
-            padding: 7px 10px !important;
-            border-radius: 999px !important;
-            color: #fff !important;
-            background: rgba(2, 6, 23, 0.68) !important;
-            border: 1px solid rgba(255,255,255,0.18) !important;
-            box-shadow: 0 10px 24px rgba(0,0,0,.36) !important;
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            font-size: 11px !important;
-            font-weight: 900 !important;
-            line-height: 1 !important;
-            cursor: pointer !important;
-            pointer-events: auto !important;
+        #socialQScreen .socialq-sound-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 12;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            min-height: 32px;
+            padding: 7px 10px;
+            border-radius: 999px;
+            background: rgba(0,0,0,.56);
+            border: 1px solid rgba(255,255,255,.16);
+            color: white;
+            font-size: 10.5px !important;
+            font-weight: 900;
+            letter-spacing: -.01em;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 10px 24px rgba(0,0,0,.28);
         }
-        #socialQScreen .socialq-sound-btn.is-on,
-        #homeScreen .socialq-sound-btn.is-on {
-            color: #052e21 !important;
-            background: rgba(16,185,129,0.94) !important;
-            border-color: rgba(16,185,129,0.95) !important;
-            box-shadow: 0 0 22px rgba(16,185,129,.30) !important;
+        #socialQScreen .socialq-sound-btn svg {
+            width: 14px !important;
+            height: 14px !important;
         }
-        #socialQScreen #socialq-main-feed-container > div {
-            border-radius: 22px !important;
-            padding: 16px !important;
+        #socialQScreen .socialq-video-hint {
+            position: absolute;
+            left: 50%;
+            bottom: 12px;
+            transform: translateX(-50%);
+            z-index: 11;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(0,0,0,.46);
+            border: 1px solid rgba(255,255,255,.12);
+            color: rgba(255,255,255,.88);
+            font-size: 10.2px !important;
+            font-weight: 800;
+            pointer-events: none;
+            white-space: nowrap;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
-        #socialQScreen #socialq-main-feed-container p {
-            line-height: 1.45 !important;
+        #socialQScreen video {
+            background: #050807;
         }
 
-        @media (max-width: 370px) {
-            #homeScreen .home-floating-feature-nav {
-                margin-left: 16px !important;
-                margin-right: 16px !important;
-                padding: 10px !important;
-            }
-            #homeScreen .home-social-card {
-                width: 142px !important;
-            }
-            #homeScreen .home-social-media {
-                height: 126px !important;
-            }
-            #homeScreen .sq-bottom-nav {
-                width: min(calc(100% - 20px), 344px) !important;
-                padding-left: 12px !important;
-                padding-right: 12px !important;
-            }
-            #sholatHomeScreen #sq-prayer-list button > span:nth-child(2) {
-                width: 70px !important;
-                flex-basis: 70px !important;
-            }
+        /* ========================================= */
+        /* SOCIALQ ROUND PREVIEW + STRICT AUTOPLAY   */
+        /* Patch: 6 Juni 2026                        */
+        /* ========================================= */
+        #homeScreen .home-social-preview-scroll {
+            gap: 18px !important;
+            padding: 14px 20px 12px !important;
+            align-items: flex-start !important;
+        }
+        #homeScreen .home-social-preview-card {
+            flex: 0 0 138px !important;
+            min-height: 0 !important;
+            border-radius: 999px !important;
+            background: transparent !important;
+            border: 0 !important;
+            box-shadow: none !important;
+            overflow: visible !important;
+            text-align: center !important;
+        }
+        #homeScreen .home-social-preview-media {
+            width: 132px !important;
+            height: 132px !important;
+            margin: 0 auto !important;
+            border-radius: 9999px !important;
+            overflow: hidden !important;
+            border: 5px solid rgba(6,78,59,.95) !important;
+            box-shadow: 0 0 0 1px rgba(16,185,129,.28), 0 18px 38px rgba(0,0,0,.42), 0 0 28px rgba(16,185,129,.20) !important;
+            background: radial-gradient(circle at 30% 20%, rgba(16,185,129,.28), transparent 36%), #0b1110 !important;
+        }
+        #homeScreen .home-social-preview-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.16), inset 0 -20px 40px rgba(0,0,0,.18);
+            pointer-events: none;
+        }
+        #homeScreen .home-social-preview-media img,
+        #homeScreen .home-social-preview-media video {
+            border-radius: 9999px !important;
+        }
+        #homeScreen .home-social-preview-card > .p-3 {
+            padding: 9px 0 0 !important;
+        }
+        #homeScreen .home-social-preview-card .flex.items-center.gap-2 {
+            justify-content: center !important;
+            gap: 6px !important;
+        }
+        #homeScreen .home-social-preview-card .preview-avatar {
+            width: 24px !important;
+            height: 24px !important;
+            border-width: 1.5px !important;
+        }
+        #homeScreen .home-social-preview-card h4 {
+            max-width: 96px !important;
+            font-size: 11.8px !important;
+        }
+        #homeScreen .home-social-preview-card p {
+            font-size: 10px !important;
+        }
+        #homeScreen .home-social-preview-card .preview-caption {
+            margin-top: 7px !important;
+            -webkit-line-clamp: 2 !important;
+        }
+        #homeScreen .home-social-preview-card .flex.items-center.gap-2.mt-3 {
+            justify-content: center !important;
+            margin-top: 7px !important;
+            font-size: 9.5px !important;
+        }
+        #homeScreen .home-social-preview-media span.absolute.bottom-2.right-2 {
+            bottom: 8px !important;
+            right: 50% !important;
+            transform: translateX(50%) !important;
+            font-size: 9px !important;
+            padding: 4px 7px !important;
+            background: rgba(0,0,0,.52) !important;
+        }
+
+        #socialQScreen .socialq-media-shell {
+            overflow: hidden !important;
+            isolation: isolate !important;
+        }
+        #socialQScreen .socialq-media-shell video {
+            transform-origin: center center !important;
+        }
+        #socialQScreen .socialq-media-shell.is-playing .play-icon,
+        #socialQScreen .socialq-media-shell video:not(:paused) ~ .play-icon {
+            opacity: 0 !important;
+            transform: scale(.82) !important;
+        }
+        #socialQScreen .play-icon {
+            opacity: 1;
+            transition: opacity .22s ease, transform .22s ease !important;
+        }
+        #socialQScreen .socialq-sound-btn {
+            top: auto !important;
+            right: 16px !important;
+            bottom: 16px !important;
+            min-width: 40px !important;
+            min-height: 40px !important;
+            padding: 0 11px !important;
+            justify-content: center !important;
+            border-radius: 999px !important;
+            background: rgba(5, 8, 7, .72) !important;
+            border: 1px solid rgba(255,255,255,.18) !important;
+            box-shadow: 0 12px 26px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.08) !important;
+        }
+        #socialQScreen .socialq-sound-btn span {
+            font-size: 10px !important;
+            white-space: nowrap !important;
+        }
+        #socialQScreen .socialq-video-hint {
+            top: 14px !important;
+            bottom: auto !important;
+            max-width: 72% !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+        #socialQScreen .socialq-media-shell.is-playing .socialq-video-hint {
+            opacity: 0 !important;
+            transform: translateX(-50%) translateY(-6px) !important;
+        }
+        @media (max-width: 360px) {
+            #homeScreen .home-social-preview-card { flex-basis: 124px !important; }
+            #homeScreen .home-social-preview-media { width: 118px !important; height: 118px !important; }
+            #socialQScreen .socialq-sound-btn span { display: none !important; }
+            #socialQScreen .socialq-sound-btn { width: 40px !important; padding: 0 !important; }
         }
 
 </style>
@@ -1940,7 +2038,7 @@
                     </div>
                 </div>
 
-                <div class="home-floating-feature-nav grid grid-cols-4 gap-3 px-5 mt-4">
+                <div class="grid grid-cols-4 gap-3 px-5 mt-4">
                     <button onclick="goToScreen('kajianLobbyScreen')" class="sq-glass-soft rounded-[24px] p-4 text-left min-h-[142px] active:scale-95 transition-transform">
                         <div class="text-[#bbf7d0] mb-5"><i data-lucide="book-open" class="w-8 h-8"></i></div>
                         <h4 class="text-white font-extrabold text-[15px]">KajianQ</h4>
@@ -1963,74 +2061,72 @@
                     </button>
                 </div>
 
-                <div class="home-social-preview-header px-5 mt-7 flex items-center justify-between gap-3">
+                <div class="home-social-preview-head flex items-center justify-between">
                     <div class="min-w-0">
                         <h3 class="text-white text-[20px] font-extrabold leading-tight">Preview SocialQ</h3>
-                        <p class="text-slate-400 text-[12px] font-semibold mt-0.5">Cuplikan 3 postingan terbaru dari komunitas</p>
+                        <p class="text-slate-400 text-[11.5px] font-semibold mt-0.5">3 postingan hangat dari komunitas.</p>
                     </div>
-                    <button onclick="goToScreen('socialQScreen')" class="home-see-all-btn shrink-0 text-[#10b981] text-[13px] font-extrabold flex items-center gap-1 active:scale-95 transition-transform">Lihat Semua <i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                    <button onclick="goToScreen('socialQScreen')" class="home-social-preview-seeall text-[#34d399] text-[12.5px] font-extrabold flex items-center gap-1 active:scale-95 transition-transform">Lihat Semua <i data-lucide="chevron-right" class="w-4 h-4"></i></button>
                 </div>
-
-                <div class="home-social-preview mx-5 mt-3">
-                    <div class="flex gap-3 overflow-x-auto hide-scroll snap-x pb-2">
-                        <article onclick="goToScreen('socialQScreen')" class="home-social-card snap-start shrink-0 cursor-pointer active:scale-[.98] transition-transform">
-                            <div class="home-social-media">
-                                <video src="https://www.w3schools.com/html/mov_bbb.mp4" muted loop playsinline preload="metadata" class="w-full h-full object-cover"></video>
-                                <div class="home-social-media-cover"></div>
-                                <i data-lucide="play-circle" class="w-9 h-9 text-white drop-shadow-lg"></i>
-                            </div>
-                            <div class="p-3">
-                                <div class="flex items-center gap-2 min-w-0">
-                                    <img src="https://i.pravatar.cc/100?img=12" class="w-7 h-7 rounded-full object-cover border border-[#10b981]/60">
-                                    <div class="min-w-0">
-                                        <h4 class="text-white text-[12px] font-extrabold truncate">Aisyah Rizki</h4>
-                                        <p class="text-slate-500 text-[10px] font-bold">1 jam lalu</p>
-                                    </div>
+                <div class="home-social-preview-scroll hide-scroll" aria-label="Preview SocialQ">
+                    <article onclick="goToScreen('socialQScreen')" class="home-social-preview-card active:scale-[.98] transition-transform">
+                        <div class="home-social-preview-media relative">
+                            <video src="https://www.w3schools.com/html/mov_bbb.mp4" preload="metadata" muted playsinline class="pointer-events-none"></video>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
+                            <span class="absolute bottom-2 right-2 rounded-full bg-black/55 text-white text-[10px] font-black px-2 py-1 backdrop-blur">Video</span>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <img src="https://i.pravatar.cc/100?img=10" class="preview-avatar" alt="Aisyah">
+                                <div class="min-w-0">
+                                    <h4 class="text-white font-extrabold truncate">Aisyah Rizki</h4>
+                                    <p class="text-slate-500 font-bold truncate">1 jam lalu</p>
                                 </div>
-                                <p class="text-slate-300 text-[11.5px] leading-snug mt-2 line-clamp-2">Alhamdulillah, momen kecil hari ini terasa lebih bermakna.</p>
                             </div>
-                        </article>
-
-                        <article onclick="goToScreen('socialQScreen')" class="home-social-card snap-start shrink-0 cursor-pointer active:scale-[.98] transition-transform">
-                            <div class="home-social-media">
-                                <video src="https://media.w3.org/2010/05/sintel/trailer.mp4" muted loop playsinline preload="metadata" class="w-full h-full object-cover"></video>
-                                <div class="home-social-media-cover"></div>
-                                <i data-lucide="play-circle" class="w-9 h-9 text-white drop-shadow-lg"></i>
-                            </div>
-                            <div class="p-3">
-                                <div class="flex items-center gap-2 min-w-0">
-                                    <img src="https://i.pravatar.cc/100?img=18" class="w-7 h-7 rounded-full object-cover border border-[#10b981]/60">
-                                    <div class="min-w-0">
-                                        <h4 class="text-white text-[12px] font-extrabold truncate">Ahmad Fadil</h4>
-                                        <p class="text-slate-500 text-[10px] font-bold">2 jam lalu</p>
-                                    </div>
+                            <p class="preview-caption text-slate-300 font-semibold mt-3">Alhamdulillah, momen kecil hari ini terasa lebih bermakna.</p>
+                            <div class="flex items-center gap-2 mt-3 text-slate-400 text-[10.5px] font-bold"><i data-lucide="heart" class="w-3.5 h-3.5 text-[#10b981] fill-[#10b981]"></i> 1.2k <span>•</span> 128 komentar</div>
+                        </div>
+                    </article>
+                    <article onclick="goToScreen('socialQScreen')" class="home-social-preview-card active:scale-[.98] transition-transform">
+                        <div class="home-social-preview-media relative">
+                            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500&q=80" alt="Kajian komunitas">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
+                            <span class="absolute bottom-2 right-2 rounded-full bg-black/55 text-white text-[10px] font-black px-2 py-1 backdrop-blur">Foto</span>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <img src="https://i.pravatar.cc/100?img=22" class="preview-avatar" alt="Fadil">
+                                <div class="min-w-0">
+                                    <h4 class="text-white font-extrabold truncate">Ahmad Fadil</h4>
+                                    <p class="text-slate-500 font-bold truncate">2 jam lalu</p>
                                 </div>
-                                <p class="text-slate-300 text-[11.5px] leading-snug mt-2 line-clamp-2">Bismillah, saling menguatkan lewat konten yang baik.</p>
                             </div>
-                        </article>
-
-                        <article onclick="goToScreen('socialQScreen')" class="home-social-card snap-start shrink-0 cursor-pointer active:scale-[.98] transition-transform">
-                            <div class="home-social-media">
-                                <video src="https://media.w3.org/2010/05/bunny/trailer.mp4" muted loop playsinline preload="metadata" class="w-full h-full object-cover"></video>
-                                <div class="home-social-media-cover"></div>
-                                <i data-lucide="play-circle" class="w-9 h-9 text-white drop-shadow-lg"></i>
-                            </div>
-                            <div class="p-3">
-                                <div class="flex items-center gap-2 min-w-0">
-                                    <img src="https://i.pravatar.cc/100?img=24" class="w-7 h-7 rounded-full object-cover border border-[#10b981]/60">
-                                    <div class="min-w-0">
-                                        <h4 class="text-white text-[12px] font-extrabold truncate">Nisa Salsabila</h4>
-                                        <p class="text-slate-500 text-[10px] font-bold">Baru saja</p>
-                                    </div>
+                            <p class="preview-caption text-slate-300 font-semibold mt-3">Bismillah, semoga aktivitas sore ini lancar dan membawa manfaat.</p>
+                            <div class="flex items-center gap-2 mt-3 text-slate-400 text-[10.5px] font-bold"><i data-lucide="heart" class="w-3.5 h-3.5 text-[#10b981] fill-[#10b981]"></i> 842 <span>•</span> 36 komentar</div>
+                        </div>
+                    </article>
+                    <article onclick="goToScreen('socialQScreen')" class="home-social-preview-card active:scale-[.98] transition-transform">
+                        <div class="home-social-preview-media relative">
+                            <video src="https://media.w3.org/2010/05/bunny/trailer.mp4" preload="metadata" muted playsinline class="pointer-events-none"></video>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent"></div>
+                            <span class="absolute bottom-2 right-2 rounded-full bg-black/55 text-white text-[10px] font-black px-2 py-1 backdrop-blur">Video</span>
+                        </div>
+                        <div class="p-3">
+                            <div class="flex items-center gap-2 min-w-0">
+                                <img src="https://i.pravatar.cc/100?img=31" class="preview-avatar" alt="Zahra">
+                                <div class="min-w-0">
+                                    <h4 class="text-white font-extrabold truncate">Zahra Larasati</h4>
+                                    <p class="text-slate-500 font-bold truncate">Hari ini</p>
                                 </div>
-                                <p class="text-slate-300 text-[11.5px] leading-snug mt-2 line-clamp-2">Masya Allah, inspirasi sore dari perjalanan hari ini.</p>
                             </div>
-                        </article>
-                    </div>
+                            <p class="preview-caption text-slate-300 font-semibold mt-3">Masya Allah, alam selalu mengingatkan untuk lebih bersyukur.</p>
+                            <div class="flex items-center gap-2 mt-3 text-slate-400 text-[10.5px] font-bold"><i data-lucide="heart" class="w-3.5 h-3.5 text-[#10b981] fill-[#10b981]"></i> 509 <span>•</span> 24 komentar</div>
+                        </div>
+                    </article>
                 </div>
             </div>
 
-            <div class="sq-bottom-nav">
+            <div class="sq-bottom-nav sq-home-floating-nav">
                 <div class="flex justify-between items-end max-w-[390px] mx-auto">
                     <button class="text-[#10b981] flex flex-col items-center gap-1 text-[11px] font-bold"><i data-lucide="home" class="w-6 h-6 fill-[#10b981]/20"></i>Home</button>
                     <button onclick="goToScreen('socialQScreen')" class="text-slate-400 flex flex-col items-center gap-1 text-[11px] font-bold active:scale-95 transition-transform"><i data-lucide="layout-grid" class="w-6 h-6"></i>Social</button>
@@ -2285,7 +2381,7 @@
                 </div>
                 <div class="sq-glass-soft rounded-[24px] p-4 mt-4 grid grid-cols-4 gap-2 text-center"><button onclick="sqToast('Mode catatan suara disimulasikan. Audio akan tersimpan sebagai lampiran jurnal.', 'info')"><i data-lucide="mic" class="w-7 h-7 mx-auto text-[#10b981]"></i><p class="text-slate-400 text-[12px] mt-2">Catatan Suara</p></button><button onclick="sqToast('Foto berhasil ditambahkan secara simulasi.', 'success')"><i data-lucide="image" class="w-7 h-7 mx-auto text-slate-300"></i><p class="text-slate-400 text-[12px] mt-2">Tambah Foto</p></button><button onclick="sqToast('Tag #Syukur ditambahkan.', 'success')"><i data-lucide="tag" class="w-7 h-7 mx-auto text-slate-300"></i><p class="text-slate-400 text-[12px] mt-2">Tambah Tag</p></button><button onclick="sqFillFromJurnalAI()"><i data-lucide="sparkles" class="w-7 h-7 mx-auto text-slate-300"></i><p class="text-slate-400 text-[12px] mt-2">Dari JurnalQ</p></button></div>
                 <div class="sq-glass-soft rounded-[22px] p-4 mt-4 flex items-center gap-4"><span class="text-[28px]">🔥</span><div class="flex-1"><p class="text-slate-400 font-bold">Streak-mu</p><p class="text-[#34d399] font-black">17 hari berturut-turut</p></div><p class="text-slate-400 italic">“Terus menulis, terus tumbuh.”</p><i data-lucide="chevron-right" class="w-5 h-5 text-slate-400"></i></div>
-                <p class="text-center text-slate-400 text-[12px] font-semibold mt-3"><i data-lucide="lock" class="w-4 h-4 inline text-[#10b981]"></i> Jurnal pribadimu aman dan terenkripsi</p>
+                <p class="text-center text-slate-400 text-[12px] font-semibold mt-3"><i data-lucide="lock" class="w-4 h-4 inline text-[#10b981]"></i> JurnalQ</p>
             </div>
         </div>
 
@@ -4850,6 +4946,10 @@
             const current = document.getElementById(currentScreen);
             const next = document.getElementById(nextScreenId);
 
+            if (currentScreen === 'socialQScreen' && nextScreenId !== 'socialQScreen' && typeof pauseAllSocialQVideos === 'function') {
+                pauseAllSocialQVideos(null, true);
+            }
+
             if (current) {
                 if (currentScreen === 'screen0') {
                     current.classList.add('hide-splash');
@@ -4885,6 +4985,14 @@
                     next.classList.remove('hide-screen', 'hide-splash');
                     next.classList.add('show-screen');
                     currentScreen = nextScreenId;
+                    if (nextScreenId === 'socialQScreen' && typeof initSocialQAutoPlay === 'function') {
+                        initSocialQAutoPlay();
+                        setTimeout(() => {
+                            if (typeof refreshSocialQAutoPlay === 'function') refreshSocialQAutoPlay();
+                        }, 80);
+                    } else if (typeof pauseAllSocialQVideos === 'function') {
+                        pauseAllSocialQVideos(null, true);
+                    }
                 }
             }, 100);
         }
@@ -5375,9 +5483,11 @@
                         </div>
                     </div>
 
-                    <div class="w-[260px] h-[260px] mx-auto rounded-full bg-[#09090b] flex items-center justify-center overflow-hidden relative group cursor-pointer border-[6px] border-[#064e3b] shadow-[0_0_30px_rgba(16,185,129,0.3)]" onclick="togglePlay(this)">
-                        <video src="${vidSrc}" loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90"></video>
+                    <div class="socialq-media-shell w-[260px] h-[260px] mx-auto rounded-full bg-[#09090b] flex items-center justify-center overflow-hidden relative group cursor-pointer border-[6px] border-[#064e3b] shadow-[0_0_30px_rgba(16,185,129,0.3)]" data-socialq-media="true" onclick="togglePlay(this)">
+                        <video src="${vidSrc}" preload="metadata" loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90"></video>
                         <div class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors pointer-events-none"></div>
+                        <button type="button" onclick="togglePostSound(event, this)" class="socialq-sound-btn"><i data-lucide="volume-x" class="w-4 h-4"></i><span>Nyalakan</span></button>
+                        <span class="socialq-video-hint">Ketuk video untuk putar suara</span>
                         <i data-lucide="play-circle" class="play-icon absolute w-14 h-14 text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.8)] group-hover:scale-110 transition-transform pointer-events-none transition-opacity duration-300"></i>
                     </div>
 
@@ -5417,9 +5527,11 @@
                         <button class="bg-white/10 text-white px-3 py-1.5 rounded-full text-[12px] font-bold border border-white/10 hover:bg-white/20 active:scale-95 transition-all">Follow</button>
                     </div>
 
-                    <div class="w-[260px] h-[260px] mx-auto rounded-full bg-[#09090b] flex items-center justify-center overflow-hidden relative group cursor-pointer border-[6px] border-[#064e3b] shadow-[0_0_20px_rgba(16,185,129,0.2)]" onclick="togglePlay(this)">
+                    <div class="socialq-media-shell w-[260px] h-[260px] mx-auto rounded-full bg-[#09090b] flex items-center justify-center overflow-hidden relative group cursor-pointer border-[6px] border-[#064e3b] shadow-[0_0_20px_rgba(16,185,129,0.2)]" data-socialq-media="true" onclick="togglePlay(this)">
                         <video src="${vidSrc}" preload="metadata" loop muted playsinline class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90"></video>
                         <div class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors pointer-events-none"></div>
+                        <button type="button" onclick="togglePostSound(event, this)" class="socialq-sound-btn"><i data-lucide="volume-x" class="w-4 h-4"></i><span>Nyalakan</span></button>
+                        <span class="socialq-video-hint">Ketuk video untuk putar suara</span>
                         <i data-lucide="play-circle" class="play-icon absolute w-14 h-14 text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.8)] group-hover:scale-110 transition-transform pointer-events-none transition-opacity duration-300"></i>
                     </div>
 
@@ -5442,7 +5554,7 @@
             }
             if(container) {
                 container.innerHTML = html;
-                enhanceSocialQVideoControls(container);
+                if (typeof initSocialQAutoPlay === 'function') setTimeout(initSocialQAutoPlay, 0);
             }
         }
 
@@ -5573,131 +5685,224 @@
             document.getElementById('comment-count').innerText = parseInt(document.getElementById('comment-count').innerText) + 1;
         }
 
-        function enhanceSocialQVideoControls(root = document) {
-            if (!root) return;
-            const videos = root.querySelectorAll('video');
+        let socialQAutoPlayObserver = null;
+        let socialQAutoPlayScrollTimer = null;
 
-            videos.forEach((video) => {
-                if (video.closest('#cameraScreen') || video.closest('#previewScreen') || video.closest('#kajianRoomScreen') || video.closest('#tadarusRoomScreen')) return;
-
-                const shell = video.closest('.group') || video.parentElement;
-                if (!shell) return;
-
-                shell.classList.add('socialq-media-shell');
-                video.classList.add('socialq-video');
-                video.playsInline = true;
-                video.setAttribute('playsinline', '');
-                if (!video.hasAttribute('preload')) video.setAttribute('preload', 'metadata');
-                if (!video.dataset.spaceqAudioReady) {
-                    video.dataset.spaceqAudioReady = '1';
-                    video.muted = true;
-                    video.volume = 0;
-                }
-
-                if (!shell.querySelector('.socialq-sound-btn')) {
-                    const btn = document.createElement('button');
-                    btn.type = 'button';
-                    btn.className = 'socialq-sound-btn';
-                    btn.setAttribute('aria-label', 'Nyalakan suara video');
-                    btn.setAttribute('onclick', 'toggleSocialQSound(event, this)');
-                    btn.innerHTML = '<i data-lucide="volume-x" class="w-4 h-4"></i><span>Suara</span>';
-                    shell.appendChild(btn);
-                }
-                updateSocialQSoundUI(video);
-            });
-
-            if (typeof lucide !== 'undefined') lucide.createIcons();
+        function getSocialQScrollRoot() {
+            const screen = document.getElementById('socialQScreen');
+            return screen ? screen.querySelector('.flex-1.overflow-y-auto') : null;
         }
 
-        function updateSocialQSoundUI(video) {
-            if (!video) return;
-            const shell = video.closest('.socialq-media-shell') || video.closest('.group') || video.parentElement;
-            const btn = shell ? shell.querySelector('.socialq-sound-btn') : null;
+        function isSocialQScreenActive() {
+            const screen = document.getElementById('socialQScreen');
+            return !!(screen && screen.classList.contains('show-screen') && !screen.classList.contains('hide-screen'));
+        }
+
+        function isSocialQMediaFullyVisible(container) {
+            const root = getSocialQScrollRoot();
+            if (!container || !root || !isSocialQScreenActive()) return false;
+            const rect = container.getBoundingClientRect();
+            const rootRect = root.getBoundingClientRect();
+            const tolerance = 1;
+            return rect.top >= rootRect.top - tolerance &&
+                   rect.left >= rootRect.left - tolerance &&
+                   rect.bottom <= rootRect.bottom + tolerance &&
+                   rect.right <= rootRect.right + tolerance;
+        }
+
+        function updateSocialQPlayingUI(container, playing) {
+            if (!container) return;
+            const icon = container.querySelector('.play-icon');
+            container.classList.toggle('is-playing', !!playing);
+            if (icon) icon.style.opacity = playing ? '0' : '1';
+        }
+
+        function updateSocialQSoundButton(container, muted) {
+            if (!container) return;
+            const btn = container.querySelector('.socialq-sound-btn');
             if (!btn) return;
-
-            const soundOn = !video.muted && video.volume > 0;
-            btn.classList.toggle('is-on', soundOn);
-            btn.setAttribute('aria-label', soundOn ? 'Matikan suara video' : 'Nyalakan suara video');
-            btn.innerHTML = soundOn
-                ? '<i data-lucide="volume-2" class="w-4 h-4"></i><span>On</span>'
-                : '<i data-lucide="volume-x" class="w-4 h-4"></i><span>Suara</span>';
-
+            btn.innerHTML = muted
+                ? '<i data-lucide="volume-x" class="w-4 h-4"></i><span>Buka suara</span>'
+                : '<i data-lucide="volume-2" class="w-4 h-4"></i><span>Suara aktif</span>';
+            btn.setAttribute('aria-label', muted ? 'Nyalakan suara video' : 'Matikan suara video');
+            btn.setAttribute('title', muted ? 'Nyalakan suara' : 'Matikan suara');
             if (typeof lucide !== 'undefined') lucide.createIcons();
         }
 
-        function pauseOtherSocialQVideos(activeVideo) {
-            document.querySelectorAll('video').forEach(v => {
-                if (v !== activeVideo && !v.closest('#cameraScreen') && !v.closest('#previewScreen') && !v.closest('#kajianRoomScreen') && !v.closest('#tadarusRoomScreen')) {
-                    v.pause();
-                    v.muted = true;
-                    v.volume = 0;
-                    const otherShell = v.closest('.socialq-media-shell') || v.closest('.group') || v.parentElement;
-                    const otherIcon = otherShell ? otherShell.querySelector('.play-icon') : null;
-                    if (otherIcon) otherIcon.style.opacity = '1';
-                    updateSocialQSoundUI(v);
-                }
+        function pauseSocialQVideo(container, resetSound = false) {
+            if (!container) return;
+            const video = container.querySelector('video');
+            if (!video) return;
+            video.pause();
+            if (resetSound) video.muted = true;
+            updateSocialQPlayingUI(container, false);
+            updateSocialQSoundButton(container, video.muted);
+        }
+
+        function pauseAllSocialQVideos(exceptContainer = null, resetSound = false) {
+            document.querySelectorAll('#socialQScreen [data-socialq-media]').forEach(container => {
+                if (container !== exceptContainer) pauseSocialQVideo(container, resetSound);
             });
         }
 
-        function toggleSocialQSound(event, btn) {
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-
-            const shell = btn ? (btn.closest('.socialq-media-shell') || btn.closest('.group')) : null;
-            const video = shell ? shell.querySelector('video') : null;
+        function playSocialQVideo(container, options = {}) {
+            if (!container) return;
+            const video = container.querySelector('video');
             if (!video) return;
 
-            const shouldTurnOn = video.muted || video.volume === 0;
-            if (shouldTurnOn) {
-                pauseOtherSocialQVideos(video);
+            pauseAllSocialQVideos(container, true);
+
+            if (options.forceMuted !== false) video.muted = true;
+            if (options.withSound === true) {
                 video.muted = false;
                 video.volume = 1;
+            }
+
+            const playPromise = video.play();
+            updateSocialQPlayingUI(container, true);
+            updateSocialQSoundButton(container, video.muted);
+
+            if (playPromise && typeof playPromise.catch === 'function') {
+                playPromise.catch(() => {
+                    video.muted = true;
+                    video.play().then(() => {
+                        updateSocialQPlayingUI(container, true);
+                        updateSocialQSoundButton(container, true);
+                    }).catch(() => {
+                        updateSocialQPlayingUI(container, false);
+                        updateSocialQSoundButton(container, true);
+                    });
+                });
+            }
+        }
+
+        function refreshSocialQAutoPlay() {
+            if (!isSocialQScreenActive()) {
+                pauseAllSocialQVideos(null, true);
+                return;
+            }
+
+            let target = null;
+            let closestToCenter = Infinity;
+            const root = getSocialQScrollRoot();
+            const rootRect = root ? root.getBoundingClientRect() : null;
+            const rootCenter = rootRect ? (rootRect.top + rootRect.bottom) / 2 : window.innerHeight / 2;
+
+            document.querySelectorAll('#socialQScreen [data-socialq-media]').forEach(container => {
+                if (isSocialQMediaFullyVisible(container)) {
+                    const rect = container.getBoundingClientRect();
+                    const center = (rect.top + rect.bottom) / 2;
+                    const distance = Math.abs(center - rootCenter);
+                    if (distance < closestToCenter) {
+                        closestToCenter = distance;
+                        target = container;
+                    }
+                }
+            });
+
+            if (target) {
+                const video = target.querySelector('video');
+                if (video && video.paused) playSocialQVideo(target, { forceMuted: true });
+                else if (video) updateSocialQPlayingUI(target, true);
+            }
+
+            document.querySelectorAll('#socialQScreen [data-socialq-media]').forEach(container => {
+                if (container !== target) pauseSocialQVideo(container, true);
+            });
+        }
+
+        function initSocialQAutoPlay() {
+            const root = getSocialQScrollRoot();
+            const mediaItems = document.querySelectorAll('#socialQScreen [data-socialq-media]');
+            if (!root || !mediaItems.length) return;
+
+            if (socialQAutoPlayObserver) socialQAutoPlayObserver.disconnect();
+
+            mediaItems.forEach(container => {
+                const video = container.querySelector('video');
+                if (!video) return;
+                video.muted = true;
+                video.playsInline = true;
+                video.setAttribute('playsinline', '');
+                video.setAttribute('webkit-playsinline', '');
+                updateSocialQSoundButton(container, true);
+
+                if (!video.dataset.socialqBound) {
+                    video.dataset.socialqBound = 'true';
+                    video.addEventListener('play', () => updateSocialQPlayingUI(container, true));
+                    video.addEventListener('pause', () => updateSocialQPlayingUI(container, false));
+                    video.addEventListener('ended', () => updateSocialQPlayingUI(container, false));
+                }
+            });
+
+            if ('IntersectionObserver' in window) {
+                socialQAutoPlayObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        const container = entry.target;
+                        if (!isSocialQScreenActive()) {
+                            pauseSocialQVideo(container, true);
+                            return;
+                        }
+                        if (entry.intersectionRatio >= 0.99 && isSocialQMediaFullyVisible(container)) {
+                            playSocialQVideo(container, { forceMuted: true });
+                        } else if (container.classList.contains('is-playing') || !container.querySelector('video')?.paused) {
+                            pauseSocialQVideo(container, true);
+                        }
+                    });
+                }, {
+                    root,
+                    threshold: [0, 0.01, 0.25, 0.5, 0.75, 0.99, 1]
+                });
+                mediaItems.forEach(container => socialQAutoPlayObserver.observe(container));
+            }
+
+            if (root._socialQAutoPlayScrollHandler) {
+                root.removeEventListener('scroll', root._socialQAutoPlayScrollHandler);
+            }
+            root._socialQAutoPlayScrollHandler = () => {
+                clearTimeout(socialQAutoPlayScrollTimer);
+                refreshSocialQAutoPlay();
+                socialQAutoPlayScrollTimer = setTimeout(refreshSocialQAutoPlay, 90);
+            };
+            root.addEventListener('scroll', root._socialQAutoPlayScrollHandler, { passive: true });
+
+            setTimeout(refreshSocialQAutoPlay, 120);
+        }
+
+        function togglePostSound(event, btn) {
+            if (event) event.stopPropagation();
+            const container = btn ? (btn.closest('[data-socialq-media]') || btn.closest('.group')) : null;
+            if (!container) return;
+            const video = container.querySelector('video');
+            if (!video) return;
+
+            video.muted = !video.muted;
+            if (!video.muted) {
+                video.volume = 1;
+                pauseAllSocialQVideos(container, true);
                 const playPromise = video.play();
+                updateSocialQPlayingUI(container, true);
                 if (playPromise && typeof playPromise.catch === 'function') {
                     playPromise.catch(() => {
                         video.muted = true;
-                        video.volume = 0;
-                        showSpaceQNotice('Ketuk Video', 'Browser menahan autoplay bersuara. Ketuk video sekali lagi untuk memutar suara.', 'info');
+                        updateSocialQPlayingUI(container, !video.paused);
+                        updateSocialQSoundButton(container, true);
                     });
                 }
-                const icon = shell.querySelector('.play-icon');
-                if (icon) icon.style.opacity = '0';
-            } else {
-                video.muted = true;
-                video.volume = 0;
             }
-
-            updateSocialQSoundUI(video);
+            updateSocialQSoundButton(container, video.muted);
         }
 
         function togglePlay(container) {
             if(!container) return;
             const video = container.querySelector('video');
-            const icon = container.querySelector('.play-icon');
             if (!video) return;
 
             if (video.paused) {
-                pauseOtherSocialQVideos(video);
-                video.muted = false;
-                video.volume = 1;
-                const playPromise = video.play();
-                if (playPromise && typeof playPromise.catch === 'function') {
-                    playPromise.catch(() => {
-                        video.muted = true;
-                        video.volume = 0;
-                        video.play().catch(() => {});
-                        showSpaceQNotice('Mode Aman Browser', 'Video diputar mute. Tekan tombol Suara untuk menyalakan audio.', 'info');
-                    });
-                }
-                if (icon) icon.style.opacity = '0';
+                playSocialQVideo(container, { forceMuted: false, withSound: !video.muted });
             } else {
-                video.pause();
-                if (icon) icon.style.opacity = '1';
+                pauseSocialQVideo(container, false);
             }
-
-            updateSocialQSoundUI(video);
         }
 
         // ==========================================
@@ -5713,8 +5918,8 @@
 
             if (askPermission && !window.__cameraPermissionGranted) {
                 openActionConfirmModal({
-                    title: 'Izin Kamera & Mikrofon',
-                    message: 'SpaceQ memerlukan akses kamera dan mikrofon agar video SocialQ bisa memiliki suara. Berikan izin?',
+                    title: 'Izin Kamera',
+                    message: 'SpaceQ memerlukan akses kamera untuk momen otentik. Berikan izin?',
                     continueText: 'Berikan Izin',
                     cancelText: 'Batal',
                     tone: 'warning',
@@ -5733,27 +5938,12 @@
                 cameraTrack = null;
             }
 
-            const videoConstraint = { facingMode: currentFacingMode };
-            const audioConstraint = { echoCancellation: true, noiseSuppression: true, autoGainControl: true };
-
             try {
-                try {
-                    liveStream = await navigator.mediaDevices.getUserMedia({
-                        video: videoConstraint,
-                        audio: audioConstraint
-                    });
-                } catch (audioErr) {
-                    console.warn('Mikrofon tidak aktif, mencoba kamera saja:', audioErr);
-                    liveStream = await navigator.mediaDevices.getUserMedia({
-                        video: videoConstraint,
-                        audio: false
-                    });
-                    showSpaceQNotice('Mikrofon Tidak Aktif', 'Video tetap bisa direkam, tetapi tanpa suara. Aktifkan izin mikrofon di browser jika ingin audio ikut terdengar.', 'warning');
-                }
-
+                liveStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: currentFacingMode },
+                    audio: false
+                });
                 videoElem.srcObject = liveStream;
-                videoElem.muted = true; // preview kamera tetap mute agar tidak feedback
-                videoElem.playsInline = true;
                 cameraTrack = liveStream.getVideoTracks()[0] || null;
                 videoElem.style.transform = currentFacingMode === 'user' ? 'scaleX(-1)' : 'scaleX(1)';
             } catch (err) {
@@ -6016,8 +6206,10 @@
                         mediaHtml = `<img src="${tempCapturedMedia}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-90">`;
                     } else {
                         mediaHtml = `
-                        <video src="${tempCapturedMedia}" loop muted playsinline class="w-full h-full object-cover transform scale-x-[-1] transition-transform duration-700 group-hover:scale-105 filter brightness-90"></video>
+                        <video src="${tempCapturedMedia}" preload="metadata" loop muted playsinline class="w-full h-full object-cover transform scale-x-[-1] transition-transform duration-700 group-hover:scale-105 filter brightness-90"></video>
                         <div class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors pointer-events-none"></div>
+                        <button type="button" onclick="togglePostSound(event, this)" class="socialq-sound-btn"><i data-lucide="volume-x" class="w-4 h-4"></i><span>Nyalakan</span></button>
+                        <span class="socialq-video-hint">Ketuk video untuk putar suara</span>
                         <i data-lucide="play-circle" class="play-icon absolute w-14 h-14 text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.8)] group-hover:scale-110 transition-transform pointer-events-none transition-opacity duration-300"></i>
                         `;
                     }
@@ -6035,7 +6227,7 @@
                             <button class="bg-[#10b981] text-[#09090b] px-3 py-1.5 rounded-full text-[12px] font-bold shadow-[0_0_10px_rgba(16,185,129,0.3)]">Baru</button>
                         </div>
 
-                        <div class="w-[260px] h-[260px] mx-auto rounded-full bg-[#09090b] flex items-center justify-center overflow-hidden relative group cursor-pointer border-[6px] border-[#064e3b] shadow-[0_0_20px_rgba(16,185,129,0.2)]" ${tempMediaType === 'video' ? 'onclick="togglePlay(this)"' : ''}>
+                        <div class="socialq-media-shell w-[260px] h-[260px] mx-auto rounded-full bg-[#09090b] flex items-center justify-center overflow-hidden relative group cursor-pointer border-[6px] border-[#064e3b] shadow-[0_0_20px_rgba(16,185,129,0.2)]" ${tempMediaType === 'video' ? 'data-socialq-media="true" onclick="togglePlay(this)"' : ''}>
                             ${mediaHtml}
                         </div>
 
@@ -6057,8 +6249,8 @@
                     `;
 
                     container.insertAdjacentHTML('afterbegin', htmlString);
-                    enhanceSocialQVideoControls(container);
                     if (typeof lucide !== 'undefined') lucide.createIcons();
+                    if (typeof initSocialQAutoPlay === 'function') setTimeout(initSocialQAutoPlay, 0);
                     tempCapturedMedia = null;
                 }
 
@@ -7433,12 +7625,6 @@ function startVersusFromModal() {
                 document.head.appendChild(link);
 
                 generateSocialQPosts();
-                const socialFeed = document.getElementById('socialq-main-feed-container');
-                if (socialFeed && !window.__spaceqSocialQAudioObserver) {
-                    window.__spaceqSocialQAudioObserver = new MutationObserver(() => enhanceSocialQVideoControls(socialFeed));
-                    window.__spaceqSocialQAudioObserver.observe(socialFeed, { childList: true, subtree: true });
-                    enhanceSocialQVideoControls(socialFeed);
-                }
                 generateJuzGrid();
                 renderFollowersList();
                 if (typeof sqInitPrototypeExtensions === 'function') sqInitPrototypeExtensions();
